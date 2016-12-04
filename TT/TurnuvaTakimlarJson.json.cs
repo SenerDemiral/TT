@@ -17,7 +17,7 @@ namespace TT
 
             //Takimlar = sort;  ??????
             foreach (var item in sort) {
-                //item.Ozet.Puan;
+                //item.Ozet.Puan;   //deneme github  
                
             }
         }
