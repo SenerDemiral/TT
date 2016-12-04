@@ -1,0 +1,21 @@
+{
+  "Html": "",
+  "Oyuncular": [
+    {
+      "ID": "", 
+      "Ad": "",
+      "Sex": "",
+      "Tel": "",
+      "DgmYil": 0,
+      "Ozet": {
+        "oMac": 0,
+        "aMac": 0,
+        "aSet": 0,
+        "vSet": 0,
+        "aSayi": 0,
+        "vSayi": 0
+      },
+      "Url": ""
+    }
+  ]
+}

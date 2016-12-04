@@ -61,8 +61,98 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MasterJson.json.cs">
+      <DependentUpon>MasterJson.json</DependentUpon>
+    </Compile>
+    <Compile Include="MusabakaMaclarJson.json.cs">
+      <DependentUpon>MusabakaMaclarJson.json</DependentUpon>
+    </Compile>
+    <Compile Include="OyuncuJson.json.cs">
+      <DependentUpon>OyuncuJson.json</DependentUpon>
+    </Compile>
+    <Compile Include="OyuncularJson.json.cs">
+      <DependentUpon>OyuncularJson.json</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TakimJson.json.cs">
+      <DependentUpon>TakimJson.json</DependentUpon>
+    </Compile>
+    <Compile Include="TurnuvaJson.json.cs">
+      <DependentUpon>TurnuvaJson.json</DependentUpon>
+    </Compile>
+    <Compile Include="TurnuvalarJson.json.cs">
+      <DependentUpon>TurnuvalarJson.json</DependentUpon>
+    </Compile>
+    <Compile Include="TurnuvaMusabakalarJson.json.cs">
+      <DependentUpon>TurnuvaMusabakalarJson.json</DependentUpon>
+    </Compile>
+    <Compile Include="TurnuvaTakimlarJson.json.cs">
+      <DependentUpon>TurnuvaTakimlarJson.json</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TTDB\TTDB.csproj">
+      <Project>{71cbfa78-a124-4090-958c-cb94f4144f77}</Project>
+      <Name>TTDB</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="TurnuvaJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="MasterJson222.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="OyuncularJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="OyuncuJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="TakimJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="TurnuvalarJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="MasterJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="TurnuvaTakimlarJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="TurnuvaMusabakalarJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="MusabakaMaclarJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <None Include="wwwroot\TT\OyuncuJson.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\TT\TurnuvaJson.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\TT\TakimJson.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\TT\OyuncularJson.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\TT\MasterJson.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\TT\TurnuvaTakimlarJson.html" />
+    <None Include="wwwroot\TT\MusabakaMaclarJson.html" />
+    <Content Include="wwwroot\TT\style.css" />
+    <None Include="wwwroot\TT\TurnuvaMusabakalarJson.html" />
+    <None Include="wwwroot\TT\TurnuvalarJson.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\sys\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(StarcounterBin)\Starcounter.MsBuild.targets" />

@@ -1,0 +1,28 @@
+{
+  "Html": "",
+  "Maclar": [
+    {
+      "ID": "",
+      "HomeOyuncuAd": "",
+      "GuestOyuncuAd": "",
+      "Ozet": {
+        "HomePuan": 0,
+        "HomeMac": 0,
+        "HomeSet": 0,
+        "HomeSayi": 0,
+        "GuestPuan": 0,
+        "GuestMac": 0,
+        "GuestSet": 0,
+        "GuestSayi": 0,
+        "Puanlar": "",
+        "Setler": "",
+        "Sayilar": ""
+      },
+      "MacAd": "",
+      "MacInfo": "",
+      "Url": "",
+      "Toggle$": 0,
+      "Opened": ""
+    }
+  ]
+}

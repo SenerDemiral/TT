@@ -1,0 +1,148 @@
+﻿﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bodrum Masa Tenisi</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- load Web Components polyfill for all browsers -->
+    <script src="/sys/webcomponentsjs/webcomponents.js"></script>
+    <!-- import Web Components needed for client-server sync -->
+    <link rel="import" href="/sys/starcounter.html">
+    <link rel="import" src="/sys/polymer/polymer.html">
+    <link rel="import" href="/sys/starcounter-include/starcounter-include.html">
+    <!--
+    <link rel="stylesheet" href="/TT/style.css">
+    -->
+    <link rel="import" href="/sys/iron-collapse/iron-collapse.html">
+    <link rel="import" href="/sys/puppet-redirect/puppet-redirect.html">
+    <!-- starcounter-debug-aid gives you a debug window when pressed Ctrl+` -->
+    <link rel="import" href="/sys/starcounter-debug-aid/src/starcounter-debug-aid.html">
+
+    <style is="custom-style">
+        body {
+            font-family: arial;
+            font-weight: normal;
+        }
+        .heading {
+            padding: 10px 15px;
+            margin-top: 20px;
+            background-color: #f3f3f3;
+            border: 1px solid #dedede;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            width: 100%;
+            text-align: left;
+        }
+
+        .content {
+            padding: 15px;
+            border: 1px solid #dedede;
+            border-top: none;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            @apply(--shadow-elevation-2dp);
+        }
+
+        #collapse3 {
+            max-height: 250px;
+        }
+    
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        th, td {
+           padding: 5px 15px;
+        }
+
+        .xbutton {
+            display:table-cell;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- Polymer's auto-binding element. Creates document template, which is to be bound to the JSON view-model -->
+    <template is="dom-bind" id="root">
+        <section class="invoicedemo panes">
+            <section class="invoicedemo invoice">
+                <!-- start right pane of the UI -->
+                <template is="dom-if" if="{{model.FocusedOyuncu.Html}}" restamp>
+                    <starcounter-include partial="{{model.FocusedOyuncu}}"></starcounter-include>
+                </template>
+            </section>
+        </section>
+
+        <button class="heading" value="{{model.TurnuvalarToggle$::click}}" onmousedown="++this.value">Turnuvalar/Tournaments</button>
+        <template is="dom-if" if="{{model.TurnuvalarOpened}}">
+            <iron-collapse id="collapseTurnuvalar" tabindex="0" opened="{{model.TurnuvalarOpened}}" no-animation>
+                <div class="content">
+                    <starcounter-include partial="{{model.RecentTurnuvalar}}"></starcounter-include>
+                </div>
+            </iron-collapse>
+        </template>
+
+        <button class="heading" value="{{model.OyuncularToggle$::click}}" onmousedown="++this.value">Oyuncular/Players</button>
+        <template is="dom-if" if="{{model.OyuncularOpened}}">
+            <iron-collapse id="collapseOyuncular" tabindex="0" opened="{{model.OyuncularOpened}}" no-animation>
+                <div class="content">
+                    <starcounter-include partial="{{model.RecentOyuncular}}"></starcounter-include>
+                </div>
+            </iron-collapse>
+        </template>
+
+        <button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">Takimlar/Teams</button>
+        <template is="dom-if" if="{{model.TakimlarOpened}}">
+            <iron-collapse id="collapseTakimlar" tabindex="0" opened="{{model.TakimlarOpened}}" no-animation>
+                <div class="content">
+                    <starcounter-include partial="{{model.RecentTakimlar}}"></starcounter-include>
+                </div>
+            </iron-collapse>
+        </template>
+
+            <button class="heading" aria-expanded$="[[isExpanded(opened2)]]" aria-controls="collapse2" onclick="toggle('#collapse2')">Deneme</button>
+            <iron-collapse id="collapse2" tabindex="0" opened="{{opened2}}" no-animation">
+                <div class="content">
+                    <div>Pro saepe pertinax ei, ad pri animal labores suscipiantur. Modus commodo minimum eum te, vero utinam assueverit per eu, zril oportere suscipiantur pri te. Partem percipitur deterruisset ad sea, at eam suas luptatum dissentiunt. No error alienum pro, erant senserit ex mei, pri semper alterum no. Ut habemus menandri vulputate mea. Feugiat verterem ut sed. Dolores maiestatis id per. Pro saepe pertinax ei, ad pri animal labores suscipiantur. Modus commodo minimum eum te, vero utinam assueverit per eu, zril oportere suscipiantur pri te. Partem percipitur deterruisset ad sea, at eam suas luptatum dissentiunt. No error alienum pro, erant senserit ex mei, pri semper alterum no. Ut habemus menandri vulputate mea. Feugiat verterem ut sed. Dolores maiestatis id per.</div>
+
+                    <button class="heading" aria-expanded$="[[isExpanded(opened3)]]" aria-controls="collapse3" onclick="toggle('#collapse3')">Bodrum 1.Lig 2016 #3 (horizontal)</button>
+                    <iron-collapse id="collapse3" tabindex="0" opened="{{opened3}}" no-animation>
+                        <div class="content">
+                            <div>Iisque perfecto dissentiet cum et, sit ut quot mandamus, ut vim tibique splendide instructior. Id nam odio natum malorum, tibique copiosae expetenda mel ea. Mea melius malorum ut. Ut nec tollit vocent timeam. Facer nonumy numquam id his, munere salutatus consequuntur eum et, eum cotidieque definitionem signiferumque id. Ei oblique graecis patrioque vis, et probatus dignissim inciderint vel. Sed id paulo erroribus, autem semper accusamus in mel. Iisque perfecto dissentiet cum et, sit ut quot mandamus, ut vim tibique splendide instructior. Id nam odio natum malorum, tibique copiosae expetenda mel ea. Mea melius malorum ut. Ut nec tollit vocent timeam. Facer nonumy numquam id his, munere salutatus consequuntur eum et, eum cotidieque definitionem signiferumque id. Ei oblique graecis patrioque vis, et probatus dignissim inciderint vel. Sed id paulo erroribus, autem semper accusamus in mel.</div>
+                        </div>
+                    </iron-collapse>
+
+                    <button class="heading" aria-expanded$="[[isExpanded(opened4)]]" aria-controls="collapse4" onclick="toggle('#collapse4')">Bodrum 2.Lig 2016 #4 (no animation)</button>
+                    <iron-collapse id="collapse4" tabindex="0" opened="{{opened4}}" no-animation>
+                        <div class="content">
+                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                        </div>
+                    </iron-collapse>
+                </div>
+            </iron-collapse>
+        </template>
+
+    <script>
+        function toggle(selector) {
+            document.querySelector(selector).toggle();
+        }
+        document.querySelector('template[is=dom-bind]').isExpanded = function(opened) {
+            return String(opened);
+        };
+    </script>
+
+    <!-- Plug in client-server sync -->
+    <puppet-client ref="root" useWebSocket="true"></puppet-client>
+    <starcounter-debug-aid></starcounter-debug-aid>
+</body>
+
+</html>

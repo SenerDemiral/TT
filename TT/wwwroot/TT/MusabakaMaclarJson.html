@@ -1,0 +1,24 @@
+﻿<template>
+    <template is="dom-bind">
+        <table>
+            <tr>
+                <th>Home</th>
+                <th>Puan</th>
+                <th>Guest</th>
+                <th>Set</th>
+                <th>Sayi</th>
+            </tr>
+            <tbody>
+                <template is="dom-repeat" items="{{model.Maclar}}">
+                    <tr>
+                        <td>{{item.HomeOyuncuAd}}</td>
+                        <td style="text-align:center">{{item.Ozet.Puanlar}}</td>
+                        <td>{{item.GuestOyuncuAd}}</td>
+                        <td>{{item.Ozet.Setler}}</td>
+                        <td>{{item.Ozet.Sayilar}}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+</template>

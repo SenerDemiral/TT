@@ -1,0 +1,29 @@
+{
+  "Html": "",
+  "Musabakalar": [
+    {
+      "ID": "",
+      "HomeTakimAd": "",
+      "GuestTakimAd": "",
+      "Tarih": "",
+      "Ozet": {
+        "HomePuan": 0,
+        "HomeMac": 0,
+        "HomeSet": 0,
+        "HomeSayi": 0,
+        "GuestPuan": 0,
+        "GuestMac": 0,
+        "GuestSet": 0,
+        "GuestSayi": 0
+      },
+      "MusabakaAd": "",
+      "MusabakaInfo": "",
+      "Url": "",
+      "Toggle$": 0,
+      "Opened": "",
+      "RecentMaclar": { },
+      "MaclarToggle$": 0,
+      "MaclarOpened":  ""
+    }
+  ]
+}

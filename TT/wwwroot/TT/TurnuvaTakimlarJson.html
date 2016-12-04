@@ -1,0 +1,25 @@
+﻿<template>
+    <template is="dom-bind">
+        <table>
+            <tr>
+                <th>Takim</th>
+                <th>Puan</th>
+                <th>Galibiyet</th>
+                <th>Maglubiyet</th>
+                <th>Beraberlik</th>
+            </tr>
+            <tbody>
+                <template is="dom-repeat" items="{{model.Takimlar}}">
+                    <tr>
+                        <td>{{item.TakimAd}}</td>
+                        <td style="text-align:center">{{item.Ozet.Puan}}</td>
+                        <td style="text-align:center">{{item.Ozet.MusabakaWin}}</td>
+                        <td style="text-align:center">{{item.Ozet.MusabakaLost}}</td>
+                        <td style="text-align:center">{{item.Ozet.MusabakaTie}}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+    </template>
+</template>

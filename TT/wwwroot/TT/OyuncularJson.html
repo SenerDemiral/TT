@@ -1,0 +1,32 @@
+﻿<template>
+    <template is="dom-bind">
+        <table>
+            <tr>
+                <th rowspan="2">Oyuncu</th>
+                <th colspan="2">Mac</th>
+                <th colspan="2">Set</th>
+                <th colspan="2">Sayi</th>
+            </tr>
+            <tr>
+                <th>O</th>
+                <th>G</th>
+                <th>A</th>
+                <th>V</th>
+                <th>A</th>
+                <th>V</th>
+            </tr>
+                    
+            <template is="dom-repeat" items="{{model.Oyuncular}}">
+                <tr>
+                    <td>{{item.Ad}}</td>
+                    <td>{{item.Ozet.oMac}}</td>
+                    <td>{{item.Ozet.aMac}}</td>
+                    <td>{{item.Ozet.aSet}}</td>
+                    <td>{{item.Ozet.vSet}}</td>
+                    <td style="text-align: right;">{{item.Ozet.aSayi}}</td>
+                    <td style="text-align: right;">{{item.Ozet.vSayi}}</td>
+                </tr>
+            </template>
+        </table>
+    </template>
+</template>

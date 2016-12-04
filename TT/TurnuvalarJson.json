@@ -1,0 +1,26 @@
+{
+  "Html": "",
+  "Turnuvalar": [
+    {
+      "ID": "",
+      "Ad": "",
+      "Trh": "",
+      "Tarih": "",
+      "Url": "",
+      "Toggle$": 0,
+      "Opened": "",
+
+      "RecentMusabakalar": {},
+      "MusabakalarToggle$": 0,
+      "MusabakalarOpened": "",
+
+      "RecentTakimlar": {},
+      "TakimlarToggle$": 0,
+      "TakimlarOpened": "",
+
+      "RecentOyuncular": {},
+      "OyuncularToggle$": 0,
+      "OyuncularOpened": ""
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+﻿<template>
+    <template is="dom-bind">
+        <template is="dom-repeat" items="{{model.Musabakalar}}">
+            <button class="heading" value="{{item.Toggle$::click}}" onclick="++this.value">
+                {{item.MusabakaAd}}
+                <i style="font-size: 12px;">{{item.MusabakaInfo}}</i>
+                <i style="float:right">{{item.Tarih}} / {{item.ID}} </i>
+            </button>
+            
+            <iron-collapse id="collapse{{item.ID}}" tabindex="0" opened="[[item.Opened]]" no-animation>
+                <div class="content">
+                    <starcounter-include partial="{{item.RecentMaclar}}"></starcounter-include>
+                </div>
+            </iron-collapse>
+        </template>
+        
+    </template>
+</template>
