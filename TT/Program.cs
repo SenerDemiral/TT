@@ -39,9 +39,9 @@ namespace TT
                 Console.WriteLine();
 
                 Console.WriteLine("  Oyuncu Sonuclari");
-                QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.TurnuvaTakim.Turnuva = ?", tr);
+                QueryResultRows<TakimOyuncu> tako = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.TurnuvaTakim.Turnuva = ?", tr);
 
-                foreach (var t in to) {
+                foreach (var t in tako) {
                     int oMac = 0,   // Oynadigi
                         aMac = 0,   // Aldigi
                         aSet = 0,   // Aldigi
@@ -74,6 +74,12 @@ namespace TT
                     Console.WriteLine();
                 }
             }
+
+            //TTDB.TurnuvaOyuncularOzet too = new TTDB.TurnuvaOyuncularOzet("VA");
+            foreach (var o in TTDB.Hlpr.TurnuvaOyuncularOzet("VA")) {
+                Console.WriteLine(string.Format("{0}-{1}  Mac<{2}-{3}-{4}> Set<{5}-{6}> Sayi<{7}-{8}>", o.OyuncuAd, o.TakimAd, o.MacO, o.MacG, o.MacM, o.SetA, o.SetV, o.SayiA, o.SayiV ));
+            };
+
             Handle.GET("/TT", () => {
                 MasterJson master;
 

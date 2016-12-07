@@ -1,5 +1,7 @@
 ﻿using System;
 using Starcounter;
+//using System.Collections;
+using System.Collections.Generic;
 
 namespace TTDB
 {
@@ -107,7 +109,7 @@ namespace TTDB
                 TurnuvaTakimOzet ozet = new TurnuvaTakimOzet();
                 // Evinde oynadiklari
                 QueryResultRows<TurnuvaMusabaka> hta = Db.SQL<TurnuvaMusabaka>("SELECT ta FROM TTDB.TurnuvaMusabaka ta WHERE ta.HomeTurnuvaTakim = ?", this);
-                foreach(var ta in hta) {
+                foreach (var ta in hta) {
                     ozet.Puan += ta.Ozet.HomePuan;
                     if (ta.Ozet.HomePuan > ta.Ozet.GuestPuan)
                         ozet.MusabakaWin++;
@@ -329,5 +331,170 @@ namespace TTDB
 
             return ozet;
         }*/
+    }
+
+    public class TurnuvaOyuncuOzet
+    {
+        public string OyuncuAd;
+        public string TakimAd;
+        public Int16 Puan;
+        public Int16 MacO;
+        public Int16 MacG;
+        public Int16 MacM;
+        public Int16 SetA;
+        public Int16 SetV;
+        public Int16 SayiA;
+        public Int16 SayiV;
+
+        public TurnuvaOyuncuOzet()
+        {
+            OyuncuAd = "";
+            TakimAd = "";
+            Puan = 0;
+            MacO = 0;
+            MacG = 0;
+            MacM = 0;
+            SetA = 0;
+            SetV = 0;
+            SayiA = 0;
+            SayiV = 0;
+        }
+    }
+    /*
+    public class TurnuvaOyuncularOzet
+    {
+        IObjectView turnuva;
+
+        public TurnuvaOyuncularOzet(string turnuvaID)
+        {
+            turnuva = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
+        }
+
+        //public IEnumerable<TurnuvaOyuncuOzet> GetEnumerator()
+        public IEnumerator<TurnuvaOyuncuOzet> GetEnumerator()
+        {
+            //List<TurnuvaOyuncuOzet> ltoo = new List<TurnuvaOyuncuOzet>();
+            QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.TurnuvaTakim.Turnuva = ?", turnuva);
+
+            foreach (var t in to) {
+                TurnuvaOyuncuOzet too = new TurnuvaOyuncuOzet();
+
+                int oMac = 0,   // Oynadigi
+                    aMac = 0,   // Aldigi
+                    aSet = 0,   // Aldigi
+                    vSet = 0,   // Verdigi
+                    aSay = 0,
+                    vSay = 0;
+
+                //Console.WriteLine(string.Format("    {0}/{1}", t.OyuncuAd, t.TakimAd));
+                too.OyuncuAd = t.OyuncuAd;
+                too.TakimAd = t.TakimAd;
+
+                // Home olarak oynadiklari
+                QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeTakimOyuncu = ?", t);
+
+                foreach (var m in hMac) {
+                    oMac++;
+                    aMac += m.Ozet.HomeMac;
+                    aSet += m.Ozet.HomeSet;
+                    vSet += m.Ozet.GuestSet;
+                    aSay += m.Ozet.HomeSayi;
+                    vSay += m.Ozet.GuestSayi;
+                }
+                // Guest olarak oynadiklar
+                QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestTakimOyuncu = ?", t);
+
+                foreach (var m in gMac) {
+                    oMac++;
+                    aMac += m.Ozet.GuestMac;
+                    aSet += m.Ozet.GuestSet;
+                    vSet += m.Ozet.HomeSet;
+                    aSay += m.Ozet.GuestSayi;
+                    vSay += m.Ozet.HomeSayi;
+                }
+
+                too.MacO = (Int16)oMac;
+                too.MacG = (Int16)aMac;
+                too.MacM = (Int16)(oMac - aMac);
+                too.SetA = (Int16)aSet;
+                too.SetV = (Int16)vSet;
+                too.SayiA = (Int16)aSay;
+                too.SayiV = (Int16)vSay;
+
+                //ltoo.Add(too);
+                yield return too;
+            }
+            //return ltoo;
+        }
+    }
+    */
+    public static class Hlpr
+    {
+        public static void sener()
+        {
+
+            foreach (var value in TurnuvaOyuncularOzet("VC")) {
+                Console.Write(value);
+                Console.Write(" ");
+            }
+            Console.WriteLine();
+        }
+
+        public static IEnumerable<TurnuvaOyuncuOzet> TurnuvaOyuncularOzet(string turnuvaID)
+        {
+            var turnuva = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
+
+            QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.TurnuvaTakim.Turnuva = ?", turnuva);
+
+            foreach (var t in to) {
+                TurnuvaOyuncuOzet too = new TurnuvaOyuncuOzet();
+
+                int oMac = 0,   // Oynadigi
+                    aMac = 0,   // Aldigi
+                    aSet = 0,   // Aldigi
+                    vSet = 0,   // Verdigi
+                    aSay = 0,
+                    vSay = 0;
+
+                //Console.WriteLine(string.Format("    {0}/{1}", t.OyuncuAd, t.TakimAd));
+                too.OyuncuAd = t.OyuncuAd;
+                too.TakimAd = t.TakimAd;
+
+                // Home olarak oynadiklari
+                QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeTakimOyuncu = ?", t);
+
+                foreach (var m in hMac) {
+                    oMac++;
+                    aMac += m.Ozet.HomeMac;
+                    aSet += m.Ozet.HomeSet;
+                    vSet += m.Ozet.GuestSet;
+                    aSay += m.Ozet.HomeSayi;
+                    vSay += m.Ozet.GuestSayi;
+                }
+                // Guest olarak oynadiklar
+                QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestTakimOyuncu = ?", t);
+
+                foreach (var m in gMac) {
+                    oMac++;
+                    aMac += m.Ozet.GuestMac;
+                    aSet += m.Ozet.GuestSet;
+                    vSet += m.Ozet.HomeSet;
+                    aSay += m.Ozet.GuestSayi;
+                    vSay += m.Ozet.HomeSayi;
+                }
+
+                too.Puan = (Int16)(aMac * 2 + (oMac - aMac));
+                too.MacO = (Int16)oMac;
+                too.MacG = (Int16)aMac;
+                too.MacM = (Int16)(oMac - aMac);
+                too.SetA = (Int16)aSet;
+                too.SetV = (Int16)vSet;
+                too.SayiA = (Int16)aSay;
+                too.SayiV = (Int16)vSay;
+
+                //ltoo.Add(too);
+                yield return too;
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@
     <link rel="import" href="/sys/starcounter.html">
     <link rel="import" src="/sys/polymer/polymer.html">
     <link rel="import" href="/sys/starcounter-include/starcounter-include.html">
+
+    <link rel="stylesheet" href="/TT/master.css">
     <!--
     <link rel="stylesheet" href="/TT/style.css">
     -->
@@ -17,56 +19,17 @@
     <link rel="import" href="/sys/puppet-redirect/puppet-redirect.html">
     <!-- starcounter-debug-aid gives you a debug window when pressed Ctrl+` -->
     <link rel="import" href="/sys/starcounter-debug-aid/src/starcounter-debug-aid.html">
-
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<!--Usage
+		<i class="material-icons">face</i>
+		Sizing
+		<i class="material-icons md-24">face</i> 18,24,36,48
+		Coloring
+		<i class="material-icons md-dark">face</i> dark, light, inactive
+		<i class="material-icons orange600">face</i>
+	-->
     <style is="custom-style">
-        body {
-            font-family: arial;
-            font-weight: normal;
-        }
-        .heading {
-            padding: 10px 15px;
-            margin-top: 20px;
-            background-color: #f3f3f3;
-            border: 1px solid #dedede;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            -webkit-tap-highlight-color: rgba(0,0,0,0);
-            width: 100%;
-            text-align: left;
-        }
-
-        .content {
-            padding: 15px;
-            border: 1px solid #dedede;
-            border-top: none;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            @apply(--shadow-elevation-2dp);
-        }
-
-        #collapse3 {
-            max-height: 250px;
-        }
-    
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        table {
-            margin-left: auto;
-            margin-right: auto;
-        }
-        th, td {
-           padding: 5px 15px;
-        }
-
-        .xbutton {
-            display:table-cell;
-        }
     </style>
-
 
 </head>
 
@@ -100,7 +63,7 @@
             </iron-collapse>
         </template>
 
-        <button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">Takimlar/Teams</button>
+        <button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">Takımlar/Teams</button>
         <template is="dom-if" if="{{model.TakimlarOpened}}">
             <iron-collapse id="collapseTakimlar" tabindex="0" opened="{{model.TakimlarOpened}}" no-animation>
                 <div class="content">

@@ -87,6 +87,12 @@
     <Compile Include="TurnuvaMusabakalarJson.json.cs">
       <DependentUpon>TurnuvaMusabakalarJson.json</DependentUpon>
     </Compile>
+    <Compile Include="TurnuvaOyuncularJson.json.cs">
+      <DependentUpon>TurnuvaOyuncularJson.json</DependentUpon>
+    </Compile>
+    <Compile Include="TurnuvaOyuncularOzetJson.json.cs">
+      <DependentUpon>TurnuvaOyuncularOzetJson.json</DependentUpon>
+    </Compile>
     <Compile Include="TurnuvaTakimlarJson.json.cs">
       <DependentUpon>TurnuvaTakimlarJson.json</DependentUpon>
     </Compile>
@@ -103,9 +109,6 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="MasterJson222.json">
-      <Generator>MsBuild:Compile</Generator>
-    </TypedJSON>
     <TypedJSON Include="OyuncularJson.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
@@ -130,6 +133,12 @@
     <TypedJSON Include="MusabakaMaclarJson.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
+    <TypedJSON Include="TurnuvaOyuncularJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="TurnuvaOyuncularOzetJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <None Include="wwwroot\TT\OyuncuJson.html" />
   </ItemGroup>
   <ItemGroup>
@@ -145,8 +154,11 @@
     <None Include="wwwroot\TT\MasterJson.html" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="wwwroot\TT\TurnuvaOyuncularOzetJson.html" />
+    <None Include="wwwroot\TT\TurnuvaOyuncularJson.html" />
     <None Include="wwwroot\TT\TurnuvaTakimlarJson.html" />
     <None Include="wwwroot\TT\MusabakaMaclarJson.html" />
+    <Content Include="wwwroot\TT\master.css" />
     <Content Include="wwwroot\TT\style.css" />
     <None Include="wwwroot\TT\TurnuvaMusabakalarJson.html" />
     <None Include="wwwroot\TT\TurnuvalarJson.html" />

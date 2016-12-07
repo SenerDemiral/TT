@@ -21,15 +21,15 @@ namespace TTDB
                 Db.SlowSQL("DELETE FROM Mac");
                 Db.SlowSQL("DELETE FROM MacSonuc");
 
-                Oyuncu oyuncu1 = new Oyuncu() { Ad = "Sener", DgmYil = 1960, Sex = "E", Tel = "533-271-9797" };
+                Oyuncu oyuncu1 = new Oyuncu() { Ad = "Şener", DgmYil = 1960, Sex = "E", Tel = "533-271-9797" };
                 Oyuncu oyuncu2 = new Oyuncu() { Ad = "Hakan", DgmYil = 1965, Sex = "E" };
-                Oyuncu oyuncu3 = new Oyuncu() { Ad = "Sevket", DgmYil = 1970, Sex = "E" };
+                Oyuncu oyuncu3 = new Oyuncu() { Ad = "Şevket", DgmYil = 1970, Sex = "E" };
                 Oyuncu oyuncu4 = new Oyuncu() { Ad = "Erhan", DgmYil = 1970, Sex = "E" };
                 Oyuncu oyuncu5 = new Oyuncu() { Ad = "Mehmet", DgmYil = 1980, Sex = "E" };
                 Oyuncu oyuncu6 = new Oyuncu() { Ad = "Ali", DgmYil = 1980, Sex = "E" };
                 Oyuncu oyuncu7 = new Oyuncu() { Ad = "Veli", DgmYil = 1980, Sex = "E" };
                 Oyuncu oyuncu8 = new Oyuncu() { Ad = "Nihat", DgmYil = 1980, Sex = "E" };
-                Oyuncu oyuncu9 = new Oyuncu() { Ad = "Tunc", DgmYil = 1980, Sex = "E" };
+                Oyuncu oyuncu9 = new Oyuncu() { Ad = "Tunç", DgmYil = 1980, Sex = "E" };
 
                 Takim takim1 = new Takim() { Ad = "Promil" };
                 Takim takim2 = new Takim() { Ad = "Ponpin" };
@@ -60,22 +60,22 @@ namespace TTDB
                 TakimOyuncu takimOyuncu32 = new TakimOyuncu() { TurnuvaTakim = turnuvaTakim24, Oyuncu = oyuncu2 };
 
                 TurnuvaMusabaka turnuvaMusabaka11 = new TurnuvaMusabaka() { Turnuva = turnuva1, HomeTurnuvaTakim = turnuvaTakim11, GuestTurnuvaTakim = turnuvaTakim12, Trh = DateTime.Now };
-                Mac mac111 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka11, HomeTakimOyuncu = takimOyuncu111, GuestTakimOyuncu = takimOyuncu125, Skl = "S" };
+                Mac mac111 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka11, Sira = 1, HomeTakimOyuncu = takimOyuncu111, GuestTakimOyuncu = takimOyuncu125, Skl = "S" };
                 new MacSonuc() { Mac = mac111, SetNo = 1, HomeSayi = 11, GuestSayi = 7 };
                 new MacSonuc() { Mac = mac111, SetNo = 2, HomeSayi = 9, GuestSayi = 11 };
                 new MacSonuc() { Mac = mac111, SetNo = 3, HomeSayi = 15, GuestSayi = 13 };
-                Mac mac112 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka11, HomeTakimOyuncu = takimOyuncu112, GuestTakimOyuncu = takimOyuncu126, Skl = "S" };
+                Mac mac112 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka11, Sira = 2, HomeTakimOyuncu = takimOyuncu112, GuestTakimOyuncu = takimOyuncu126, Skl = "S" };
                 new MacSonuc() { Mac = mac112, SetNo = 1, HomeSayi = 6, GuestSayi = 11 };
                 new MacSonuc() { Mac = mac112, SetNo = 2, HomeSayi = 9, GuestSayi = 11 };
-                Mac mac113 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka11, HomeTakimOyuncu = takimOyuncu113, GuestTakimOyuncu = takimOyuncu127, Skl = "S" };
-                new MacSonuc() { Mac = mac113, SetNo = 1, HomeSayi = 11, GuestSayi = 2 };
+                Mac mac113 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka11, Sira = 3, HomeTakimOyuncu = takimOyuncu113, GuestTakimOyuncu = takimOyuncu127, Skl = "S" };
+                new MacSonuc() { Mac = mac113, SetNo = 1, HomeSayi = 11, GuestSayi = 3 };
                 new MacSonuc() { Mac = mac113, SetNo = 2, HomeSayi = 11, GuestSayi = 5 };
 
                 TurnuvaMusabaka turnuvaMusabaka12 = new TurnuvaMusabaka() { Turnuva = turnuva1, HomeTurnuvaTakim = turnuvaTakim13, GuestTurnuvaTakim = turnuvaTakim11, Trh = DateTime.Now };
-                Mac mac121 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka12, HomeTakimOyuncu = takimOyuncu137, GuestTakimOyuncu = takimOyuncu111, Skl = "S" };
+                Mac mac121 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka12, Sira = 1, HomeTakimOyuncu = takimOyuncu137, GuestTakimOyuncu = takimOyuncu111, Skl = "S" };
                 new MacSonuc() { Mac = mac121, SetNo = 1, HomeSayi = 11, GuestSayi = 5 };
                 new MacSonuc() { Mac = mac121, SetNo = 2, HomeSayi = 11, GuestSayi = 6 };
-                Mac mac122 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka12, HomeTakimOyuncu = takimOyuncu138, GuestTakimOyuncu = takimOyuncu112, Skl = "S" };
+                Mac mac122 = new Mac() { TurnuvaMusabaka = turnuvaMusabaka12, Sira = 2, HomeTakimOyuncu = takimOyuncu138, GuestTakimOyuncu = takimOyuncu112, Skl = "S" };
                 new MacSonuc() { Mac = mac122, SetNo = 1, HomeSayi = 8, GuestSayi = 11 };
                 new MacSonuc() { Mac = mac122, SetNo = 2, HomeSayi = 9, GuestSayi = 11 };
 

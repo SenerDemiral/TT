@@ -11,7 +11,10 @@ namespace TT
             var turnuva = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
             //Takimlar = Db.SQL("SELECT o FROM TurnuvaTakim o where o.Turnuva = ?", turnuva);
             //var taks = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TurnuvaTakim o where o.Turnuva = ?", turnuva).ToArray();
-            Takimlar.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TurnuvaTakim o WHERE o.Turnuva = ?", turnuva).OrderByDescending(x => x.Ozet.Puan);
+            Takimlar.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", turnuva).OrderByDescending(x => x.Ozet.Puan);
+
+            //Takimlar.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ? ORDER BY o.Ozet.Puan", turnuva);
+            //Error Starcounter.SqlException: Failed to process query: SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ? ORDER BY o.Ozet.Puan: Unknown property Ozet of class TTDB.TurnuvaTakim.
 
             //TurnuvaTakimlarJson page = new TurnuvaTakimlarJson();
             //page.Takimlar.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TurnuvaTakim o WHERE o.Turnuva = ?", turnuva).OrderByDescending(x => x.Ozet.Puan);
@@ -28,6 +31,5 @@ namespace TT
                
             }*/
         }
-
     }
 }

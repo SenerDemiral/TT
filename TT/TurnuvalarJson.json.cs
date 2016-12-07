@@ -63,6 +63,20 @@ namespace TT
                     TakimlarOpened = "true";
                 }
             }
+
+            void Handle(Input.OyuncularToggle inp)
+            {
+                if (OyuncularOpened == "true")
+                    OyuncularOpened = "";
+                else {
+                    RecentOyuncular = new TurnuvaOyuncularOzetJson() {
+                        Html = "/TT/TurnuvaOyuncularOzetJson.html"
+                    };
+
+                    ((TurnuvaOyuncularOzetJson)RecentOyuncular).RefreshData(this.ID);
+                    OyuncularOpened = "true";
+                }
+            }
         }
     }
 }
