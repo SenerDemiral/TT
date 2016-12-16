@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/sys/handsontable/dist/handsontable.full.css">
 -->
 
-<dom-module id="can-can">
+<dom-module id="can-highlighted-row-id">
     <template>
         <style>
             /* CSS rules for your element */
@@ -19,7 +19,7 @@
         // element registration
         HTMLImports.whenReady(function () {
             Polymer({
-                is: "can-can",
+                is: "can-highlighted-row-id",
 
                 // add properties and methods on the element's prototype
 
@@ -28,7 +28,7 @@
                     hrow: {
                         type: String,
                         value: "hRow",
-                        notify: true,
+                        notify: false,
                         observer: '_hrowChanged'
                     },
                     crow: {
@@ -42,7 +42,7 @@
                     //this.crow = this.hrow;
                     console.log("[" + oldValue + '] ' + '[' + newValue + ']');
                     if (newValue >= 0) {
-                        var cr = document.getElementById('htable');
+                        var cr = document.querySelector('#htable');
                         this.crow = cr.hot.getDataAtCell(this.hrow, 1);
                     }
                 }
@@ -57,26 +57,30 @@
 
     <template is="dom-bind">
         
-        <can-can hrow="[[model.highlightedRow$]]" crow="{{model.dilara$}}">sener</can-can>
+        <can-highlighted-row-id hrow="[[model.highlightedRow$]]" crow="{{model.highlightedRowID$}}"></can-highlighted-row-id>
         
         <p class="lead">JSON's <code>array</code> and <code>object</code> can be used to create editable datagrid with a helper custom element, e.g. <a href="http://handsontable.github.io/hot-table/">hot-table</a>.</p>
         <p>
             Highlighted row: <strong>{{ model.highlightedRow$ }} --- {{model.CurRowID}} ---- {{model.dilara$}}</strong>
         </p>
-        <button class="btn btn-sm btn-default" value="{{model.AddPet$::click}}" onmousedown="++this.value">Add a pet</button>
+        <button class="btn btn-sm btn-default" value="{{model.Insert$::click}}" onmousedown="++this.value">New</button>
         <button class="btn btn-sm btn-default" value="{{model.Save$::click}}" onmousedown="++this.value">Save</button>
+        <button class="btn btn-sm btn-default" value="{{model.Refresh$::click}}" onmousedown="++this.value">Refresh</button>
 
         <hot-table id="htable" 
-            datarows="{{model.Pets}}" 
+            datarows="{{model.Trns}}" 
             column-sorting 
             row-headers 
             outside-click-deselects="false" 
+            manual-column-resize="true"
+            prevent-overflow= "horizontal"
             highlighted-row="{{ model.highlightedRow$ }}">
             
-            <hot-column value="Sil$" header="Sil" type="checkbox" class="htCenter"></hot-column>
-            <hot-column value="ID" header="ID" read-only></hot-column>
-            <hot-column value="Name$" header="Name"></hot-column>
-            <hot-column value="Kind$" header="Kind" type="date" date-format="DD.MM.YY"></hot-column>
+            <hot-column value="Sil$" header="Sil" type="checkbox" class="htCenter" width="30px"></hot-column>
+            <hot-column value="ID" header="ID" read-only  class="htCenter"></hot-column>
+            <hot-column value="Ad$" header="Ad"></hot-column>
+            <hot-column value="Tarih$" header="Tarih" type="date" date-format="DD.MM.YY"></hot-column>
+            <hot-column value="Sec" header="Sec" type="dropdown" source="[[model.Sec]]"></hot-column>
             <hot-column value="Sound" header="Sound" read-only></hot-column>
             <!-- iki checkbox yan yana olunca calismiyor!
             -->
@@ -105,7 +109,7 @@
             //container.hot({
              //   outsideClickDeselects: false,
             //});
-
+            /*
             window.addEventListener("keyup", function () {
                 //trigger dirty checking of HOT changes in Puppet (https://github.com/Starcounter/Starcounter/issues/3191)
                 //needed because Handsontable cancels propagation of keydown event (but not keyup)
@@ -113,7 +117,7 @@
                 if (puppet.puppet) {
                   jsonpatch.generate(puppet.puppet.observer);
                 }
-            });
+            });*/
         </script>
 
     </template>
