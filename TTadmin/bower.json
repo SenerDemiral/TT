@@ -1,0 +1,21 @@
+{
+  "name": "TTadmin",
+  "homepage": "https://github.com/SenerDemiral/TT",
+  "authors": [
+    "SenerDemiral <sener.demiral@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "wwwroot/sys",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "hot-table": "^0.5.0"
+  }
+}

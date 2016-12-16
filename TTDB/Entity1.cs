@@ -78,6 +78,11 @@ namespace TTDB
     {
         public string Ad;
         public DateTime Trh;
+        public string TurnuvaInfo {
+            get {
+                return string.Format("Tarih<{0:dd.MM.yy}> ID<{1}>", Trh, this.GetObjectNo());
+            }
+        }
     }
 
     public class TurnuvaTakimOzet
@@ -101,8 +106,8 @@ namespace TTDB
     {
         public Turnuva Turnuva;
         public Takim Takim;
-        public string TakimAd => Takim.Ad;
-        public string TurnuvaAd => Turnuva.Ad;
+        public string TakimAd => Takim != null ? Takim.Ad : "[null]"; // Takim.Ad;
+        public string TurnuvaAd => "BBB"; // Turnuva.Ad;
 
         public TurnuvaTakimOzet Ozet {
             get {
@@ -156,9 +161,17 @@ namespace TTDB
         public string HomeTakimAd => HomeTurnuvaTakim.Takim.Ad;
         public string GuestTakimAd => GuestTurnuvaTakim.Takim.Ad;
 
-        public string Tarih {
-            get { return string.Format("{0:dd.MM.yy}", Trh); }
+        public string MusabakaAd {
+            get {
+                return string.Format("{0} <{1}-{2}> {3}", HomeTakimAd, Ozet.HomePuan, Ozet.GuestPuan, GuestTakimAd);
+            }
         }
+        public string MusabakaInfo {
+            get {
+                return string.Format("Puan<{0}-{1}> Maç<{2}-{3}> Set<{4}-{5}> Sayı<{6}-{7}> Tarih<{8:dd.MM.yy}> ID<{9}>", Ozet.HomePuan, Ozet.GuestPuan, Ozet.HomeMac, Ozet.GuestMac, Ozet.HomeSet, Ozet.GuestSet, Ozet.HomeSayi, Ozet.GuestSayi, Trh, this.GetObjectNo());
+            }
+        }
+
         public Ozet Ozet {
             get {
                 Ozet ozet = new Ozet();

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTDB", "TTDB\TTDB.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3E23F621-0CF2-4110-8C56-00C91815A77D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTadmin", "TTadmin\TTadmin.csproj", "{4C8023BD-BA06-4C62-8D11-4820ABAF1EF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,11 +25,16 @@ Global
 		{71CBFA78-A124-4090-958C-CB94F4144F77}.Debug|x64.Build.0 = Debug|x64
 		{71CBFA78-A124-4090-958C-CB94F4144F77}.Release|x64.ActiveCfg = Release|x64
 		{71CBFA78-A124-4090-958C-CB94F4144F77}.Release|x64.Build.0 = Release|x64
+		{4C8023BD-BA06-4C62-8D11-4820ABAF1EF7}.Debug|x64.ActiveCfg = Debug|x64
+		{4C8023BD-BA06-4C62-8D11-4820ABAF1EF7}.Debug|x64.Build.0 = Debug|x64
+		{4C8023BD-BA06-4C62-8D11-4820ABAF1EF7}.Release|x64.ActiveCfg = Release|x64
+		{4C8023BD-BA06-4C62-8D11-4820ABAF1EF7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B8020C40-23EA-4430-AEA3-795B15C03B93} = {3E23F621-0CF2-4110-8C56-00C91815A77D}
+		{4C8023BD-BA06-4C62-8D11-4820ABAF1EF7} = {3E23F621-0CF2-4110-8C56-00C91815A77D}
 	EndGlobalSection
 EndGlobal

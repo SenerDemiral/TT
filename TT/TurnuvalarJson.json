@@ -1,5 +1,5 @@
 {
-  "Html": "",
+  "Html": "/TT/TurnuvalarJson.html",
   "Turnuvalar": [
     {
       "ID": "",
@@ -7,6 +7,7 @@
       "Trh": "",
       "Tarih": "",
       "Url": "",
+      "TurnuvaInfo": "",
       "Toggle$": 0,
       "Opened": "",
 
@@ -21,6 +22,6 @@
       "RecentOyuncular": {},
       "OyuncularToggle$": 0,
       "OyuncularOpened": ""
-    }
+}
   ]
 }

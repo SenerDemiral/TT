@@ -1,13 +1,17 @@
 ﻿html {
-	background: red;
+	background: azure;
 }
 body {
-    font-family: arial;
+    font-family: Roboto;
     font-weight: normal;
 	min-height: 100vh;
 	position: relative;
 	margin: 0;
 }
+button {
+    font-family: Roboto;
+}
+
 .heading {
     padding: 10px 15px;
     margin-top: 20px;
@@ -23,7 +27,7 @@ body {
 }
 
 .content {
-    background-color: #f6c8f6;
+    background-color: beige;
     padding: 15px;
     border: 1px solid #dedede;
     border-top: none;

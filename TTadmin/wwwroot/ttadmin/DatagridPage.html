@@ -1,0 +1,120 @@
+﻿<link rel="import" href="/sys/hot-table/hot-table.html" />
+<link rel="import" href="/sys/hot-table/src/hot-table-style.html" />
+<!--
+<link rel="stylesheet" href="/sys/handsontable/dist/handsontable.full.css">
+-->
+
+<dom-module id="can-can">
+    <template>
+        <style>
+            /* CSS rules for your element */
+        </style>
+
+        <!-- local DOM for your element -->
+
+        <div>{{hrow}}--{{crow}}</div> <!-- data bindings in local DOM -->
+    </template>
+
+    <script>
+        // element registration
+        HTMLImports.whenReady(function () {
+            Polymer({
+                is: "can-can",
+
+                // add properties and methods on the element's prototype
+
+                properties: {
+                    // declare properties for the element's public API
+                    hrow: {
+                        type: String,
+                        value: "hRow",
+                        notify: true,
+                        observer: '_hrowChanged'
+                    },
+                    crow: {
+                        type: String,
+                        value: "cRow",
+                        notify: true
+                    }
+                },
+
+                _hrowChanged: function (newValue, oldValue) {
+                    //this.crow = this.hrow;
+                    console.log("[" + oldValue + '] ' + '[' + newValue + ']');
+                    if (newValue >= 0) {
+                        var cr = document.getElementById('htable');
+                        this.crow = cr.hot.getDataAtCell(this.hrow, 1);
+                    }
+                }
+            });
+        });
+    </script>
+</dom-module>
+
+<template>
+    <!-- this works with Shady DOM (not Shadow DOM). You don't have to use it in Shadow DOM -->
+    <style is="custom-style" include="hot-table-style"></style>
+
+    <template is="dom-bind">
+        
+        <can-can hrow="[[model.highlightedRow$]]" crow="{{model.dilara$}}">sener</can-can>
+        
+        <p class="lead">JSON's <code>array</code> and <code>object</code> can be used to create editable datagrid with a helper custom element, e.g. <a href="http://handsontable.github.io/hot-table/">hot-table</a>.</p>
+        <p>
+            Highlighted row: <strong>{{ model.highlightedRow$ }} --- {{model.CurRowID}} ---- {{model.dilara$}}</strong>
+        </p>
+        <button class="btn btn-sm btn-default" value="{{model.AddPet$::click}}" onmousedown="++this.value">Add a pet</button>
+        <button class="btn btn-sm btn-default" value="{{model.Save$::click}}" onmousedown="++this.value">Save</button>
+
+        <hot-table id="htable" 
+            datarows="{{model.Pets}}" 
+            column-sorting 
+            row-headers 
+            outside-click-deselects="false" 
+            highlighted-row="{{ model.highlightedRow$ }}">
+            
+            <hot-column value="Sil$" header="Sil" type="checkbox" class="htCenter"></hot-column>
+            <hot-column value="ID" header="ID" read-only></hot-column>
+            <hot-column value="Name$" header="Name"></hot-column>
+            <hot-column value="Kind$" header="Kind" type="date" date-format="DD.MM.YY"></hot-column>
+            <hot-column value="Sound" header="Sound" read-only></hot-column>
+            <!-- iki checkbox yan yana olunca calismiyor!
+            -->
+            <hot-column value="Degisti" header="Degisti" type="checkbox" read-only></hot-column>
+        </hot-table>
+        <script>
+            function deneme() {
+                /*
+                onmousedown="deneme()" after-on-cell-mouse-down="{{model.dilara$}}" abcd="{{model.dilara$}}"
+                //onmousedown="deneme()'
+                //after-on-cell-mouse-down
+                var container = document.getElementById('htable');
+                console.log("DENEME", container.hot.getSelected(), "  ", container.sener);
+                //container.hot.sener = container.hot.getSelected()[1];
+                //container.highlightedRow = container.hot.getDataAtCell(container.highlightedRow, 1);  //container.hot.getSelected()[1];
+                console.log("DENEME", container.highlightedRow);
+                //container.setAttribute('data-url', container.hot.getDataAtCell(container.highlightedRow, 1));
+                container.dataUrl = container.hot.getDataAtCell(container.highlightedRow, 1);
+                //container.setAttribute("can-sener", "11");
+                console.log("DENEME---", container.highlightedRow, container.getAttribute('data-url'));
+                */
+            };
+            //var container = document.getElementById('htable');
+            //container.onAfterOnCellMouseDown();
+
+            //container.hot({
+             //   outsideClickDeselects: false,
+            //});
+
+            window.addEventListener("keyup", function () {
+                //trigger dirty checking of HOT changes in Puppet (https://github.com/Starcounter/Starcounter/issues/3191)
+                //needed because Handsontable cancels propagation of keydown event (but not keyup)
+                var puppet = document.querySelector("puppet-client");
+                if (puppet.puppet) {
+                  jsonpatch.generate(puppet.puppet.observer);
+                }
+            });
+        </script>
+
+    </template>
+</template>

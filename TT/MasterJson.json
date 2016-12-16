@@ -1,5 +1,5 @@
 {
-   "Html": "aaaaaaaaaaaa",
+  "Html": "TT/MasterJson.html",
   "RecentOyuncular": { },
   "OyuncularOpened": "",
   "OyuncularToggle$": 0,
@@ -11,5 +11,10 @@
   
   "RecentTakimlar": { },
   "TakimlarOpened": "",
-  "TakimlarToggle$": 0
+  "TakimlarToggle$": 0,
+      
+  "RecentTurnuvaEkle": { },
+  "TurnuvaEkleToggle$": 0,
+  "TurnuvaEkleOpened": false
+
 }

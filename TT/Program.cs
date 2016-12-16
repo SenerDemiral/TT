@@ -74,7 +74,7 @@ namespace TT
                     Console.WriteLine();
                 }
             }
-
+            
             //TTDB.TurnuvaOyuncularOzet too = new TTDB.TurnuvaOyuncularOzet("VA");
             foreach (var o in TTDB.Hlpr.TurnuvaOyuncularOzet("VA")) {
                 Console.WriteLine(string.Format("{0}-{1}  Mac<{2}-{3}-{4}> Set<{5}-{6}> Sayi<{7}-{8}>", o.OyuncuAd, o.TakimAd, o.MacO, o.MacG, o.MacM, o.SetA, o.SetV, o.SayiA, o.SayiV ));
@@ -98,6 +98,9 @@ namespace TT
                     master.RecentTurnuvalar = new TurnuvalarJson() {
                         Html = "/TT/TurnuvalarJson.html"
                     };
+
+                    master.RecentTurnuvaEkle = new PaperDialog() {
+                        Opened = true};
                 }
 
                 //((OyuncularJson)master.RecentOyuncular).RefreshData();
@@ -107,6 +110,8 @@ namespace TT
 
                 return master;
             });
+
+            Handle.GET("/TT/PaperDialog", () => new PaperDialog());
         }
     }
 }

@@ -73,6 +73,9 @@
     <Compile Include="OyuncularJson.json.cs">
       <DependentUpon>OyuncularJson.json</DependentUpon>
     </Compile>
+    <Compile Include="PaperDialog.json.cs">
+      <DependentUpon>PaperDialog.json</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TakimJson.json.cs">
@@ -139,6 +142,9 @@
     <TypedJSON Include="TurnuvaOyuncularOzetJson.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
+    <TypedJSON Include="PaperDialog.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <None Include="wwwroot\TT\OyuncuJson.html" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +165,7 @@
     <None Include="wwwroot\TT\TurnuvaTakimlarJson.html" />
     <None Include="wwwroot\TT\MusabakaMaclarJson.html" />
     <Content Include="wwwroot\TT\master.css" />
+    <None Include="wwwroot\TT\PaperDialog.html" />
     <Content Include="wwwroot\TT\style.css" />
     <None Include="wwwroot\TT\TurnuvaMusabakalarJson.html" />
     <None Include="wwwroot\TT\TurnuvalarJson.html" />

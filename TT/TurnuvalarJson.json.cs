@@ -31,6 +31,7 @@ namespace TT
                     Opened = "";
                 else
                     Opened = "true";
+
             }
 
             void Handle(Input.MusabakalarToggle inp)
@@ -42,7 +43,8 @@ namespace TT
                     MusabakalarOpened = "";
                 else {
                     RecentMusabakalar = new TurnuvaMusabakalarJson() {
-                        Html = "/TT/TurnuvaMusabakalarJson.html"
+                        Html = "/TT/TurnuvaMusabakalarJson.html",
+                        TurnuvaInfo = this.Ad
                     };
 
                     ((TurnuvaMusabakalarJson)RecentMusabakalar).RefreshData(this.ID);
@@ -56,7 +58,8 @@ namespace TT
                     TakimlarOpened = "";
                 else {
                     RecentTakimlar = new TurnuvaTakimlarJson() {
-                        Html = "/TT/TurnuvaTakimlarJson.html"
+                        Html = "/TT/TurnuvaTakimlarJson.html",
+                        TurnuvaInfo = Ad
                     };
 
                     ((TurnuvaTakimlarJson)RecentTakimlar).RefreshData(this.ID);
@@ -70,7 +73,8 @@ namespace TT
                     OyuncularOpened = "";
                 else {
                     RecentOyuncular = new TurnuvaOyuncularOzetJson() {
-                        Html = "/TT/TurnuvaOyuncularOzetJson.html"
+                        Html = "/TT/TurnuvaOyuncularOzetJson.html",
+                        TurnuvaInfo = Ad
                     };
 
                     ((TurnuvaOyuncularOzetJson)RecentOyuncular).RefreshData(this.ID);

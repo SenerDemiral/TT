@@ -1,5 +1,8 @@
-﻿<template>
+﻿<link rel="import" href="/sys/vaadin-grid/vaadin-grid.html">
+
+<template>
     <template is="dom-bind">
+        <div style="font-size: 12px; text-align: center">{{model.TurnuvaInfo}}</div>
         <table>
             <tr>
                 <th rowspan="2">Oyuncu</th>
@@ -19,11 +22,13 @@
                 <th>V</th>
             </tr>
 
-            <template is="dom-repeat" items="{{model.Oyuncular}}">
+            <template is="dom-repeat" items="[[model.Oyuncular]]">
                 <tr>
                     <td>{{item.OyuncuAd}}</td>
                     <td>{{item.TakimAd}}</td>
-                    <td style="text-align: right;">{{item.Puan}}</td>
+                    <td style="text-align: right;">
+                        <input type="text" value="[[item.Puan]]" />
+                    </td>
                     <td style="text-align: right;">{{item.MacO}}</td>
                     <td style="text-align: right;">{{item.MacG}}</td>
                     <td style="text-align: right;">{{item.MacM}}</td>
@@ -34,5 +39,45 @@
                 </tr>
             </template>
         </table>
+
+            <style is="custom-style">
+                vaadin-grid.themed {
+                    --vaadin-grid-row-height: 26px;
+                    --vaadin-grid-header-row-height: 32px;
+                    --vaadin-grid-footer-row-height: 32px;
+                    --vaadin-grid-row-cell:
+                    {
+                        color: red;
+                        text-align: center;
+                        align-items: flex-end;
+                    }
+                }
+            </style>
+            <vaadin-grid id="sort" sener="[[model.Oyuncular]]" class="themed">
+                <table>
+                    <colgroup>
+                        <!-- Define the columns and their mapping to data properties. -->
+                        <col name="OyuncuAd" flex="3" sortable>
+                        <col name="TakimAd" flex="3" sortable>
+                        <col name="Puan" sortable>
+                        <col name="MacO" sortable>
+                        <col name="MacG" sortable>
+                        <col name="MacM" sortable>
+                        <col name="SetA" sortable>
+                        <col name="SetV" sortable>
+                        <col name="SayiA" sortable>
+                        <col name="SayiV" sortable>
+                    </colgroup>
+                </table>
+            </vaadin-grid>
+
+
+            <script>
+                HTMLImports.whenReady(function () {
+                    grid = document.querySelector('#sort');
+                    grid.items = JSON.parse(JSON.stringify(grid.sener));    //Deep Copy, aksi taktirde (slice) sener'in degerini degisitiriyor
+                });
+            </script>
+
     </template>
 </template>

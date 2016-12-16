@@ -33,5 +33,10 @@ namespace TT
                 TakimlarOpened = "true";
             }
         }
+
+        void Handle(Input.TurnuvaEkleToggle inp)
+        {
+            ((PaperDialog)RecentTurnuvaEkle).Opened = true;
+        }
     }
 }

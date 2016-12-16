@@ -1,0 +1,23 @@
+{
+  "Html": "/TTadmin/DatagridPage.html",
+
+  "Pets": [
+    {
+      "ID": "",
+      "Name$": "",
+      "Kind$": "",
+      "Sound": "",
+      "Degisti$": false,
+      "Sil$": false,
+      "$Sound": { "Bind": "CalculatedSound" }
+    }
+  ],
+  "Fetching": false,
+  "CurRowID$": "" ,
+  "highlightedRow$": -1,
+  "Row$": "",
+  "AddPet$": 0,
+  "dilara$": "",
+  "sener$": "",
+  "Save$": 0
+}

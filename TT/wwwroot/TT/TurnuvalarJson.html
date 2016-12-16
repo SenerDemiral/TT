@@ -3,7 +3,7 @@
         <template is="dom-repeat" items="{{model.Turnuvalar}}">
             <button class="heading" value="{{item.Toggle$::click}}" onclick="++this.value">
                 {{item.Ad}}
-                <i style="float:right">{{item.Tarih}} / {{item.ID}} </i>
+                <i style="font-size: 12px; float:right">{{item.TurnuvaInfo}}</i>
             </button>
             <iron-collapse id="collapse{{item.ID}}" tabindex="0" opened="[[item.Opened]]" no-animation>
                 <div class="content">
@@ -11,12 +11,13 @@
                     <template is="dom-if" if="{{item.MusabakalarOpened}}">
                         <iron-collapse id="collapseTurnuvaMusabakalar" tabindex="0" opened="{{item.MusabakalarOpened}}" no-animation>
                             <div class="content">
+                                <!--<div style="text-align: center;">{{item.Ad}}</div>-->
                                 <starcounter-include partial="{{item.RecentMusabakalar}}"></starcounter-include>
                             </div>
                         </iron-collapse>
                     </template>
 
-                    <button class="heading" value="{{item.TakimlarToggle$::click}}" onmousedown="++this.value">Takımlar<i class="material-icons orange600">face</i></button>
+                    <button class="heading" value="{{item.TakimlarToggle$::click}}" onmousedown="++this.value">Takımlar <i class="material-icons orange600">face</i></button>
                     <template is="dom-if" if="{{item.TakimlarOpened}}">
                         <iron-collapse id="collapseTurnuvaTakimlar" tabindex="0" opened="{{item.TakimlarOpened}}" no-animation>
                             <div class="content">
@@ -33,7 +34,6 @@
                             </div>
                         </iron-collapse>
                     </template>
-
                 </div>
             </iron-collapse>
         </template>

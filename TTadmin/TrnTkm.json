@@ -1,0 +1,17 @@
+{
+  "Html": "/TTadmin/TrnTkmPage.html",
+  "TurnuvaID": "",
+  "TurnuvaInfo": "",
+  "Takimlar": [
+    {
+      "Takim": { },
+      "TakimAd": "",
+      "ID$": "",
+      "Ad": "",
+      "DeleteRow$": 0
+    }
+  ],
+  "AddRow$": 0,
+  "Save$": 0,  
+  "Cancel$": 0
+}
