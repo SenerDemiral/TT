@@ -1,7 +1,91 @@
-﻿<link rel="import" href="/sys/polymer/polymer.html">
+﻿<link rel="import" href="/sys/can-highlighted-row-id/can-highlighted-row-id.html" />
+<!--<link rel="import" href="/sys/hot-table/src/hot-table-style.html" />-->
+<link rel="import" href="/sys/hot-table/hot-table.html" />
+<link rel="import" href="/sys/paper-styles/color.html">
+<link rel="import" href="/sys/paper-card/paper-card.html">
+<link rel="import" href="/sys/iron-flex-layout/iron-flex-layout-classes.html">
 
 <template>
-    <template is="dom-bind">
-        
-    </template>
+	<style is="custom-style" include="hot-table-style">
+		:root {
+				--paper-card-content: {
+				padding: 6px;
+			}
+
+			--paper-card-header: {
+				@apply(--layout-vertical);
+				@apply(--layout-center);
+			}
+
+			--paper-card-actions: {
+				padding: 5px 6px;
+			}
+
+			--paper-card-header-text: {
+				padding: 0px;
+			}
+
+			--paper-badge-width: 50px;
+		}
+	</style>
+</template>
+
+
+<template>
+   <!-- this works with Shady DOM (not Shadow DOM). You don't have to use it in Shadow DOM 
+	
+	<style is="custom-style" include="hot-table-style"></style>
+					-->
+	<style is="custom-style"  include="iron-flex">
+	  #notes {
+		 @apply(--layout-vertical);
+		 @apply(--layout-wrap);
+		 height: 344px;
+		 width: 384px;
+	  }
+
+	  paper-card {
+		 box-sizing: border-box;
+		 max-width: 500px;
+		 margin: 4px;
+		 flex: 0 0 auto;
+	  }
+	  /*
+	  .flex {
+			@apply(--layout-horizontal);
+		}		*/
+	</style>
+	 
+   <template is="dom-bind">
+		<!--<paper-card heading="[[model.Heading]]">-->
+		<div class="layout vertical">
+			<paper-card heading="[[model.Heading]]">
+				<div class="card-content">
+					<hot-table id="[[model.ID]]"
+						datarows="{{model.Trns}}"
+						column-sorting
+						row-headers
+						outside-click-deselects="false"
+						manual-column-resize="true"
+						sort-indicator="true"
+						prevent-overflow="horizontal"
+						highlighted-row="{{ model.hRow$ }}">
+
+						<hot-column value="DF$" header="Sil" type="checkbox" class="htCenter" width="30px"></hot-column>
+						<hot-column value="ID" header="ID" read-only class="htCenter"></hot-column>
+						<hot-column value="Ad$" header="Ad" width="200"></hot-column>
+						<hot-column value="Tarih$" header="Tarih" type="date" date-format="DD.MM.YY"></hot-column>
+					</hot-table>
+				</div>
+				<div class="card-actions">
+					<button class="btn btn-sm btn-default" value="{{model.Insert$::click}}" onmousedown="++this.value">New</button>
+					<button class="btn btn-sm btn-default" value="{{model.Save$::click}}" onmousedown="++this.value">Save</button>
+					<button class="btn btn-sm btn-default" value="{{model.Refresh$::click}}" onmousedown="++this.value">Refresh</button>
+					<can-highlighted-row-id hot-table-id="[[model.ID]]" hrow="{{model.hRow$}}" crow="{{model.CurRowID$}}"></can-highlighted-row-id>
+					<button class="btn btn-sm btn-default" value="{{model.GetTakimlar$::click}}" onmousedown="++this.value">Takimlar</button>
+				</div>
+			</paper-card>
+      <starcounter-include partial="{{model.Sener}}"></starcounter-include>
+		</div>
+   </template>
 </template>

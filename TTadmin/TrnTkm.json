@@ -1,17 +1,19 @@
 {
-  "Html": "/TTadmin/TrnTkmPage.html",
-  "TurnuvaID": "",
-  "TurnuvaInfo": "",
-  "Takimlar": [
-    {
-      "Takim": { },
-      "TakimAd": "",
-      "ID$": "",
-      "Ad": "",
-      "DeleteRow$": 0
-    }
-  ],
-  "AddRow$": 0,
-  "Save$": 0,  
-  "Cancel$": 0
+	"Html": "/TTadmin/TrnTkmPage.html",
+	"ID": "",
+	"TurnuvaID": "",
+	"Heading": "... Takimlar",
+	"TrnTkms": [
+		{
+			"ID": "",
+			"TakimAd$": "",
+			"MF": false,  // ModifiedFlag
+			"DF$": false  // DeleteFlag
+		}
+	],
+	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
+	"CurRowID$": "",
+	"Insert$": 0,
+	"Refresh$": 0,
+	"Save$": 0
 }

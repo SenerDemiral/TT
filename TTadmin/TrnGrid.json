@@ -1,0 +1,19 @@
+{
+	"Html": "/TTadmin/TrnGridPage.html",
+	"ID": "Trn",
+	"Heading": "Turnuvalar",
+	"Trns": [
+		{
+			"ID": "",
+			"Ad$": "",
+			"Tarih$": "",
+			"MF": false,  // ModifiedFlag
+			"DF$": false  // DeleteFlag
+		}
+	],
+	//"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
+	"CurRowID$": "",
+	"Insert$": 0,
+	"Refresh$": 0,
+	"Save$": 0
+}

@@ -1,9 +1,22 @@
 {
-  "Html": "/TTadmin/TrnPage.html",
-  "Turnuvalar": [
-    {
-      "Ad": "",
-      "Yil": ""
-    }
-  ]
+	"Html": "/TTadmin/TrnPage.html",
+	"ID": "Trn",
+	"Heading": "Turnuvalar",
+	"Trns": [
+		{
+			"ID": "",
+			"Ad$": "",
+			"Tarih$": "",
+			"MF": false, // ModifiedFlag
+			"DF$": false, // DeleteFlag
+			"RecentTrnTkms": {}
+		}
+	],
+	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
+	"CurRowID$": "",
+	"Insert$": 0,
+	"Refresh$": 0,
+	"Save$": 0,
+	"Sener": {},
+	"GetTakimlar$": 0 
 }
