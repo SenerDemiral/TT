@@ -1,6 +1,6 @@
 {
 	"Html": "/TTadmin/TrnPage.html",
-	"ID": "Trn",
+	"htid": "Trn",
 	"Heading": "Turnuvalar",
 	"Trns": [
 		{
@@ -17,6 +17,8 @@
 	"Insert$": 0,
 	"Refresh$": 0,
 	"Save$": 0,
-	"Sener": {},
-	"GetTakimlar$": 0 
+	"RecentTakimlar": {},
+	"GetTakimlar$": 0, 
+	"RecentMusabakalar": {},
+	"GetMusabakalar$": 0 
 }

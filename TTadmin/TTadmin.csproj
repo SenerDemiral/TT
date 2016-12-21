@@ -173,7 +173,7 @@
     <None Include="wwwroot\ttadmin\TrnGridPage.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="wwwroot\ttadmin\Stylesheet1.css" />
+    <Content Include="wwwroot\ttadmin\Style.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(StarcounterBin)\Starcounter.MsBuild.targets" />

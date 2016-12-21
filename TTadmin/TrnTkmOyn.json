@@ -1,3 +1,21 @@
 {
-  "Html": "/TTadmin/TrnTkmOynPage.html"
+	"Html": "/TTadmin/TrnTkmOynPage.html",
+	"htid": "",
+	"TurnuvaID": "",
+	"TakimID": "",
+	"Heading": "Turnuva Takim Oyunculari",
+	"TrnTkmOyns": [
+		{
+			"ID": "",
+			"OyuncuAd$": "",
+			"MF": false, // ModifiedFlag
+			"DF$": false // DeleteFlag
+		}
+	],
+	"LookupOyuncu": [],
+	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
+	"CurRowID$": "",
+	"Insert$": 0,
+	"Refresh$": 0,
+	"Save$": 0
 }

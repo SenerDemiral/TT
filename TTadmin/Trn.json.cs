@@ -80,6 +80,7 @@ namespace TTadmin
 						var t = new TTDB.Turnuva();
 						pet.ID = t.GetObjectID();
 						t.Ad = pet.Ad;
+						t.Trh = DateTime.ParseExact(pet.Tarih, "dd.MM.yy", System.Globalization.CultureInfo.InvariantCulture);
 						if(string.IsNullOrEmpty(pet.Tarih))
 							t.Trh = DateTime.Now;
 					}
@@ -102,23 +103,44 @@ namespace TTadmin
 
 		void Handle(Input.GetTakimlar action)
 		{
+			if(string.IsNullOrEmpty(CurRowID))
+				return;
+
 			var takimlar = new TrnTkm();
 
-			takimlar.ID = "TrnTkm" + CurRowID;
-			takimlar.TurnuvaID = CurRowID;
-
-			takimlar.Data = null;
-
-			int a = 0;
+			string turnuvaAd = "";
 			for(int i = 0; i < Trns.Count; i++)
 				if(Trns[i].ID == CurRowID) {
-					a = i;
-					break; 
+					turnuvaAd = Trns[i].Ad;
+					break;
 				}
 
-			takimlar.Heading = Trns[a].Ad + " Takýmlarý " + CurRowID;
-			//Trns[a].RecentTrnTkms = takimlar;
-			Sener = takimlar;
+			takimlar.htid = "TrnTkm" + CurRowID;
+			takimlar.Heading = turnuvaAd + " Takýmlarý";
+			takimlar.TurnuvaID = CurRowID;
+			takimlar.Data = null;
+			RecentTakimlar = takimlar;
+		}
+
+		void Handle(Input.GetMusabakalar action)
+		{
+			if(string.IsNullOrEmpty(CurRowID))
+				return;
+
+			var musabakalar = new TrnMsb();
+
+			string turnuvaAd = "";
+			for(int i = 0; i < Trns.Count; i++)
+				if(Trns[i].ID == CurRowID) {
+					turnuvaAd = Trns[i].Ad;
+					break;
+				}
+
+			musabakalar.htid = "TrnMsb" + CurRowID;
+			musabakalar.TurnuvaID = CurRowID;
+			musabakalar.Heading = turnuvaAd + " Müsabakalarý";
+			musabakalar.Data = null;
+			RecentMusabakalar = musabakalar;
 		}
 
 		[Trn_json.Trns]

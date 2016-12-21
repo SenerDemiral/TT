@@ -1,6 +1,0 @@
-﻿paper-card {
-   --paper-card-header: {
-      @apply(--layout-vertical);
-      @apply(--layout-center);
-   };
-}

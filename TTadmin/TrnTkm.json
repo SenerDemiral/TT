@@ -1,19 +1,22 @@
 {
 	"Html": "/TTadmin/TrnTkmPage.html",
-	"ID": "",
+	"htid": "",
 	"TurnuvaID": "",
 	"Heading": "... Takimlar",
 	"TrnTkms": [
 		{
 			"ID": "",
 			"TakimAd$": "",
-			"MF": false,  // ModifiedFlag
-			"DF$": false  // DeleteFlag
+			"MF": false, // ModifiedFlag
+			"DF$": false // DeleteFlag
 		}
 	],
+	"LookupTakim": [],
 	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
 	"CurRowID$": "",
 	"Insert$": 0,
 	"Refresh$": 0,
-	"Save$": 0
+	"Save$": 0,
+	"RecentOyuncular": { },
+	"GetOyuncular$": 0 
 }

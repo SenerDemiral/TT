@@ -4,13 +4,18 @@
 <link rel="import" href="/sys/paper-styles/color.html">
 <link rel="import" href="/sys/paper-card/paper-card.html">
 <link rel="import" href="/sys/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="stylesheet" href="/TTadmin/style.css">
 
 <template>
+	<style is="custom-style"  include="iron-flex iron-flex-alignment"></style>
+
 	<style is="custom-style" include="hot-table-style">
 		:root {
-				--paper-card-content: {
+			--paper-card-content: {
 				padding: 6px;
 			}
+			--paper-card-background-color: antiquewhite;
+
 
 			--paper-card-header: {
 				@apply(--layout-vertical);
@@ -36,20 +41,27 @@
 	
 	<style is="custom-style" include="hot-table-style"></style>
 					-->
-	<style is="custom-style"  include="iron-flex">
+	<style is="custom-style">
 	  #notes {
 		 @apply(--layout-vertical);
-		 @apply(--layout-wrap);
-		 height: 344px;
-		 width: 384px;
+		 @apply(--layout-center);
+		 /*height: 344px;
+		 width: 100%;
+		 max-width: 600px; */
 	  }
-
+		#notes > paper-card {
+			box-sizing: border-box;
+			/*max-width: 400px;*/
+			margin: 4px;
+			/*flex: 0 0 auto;*/
+		}
+  /*
 	  paper-card {
 		 box-sizing: border-box;
 		 max-width: 500px;
 		 margin: 4px;
-		 flex: 0 0 auto;
-	  }
+			flex: 0 0 auto;
+	  }	  */
 	  /*
 	  .flex {
 			@apply(--layout-horizontal);
@@ -57,11 +69,14 @@
 	</style>
 	 
    <template is="dom-bind">
-		<!--<paper-card heading="[[model.Heading]]">-->
-		<div class="layout vertical">
+		<!--<paper-card heading="[[model.Heading]]">
+		<div class="vertical layout center">
+		<div id="notes">
+		-->
+		<div class="vertical layout center">
 			<paper-card heading="[[model.Heading]]">
 				<div class="card-content">
-					<hot-table id="[[model.ID]]"
+					<hot-table id="[[model.htid]]"
 						datarows="{{model.Trns}}"
 						column-sorting
 						row-headers
@@ -81,11 +96,13 @@
 					<button class="btn btn-sm btn-default" value="{{model.Insert$::click}}" onmousedown="++this.value">New</button>
 					<button class="btn btn-sm btn-default" value="{{model.Save$::click}}" onmousedown="++this.value">Save</button>
 					<button class="btn btn-sm btn-default" value="{{model.Refresh$::click}}" onmousedown="++this.value">Refresh</button>
-					<can-highlighted-row-id hot-table-id="[[model.ID]]" hrow="{{model.hRow$}}" crow="{{model.CurRowID$}}"></can-highlighted-row-id>
-					<button class="btn btn-sm btn-default" value="{{model.GetTakimlar$::click}}" onmousedown="++this.value">Takimlar</button>
+					<button class="btn btn-sm btn-default" value="{{model.GetTakimlar$::click}}" onmousedown="++this.value">Takımlar</button>
+					<button class="btn btn-sm btn-default" value="{{model.GetMusabakalar$::click}}" onmousedown="++this.value">Musabakalar</button>
+					<can-highlighted-row-id hot-table-id="[[model.htid]]" hrow="{{model.hRow$}}" crow="{{model.CurRowID$}}"></can-highlighted-row-id>
 				</div>
 			</paper-card>
-      <starcounter-include partial="{{model.Sener}}"></starcounter-include>
 		</div>
-   </template>
+			<starcounter-include partial="{{model.RecentTakimlar}}"></starcounter-include>
+			<starcounter-include partial="{{model.RecentMusabakalar}}"></starcounter-include>
+	</template>
 </template>

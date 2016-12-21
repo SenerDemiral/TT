@@ -1,3 +1,24 @@
 {
-  "Html": "/TTadmin/TrnMsbPage.html"
+  "Html": "/TTadmin/TrnMsbPage.html",
+	"htid": "",
+	"TurnuvaID": "",
+	"Heading": "... Takimlar",
+	"TrnMsbs": [
+		{
+			"ID": "",
+			"HomeTakimAd$": "",
+			"GuestTakimAd$": "",
+			"Tarih$": "",
+			"MF": false, // ModifiedFlag
+			"DF$": false // DeleteFlag
+		}
+	],
+	"LookupTakim": [],
+	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
+	"CurRowID$": "",
+	"Insert$": 0,
+	"Refresh$": 0,
+	"Save$": 0,
+	"RecentMaclar": { },
+	"GetMaclar$": 0 
 }

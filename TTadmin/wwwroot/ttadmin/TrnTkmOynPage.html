@@ -1,7 +1,36 @@
-﻿<link rel="import" href="/sys/polymer/polymer.html">
+﻿<link rel="import" href="/sys/can-highlighted-row-id/can-highlighted-row-id.html" />
+<link rel="import" href="/sys/hot-table/hot-table.html" />
+<link rel="import" href="/sys/paper-styles/color.html" />
+<link rel="import" href="/sys/paper-card/paper-card.html" />
+<link rel="import" href="/sys/iron-flex-layout/iron-flex-layout-classes.html">
 
 <template>
-    <template is="dom-bind">
-        
-    </template>
+   <template is="dom-bind">
+		<div class="vertical layout center">
+			<paper-card heading="[[model.Heading]]">
+				<div class="card-content">
+					<hot-table id="[[model.htid]]"
+						datarows="{{model.TrnTkmOyns}}"
+						column-sorting
+						row-headers
+						outside-click-deselects="false"
+						manual-column-resize="true"
+						sort-indicator="true"
+						prevent-overflow="horizontal"
+						highlighted-row="{{ model.hRow$ }}">
+
+						<hot-column value="DF$" header="Sil" type="checkbox" class="htCenter" width="30px"></hot-column>
+						<hot-column value="ID" header="ID" read-only class="htCenter"></hot-column>
+						<hot-column value="OyuncuAd$" header="Oyuncu" type="dropdown" source="[[model.LookupOyuncu]]" width="200px"></hot-column>
+					</hot-table>
+				</div>
+				<div class="card-actions">
+					<button class="btn btn-sm btn-default" value="{{model.Insert$::click}}" onmousedown="++this.value">New</button>
+					<button class="btn btn-sm btn-default" value="{{model.Save$::click}}" onmousedown="++this.value">Save</button>
+					<button class="btn btn-sm btn-default" value="{{model.Refresh$::click}}" onmousedown="++this.value">Refresh</button>
+					<can-highlighted-row-id hot-table-id="[[model.htid]]" hrow="{{model.hRow$}}" crow="{{model.CurRowID$}}"></can-highlighted-row-id>
+				</div>
+			</paper-card>
+		</div>
+   </template>
 </template>
