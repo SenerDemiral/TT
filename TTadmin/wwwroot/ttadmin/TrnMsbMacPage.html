@@ -1,7 +1,43 @@
-﻿<link rel="import" href="/sys/polymer/polymer.html">
+﻿<link rel="import" href="/sys/can-highlighted-row-id/can-highlighted-row-id.html" />
+<link rel="import" href="/sys/hot-table/hot-table.html" />
+<link rel="import" href="/sys/paper-styles/color.html" />
+<link rel="import" href="/sys/paper-card/paper-card.html" />
+<link rel="import" href="/sys/iron-flex-layout/iron-flex-layout-classes.html">
 
 <template>
-    <template is="dom-bind">
-        
-    </template>
+   <template is="dom-bind">
+		<div class="vertical layout center">
+			<paper-card heading="[[model.Heading]]">
+				<div class="card-content">
+					<hot-table id="[[model.htid]]"
+						datarows="{{model.TrnMsbMacs}}"
+						column-sorting
+						row-headers
+						outside-click-deselects="false"
+						manual-column-resize="true"
+						sort-indicator="true"
+						prevent-overflow="horizontal"
+						highlighted-row="{{ model.hRow$ }}">
+
+						<hot-column value="DF$" header="Sil" type="checkbox" class="htCenter" width="30px"></hot-column>
+						<hot-column value="ID" header="ID" read-only class="htCenter"></hot-column>
+						<hot-column value="Skl$" header="S/D" class="htCenter"></hot-column>
+						<hot-column value="Sira$" header="Sira" class="htCenter"></hot-column>
+						<hot-column value="HomeOyuncuAd$" header="[[model.HomeTakimAd]]" type="dropdown" source="[[model.LookupHomeOyuncu]]" width="200px"></hot-column>
+						<hot-column value="HomeOyuncuAd2$" header="2" type="dropdown" source="[[model.LookupHomeOyuncu]]" width="100px"></hot-column>
+						<hot-column value="GuestOyuncuAd$" header="[[model.GuestTakimAd]]" type="dropdown" source="[[model.LookupGuestOyuncu]]" width="200px"></hot-column>
+						<hot-column value="GuestOyuncuAd2$" header="2" type="dropdown" source="[[model.LookupGuestOyuncu]]" width="100px"></hot-column>
+					</hot-table>
+				</div>
+				<div class="card-actions">
+					<button class="btn btn-sm btn-default" value="{{model.Insert$::click}}" onmousedown="++this.value">New</button>
+					<button class="btn btn-sm btn-default" value="{{model.Save$::click}}" onmousedown="++this.value">Save</button>
+					<button class="btn btn-sm btn-default" value="{{model.Refresh$::click}}" onmousedown="++this.value">Refresh</button>
+					<button class="btn btn-sm btn-default" value="{{model.GetMacSonuclar$::click}}" onmousedown="++this.value">Maç Sonuclari</button>
+					<can-highlighted-row-id hot-table-id="[[model.htid]]" hrow="{{model.hRow$}}" crow="{{model.CurRowID$}}"></can-highlighted-row-id>
+				</div>
+			</paper-card>
+		</div>
+		<starcounter-include partial="{{model.RecentMacSonuclar}}"></starcounter-include>
+   </template>
 </template>

@@ -1,3 +1,23 @@
 {
-  "Html": "/TTadmin/TrnMsbMacSncPage.html"
+	"Html": "/TTadmin/TrnMsbMacSncPage.html",
+	"htid": "",
+	"MacID": "",
+	"HomeOyuncuAd": "",
+	"GuestOyuncuAd": "",
+	"Heading": "Mac Sonuclari",
+	"TrnMsbMacSncs": [
+		{
+			"ID": "",
+			"SetNo$": 0,
+			"HomeSayi$": 0,
+			"GuestSayi$": 0,
+			"MF": false, // ModifiedFlag
+			"DF$": false // DeleteFlag
+		}
+	],
+	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
+	"CurRowID$": "",
+	"Insert$": 0,
+	"Refresh$": 0,
+	"Save$": 0
 }

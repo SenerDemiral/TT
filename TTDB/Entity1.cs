@@ -59,7 +59,6 @@ namespace TTDB
 			         ozet.vSayi += m.Ozet.HomeSayi;
 			      }
 			   }
-			
 				return ozet;
 			}
       }
@@ -113,7 +112,7 @@ namespace TTDB
 			get {
 				TurnuvaTakimOzet ozet = new TurnuvaTakimOzet();
 				// Evinde oynadiklari
-				QueryResultRows<TurnuvaMusabaka> hta = Db.SQL<TurnuvaMusabaka>("SELECT ta FROM TTDB.TurnuvaMusabaka ta WHERE ta.HomeTurnuvaTakim = ?", this);
+				QueryResultRows<Musabaka> hta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.HomeTakim = ?", this);
 				foreach (var ta in hta) {
 					ozet.Puan += ta.Ozet.HomePuan;
 					if (ta.Ozet.HomePuan > ta.Ozet.GuestPuan)
@@ -124,7 +123,7 @@ namespace TTDB
 						ozet.MusabakaTie++;
 				}
 				// Misafir oynadiklari
-				QueryResultRows<TurnuvaMusabaka> gta = Db.SQL<TurnuvaMusabaka>("SELECT ta FROM TTDB.TurnuvaMusabaka ta WHERE ta.GuestTurnuvaTakim = ?", this);
+				QueryResultRows<Musabaka> gta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.GuestTakim = ?", this);
 				foreach (var ta in gta) {
 					ozet.Puan += ta.Ozet.GuestPuan;
 					if (ta.Ozet.GuestPuan > ta.Ozet.HomePuan)
@@ -151,7 +150,7 @@ namespace TTDB
 	}
 
 	[Database]
-	public class TurnuvaMusabaka
+	public class Musabaka
 	{
 		public Turnuva Turnuva;
 		public Takim HomeTakim;
@@ -164,13 +163,13 @@ namespace TTDB
 	
 		public string MusabakaAd {
 			get {
-				return string.Format("{0} <{1}-{2}> {3}", HomeTakimAd, Ozet.HomePuan, Ozet.GuestPuan, GuestTakimAd);
+				return "aaaaa"; //string.Format("{0} <{1}-{2}> {3}", HomeTakimAd, Ozet.HomePuan, Ozet.GuestPuan, GuestTakimAd);
 			}
 	    }
 	   
 		public string MusabakaInfo {
 			get {
-				return string.Format("Puan<{0}-{1}> Maç<{2}-{3}> Set<{4}-{5}> Sayı<{6}-{7}> Tarih<{8:dd.MM.yy}> ID<{9}>", Ozet.HomePuan, Ozet.GuestPuan, Ozet.HomeMac, Ozet.GuestMac, Ozet.HomeSet, Ozet.GuestSet, Ozet.HomeSayi, Ozet.GuestSayi, Trh, this.GetObjectNo());
+				return "bbbbbb"; // string.Format("Puan<{0}-{1}> Maç<{2}-{3}> Set<{4}-{5}> Sayı<{6}-{7}> Tarih<{8:dd.MM.yy}> ID<{9}>", Ozet.HomePuan, Ozet.GuestPuan, Ozet.HomeMac, Ozet.GuestMac, Ozet.HomeSet, Ozet.GuestSet, Ozet.HomeSayi, Ozet.GuestSayi, Trh, this.GetObjectNo());
 			}
 		}
 	
@@ -227,72 +226,73 @@ namespace TTDB
 	[Database]
 	public partial class Mac
 	{
-		public TurnuvaMusabaka TurnuvaMusabaka;
+		public Turnuva Turnuva;
+		public Musabaka Musabaka;
+		public Oyuncu HomeOyuncu;
+		public Oyuncu HomeOyuncu2;
+		public Oyuncu GuestOyuncu;
+		public Oyuncu GuestOyuncu2;
+
 		public string Skl;  // Single/Double/MixDouble
 		public Int16 Sira;
-		public TakimOyuncu HomeTakimOyuncu;
-		public TakimOyuncu HomeTakimOyuncu2;
-		public TakimOyuncu GuestTakimOyuncu;
-		public TakimOyuncu GuestTakimOyuncu2;
 		public string HomeOyuncuAd {
 			get {
-				string info = HomeTakimOyuncu.Oyuncu.Ad;
-				if (HomeTakimOyuncu2 != null)
-				    info += " + " + HomeTakimOyuncu2.Oyuncu.Ad;
+				string info = HomeOyuncu.Ad;
+				if (HomeOyuncu2 != null)
+				    info += " + " + HomeOyuncu2.Ad;
 				return info;
 			}
 		}
-		public string HomeTakimAd => TurnuvaMusabaka.HomeTakimAd;
+		public string HomeTakimAd => Musabaka.HomeTakimAd;
 		
 		public string GuestOyuncuAd {
 			get {
-				string info = GuestTakimOyuncu.Oyuncu.Ad;
-				if (GuestTakimOyuncu2 != null)
-					info += " + " + GuestTakimOyuncu2.Oyuncu.Ad;
+				string info = GuestOyuncu.Ad;
+				if (GuestOyuncu2 != null)
+					info += " + " + GuestOyuncu2.Ad;
 				return info;
 			}
 		}
-		public string GuestTakimAd => TurnuvaMusabaka.GuestTakimAd;
-		public string TurnuvaAd => TurnuvaMusabaka.TurnuvaAd;
+		public string GuestTakimAd => Musabaka.GuestTakimAd;
+		public string TurnuvaAd => Musabaka.TurnuvaAd;
 		
 		public Ozet Ozet {
-		    get {
-		        Ozet ozet = new Ozet();
-		        string sayilar = "";
-		        Int16 hSet = 0;
-		        Int16 gSet = 0;
-		
-		        QueryResultRows<MacSonuc> ms = Db.SQL<MacSonuc>("SELECT ms FROM TTDB.MacSonuc ms WHERE ms.Mac = ?", this);
-		        foreach (var m in ms) {
-		            ozet.HomeSayi += m.HomeSayi;
-		            ozet.GuestSayi += m.GuestSayi;
-		
-		            sayilar += string.Format("{0}-{1} ", m.HomeSayi.ToString().PadLeft(2, '0'), m.GuestSayi.ToString().PadLeft(2, '0'));
-		            if (m.HomeSayi > m.GuestSayi)
-		                hSet++;
-		            else
-		                gSet++;
-		        }
-		
-		        if (hSet > gSet) {
-		            ozet.HomeMac = 1;
-		            ozet.HomePuan = 2;
-		        } else if (hSet < gSet) {
-		            ozet.GuestMac = 1;
-		            ozet.GuestPuan = 2;
-		        }
-		        ozet.HomeSet = hSet;
-		        ozet.GuestSet = gSet;
-		
-		        ozet.Puanlar = string.Format("{0}-{1}", ozet.HomePuan, ozet.GuestPuan);
-		        ozet.Setler = string.Format("{0}-{1} ", hSet, gSet);
-		        ozet.Sayilar = sayilar.TrimEnd();
-		
-		        return ozet;
-		    }
+			get {
+				Ozet ozet = new Ozet();
+				string sayilar = "";
+				Int16 hSet = 0;
+				Int16 gSet = 0;
+				
+				QueryResultRows<MacSonuc> ms = Db.SQL<MacSonuc>("SELECT ms FROM TTDB.MacSonuc ms WHERE ms.Mac = ?", this);
+				foreach (var m in ms) {
+					ozet.HomeSayi += m.HomeSayi;
+					ozet.GuestSayi += m.GuestSayi;
+					
+					sayilar += string.Format("{0}-{1} ", m.HomeSayi.ToString().PadLeft(2, '0'), m.GuestSayi.ToString().PadLeft(2, '0'));
+					if (m.HomeSayi > m.GuestSayi)
+					   hSet++;
+					else
+					   gSet++;
+				}
+				
+				if (hSet > gSet) {
+					ozet.HomeMac = 1;
+					ozet.HomePuan = 2;
+				} else if (hSet < gSet) {
+					ozet.GuestMac = 1;
+					ozet.GuestPuan = 2;
+				}
+				ozet.HomeSet = hSet;
+				ozet.GuestSet = gSet;
+				
+				ozet.Puanlar = string.Format("{0}-{1}", ozet.HomePuan, ozet.GuestPuan);
+				ozet.Setler = string.Format("{0}-{1} ", hSet, gSet);
+				ozet.Sayilar = sayilar.TrimEnd();
+				
+				return ozet;
+			}
 		}
 	}
-
 
 	[Database]
 	public class MacSonuc
@@ -452,6 +452,11 @@ namespace TTDB
          }
          Console.WriteLine();
       }
+
+		public static string GetAdN(string ad)
+		{
+			return ad.Substring(0, (ad+" ").IndexOf(' '));
+		}
 
 		public static string GetIdFromText(string txt)
 		{

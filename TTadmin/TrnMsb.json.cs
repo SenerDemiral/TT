@@ -14,8 +14,8 @@ namespace TTadmin
 
 			TrnMsbs.Clear();
 
-			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
-			var TM = Db.SQL<TTDB.TurnuvaMusabaka>("SELECT tt FROM TurnuvaMusabaka tt WHERE tt.Turnuva = ?", trnObj);
+			//var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
+			var TM = Db.SQL<TTDB.Musabaka>("SELECT tt FROM Musabaka tt WHERE tt.Turnuva.ObjectId = ?", TurnuvaID);
 
 			TrnMsbsElementJson te;
 			foreach(var tt in TM) {
@@ -68,7 +68,7 @@ namespace TTadmin
 			foreach(var pet in TrnMsbs) {
 				if(pet.MF) {
 					if(!string.IsNullOrEmpty(pet.ID)) {
-						var trnObj = (TTDB.TurnuvaMusabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(pet.ID));
+						var trnObj = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(pet.ID));
 						if(pet.DF) {
 							trnObj.Delete();
 
@@ -84,7 +84,7 @@ namespace TTadmin
 						}
 					}
 					else {
-						var t = new TTDB.TurnuvaMusabaka();
+						var t = new TTDB.Musabaka();
 						pet.ID = t.GetObjectID();
 						t.Turnuva = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 						var homeTkmID = pet.HomeTakimAd.Substring(pet.HomeTakimAd.IndexOf('·') + 1);
@@ -105,28 +105,30 @@ namespace TTadmin
 			}
 			reading = false;
 		}
-		/*
-		void Handle(Input.GetOyuncular action)
+		
+		void Handle(Input.GetMaclar action)
 		{
-			var oyuncular = new TrnTkmOyn();
-
-			oyuncular.ID = "TrnTkmOyn" + CurRowID;
-			oyuncular.TurnuvaTakimID = CurRowID;
-
-			oyuncular.Data = null;
+			var maclar = new TrnMsbMac();
 
 			int a = 0;
-			for(int i = 0; i < TrnTkms.Count; i++)
-				if(TrnTkms[i].ID == CurRowID) {
+			for(int i = 0; i < TrnMsbs.Count; i++)
+				if(TrnMsbs[i].ID == CurRowID) {
 					a = i;
 					break;
 				}
 
-			oyuncular.Heading = TrnTkms[a].TakimAd + " Oyuncularý " + CurRowID;
-			//Trns[a].RecentTrnTkms = takimlar;
-			RecentOyuncular = oyuncular;
+			maclar.htid = "TrnMsbMac" + CurRowID;
+			maclar.TurnuvaID = TurnuvaID;
+			maclar.MusabakaID = CurRowID;
+
+			var musabaka = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(CurRowID));
+			maclar.HomeTakimAd = TTDB.Hlpr.GetAdN(musabaka.HomeTakimAd);
+			maclar.GuestTakimAd = TTDB.Hlpr.GetAdN(musabaka.GuestTakimAd);
+			maclar.Heading = $"{musabaka.HomeTakimAd} - {musabaka.GuestTakimAd} Maçlarý";
+			maclar.Data = null;
+			RecentMaclar = maclar;
 		}
-		*/
+		
 		[TrnMsb_json.TrnMsbs]
 		partial class TrnMsbsElementJson : Json
 		{

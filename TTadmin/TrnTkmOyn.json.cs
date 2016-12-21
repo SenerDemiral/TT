@@ -16,12 +16,6 @@ namespace TTadmin
 			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 			var tkmObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
 			var ttRows = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Turnuva.ObjectId = ? AND tt.Takim.ObjectId = ?", TurnuvaID, TakimID);
-			//var ttRows = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Turnuva.ObjectId = ?", TurnuvaID); // OK
-			//var ttRows = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Oyuncu.ObjectId = ?", "B0");
-			//var ttRows = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Oyuncu.ObjectId = 'B0'");
-			//var ttRows = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Turnuva = ?", trnObj); // OK
-			//var ttRows = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Takim.ObjectID = ?", TakimID);
-			//var ttRows = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Turnuva = ? AND tt.Takim = ?", trnObj, tkmObj);
 
 			TrnTkmOynsElementJson te;
 			foreach(var row in ttRows) {

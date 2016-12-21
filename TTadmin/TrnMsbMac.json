@@ -1,3 +1,31 @@
 {
-  "Html": "/TTadmin/TrnMsbMacPage.html"
+  "Html": "/TTadmin/TrnMsbMacPage.html",
+	"htid": "",
+	"TurnuvaID": "",
+	"MusabakaID": "",
+	"HomeTakimAd": "",
+	"GuestTakimAd": "",
+	"Heading": "Musabaka Maclari",
+	"TrnMsbMacs": [
+		{
+			"ID": "",
+			"Skl$": "",
+			"Sira$": 0,
+			"HomeOyuncuAd$": "",
+			"HomeOyuncuAd2$": "",
+			"GuestOyuncuAd$": "",
+			"GuestOyuncuAd2$": "",
+			"MF": false, // ModifiedFlag
+			"DF$": false // DeleteFlag
+		}
+	],
+	"LookupHomeOyuncu": [],
+	"LookupGuestOyuncu": [],
+	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
+	"CurRowID$": "",
+	"Insert$": 0,
+	"Refresh$": 0,
+	"Save$": 0,
+	"RecentMacSonuclar": {},
+	"GetMacSonuclar$": 0 
 }
