@@ -1,4 +1,4 @@
-# TT
+# Table Tennis Tournament with Starcounter
 TableTennis with Starcounter https://starcounter.io
 
 TT -> Client ReadOnly
