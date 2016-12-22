@@ -15,7 +15,7 @@ namespace TTadmin
 			TrnMsbs.Clear();
 
 			//var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
-			var TM = Db.SQL<TTDB.Musabaka>("SELECT tt FROM Musabaka tt WHERE tt.Turnuva.ObjectId = ?", TurnuvaID);
+			var TM = Db.SQL<TTDB.Musabaka>("SELECT tt FROM Musabaka tt WHERE tt.Turnuva.ObjectId = ? ORDER BY Trh", TurnuvaID);
 
 			TrnMsbsElementJson te;
 			foreach(var tt in TM) {

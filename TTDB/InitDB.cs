@@ -42,6 +42,7 @@ namespace TTDB
 				Takim gumusluk = new Takim() { Ad = "Gümüşlük" };
 				Takim delfi = new Takim() { Ad = "Delfi" };
 				Takim peksimet = new Takim() { Ad = "Peksimet" };
+				Takim telmisos = new Takim() { Ad = "Telmisos" };
 
 				Turnuva turnuva1 = new Turnuva() { Ad = "2016 Bodrum 1.Lig", Trh = DateTime.Now };
             Turnuva turnuva2 = new Turnuva() { Ad = "2016 Bodrum MT 2.Lig", Trh = DateTime.Now };
@@ -53,6 +54,7 @@ namespace TTDB
 				TurnuvaTakim turnuvaTakim15 = new TurnuvaTakim() { Turnuva = turnuva1, Takim = gumusluk };
 				TurnuvaTakim turnuvaTakim16 = new TurnuvaTakim() { Turnuva = turnuva1, Takim = peksimet };
 				TurnuvaTakim turnuvaTakim17 = new TurnuvaTakim() { Turnuva = turnuva1, Takim = yaliKavak };
+				TurnuvaTakim turnuvaTakim18 = new TurnuvaTakim() { Turnuva = turnuva1, Takim = telmisos };
 
 				TurnuvaTakim turnuvaTakim24 = new TurnuvaTakim() { Turnuva = turnuva2, Takim = meat };
 
@@ -146,14 +148,34 @@ namespace TTDB
 				new TakimOyuncu() { Turnuva = turnuva1, Takim = peksimet, Oyuncu = new Oyuncu() { Ad = "Yaşar" } };
 				new TakimOyuncu() { Turnuva = turnuva1, Takim = peksimet, Oyuncu = new Oyuncu() { Ad = "Hüseyin" } };
 
-				var delfi_promil = new Musabaka() { Turnuva = turnuva1, HomeTakim = delfi, GuestTakim = promil, Trh = DateTime.Today };
-				var promil_gumusluk = new Musabaka() { Turnuva = turnuva1, HomeTakim = promil, GuestTakim = gumusluk, Trh = DateTime.Today.AddDays(5) };
-				var promil_peksimet = new Musabaka() { Turnuva = turnuva1, HomeTakim = promil, GuestTakim = peksimet, Trh = DateTime.Today.AddDays(10) };
-				var promil_dragon = new Musabaka() { Turnuva = turnuva1, HomeTakim = promil, GuestTakim = dragon, Trh = DateTime.Today.AddDays(15) };
-				var promil_yaliKavak = new Musabaka() { Turnuva = turnuva1, HomeTakim = promil, GuestTakim = yaliKavak, Trh = DateTime.Today.AddDays(20) };
-				var dragon_yaliKavak = new Musabaka() { Turnuva = turnuva1, HomeTakim = dragon, GuestTakim = yaliKavak, Trh = DateTime.Today.AddDays(25) };
+				new TakimOyuncu() { Turnuva = turnuva1, Takim = telmisos, Oyuncu = new Oyuncu() { Ad = "Mahmut" } };
+				new TakimOyuncu() { Turnuva = turnuva1, Takim = telmisos, Oyuncu = new Oyuncu() { Ad = "Cem" } };
+				new TakimOyuncu() { Turnuva = turnuva1, Takim = telmisos, Oyuncu = new Oyuncu() { Ad = "Hanifi" } };
+				new TakimOyuncu() { Turnuva = turnuva1, Takim = telmisos, Oyuncu = new Oyuncu() { Ad = "Suavi" } };
+				new TakimOyuncu() { Turnuva = turnuva1, Takim = telmisos, Oyuncu = new Oyuncu() { Ad = "Sabri" } };
+				new TakimOyuncu() { Turnuva = turnuva1, Takim = telmisos, Oyuncu = new Oyuncu() { Ad = "Faruk" } };
+				new TakimOyuncu() { Turnuva = turnuva1, Takim = telmisos, Oyuncu = new Oyuncu() { Ad = "Marina", Sex = "K" } };
+				new TakimOyuncu() { Turnuva = turnuva1, Takim = telmisos, Oyuncu = new Oyuncu() { Ad = "Tarık" } };
+
+				//var delfi_promil = new Musabaka() { Turnuva = turnuva1, HomeTakim = delfi, GuestTakim = promil, Trh = DateTime.Today };
+				//var promil_gumusluk = new Musabaka() { Turnuva = turnuva1, HomeTakim = promil, GuestTakim = gumusluk, Trh = DateTime.Today.AddDays(5) };
+				//var promil_peksimet = new Musabaka() { Turnuva = turnuva1, HomeTakim = promil, GuestTakim = peksimet, Trh = DateTime.Today.AddDays(10) };
+				//var promil_dragon = new Musabaka() { Turnuva = turnuva1, HomeTakim = promil, GuestTakim = dragon, Trh = DateTime.Today.AddDays(15) };
+				//var promil_yaliKavak = new Musabaka() { Turnuva = turnuva1, HomeTakim = promil, GuestTakim = yaliKavak, Trh = DateTime.Today.AddDays(20) };
+				//var dragon_yaliKavak = new Musabaka() { Turnuva = turnuva1, HomeTakim = dragon, GuestTakim = yaliKavak, Trh = DateTime.Today.AddDays(25) };
 
 				//new Mac() { Turnuva = turnuva1, Musabaka = delfi_promil, Skl = "S", Sira = 8, HomeOyuncu = }
+
+				var tt = Db.SQL<TurnuvaTakim>("SELECT tt FROM TurnuvaTakim tt WHERE tt.Turnuva = ?", turnuva1);
+				var d = 0;
+				foreach (var tm in tt) {
+					foreach(var td in tt) {
+						if(tm.Takim.GetObjectID() != td.Takim.GetObjectID()) {
+							new Musabaka() { Turnuva = turnuva1, HomeTakim = tm.Takim, GuestTakim = td.Takim, Trh = DateTime.Today.AddDays(d) };
+							d += 7;
+						}
+					}
+				}
 			});
       }
    }

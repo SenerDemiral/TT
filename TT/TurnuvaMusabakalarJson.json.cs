@@ -2,19 +2,18 @@ using Starcounter;
 
 namespace TT
 {
-    partial class TurnuvaMusabakalarJson : Json, IBound<TTDB.TurnuvaMusabaka>
+    partial class TurnuvaMusabakalarJson : Json, IBound<TTDB.Musabaka>
     {
         public void RefreshData(string turnuvaID)
         {
             var turnuva = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
-            Musabakalar = Db.SQL("SELECT o FROM TurnuvaMusabaka o where o.Turnuva = ?", turnuva);
-        //    Musabakalar = Db.SQL("SELECT o FROM TurnuvaMusabaka o where o.Turnuva = ?", DbHelper.Base64DecodeObjectID(turnuvaID));
+            Musabakalar = Db.SQL("SELECT o FROM Musabaka o where o.Turnuva.ObjectId = ?", turnuvaID);
+        //    Musabakalar = Db.SQL("SELECT o FROM Musabaka o where o.Turnuva = ?", DbHelper.Base64DecodeObjectID(turnuvaID));
         }
 
         [TurnuvaMusabakalarJson_json.Musabakalar]
         partial class TurnuvaMusabakalarItemPage : Json
         {
-
             protected override void OnData()
             {
                 base.OnData();

@@ -28,6 +28,10 @@ namespace TTDB
 	[Database]
 	public class Oyuncu
 	{
+		public Oyuncu() {
+			Ad = "";
+			Sex = "E";
+		}
 		public string Ad;
 		public string Sex;
 		public string Tel;
@@ -107,13 +111,12 @@ namespace TTDB
 		public Turnuva Turnuva;
 		public Takim Takim;
 		public string TakimAd => Takim != null ? Takim.Ad : "[null]"; // Takim.Ad;
-		public string TurnuvaAd => Turnuva.Ad; // Turnuva.Ad;
 		
 		public TurnuvaTakimOzet Ozet {
 			get {
 				TurnuvaTakimOzet ozet = new TurnuvaTakimOzet();
 				// Evinde oynadiklari
-				QueryResultRows<Musabaka> hta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.HomeTakim = ?", this);
+				QueryResultRows<Musabaka> hta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.Turnuva = ? AND ta.HomeTakim = ?", this.Turnuva, this.Takim);
 				foreach (var ta in hta) {
 					ozet.Puan += ta.Ozet.HomePuan;
 					if (ta.Ozet.HomePuan > ta.Ozet.GuestPuan)
@@ -124,7 +127,7 @@ namespace TTDB
 						ozet.MusabakaTie++;
 				}
 				// Misafir oynadiklari
-				QueryResultRows<Musabaka> gta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.GuestTakim = ?", this);
+				QueryResultRows<Musabaka> gta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.Turnuva = ? AND ta.GuestTakim = ?", this.Turnuva, this.Takim);
 				foreach (var ta in gta) {
 					ozet.Puan += ta.Ozet.GuestPuan;
 					if (ta.Ozet.GuestPuan > ta.Ozet.HomePuan)
@@ -248,7 +251,6 @@ namespace TTDB
 				return info;
 			}
 		}
-		//public string HomeTakimAd => Musabaka.HomeTakimAd;
 		
 		public string GuestOyuncuInfo {
 			get {
@@ -262,8 +264,6 @@ namespace TTDB
 				return info;
 			}
 		}
-		//public string GuestTakimAd => Musabaka.GuestTakimAd;
-		//public string TurnuvaAd => Musabaka.TurnuvaAd;
 		
 		public Ozet Ozet {
 			get {
@@ -310,51 +310,7 @@ namespace TTDB
 		public Int16 SetNo;
 		public Int16 HomeSayi;
 		public Int16 GuestSayi;
-		//public string HomeOyuncuInfo => Mac.HomeOyuncuInfo;
-		//public string GuestOyuncuInfo => Mac.GuestOyuncuInfo;
-		//public string TurnuvaAd => Mac.TurnuvaAd;
 	}
-
-    public partial class Mac
-    {/*
-        static public Ozet GetOzet(Mac macObj)
-        {
-            Ozet ozet = new Ozet();
-            string sayilar = "";
-            int hSet = 0;
-            int gSet = 0;
-            int tSet = 0;
-
-            QueryResultRows<MacSonuc> ms = Db.SQL<MacSonuc>("SELECT ms FROM TTDB.MacSonuc ms WHERE ms.Mac = ?", macObj);
-            foreach (var m in ms) {
-                ozet.HomeSayi += m.HomeSayi;
-                ozet.GuestSayi += m.GuestSayi;
-
-                sayilar += string.Format("{0}:{1} ", m.HomeSayi, m.GuestSayi);
-                if (m.HomeSayi > m.GuestSayi)
-                    hSet++;
-                else
-                    gSet++;
-            }
-            tSet = hSet + gSet; // Toplam Set sayisi
-
-            if (hSet > gSet) {
-                ozet.HomePuan = 2;
-                ozet.HomeSetWin = (Int16)hSet;
-                ozet.HomeSetLost = (Int16)(tSet - hSet);
-            } else if (hSet < gSet) {
-                ozet.GuestPuan = 2;
-                ozet.GuestSetWin = (Int16)gSet;
-                ozet.GuestSetLost = (Int16)(tSet - gSet);
-            }
-
-            ozet.Puanlar = string.Format("{0}-{1}", ozet.HomePuan, ozet.GuestPuan);
-            ozet.Setler = string.Format("{0}:{1} ", hSet, gSet);
-            ozet.Sayilar = sayilar;
-
-            return ozet;
-        }*/
-    }
 
 	public class TurnuvaOyuncuOzet
 	{
@@ -383,74 +339,7 @@ namespace TTDB
 			SayiV = 0;
 		}
 	}
-    /*
-    public class TurnuvaOyuncularOzet
-    {
-        IObjectView turnuva;
 
-        public TurnuvaOyuncularOzet(string turnuvaID)
-        {
-            turnuva = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
-        }
-
-        //public IEnumerable<TurnuvaOyuncuOzet> GetEnumerator()
-        public IEnumerator<TurnuvaOyuncuOzet> GetEnumerator()
-        {
-            //List<TurnuvaOyuncuOzet> ltoo = new List<TurnuvaOyuncuOzet>();
-            QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.TurnuvaTakim.Turnuva = ?", turnuva);
-
-            foreach (var t in to) {
-                TurnuvaOyuncuOzet too = new TurnuvaOyuncuOzet();
-
-                int oMac = 0,   // Oynadigi
-                    aMac = 0,   // Aldigi
-                    aSet = 0,   // Aldigi
-                    vSet = 0,   // Verdigi
-                    aSay = 0,
-                    vSay = 0;
-
-                //Console.WriteLine(string.Format("    {0}/{1}", t.OyuncuAd, t.TakimAd));
-                too.OyuncuAd = t.OyuncuAd;
-                too.TakimAd = t.TakimAd;
-
-                // Home olarak oynadiklari
-                QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeTakimOyuncu = ?", t);
-
-                foreach (var m in hMac) {
-                    oMac++;
-                    aMac += m.Ozet.HomeMac;
-                    aSet += m.Ozet.HomeSet;
-                    vSet += m.Ozet.GuestSet;
-                    aSay += m.Ozet.HomeSayi;
-                    vSay += m.Ozet.GuestSayi;
-                }
-                // Guest olarak oynadiklar
-                QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestTakimOyuncu = ?", t);
-
-                foreach (var m in gMac) {
-                    oMac++;
-                    aMac += m.Ozet.GuestMac;
-                    aSet += m.Ozet.GuestSet;
-                    vSet += m.Ozet.HomeSet;
-                    aSay += m.Ozet.GuestSayi;
-                    vSay += m.Ozet.HomeSayi;
-                }
-
-                too.MacO = (Int16)oMac;
-                too.MacG = (Int16)aMac;
-                too.MacM = (Int16)(oMac - aMac);
-                too.SetA = (Int16)aSet;
-                too.SetV = (Int16)vSet;
-                too.SayiA = (Int16)aSay;
-                too.SayiV = (Int16)vSay;
-
-                //ltoo.Add(too);
-                yield return too;
-            }
-            //return ltoo;
-        }
-    }
-    */
 	public static class Hlpr
    {
       public static void sener()
@@ -484,7 +373,7 @@ namespace TTDB
       {
          var turnuva = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
 
-         QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.TurnuvaTakim.Turnuva = ?", turnuva);
+         QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ?", turnuva);
 
          foreach (var t in to) {
             TurnuvaOyuncuOzet too = new TurnuvaOyuncuOzet();
@@ -501,7 +390,7 @@ namespace TTDB
             too.TakimAd = t.Takim.Ad;
 
             // Home olarak oynadiklari
-            QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeTakimOyuncu = ?", t);
+            QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeOyuncu = ?", t.Oyuncu);
 
             foreach (var m in hMac) {
                oMac++;
@@ -512,7 +401,7 @@ namespace TTDB
                vSay += m.Ozet.GuestSayi;
             }
             // Guest olarak oynadiklar
-            QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestTakimOyuncu = ?", t);
+            QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestOyuncu = ?", t.Oyuncu);
 
             foreach (var m in gMac) {
                oMac++;

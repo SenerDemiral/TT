@@ -11,8 +11,8 @@ namespace TTadmin
          Application.Current.Use(new HtmlFromJsonProvider());
          Application.Current.Use(new PartialToStandaloneHtmlProvider());
 
-			//TTDB.InitDB initDB = new TTDB.InitDB();
-			//tinitDB.Init();
+			TTDB.InitDB initDB = new TTDB.InitDB();
+			initDB.Init();
 			
 			Handle.GET("/TTadmin/deneme", () =>	{
             return Db.Scope(() => {

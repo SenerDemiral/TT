@@ -21,7 +21,7 @@ namespace TTadmin
 			TrnTkmsElementJson te;
 			foreach(var tt in TT) {
 				te = this.TrnTkms.Add();
-				te.TakimAd = string.Format("{0} ·{1}", tt.TakimAd, tt.Takim.GetObjectID());
+				te.TakimAd = string.Format("{0} ·{1}", tt.Takim.Ad, tt.Takim.GetObjectID());
 				te.ID = tt.GetObjectID();
 				te.MF = false;
 
