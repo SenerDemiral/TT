@@ -31,6 +31,7 @@ namespace TTDB
 		public string Ad;
 		public string Sex;
 		public string Tel;
+		public string eMail;
 		public Int16 DgmYil;
 		public OyuncuOzet Ozet {
 			get {
@@ -38,7 +39,7 @@ namespace TTDB
 			
 			   QueryResultRows<TakimOyuncu> TO = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Oyuncu = ?", this);
 			   foreach (var to in TO) {
-			      QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeTakimOyuncu = ?", to);
+			      QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeTakim.Oyuncu = ?", to);
 			      foreach (var m in hMac) {
 			         //Console.WriteLine(string.Format("    Mac<{2}-{3}> Set<{4}-{5}> Sayi<{6}-{7}> {0}/{1}", m.GuestOyuncuAd, m.GuestTakimAd, m.Ozet.HomeMac, m.Ozet.GuestMac, m.Ozet.HomeSet, m.Ozet.GuestSet, m.Ozet.HomeSayi, m.Ozet.GuestSayi));
 			         ozet.oMac++;
@@ -48,7 +49,7 @@ namespace TTDB
 			         ozet.aSayi += m.Ozet.HomeSayi;
 			         ozet.vSayi += m.Ozet.GuestSayi;
 			      }
-			      QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestTakimOyuncu = ?", to);
+			      QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestTakim.Oyuncu = ?", to);
 			      foreach (var m in gMac) {
 			         //Console.WriteLine(string.Format("    Mac<{3}-{2}> Set<{5}-{4}> Sayi<{7}-{6}> {0}/{1}", m.HomeOyuncuAd, m.HomeTakimAd, m.Ozet.HomeMac, m.Ozet.GuestMac, m.Ozet.HomeSet, m.Ozet.GuestSet, m.Ozet.HomeSayi, m.Ozet.GuestSayi));
 			         ozet.oMac++;
@@ -144,9 +145,9 @@ namespace TTDB
 		public Turnuva Turnuva;
 		public Takim Takim;
 		public Oyuncu Oyuncu;
-		public string OyuncuAd => Oyuncu.Ad;
- 		public string TakimAd => Takim.Ad;
-		public string TurnuvaAd => Turnuva.Ad;
+		//public string OyuncuAd => Oyuncu.Ad;
+ 		//public string TakimAd => Takim.Ad;
+		//public string TurnuvaAd => Turnuva.Ad;
 	}
 
 	[Database]
@@ -157,26 +158,26 @@ namespace TTDB
 		public Takim GuestTakim;
 		public DateTime Trh;
 		public string Yeri;
-		public string TurnuvaAd => Turnuva.Ad;
-		public string HomeTakimAd => HomeTakim != null ? HomeTakim.Ad : "[null]";
-		public string GuestTakimAd => GuestTakim != null ? GuestTakim.Ad : "[null]";
+		//public string TurnuvaAd => Turnuva.Ad;
+		//public string HomeTakimAd => HomeTakim != null ? HomeTakim.Ad : "[null]";
+		//public string GuestTakimAd => GuestTakim != null ? GuestTakim.Ad : "[null]";
 	
 		public string MusabakaAd {
 			get {
-				return "aaaaa"; //string.Format("{0} <{1}-{2}> {3}", HomeTakimAd, Ozet.HomePuan, Ozet.GuestPuan, GuestTakimAd);
+				return string.Format("{0} <{1}-{2}> {3}", HomeTakim.Ad, Ozet.HomePuan, Ozet.GuestPuan, GuestTakim.Ad);
 			}
 	    }
 	   
 		public string MusabakaInfo {
 			get {
-				return "bbbbbb"; // string.Format("Puan<{0}-{1}> Maç<{2}-{3}> Set<{4}-{5}> Sayı<{6}-{7}> Tarih<{8:dd.MM.yy}> ID<{9}>", Ozet.HomePuan, Ozet.GuestPuan, Ozet.HomeMac, Ozet.GuestMac, Ozet.HomeSet, Ozet.GuestSet, Ozet.HomeSayi, Ozet.GuestSayi, Trh, this.GetObjectNo());
+				return string.Format("Puan<{0}-{1}> Maç<{2}-{3}> Set<{4}-{5}> Sayı<{6}-{7}> Tarih<{8:dd.MM.yy}> ID<{9}>", Ozet.HomePuan, Ozet.GuestPuan, Ozet.HomeMac, Ozet.GuestMac, Ozet.HomeSet, Ozet.GuestSet, Ozet.HomeSayi, Ozet.GuestSayi, Trh, this.GetObjectNo());
 			}
 		}
 	
 		public Ozet Ozet {
 			get {
 				Ozet ozet = new Ozet();
-				QueryResultRows<Mac> ms = Db.SQL<Mac>("SELECT ms FROM TTDB.Mac ms WHERE ms.TurnuvaMusabaka = ?", this);
+				QueryResultRows<Mac> ms = Db.SQL<Mac>("SELECT ms FROM TTDB.Mac ms WHERE ms.Musabaka = ?", this);
 				foreach (var m in ms) {
 					ozet.HomePuan += m.Ozet.HomePuan;
 					ozet.HomeMac += m.Ozet.HomeMac;
@@ -232,29 +233,37 @@ namespace TTDB
 		public Oyuncu HomeOyuncu2;
 		public Oyuncu GuestOyuncu;
 		public Oyuncu GuestOyuncu2;
-
 		public string Skl;  // Single/Double/MixDouble
 		public Int16 Sira;
-		public string HomeOyuncuAd {
-			get {
-				string info = HomeOyuncu.Ad;
-				if (HomeOyuncu2 != null)
-				    info += " + " + HomeOyuncu2.Ad;
-				return info;
-			}
-		}
-		public string HomeTakimAd => Musabaka.HomeTakimAd;
 		
-		public string GuestOyuncuAd {
+		public string HomeOyuncuInfo {
 			get {
-				string info = GuestOyuncu.Ad;
-				if (GuestOyuncu2 != null)
-					info += " + " + GuestOyuncu2.Ad;
+				string info = "";
+				if(HomeOyuncu != null)
+					info = Hlpr.GetAdN(HomeOyuncu.Ad);
+				if (HomeOyuncu2 != null)
+					info += "+" + Hlpr.GetAdN(HomeOyuncu2.Ad);
+				if (Musabaka != null)
+					info += "•" + Musabaka.HomeTakim.Ad;
 				return info;
 			}
 		}
-		public string GuestTakimAd => Musabaka.GuestTakimAd;
-		public string TurnuvaAd => Musabaka.TurnuvaAd;
+		//public string HomeTakimAd => Musabaka.HomeTakimAd;
+		
+		public string GuestOyuncuInfo {
+			get {
+				string info = "";
+				if(GuestOyuncu != null)
+					info = Hlpr.GetAdN(GuestOyuncu.Ad);
+				if(GuestOyuncu2 != null)
+					info += "+" + Hlpr.GetAdN(GuestOyuncu2.Ad);
+				if(Musabaka != null)
+					info += "•" + Musabaka.GuestTakim.Ad;
+				return info;
+			}
+		}
+		//public string GuestTakimAd => Musabaka.GuestTakimAd;
+		//public string TurnuvaAd => Musabaka.TurnuvaAd;
 		
 		public Ozet Ozet {
 			get {
@@ -301,9 +310,9 @@ namespace TTDB
 		public Int16 SetNo;
 		public Int16 HomeSayi;
 		public Int16 GuestSayi;
-		public string HomeOyuncuAd => Mac.HomeOyuncuAd;
-		public string GuestOyuncuAd => Mac.GuestOyuncuAd;
-		public string TurnuvaAd => Mac.TurnuvaAd;
+		//public string HomeOyuncuInfo => Mac.HomeOyuncuInfo;
+		//public string GuestOyuncuInfo => Mac.GuestOyuncuInfo;
+		//public string TurnuvaAd => Mac.TurnuvaAd;
 	}
 
     public partial class Mac
@@ -488,8 +497,8 @@ namespace TTDB
                vSay = 0;
 
             //Console.WriteLine(string.Format("    {0}/{1}", t.OyuncuAd, t.TakimAd));
-            too.OyuncuAd = t.OyuncuAd;
-            too.TakimAd = t.TakimAd;
+            too.OyuncuAd = t.Oyuncu.Ad;
+            too.TakimAd = t.Takim.Ad;
 
             // Home olarak oynadiklari
             QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeTakimOyuncu = ?", t);

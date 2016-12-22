@@ -21,8 +21,8 @@ namespace TTadmin
 			foreach(var tt in TM) {
 				te = this.TrnMsbs.Add();
 				te.ID = tt.GetObjectID();
-				te.HomeTakimAd = string.Format("{0} ·{1}", tt.HomeTakimAd, tt.HomeTakim.GetObjectID());
-				te.GuestTakimAd = string.Format("{0} ·{1}", tt.GuestTakimAd, tt.GuestTakim.GetObjectID());
+				te.HomeTakimAd = string.Format("{0} ·{1}", tt.HomeTakim.Ad, tt.HomeTakim.GetObjectID());
+				te.GuestTakimAd = string.Format("{0} ·{1}", tt.GuestTakim.Ad, tt.GuestTakim.GetObjectID());
 				te.Tarih = string.Format("{0:dd.MM.yy}", tt.Trh);
 
 				te.MF = false;
@@ -122,9 +122,11 @@ namespace TTadmin
 			maclar.MusabakaID = CurRowID;
 
 			var musabaka = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(CurRowID));
-			maclar.HomeTakimAd = TTDB.Hlpr.GetAdN(musabaka.HomeTakimAd);
-			maclar.GuestTakimAd = TTDB.Hlpr.GetAdN(musabaka.GuestTakimAd);
-			maclar.Heading = $"{musabaka.HomeTakimAd} - {musabaka.GuestTakimAd} Maçlarý";
+			var aaa = musabaka.MusabakaAd;
+			var bbb = musabaka.MusabakaInfo;
+			maclar.HomeTakimAd = TTDB.Hlpr.GetAdN(musabaka.HomeTakim.Ad);
+			maclar.GuestTakimAd = TTDB.Hlpr.GetAdN(musabaka.GuestTakim.Ad);
+			maclar.Heading = $"{musabaka.HomeTakim.Ad} - {musabaka.GuestTakim.Ad} Maçlarý";
 			maclar.Data = null;
 			RecentMaclar = maclar;
 		}

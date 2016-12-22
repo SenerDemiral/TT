@@ -14,7 +14,7 @@ namespace TTadmin
 			TrnMsbMacs.Clear();
 
 			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
-			var msbObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
+			var msbObj = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
 			var ttRows = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Turnuva.ObjectId = ? AND tt.Musabaka.ObjectId = ? ORDER BY tt.Skl DESC, tt.Sira DESC", TurnuvaID, MusabakaID);
 
 			TrnMsbMacsElementJson te;
@@ -36,15 +36,16 @@ namespace TTadmin
 
 			var musabaka = Db.SQL<TTDB.Musabaka>("SELECT m FROM Musabaka m where m.ObjectId = ?", MusabakaID).First;
 			LookupHomeOyuncu.Clear();
-			var hRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva.ObjectId = ? AND t.Takim.ObjectId = ?", TurnuvaID, musabaka.HomeTakim.GetObjectID());
+			//var hRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva.ObjectId = ? AND t.Takim.ObjectId = ?", TurnuvaID, musabaka.HomeTakim.GetObjectID());
+			var hRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva.ObjectId = ? AND t.Takim = ?", TurnuvaID, msbObj.HomeTakim);
 			foreach(var r in hRows) {
-				string s = "'" + r.OyuncuAd + " ·" + r.Oyuncu.GetObjectID() + "'";
+				string s = "'" + r.Oyuncu.Ad + " ·" + r.Oyuncu.GetObjectID() + "'";
 				LookupHomeOyuncu.Add(new Json(s));
 			}
 			LookupGuestOyuncu.Clear();
 			var gRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva.ObjectId = ? AND t.Takim.ObjectId = ?", TurnuvaID, musabaka.GuestTakim.GetObjectID());
 			foreach(var r in gRows) {
-				string s = "'" + r.OyuncuAd + " ·" + r.Oyuncu.GetObjectID() + "'";
+				string s = "'" + r.Oyuncu.Ad + " ·" + r.Oyuncu.GetObjectID() + "'";
 				LookupGuestOyuncu.Add(new Json(s));
 			}
 
@@ -161,9 +162,10 @@ namespace TTadmin
 			macSonuclar.MacID = CurRowID;
 
 			var mac = (TTDB.Mac)DbHelper.FromID(DbHelper.Base64DecodeObjectID(CurRowID));
-			macSonuclar.HomeOyuncuAd = TTDB.Hlpr.GetAdN(mac.HomeOyuncuAd);
-			macSonuclar.GuestOyuncuAd = TTDB.Hlpr.GetAdN(mac.GuestOyuncuAd);
-			macSonuclar.Heading = $"{TTDB.Hlpr.GetAdN(mac.HomeOyuncuAd)}·{mac.HomeTakimAd} - {TTDB.Hlpr.GetAdN(mac.GuestOyuncuAd)}·{mac.GuestTakimAd} Sonuçlarý";
+			macSonuclar.HomeOyuncuAd = mac.HomeOyuncuInfo; // TTDB.Hlpr.GetAdN(mac.HomeOyuncuAd);
+			macSonuclar.GuestOyuncuAd = mac.GuestOyuncuInfo; // TTDB.Hlpr.GetAdN(mac.GuestOyuncuAd);
+			//macSonuclar.Heading = $"{TTDB.Hlpr.GetAdN(mac.HomeOyuncuAd)}·{mac.HomeTakimAd} - {TTDB.Hlpr.GetAdN(mac.GuestOyuncuAd)}·{mac.GuestTakimAd} Sonuçlarý";
+			macSonuclar.Heading = $"{mac.HomeOyuncuInfo} - {mac.GuestOyuncuInfo} Sonuçlarý";
 			macSonuclar.Data = null;
 			RecentMacSonuclar = macSonuclar;
 		}

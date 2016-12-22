@@ -20,7 +20,7 @@ namespace TTadmin
 			TrnTkmOynsElementJson te;
 			foreach(var row in ttRows) {
 				te = this.TrnTkmOyns.Add();
-				te.OyuncuAd = string.Format("{0} ·{1}", row.OyuncuAd, row.Oyuncu.GetObjectID());
+				te.OyuncuAd = string.Format("{0} ·{1}", row.Oyuncu.Ad, row.Oyuncu.GetObjectID());
 				te.ID = row.GetObjectID();
 				te.MF = false;
 
