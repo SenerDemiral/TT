@@ -35,6 +35,13 @@ namespace TTadmin
 		{
 			base.OnData();
 
+			var mac = (TTDB.Mac)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MacID));
+			htid = "TrnMsbMacSnc" + CurRowID;
+			Heading = $"{mac.HomeOyuncuInfo} - {mac.GuestOyuncuInfo} Sonuçlarý";
+
+			HomeOyuncuAd = mac.HomeOyuncuInfo; // TTDB.Hlpr.GetAdN(mac.HomeOyuncuAd);
+			GuestOyuncuAd = mac.GuestOyuncuInfo; // TTDB.Hlpr.GetAdN(mac.GuestOyuncuAd);
+			
 			RefreshMacSonuc();
 		}
 

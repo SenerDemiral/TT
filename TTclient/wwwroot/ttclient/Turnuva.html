@@ -1,0 +1,43 @@
+﻿<link rel="import" href="/sys/iron-collapse/iron-collapse.html" />
+
+<template>
+    <template is="dom-bind">
+        <template is="dom-repeat" items="[[model.Turnuvalar]]">
+            <button class="heading" value="{{item.Toggle$::click}}" onclick="++this.value">
+                [[item.Ad]]
+                <i style="font-size: 12px; float:right">[[item.TurnuvaInfo]]</i>
+            </button>
+            <iron-collapse id="collapse[[item.ID]]" tabindex="0" opened="[[item.Opened]]" no-animation>
+                <div class="content">
+                    <button class="heading" value="{{item.MusabakaPageToggle$::click}}" onmousedown="++this.value">Musabakalar</button>
+                    <template is="dom-if" if="[[item.MusabakaPageOpened]]">
+                        <iron-collapse id="collapseTurnuvaMusabakalar" tabindex="0" opened="[[item.MusabakaPageOpened]]" no-animation>
+                            <div class="content">
+                                <!--<div style="text-align: center;">[[item.Ad]]</div>-->
+                                <starcounter-include partial="[[item.Musabakalar]]"></starcounter-include>
+                            </div>
+                        </iron-collapse>
+                    </template>
+
+                    <button class="heading" value="{{item.TakimPageToggle$::click}}" onmousedown="++this.value">Takımlar</button>
+                    <template is="dom-if" if="[[item.TakimPageOpened]]">
+                        <iron-collapse id="collapseTurnuvaTakimlar" tabindex="0" opened="[[item.TakimPageOpened]]" no-animation>
+                            <div class="content">
+                                <starcounter-include partial="[[item.Takimlar]]"></starcounter-include>
+                            </div>
+                        </iron-collapse>
+                    </template>
+
+                    <button class="heading" value="{{item.OyuncuPageToggle$::click}}" onmousedown="++this.value">Oyuncular</button>
+                    <template is="dom-if" if="[[item.OyuncuuPageOpened]]">
+                        <iron-collapse id="collapseTurnuvaTakimlar" tabindex="0" opened="[[item.OyuncuPageOpened]]" no-animation>
+                            <div class="content">
+                                <starcounter-include partial="[[item.Oyuncular]]"></starcounter-include>
+                            </div>
+                        </iron-collapse>
+                    </template>
+                </div>
+            </iron-collapse>
+        </template>
+    </template>
+</template>

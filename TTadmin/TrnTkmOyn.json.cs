@@ -41,6 +41,11 @@ namespace TTadmin
 		{
 			base.OnData();
 
+			var tkm = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
+
+			htid = "TrnTkmOyn" + TakimID;
+			Heading = tkm.Ad + " Oyuncularý";
+
 			RefreshTurnuvaTakimOyuncu();
 		}
 
@@ -62,28 +67,23 @@ namespace TTadmin
 			reading = true;
 			bool deleteVar = false;
 			foreach(var pet in TrnTkmOyns) {
-				var aaa = pet.ChangeLog;
 				if(pet.MF) {
 					if(!string.IsNullOrEmpty(pet.ID)) {
-						var trnObj = (TTDB.TurnuvaTakim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(pet.ID));
+						var curTO = (TTDB.TakimOyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(pet.ID));
 						if(pet.DF) {
-							trnObj.Delete();
-
+							curTO.Delete();
 							deleteVar = true;
 						}
 						else {
-							var tkmID = pet.OyuncuAd.Substring(pet.OyuncuAd.IndexOf('·') + 1);
-							trnObj.Takim = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(tkmID));
-							//trnObj.Ad = pet.TakimAd;
+							curTO.Oyuncu = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TTDB.Hlpr.GetIdFromText(pet.OyuncuAd)));
 						}
 					}
 					else {
-						var t = new TTDB.TakimOyuncu();
-						pet.ID = t.GetObjectID();
-						t.Turnuva = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
-						t.Takim = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
-						var oynID = pet.OyuncuAd.Substring(pet.OyuncuAd.IndexOf('·') + 1);
-						t.Oyuncu = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(oynID));
+						var newTO = new TTDB.TakimOyuncu();
+						pet.ID = newTO.GetObjectID();
+						newTO.Turnuva = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
+						newTO.Takim = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
+						newTO.Oyuncu = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TTDB.Hlpr.GetIdFromText(pet.OyuncuAd)));
 					}
 				}
 			}

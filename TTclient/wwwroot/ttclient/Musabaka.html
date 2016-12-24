@@ -1,0 +1,20 @@
+﻿<link rel="import" href="/sys/iron-collapse/iron-collapse.html" />
+
+<template>
+    <template is="dom-bind">
+        <template is="dom-repeat" items="[[model.Musabakalar]]">
+            <button class="heading" value="{{item.Toggle$::click}}" onclick="++this.value">
+                [[item.MusabakaAd]]
+                <!--<i style="font-size: 12px; float:right">[[item.MusabakaInfo]]</i>-->
+            </button>
+            
+            <iron-collapse id="collapse[[item.ID]]" tabindex="0" opened="[[item.Opened]]" no-animation>
+                <div class="content">
+                    <div style="font-size: 12px; text-align: center">[[item.MusabakaInfo]]</div>
+                    <starcounter-include partial="[[item.Maclar]]"></starcounter-include>
+                </div>
+            </iron-collapse>
+        </template>
+        
+    </template>
+</template>

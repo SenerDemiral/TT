@@ -1,0 +1,31 @@
+{
+	"Html": "/ttclient/Musabaka.html",
+	"TurnuvaInfo": "",
+	"Musabakalar": [
+		{
+			"ID": "",
+			"TurnuvaAd": "",
+			"HomeTakimAd": "",
+			"GuestTakimAd": "",
+			"Tarih": "",
+			"Ozet": {
+				"HomePuan": 0,
+				"HomeMac": 0,
+				"HomeSet": 0,
+				"HomeSayi": 0,
+				"GuestPuan": 0,
+				"GuestMac": 0,
+				"GuestSet": 0,
+				"GuestSayi": 0
+			},
+			"MusabakaAd": "",
+			"MusabakaInfo": "",
+			"Toggle$": 0,
+			"Opened": false,
+			
+			"MacPage": { },
+			"MacPageToggle$": 0,
+			"MacPageOpened": false
+		}
+	]
+}

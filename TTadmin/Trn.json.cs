@@ -107,18 +107,8 @@ namespace TTadmin
 				return;
 
 			var takimlar = new TrnTkm();
-
-			string turnuvaAd = "";
-			for(int i = 0; i < Trns.Count; i++)
-				if(Trns[i].ID == CurRowID) {
-					turnuvaAd = Trns[i].Ad;
-					break;
-				}
-
-			takimlar.htid = "TrnTkm" + CurRowID;
-			takimlar.Heading = turnuvaAd + " Takımları";
 			takimlar.TurnuvaID = CurRowID;
-			takimlar.Data = null;
+			takimlar.Data = null;	// Trigger to call TrnTkm.OnData
 			RecentTakimlar = takimlar;
 		}
 
@@ -128,17 +118,7 @@ namespace TTadmin
 				return;
 
 			var musabakalar = new TrnMsb();
-
-			string turnuvaAd = "";
-			for(int i = 0; i < Trns.Count; i++)
-				if(Trns[i].ID == CurRowID) {
-					turnuvaAd = Trns[i].Ad;
-					break;
-				}
-
-			musabakalar.htid = "TrnMsb" + CurRowID;
 			musabakalar.TurnuvaID = CurRowID;
-			musabakalar.Heading = turnuvaAd + " Müsabakaları";
 			musabakalar.Data = null;
 			RecentMusabakalar = musabakalar;
 		}

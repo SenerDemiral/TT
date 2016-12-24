@@ -56,6 +56,14 @@ namespace TTadmin
 		{
 			base.OnData();
 
+			var musabaka = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
+			var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
+
+			htid = "TrnMsbMac" + MusabakaID;
+			Heading = $"{musabaka.HomeTakim.Ad} - {musabaka.GuestTakim.Ad} Maçlarý";
+			HomeTakimAd = TTDB.Hlpr.GetAdN(musabaka.HomeTakim.Ad);
+			GuestTakimAd = TTDB.Hlpr.GetAdN(musabaka.GuestTakim.Ad);
+
 			RefreshTurnuvaMusabakaMac();
 		}
 
@@ -150,22 +158,8 @@ namespace TTadmin
 				return;
 
 			var macSonuclar = new TrnMsbMacSnc();
-
-			string macAd = "";
-			for(int i = 0; i < TrnMsbMacs.Count; i++)
-				if(TrnMsbMacs[i].ID == CurRowID) {
-					macAd = TrnMsbMacs[i].ID;
-					break;
-				}
-
-			macSonuclar.htid = "TrnMsbMacSnc" + CurRowID;
 			macSonuclar.MacID = CurRowID;
 
-			var mac = (TTDB.Mac)DbHelper.FromID(DbHelper.Base64DecodeObjectID(CurRowID));
-			macSonuclar.HomeOyuncuAd = mac.HomeOyuncuInfo; // TTDB.Hlpr.GetAdN(mac.HomeOyuncuAd);
-			macSonuclar.GuestOyuncuAd = mac.GuestOyuncuInfo; // TTDB.Hlpr.GetAdN(mac.GuestOyuncuAd);
-			//macSonuclar.Heading = $"{TTDB.Hlpr.GetAdN(mac.HomeOyuncuAd)}·{mac.HomeTakimAd} - {TTDB.Hlpr.GetAdN(mac.GuestOyuncuAd)}·{mac.GuestTakimAd} Sonuçlarý";
-			macSonuclar.Heading = $"{mac.HomeOyuncuInfo} - {mac.GuestOyuncuInfo} Sonuçlarý";
 			macSonuclar.Data = null;
 			RecentMacSonuclar = macSonuclar;
 		}

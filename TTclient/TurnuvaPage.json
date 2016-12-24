@@ -1,0 +1,27 @@
+{
+	"Html": "/TTclient/Turnuva.html",
+	"Turnuvalar": [
+		{
+			"ID": "",
+			"Ad": "",
+			"Trh": "",
+			"Tarih": "",
+			"Url": "",
+			"TurnuvaInfo": "",
+			"Toggle$": 0,
+			"Opened": false,
+
+			"MusabakaPage": { },
+			"MusabakaPageToggle$": 0,
+			"MusabakaPageOpened": false,
+
+			"TakimPage": { },
+			"TakimPageToggle$": 0,
+			"TakimPageOpened": false,
+
+			"OyuncuPage": { },
+			"OyuncuPageToggle$": 0,
+			"OyuncuPageOpened": false
+		}
+	]
+}

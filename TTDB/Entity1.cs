@@ -41,29 +41,29 @@ namespace TTDB
 			get {
 			   OyuncuOzet ozet = new OyuncuOzet();
 			
-			   QueryResultRows<TakimOyuncu> TO = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Oyuncu = ?", this);
-			   foreach (var to in TO) {
-			      QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeTakim.Oyuncu = ?", to);
-			      foreach (var m in hMac) {
-			         //Console.WriteLine(string.Format("    Mac<{2}-{3}> Set<{4}-{5}> Sayi<{6}-{7}> {0}/{1}", m.GuestOyuncuAd, m.GuestTakimAd, m.Ozet.HomeMac, m.Ozet.GuestMac, m.Ozet.HomeSet, m.Ozet.GuestSet, m.Ozet.HomeSayi, m.Ozet.GuestSayi));
-			         ozet.oMac++;
-			         ozet.aMac += m.Ozet.HomeMac;
-			         ozet.aSet += m.Ozet.HomeSet;
-			         ozet.vSet += m.Ozet.GuestSet;
-			         ozet.aSayi += m.Ozet.HomeSayi;
-			         ozet.vSayi += m.Ozet.GuestSayi;
-			      }
-			      QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestTakim.Oyuncu = ?", to);
-			      foreach (var m in gMac) {
-			         //Console.WriteLine(string.Format("    Mac<{3}-{2}> Set<{5}-{4}> Sayi<{7}-{6}> {0}/{1}", m.HomeOyuncuAd, m.HomeTakimAd, m.Ozet.HomeMac, m.Ozet.GuestMac, m.Ozet.HomeSet, m.Ozet.GuestSet, m.Ozet.HomeSayi, m.Ozet.GuestSayi));
-			         ozet.oMac++;
-			         ozet.aMac += m.Ozet.GuestMac;
-			         ozet.aSet += m.Ozet.GuestSet;
-			         ozet.vSet += m.Ozet.HomeSet;
-			         ozet.aSayi += m.Ozet.GuestSayi;
-			         ozet.vSayi += m.Ozet.HomeSayi;
-			      }
-			   }
+				QueryResultRows<TakimOyuncu> TO = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Oyuncu = ?", this);
+				foreach (var to in TO) {
+					QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeTakim.Oyuncu = ?", to);
+					foreach (var m in hMac) {
+						//Console.WriteLine(string.Format("    Mac<{2}-{3}> Set<{4}-{5}> Sayi<{6}-{7}> {0}/{1}", m.GuestOyuncuAd, m.GuestTakimAd, m.Ozet.HomeMac, m.Ozet.GuestMac, m.Ozet.HomeSet, m.Ozet.GuestSet, m.Ozet.HomeSayi, m.Ozet.GuestSayi));
+						ozet.oMac++;
+						ozet.aMac += m.Ozet.HomeMac;
+						ozet.aSet += m.Ozet.HomeSet;
+						ozet.vSet += m.Ozet.GuestSet;
+						ozet.aSayi += m.Ozet.HomeSayi;
+						ozet.vSayi += m.Ozet.GuestSayi;
+					}
+					QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestTakim.Oyuncu = ?", to);
+					foreach (var m in gMac) {
+						//Console.WriteLine(string.Format("    Mac<{3}-{2}> Set<{5}-{4}> Sayi<{7}-{6}> {0}/{1}", m.HomeOyuncuAd, m.HomeTakimAd, m.Ozet.HomeMac, m.Ozet.GuestMac, m.Ozet.HomeSet, m.Ozet.GuestSet, m.Ozet.HomeSayi, m.Ozet.GuestSayi));
+						ozet.oMac++;
+						ozet.aMac += m.Ozet.GuestMac;
+						ozet.aSet += m.Ozet.GuestSet;
+						ozet.vSet += m.Ozet.HomeSet;
+						ozet.aSayi += m.Ozet.GuestSayi;
+						ozet.vSayi += m.Ozet.HomeSayi;
+					}
+				}
 				return ozet;
 			}
       }
@@ -148,7 +148,7 @@ namespace TTDB
 		public Turnuva Turnuva;
 		public Takim Takim;
 		public Oyuncu Oyuncu;
-		//public string OyuncuAd => Oyuncu.Ad;
+		public string OyuncuAd => Oyuncu.Ad;
  		//public string TakimAd => Takim.Ad;
 		//public string TurnuvaAd => Turnuva.Ad;
 	}
@@ -239,7 +239,7 @@ namespace TTDB
 		public string Skl;  // Single/Double/MixDouble
 		public Int16 Sira;
 		
-		public string HomeOyuncuInfo {
+		public string HomeOyuncuAd {
 			get {
 				string info = "";
 				if(HomeOyuncu != null)
@@ -252,7 +252,7 @@ namespace TTDB
 			}
 		}
 		
-		public string GuestOyuncuInfo {
+		public string GuestOyuncuAd {
 			get {
 				string info = "";
 				if(GuestOyuncu != null)
@@ -277,7 +277,7 @@ namespace TTDB
 					ozet.HomeSayi += m.HomeSayi;
 					ozet.GuestSayi += m.GuestSayi;
 					
-					sayilar += string.Format("{0}-{1} ", m.HomeSayi.ToString().PadLeft(2, '0'), m.GuestSayi.ToString().PadLeft(2, '0'));
+					sayilar += string.Format("{0}-{1} ▪ ", m.HomeSayi.ToString().PadLeft(2, '0'), m.GuestSayi.ToString().PadLeft(2, '0'));
 					if (m.HomeSayi > m.GuestSayi)
 					   hSet++;
 					else
@@ -296,6 +296,7 @@ namespace TTDB
 				
 				ozet.Puanlar = string.Format("{0}-{1}", ozet.HomePuan, ozet.GuestPuan);
 				ozet.Setler = string.Format("{0}-{1} ", hSet, gSet);
+				char[] charsToTrim = { ',', '.', '•', '▪', ' ' };
 				ozet.Sayilar = sayilar.TrimEnd();
 				
 				return ozet;

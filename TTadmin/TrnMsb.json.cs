@@ -44,6 +44,10 @@ namespace TTadmin
 		{
 			base.OnData();
 
+			var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
+			htid = "TrnMsb" + TurnuvaID;
+			Heading = trn.Ad + " Müsabakalarý";
+
 			RefreshTurnuvaMusabaka();
 		}
 
@@ -117,13 +121,10 @@ namespace TTadmin
 					break;
 				}
 
-			maclar.htid = "TrnMsbMac" + CurRowID;
 			maclar.TurnuvaID = TurnuvaID;
 			maclar.MusabakaID = CurRowID;
 
 			var musabaka = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(CurRowID));
-			var aaa = musabaka.MusabakaAd;
-			var bbb = musabaka.MusabakaInfo;
 			maclar.HomeTakimAd = TTDB.Hlpr.GetAdN(musabaka.HomeTakim.Ad);
 			maclar.GuestTakimAd = TTDB.Hlpr.GetAdN(musabaka.GuestTakim.Ad);
 			maclar.Heading = $"{musabaka.HomeTakim.Ad} - {musabaka.GuestTakim.Ad} Maçlarý";
