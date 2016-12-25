@@ -24,9 +24,16 @@ namespace TTadmin
 				te.ID = tt.GetObjectID();
 				te.MF = false;
 
+				var ozet = tt.Ozet;
+				te.MusabakaWin = ozet.MusabakaWin;
+				te.MusabakaLost = ozet.MusabakaLost;
+				te.MusabakaTie = ozet.MusabakaTie;
+				te.MusabakaOynadigi = ozet.MusabakaOynadigi;
+				te.Puan = ozet.Puan;
+
 				//var tID = te.TakimAd.Substring(te.TakimAd.IndexOf('·')+1);
 			}
-			
+
 			LookupTakim.Clear();
 			var takimlar = Db.SQL<TTDB.Takim>("SELECT t FROM Takim t");
 			foreach(var takim in takimlar) {

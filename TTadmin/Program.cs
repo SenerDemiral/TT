@@ -11,8 +11,8 @@ namespace TTadmin
          Application.Current.Use(new HtmlFromJsonProvider());
          Application.Current.Use(new PartialToStandaloneHtmlProvider());
 
-			TTDB.InitDB initDB = new TTDB.InitDB();
-			initDB.Init();
+			//TTDB.InitDB initDB = new TTDB.InitDB();
+			//initDB.Init();
 			
 			Handle.GET("/TTadmin/deneme", () =>	{
             return Db.Scope(() => {
@@ -49,17 +49,18 @@ namespace TTadmin
 
          Handle.GET("/TTadmin", () => {
             return Db.Scope(() => {
-					Trn master;
+				Trn master;
 
-					if (Session.Current != null) {
-						master = (Trn)Session.Current.Data;
-					} else {
-						master = new Trn();
-						master.Data = null;	// Trn.OnData yi tetiklemek icin
-						master.Session = new Session(SessionOptions.PatchVersioning);
-               }
-
-					return master;
+				if(Session.Current != null) {
+					master = (Trn)Session.Current.Data;
+				}
+				else {
+					master = new Trn();
+					master.Data = null; // Trn.OnData yi tetiklemek icin
+					master.Session = new Session(SessionOptions.PatchVersioning);
+				}
+				//TTDB.Mac.deneme("dilara");
+				return master;
             });
          });
 

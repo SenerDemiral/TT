@@ -1,5 +1,8 @@
 {
-  "Html": "/ttclient/Mac.html",
+	"Html": "/ttclient/Mac.html",
+	"MusabakaID": "",
+	"HomeTakimAd": "",
+	"GuestTakimAd": "",
 	"Maclar": [
 		{
 			"ID": "",

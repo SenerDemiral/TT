@@ -16,7 +16,12 @@
 			"GuestOyuncuAd$": "",
 			"GuestOyuncuAd2$": "",
 			"MF": false, // ModifiedFlag
-			"DF$": false // DeleteFlag
+			"DF$": false, // DeleteFlag
+			"Ozet": {
+				"Puanlar": "",
+				"Setler": "",
+				"Sayilar": ""
+			}
 		}
 	],
 	"LookupHomeOyuncu": [],

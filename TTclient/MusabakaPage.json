@@ -1,5 +1,6 @@
 {
-	"Html": "/ttclient/Musabaka.html",
+	"Html": "/TTclient/Musabaka.html",
+	"TurnuvaID": "",
 	"TurnuvaInfo": "",
 	"Musabakalar": [
 		{
@@ -23,9 +24,9 @@
 			"Toggle$": 0,
 			"Opened": false,
 			
-			"MacPage": { },
-			"MacPageToggle$": 0,
-			"MacPageOpened": false
+			"RecentMac": { },
+			"MacToggle$": 0,
+			"MacOpened": false
 		}
 	]
 }

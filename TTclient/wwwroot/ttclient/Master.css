@@ -1,0 +1,65 @@
+﻿html {
+	background: azure;
+}
+body {
+    font-family: Roboto, sans-serif;
+    font-weight: normal;
+	min-height: 100vh;
+	position: relative;
+	margin: 0;
+    font-size: 14px;
+
+}
+button {
+    font-family: Roboto, sans-serif;
+}
+
+.heading {
+    /*padding: 5px;*/
+    margin-top: 10px;
+    background-color: #f3f3f3;
+    border: 1px solid #dedede;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 14px;
+	
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    width: 100%;
+    text-align: left;
+}
+
+.content {
+    background-color: beige;
+    padding: 5px;
+    border: 1px solid #dedede;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    @apply(--shadow-elevation-2dp);
+}
+
+#denemecollapseTurnuvaMusabakalar  {
+    max-height: 300px;
+}
+
+.denememusabaka {
+    max-height: 300px;
+}
+    
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 9px;
+}
+th, td {
+    padding: 5px 5px;
+}
+
+.xbutton {
+    display:table-cell;
+}

@@ -1,0 +1,71 @@
+﻿﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bodrum Masa Tenisi</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/sys/webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="/sys/starcounter.html">
+    <link rel="import" src="/sys/polymer/polymer.html">
+    <link rel="import" href="/sys/starcounter-include/starcounter-include.html">
+
+    <link rel="import" href="/sys/puppet-redirect/puppet-redirect.html">
+    <link rel="import" href="/sys/starcounter-debug-aid/src/starcounter-debug-aid.html">
+	
+
+    <!--
+    <link rel="import" href="https://cdn.vaadin.com/vaadin-core-elements/latest/vaadin-grid/vaadin-grid.html">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700">
+    <link rel="stylesheet" href="/TT/style.css">
+    -->
+    <link rel="import" href="/sys/iron-collapse/iron-collapse.html">
+    <link rel="stylesheet" href="/TTclient/Master.css">
+
+    <link rel="import" href="/sys/puppet-redirect/puppet-redirect.html">
+    <!-- starcounter-debug-aid gives you a debug window when pressed Ctrl+` 
+    <link rel="import" href="/sys/starcounter-debug-aid/src/starcounter-debug-aid.html">
+	-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+
+<body>
+
+<!--<template>-->
+    <template is="dom-bind" id="root">
+        <button class="heading" value="{{model.TurnuvalarToggle$::click}}" onmousedown="++this.value;">Turnuvalar/Tournaments</button>
+        <template is="dom-if" if="{{model.TurnuvalarOpened}}">
+            <iron-collapse id="collapseTurnuvalar" tabindex="0" opened="[[model.TurnuvalarOpened]]" no-animation>
+                <div class="content">
+                    <starcounter-include partial="{{model.Turnuvalar}}"></starcounter-include>
+                </div>
+            </iron-collapse>
+        </template>
+
+        <button class="heading" value="{{model.OyuncularToggle$::click}}" onmousedown="++this.value">Oyuncular/Players</button>
+        <template is="dom-if" if="{{model.OyuncularOpened}}">
+            <iron-collapse id="collapseOyuncular" tabindex="0" opened="{{model.OyuncularOpened}}" no-animation>
+                <div class="content">
+                    <starcounter-include partial="{{model.Oyuncular}}"></starcounter-include>
+                </div>
+            </iron-collapse>
+        </template>
+
+        <button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">Takımlar/Teams</button>
+        <template is="dom-if" if="{{model.TakimlarOpened}}">
+            <iron-collapse id="collapseTakimlar" tabindex="0" opened="[[model.TakimlarOpened]]" no-animation>
+                <div class="content">
+                    <starcounter-include partial="{{model.Takimlar}}"></starcounter-include>
+                </div>
+            </iron-collapse>
+        </template>
+    </template>
+<!--</template>-->
+
+    <!-- Plug in client-server sync -->
+    <puppet-client ref="root" useWebSocket="true"></puppet-client>
+    <starcounter-debug-aid></starcounter-debug-aid>
+
+</body>
+</html>

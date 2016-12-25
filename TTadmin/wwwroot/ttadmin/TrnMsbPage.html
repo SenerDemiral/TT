@@ -16,7 +16,6 @@
 						outside-click-deselects="false"
 						manual-column-resize="true"
 						sort-indicator="true"
-						prevent-overflow="horizontal"
 						highlighted-row="{{ model.hRow$ }}">
 
 						<hot-column value="DF$" header="Sil" type="checkbox" class="htCenter" width="30"></hot-column>
@@ -24,6 +23,7 @@
 						<hot-column value="HomeTakimAd$" header="Home" type="dropdown" source="[[model.LookupTakim]]" width="200"></hot-column>
 						<hot-column value="GuestTakimAd$" header="Guest" type="dropdown" source="[[model.LookupTakim]]" width="200"></hot-column>
 						<hot-column value="Tarih$" header="Tarih" type="date" date-format="DD.MM.YY"></hot-column>
+						<hot-column value="MusabakaInfo" header="ID" read-only></hot-column>
 					</hot-table>
 				</div>
 				<div class="card-actions">

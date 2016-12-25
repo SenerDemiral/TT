@@ -1,0 +1,14 @@
+{
+	"Html": "/TTclient/Master.html",
+	"Oyuncular": { },
+	"OyuncularOpened": false,
+	"OyuncularToggle$": 0,
+
+	"Turnuvalar": { },
+	"TurnuvalarOpened": false,
+	"TurnuvalarToggle$": 0,
+
+	"Takimlar": { },
+	"TakimlarOpened": false,
+	"TakimlarToggle$": 0
+}

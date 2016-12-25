@@ -11,17 +11,17 @@
 			"Toggle$": 0,
 			"Opened": false,
 
-			"MusabakaPage": { },
-			"MusabakaPageToggle$": 0,
-			"MusabakaPageOpened": false,
+			"RecentMusabaka": { },
+			"MusabakaToggle$": 0,
+			"MusabakaOpened": false,
 
-			"TakimPage": { },
-			"TakimPageToggle$": 0,
-			"TakimPageOpened": false,
+			"RecentTakim": { },
+			"TakimToggle$": 0,
+			"TakimOpened": false,
 
-			"OyuncuPage": { },
-			"OyuncuPageToggle$": 0,
-			"OyuncuPageOpened": false
+			"RecentOyuncu": { },
+			"OyuncuToggle$": 0,
+			"OyuncuOpened": false
 		}
 	]
 }

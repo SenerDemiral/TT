@@ -10,7 +10,7 @@ namespace TTadmin
 		public void RefreshTurnuvaMusabakaMac()
 		{
 			reading = true;
-
+			
 			TrnMsbMacs.Clear();
 
 			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
@@ -30,9 +30,12 @@ namespace TTadmin
 				if(row.GuestOyuncu2 != null)
 					te.GuestOyuncuAd2 = string.Format("{0} ·{1}", row.GuestOyuncu2.Ad, row.GuestOyuncu2.GetObjectID());
 				te.MF = false;
-
-				//var tID = te.TakimAd.Substring(te.TakimAd.IndexOf('·')+1);
+				var ozet = row.Ozet;
+				te.Ozet.Puanlar = ozet.Puanlar;
+				te.Ozet.Setler = ozet.Setler;
+				te.Ozet.Sayilar = ozet.Sayilar;
 			}
+
 
 			var musabaka = Db.SQL<TTDB.Musabaka>("SELECT m FROM Musabaka m where m.ObjectId = ?", MusabakaID).First;
 			LookupHomeOyuncu.Clear();
@@ -61,8 +64,8 @@ namespace TTadmin
 
 			htid = "TrnMsbMac" + MusabakaID;
 			Heading = $"{musabaka.HomeTakim.Ad} - {musabaka.GuestTakim.Ad} Maçlarý";
-			HomeTakimAd = TTDB.Hlpr.GetAdN(musabaka.HomeTakim.Ad);
-			GuestTakimAd = TTDB.Hlpr.GetAdN(musabaka.GuestTakim.Ad);
+			HomeTakimAd = TTDB.Hlpr.GetFirstName(musabaka.HomeTakim.Ad);
+			GuestTakimAd = TTDB.Hlpr.GetFirstName(musabaka.GuestTakim.Ad);
 
 			RefreshTurnuvaMusabakaMac();
 		}

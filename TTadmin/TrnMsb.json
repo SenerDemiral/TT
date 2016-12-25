@@ -10,7 +10,8 @@
 			"GuestTakimAd$": "",
 			"Tarih$": "",
 			"MF": false, // ModifiedFlag
-			"DF$": false // DeleteFlag
+			"DF$": false, // DeleteFlag
+			"MusabakaInfo": ""
 		}
 	],
 	"LookupTakim": [],

@@ -7,8 +7,13 @@
 		{
 			"ID": "",
 			"TakimAd$": "",
-			"MF": false, // ModifiedFlag
-			"DF$": false // DeleteFlag
+			"MF": false,
+			"DF$": false,
+			"MusabakaWin": 0,
+			"MusabakaLost": 0,
+			"MusabakaTie": 0,
+			"MusabakaOynadigi": 0,
+			"Puan": 0
 		}
 	],
 	"LookupTakim": [],

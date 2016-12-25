@@ -64,6 +64,9 @@
     <Compile Include="MacPage.json.cs">
       <DependentUpon>MacPage.json</DependentUpon>
     </Compile>
+    <Compile Include="Master.json.cs">
+      <DependentUpon>Master.json</DependentUpon>
+    </Compile>
     <Compile Include="MusabakaPage.json.cs">
       <DependentUpon>MusabakaPage.json</DependentUpon>
     </Compile>
@@ -83,6 +86,9 @@
     <TypedJSON Include="MusabakaPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
+    <TypedJSON Include="Master.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <None Include="wwwroot\ttclient\Turnuva.html" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +99,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\sys\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\ttclient\Master.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\ttclient\Master.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TTDB\TTDB.csproj">
+      <Project>{71cbfa78-a124-4090-958c-cb94f4144f77}</Project>
+      <Name>TTDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(StarcounterBin)\Starcounter.MsBuild.targets" />

@@ -2,6 +2,7 @@
 
 <template>
     <template is="dom-bind">
+	<div>Deneme</div>
         <template is="dom-repeat" items="[[model.Turnuvalar]]">
             <button class="heading" value="{{item.Toggle$::click}}" onclick="++this.value">
                 [[item.Ad]]
@@ -9,30 +10,30 @@
             </button>
             <iron-collapse id="collapse[[item.ID]]" tabindex="0" opened="[[item.Opened]]" no-animation>
                 <div class="content">
-                    <button class="heading" value="{{item.MusabakaPageToggle$::click}}" onmousedown="++this.value">Musabakalar</button>
-                    <template is="dom-if" if="[[item.MusabakaPageOpened]]">
-                        <iron-collapse id="collapseTurnuvaMusabakalar" tabindex="0" opened="[[item.MusabakaPageOpened]]" no-animation>
+                    <button class="heading" value="{{item.MusabakaToggle$::click}}" onmousedown="++this.value">Musabakalar</button>
+                    <template is="dom-if" if="[[item.MusabakaOpened]]">
+                        <iron-collapse id="collapseTurnuvaMusabakalar" tabindex="0" opened="[[item.MusabakaOpened]]" no-animation>
                             <div class="content">
                                 <!--<div style="text-align: center;">[[item.Ad]]</div>-->
-                                <starcounter-include partial="[[item.Musabakalar]]"></starcounter-include>
+                                <starcounter-include partial="[[item.RecentMusabaka]]"></starcounter-include>
                             </div>
                         </iron-collapse>
                     </template>
 
-                    <button class="heading" value="{{item.TakimPageToggle$::click}}" onmousedown="++this.value">Takımlar</button>
-                    <template is="dom-if" if="[[item.TakimPageOpened]]">
-                        <iron-collapse id="collapseTurnuvaTakimlar" tabindex="0" opened="[[item.TakimPageOpened]]" no-animation>
+                    <button class="heading" value="{{item.TakimToggle$::click}}" onmousedown="++this.value">Takımlar</button>
+                    <template is="dom-if" if="[[item.TakimOpened]]">
+                        <iron-collapse id="collapseTurnuvaTakimlar" tabindex="0" opened="[[item.TakimOpened]]" no-animation>
                             <div class="content">
-                                <starcounter-include partial="[[item.Takimlar]]"></starcounter-include>
+                                <starcounter-include partial="[[item.RecentTakim]]"></starcounter-include>
                             </div>
                         </iron-collapse>
                     </template>
 
-                    <button class="heading" value="{{item.OyuncuPageToggle$::click}}" onmousedown="++this.value">Oyuncular</button>
-                    <template is="dom-if" if="[[item.OyuncuuPageOpened]]">
-                        <iron-collapse id="collapseTurnuvaTakimlar" tabindex="0" opened="[[item.OyuncuPageOpened]]" no-animation>
+                    <button class="heading" value="{{item.OyuncuToggle$::click}}" onmousedown="++this.value">Oyuncular</button>
+                    <template is="dom-if" if="[[item.OyuncuuOpened]]">
+                        <iron-collapse id="collapseTurnuvaTakimlar" tabindex="0" opened="[[item.OyuncuOpened]]" no-animation>
                             <div class="content">
-                                <starcounter-include partial="[[item.Oyuncular]]"></starcounter-include>
+                                <starcounter-include partial="[[item.RecentOyuncu]]"></starcounter-include>
                             </div>
                         </iron-collapse>
                     </template>
