@@ -72,8 +72,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TurnuvaOyuncuPage.json.cs">
+      <DependentUpon>TurnuvaOyuncuPage.json</DependentUpon>
+    </Compile>
     <Compile Include="TurnuvaPage.json.cs">
       <DependentUpon>TurnuvaPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="TurnuvaTakimPage.json.cs">
+      <DependentUpon>TurnuvaTakimPage.json</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +93,12 @@
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
     <TypedJSON Include="Master.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="TurnuvaTakimPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="TurnuvaOyuncuPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
     <None Include="wwwroot\ttclient\Turnuva.html" />
@@ -105,6 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\ttclient\Master.css" />
+    <None Include="wwwroot\ttclient\simple-overlay.html" />
+    <None Include="wwwroot\ttclient\TurnuvaOyuncu.html" />
+    <None Include="wwwroot\ttclient\TurnuvaTakim.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TTDB\TTDB.csproj">

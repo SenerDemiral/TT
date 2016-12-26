@@ -1,0 +1,37 @@
+﻿<link rel="import" href="/sys/iron-overlay-behavior/iron-overlay-behavior.html">
+
+<dom-module id="simple-overlay">
+	<template>
+	    <style>
+		:host {
+			background: white;
+			color: black;
+			padding: 24px;
+			box-shadow: rgba(0, 0, 0, 0.24) -2px 5px 12px 0px, rgba(0, 0, 0, 0.12) 0px 0px 12px 0px;
+		}
+		</style>
+		<content></content>
+	</template>
+</dom-module>
+
+<script>
+
+	(function () {
+
+		Polymer({
+
+			is: 'simple-overlay',
+
+			behaviors: [
+			  Polymer.IronOverlayBehavior
+			],
+
+			properties: {
+				oyuncuId: {
+					type: String,					notify: false,
+				}
+			}
+		});
+	})();
+
+</script>

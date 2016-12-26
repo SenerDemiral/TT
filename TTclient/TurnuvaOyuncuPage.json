@@ -1,0 +1,34 @@
+{
+	"Html": "/TTclient/TurnuvaOyuncu.html",
+	"TurnuvaID": "",
+	"TurnuvaInfo": "",
+	"OyuncuMacOpened$": false,
+	"CurRowID": "",
+	"CurRowOyuncuAd": "",
+	"CurOyuncuMaclari": [
+		{
+			"HomeOyuncuAd": "",
+			"GuestOyuncuAd": "",
+			"Ozet": {
+				"Setler": "",
+				"Sayilar": ""
+			}
+		}
+	],
+	"Oyuncular": [
+		{
+			"OyuncuID": "",
+			"OyuncuAd": "",
+			"TakimAd": "",
+			"Puan": 0,
+			"MacO": 0,
+			"MacG": 0,
+			"MacM": 0,
+			"SetA": 0,
+			"SetV": 0,
+			"SayiA": 0,
+			"SayiV": 0,
+			"OyuncuClick$": 0
+		}
+	]
+}

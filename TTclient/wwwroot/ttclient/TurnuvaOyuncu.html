@@ -1,0 +1,67 @@
+﻿<template>
+    <template is="dom-bind">
+        <div style="font-size: 12px; text-align: center">{{model.TurnuvaInfo}}</div>
+        <table>
+            <tr>
+                <th rowspan="2">Oyuncu</th>
+                <th rowspan="2">Takım</th>
+                <th rowspan="2">Puan</th>
+                <th colspan="3">Maç</th>
+                <th colspan="2">Set</th>
+                <th colspan="2">Sayı</th>
+            </tr>
+            <tr>
+                <th>Oyn</th>
+                <th>Glp</th>
+                <th>Mğl</th>
+                <th>Ald</th>
+                <th>Vrd</th>
+                <th>Ald</th>
+                <th>Vrd</th>
+            </tr>
+
+            <template is="dom-repeat" items="[[model.Oyuncular]]">
+                <tr>
+                    <!--<td><a href="/TTclient/TurnuvaOyuncuMaclar/{{item.OyuncuID}}">{{item.OyuncuAd}}</a></td>-->
+					<td><button value="{{item.OyuncuClick$::click}}" onmousedown="++this.value">{{item.OyuncuAd}}</button></td>
+                    <td>{{item.TakimAd}}</td>
+                    <td style="text-align: right;">[[item.Puan]]</td>
+                    <td style="text-align: right;">{{item.MacO}}</td>
+                    <td style="text-align: right;">{{item.MacG}}</td>
+                    <td style="text-align: right;">{{item.MacM}}</td>
+                    <td style="text-align: right;">{{item.SetA}}</td>
+                    <td style="text-align: right;">{{item.SetV}}</td>
+                    <td style="text-align: right;">{{item.SayiA}}</td>
+                    <td style="text-align: right;">{{item.SayiV}}</td>
+                </tr>
+            </template>
+        </table>
+
+		<!--<button onclick="plain.open()">Plain overlay</button>-->
+		<simple-overlay id="plain" tabindex=-1 class="with-margin" opened="{{model.OyuncuMacOpened$}}">
+			<h2>[[model.CurRowOyuncuAd]] Maçları</h2>
+
+			<table>
+				<tr>
+					<th>Home</th>
+					<th>Guest</th>
+					<th>Set</th>
+					<th>Sayı</th>
+				</tr>
+				<tbody>
+					<template is="dom-repeat" items="[[model.CurOyuncuMaclari]]">
+						<tr>
+							<td>[[item.HomeOyuncuAd]]</td>
+							<td>[[item.GuestOyuncuAd]]</td>
+							<td>[[item.Ozet.Setler]]</td>
+							<td>[[item.Ozet.Sayilar]]</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+
+			<button onclick="plain.close()">Close</button>
+		</simple-overlay>
+
+    </template>
+</template>

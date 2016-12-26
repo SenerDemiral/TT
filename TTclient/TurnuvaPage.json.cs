@@ -49,6 +49,37 @@ namespace TTclient
 
 			}
 
-		}  
+			void Handle(Input.TakimToggle inp)
+			{
+				TakimOpened = !TakimOpened;
+
+				if(TakimOpened) {
+					var takim = new TurnuvaTakimPage();
+					takim.TurnuvaID = ID;
+					var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(ID));
+
+					takim.TurnuvaInfo = $"{trn.Ad} Takým Sonuçlarý";
+					takim.Data = null;
+					RecentTakim = takim;
+				}
+
+			}
+
+			void Handle(Input.OyuncuToggle inp)
+			{
+				OyuncuOpened = !OyuncuOpened;
+
+				if(OyuncuOpened) {
+					var oyuncu = new TurnuvaOyuncuPage();
+					oyuncu.TurnuvaID = ID;
+					var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(ID));
+
+					oyuncu.TurnuvaInfo = $"{trn.Ad} Oyuncu Sonuçlarý";
+					oyuncu.Data = null;
+					RecentOyuncu = oyuncu;
+				}
+
+			}
+		}
 	}
 }

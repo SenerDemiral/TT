@@ -121,6 +121,7 @@ namespace TTDB
 	[Database]
 	public class TurnuvaTakim
 	{
+		public string ID => this.GetObjectID();
 		public Turnuva Turnuva;
 		public Takim Takim;
 		public string TakimAd => Takim != null ? Takim.Ad : "[null]"; // Takim.Ad;
@@ -355,6 +356,7 @@ namespace TTDB
 
 	public class TurnuvaOyuncuOzet
 	{
+		public string OyuncuID;
 		public string OyuncuAd;
 		public string TakimAd;
 		public Int16 Puan;
@@ -368,6 +370,7 @@ namespace TTDB
 		
 		public TurnuvaOyuncuOzet()
 		{
+			OyuncuID = "";	
 			OyuncuAd = "";
 			TakimAd = "";
 			Puan = 0;
@@ -427,6 +430,7 @@ namespace TTDB
 				   vSay = 0;
 
 				//Console.WriteLine(string.Format("    {0}/{1}", t.OyuncuAd, t.TakimAd));
+				too.OyuncuID = t.Oyuncu.GetObjectID();
 				too.OyuncuAd = t.Oyuncu.Ad;
 				too.TakimAd = t.Takim.Ad;
 

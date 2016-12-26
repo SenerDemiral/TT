@@ -1,0 +1,26 @@
+﻿<template>
+    <template is="dom-bind">
+        <div style="font-size: 12px; text-align: center">{{model.TurnuvaInfo}}</div>
+        <table>
+            <tr>
+                <th>Takım</th>
+                <th>Puan</th>
+                <th>Galibiyet</th>
+                <th>Mağlubiyet</th>
+                <th>Beraberlik</th>
+            </tr>
+            <tbody>
+                <template is="dom-repeat" items="{{model.Takimlar}}">
+                    <tr>
+                        <td>{{item.TakimAd}}</td>
+                        <td style="text-align:center">{{item.Ozet.Puan}}</td>
+                        <td style="text-align:center">{{item.Ozet.MusabakaWin}}</td>
+                        <td style="text-align:center">{{item.Ozet.MusabakaLost}}</td>
+                        <td style="text-align:center">{{item.Ozet.MusabakaTie}}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+    </template>
+</template>

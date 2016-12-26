@@ -27,7 +27,10 @@ namespace TTclient
 					return master;
 				});
 			});
-
+			/*
+			Handle.GET("/TTclient/TurnuvaOyuncuMaclar/{?}", (int OyuncuID, Response response) => {
+				return null;
+			});	 */
 		}
 	}
 }

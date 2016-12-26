@@ -2,7 +2,6 @@
 
 <template>
     <template is="dom-bind">
-	<div>Musabaka</div>
         <template is="dom-repeat" items="[[model.Musabakalar]]">
             <button class="heading" value="{{item.Toggle$::click}}" onclick="++this.value">
                 [[item.MusabakaAd]]
@@ -10,7 +9,7 @@
             </button>
             
             <iron-collapse id="collapse[[item.ID]]" tabindex="0" opened="[[item.Opened]]" no-animation>
-                <div class="content">
+                <div class="content maclar">
                     <div style="font-size: 12px; text-align: center">[[item.MusabakaInfo]]</div>
                     <starcounter-include partial="[[item.RecentMac]]"></starcounter-include>
                 </div>
