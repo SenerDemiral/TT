@@ -42,6 +42,7 @@ namespace TTDB
 			Ad = "";
 			Sex = "E";
 		}
+		public string ID => this.GetObjectID();
 		public string Ad;
 		public string Sex;
 		public string Tel;
@@ -163,7 +164,7 @@ namespace TTDB
 		public Turnuva Turnuva;
 		public Takim Takim;
 		public Oyuncu Oyuncu;
-		public string OyuncuAd => Oyuncu.Ad;
+		public string OyuncuAd => Oyuncu != null ? Oyuncu.Ad : "";
  		//public string TakimAd => Takim.Ad;
 		//public string TurnuvaAd => Turnuva.Ad;
 	}
@@ -181,7 +182,7 @@ namespace TTDB
 		public string GuestTakimAd => GuestTakim.Ad;
 		public string Tarih {
 			get {
-				return string.Format("{0:dd.MM.yy}", Trh, this.GetObjectNo());
+				return string.Format("{0:dd.MM.yy}", Trh);
 			}
 		}
 		//public string TurnuvaAd => Turnuva.Ad;
@@ -277,7 +278,7 @@ namespace TTDB
 
 		public string HomeOyuncuInfo {
 			get {
-				return $"{(HomeOyuncu == null ? "" : HomeOyuncu.Ad)}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + HomeOyuncu2.Ad)}{(Musabaka == null ? "" : Constants.sepTkm + Musabaka.HomeTakim.Ad)}";
+				return $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}{(Musabaka == null ? "" : Constants.sepTkm + Musabaka.HomeTakim.Ad)}";
 			}
 		}
 		
@@ -293,6 +294,14 @@ namespace TTDB
 				return info;
 			}
 		}
+
+		public string MusabakaTarih {
+			get {
+				return string.Format("{0:dd.MM.yy}", Musabaka.Trh);
+			}
+		}
+
+		
 		
 		public Ozet Ozet {
 			get {
@@ -384,16 +393,27 @@ namespace TTDB
 		}
 	}
 
+	public class Hooks
+	{
+		public void AddHooks()
+		{
+			Hook<Oyuncu>.BeforeDelete += (s, obj) => {
+				Console.WriteLine("Hooked: Object {0} is to be deleted", obj.GetObjectNo());
+			};
+		}
+	}
+
+
 	public static class Hlpr
-   {
-      public static void sener()
-      {
-         foreach (var value in TurnuvaOyuncularOzet("VC")) {
-            Console.Write(value);
-            Console.Write(" ");
-         }
-         Console.WriteLine();
-      }
+	{
+		public static void sener()
+		{
+			foreach(var value in TurnuvaOyuncularOzet("VC")) {
+				Console.Write(value);
+				Console.Write(" ");
+			}
+			Console.WriteLine();
+		}
 
 		public static string GetFirstName(string ad)
 		{
@@ -413,6 +433,56 @@ namespace TTDB
 			return tuple;
 		}
 
+		public static void DeleteTrnMsbMac(string MusabakaID)
+		{
+			var maclar = Db.SQL<Mac>("SELECT m FROM Mac m WHERE m.Musabaka.ObjectId = ?", MusabakaID);
+			Db.Transact(() => {
+				foreach(var mac in maclar) {
+					var macSonuclar = Db.SQL<MacSonuc>("SELECT m FROM MacSonuc m WHERE m.Mac = ?", mac);
+					foreach(var macSonuc in macSonuclar) {
+						macSonuc.Delete();
+					}
+					mac.Delete();
+				}
+			});
+		}
+
+		public static void CreateTrnMsbMac(string MusabakaID)
+		{
+			if(Db.SQL<Mac>("SELECT m FROM Mac m WHERE m.Musabaka.ObjectId = ?", MusabakaID).First == null) {
+				var musabakaObj = (Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
+
+				//var oyuncuBos = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o WHERE Ad = ?", "*").First;
+
+				Db.Transact(() => {
+					for(int i = 0; i < 8; i++) {
+						var mac = new Mac();
+						mac.Turnuva = musabakaObj.Turnuva;
+						mac.Musabaka = musabakaObj;
+						mac.Skl = "S";
+						mac.Sira = (short)(i + 1);
+						for(int k = 1; k < 4; k++) {
+							var snc = new MacSonuc();
+							snc.Mac = mac;
+							snc.SetNo = (short)k;
+						}
+					}
+					for(int i = 0; i < 4; i++) {
+						var mac = new Mac();
+						mac.Turnuva = musabakaObj.Turnuva;
+						mac.Musabaka = musabakaObj;
+						mac.Skl = "D";
+						mac.Sira = (short)(i + 1);
+						for(int k = 1; k < 4; k++) {
+							var snc = new MacSonuc();
+							snc.Mac = mac;
+							snc.SetNo = (short)k;
+						}
+					}
+				});
+			}
+		}
+
 		public static IEnumerable<TurnuvaOyuncuOzet> TurnuvaOyuncularOzet(string turnuvaID)
 		{
 			var turnuva = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
@@ -430,8 +500,10 @@ namespace TTDB
 				   vSay = 0;
 
 				//Console.WriteLine(string.Format("    {0}/{1}", t.OyuncuAd, t.TakimAd));
-				too.OyuncuID = t.Oyuncu.GetObjectID();
-				too.OyuncuAd = t.Oyuncu.Ad;
+				if(t.Oyuncu != null) {
+					too.OyuncuID = t.Oyuncu.GetObjectID();
+					too.OyuncuAd = t.Oyuncu.Ad;
+				}
 				too.TakimAd = t.Takim.Ad;
 
 				// Home olarak oynadiklari

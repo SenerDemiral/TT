@@ -11,18 +11,18 @@ namespace TTadmin
 		public void RefreshTurnuva()
 		{
 			reading = true;
-			Trns.Clear();
+			//Trns.Clear();
 
-			var trns = Db.SQL<TTDB.Turnuva>("SELECT tt FROM Turnuva tt");
-
+			Trns = Db.SQL<TTDB.Turnuva>("SELECT tt FROM Turnuva tt");
+			/*
 			TrnsElementJson te;
 			foreach(var trn in trns) {
-				te = this.Trns.Add();
+				te = Trns.Add();
 				te.Ad = trn.Ad;
 				te.Tarih = string.Format("{0:dd.MM.yy}", trn.Trh);
 				te.ID = trn.GetObjectID();
 				te.MF = false;
-			}
+			}*/
 			reading = false;
 		}
 
@@ -133,7 +133,7 @@ namespace TTadmin
 
 			protected override void HasChanged(TValue property)
 			{
-				var parent = (Trn)this.Root;
+				var parent = (Trn)this.Parent.Parent;
 				if(!parent.reading && MF == false && property.PropertyName != "MF")
 					MF = true;
 			}

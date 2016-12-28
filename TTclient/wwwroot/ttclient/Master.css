@@ -55,7 +55,7 @@ table, th, td {
 table {
     margin-left: auto;
     margin-right: auto;
-    font-size: 2.5vmin;
+    font-size: 2vmin;
 }
 th, td {
     padding: 3px 5px;

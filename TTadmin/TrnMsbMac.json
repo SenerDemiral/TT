@@ -1,5 +1,5 @@
 {
-  "Html": "/TTadmin/TrnMsbMacPage.html",
+	"Html": "/TTadmin/TrnMsbMacPage.html",
 	"htid": "",
 	"TurnuvaID": "",
 	"MusabakaID": "",
@@ -24,13 +24,14 @@
 			}
 		}
 	],
-	"LookupHomeOyuncu": [],
-	"LookupGuestOyuncu": [],
+	"LookupHomeOyuncu": [ ],
+	"LookupGuestOyuncu": [ ],
 	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
 	"CurRowID$": "",
 	"Insert$": 0,
 	"Refresh$": 0,
 	"Save$": 0,
-	"RecentMacSonuclar": {},
-	"GetMacSonuclar$": 0 
+	"Create$": 0,
+	"RecentMacSonuclar": { },
+	"GetMacSonuclar$": 0
 }

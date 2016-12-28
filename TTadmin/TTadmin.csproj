@@ -64,6 +64,9 @@
     <Compile Include="DatagridPage.json.cs">
       <DependentUpon>DatagridPage.json</DependentUpon>
     </Compile>
+    <Compile Include="deneme.json.cs">
+      <DependentUpon>deneme.json</DependentUpon>
+    </Compile>
     <Compile Include="MasterPage.json.cs">
       <DependentUpon>MasterPage.json</DependentUpon>
     </Compile>
@@ -137,6 +140,9 @@
     <TypedJSON Include="TrnGrid.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
+    <TypedJSON Include="deneme.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <None Include="wwwroot\ttadmin\MasterPage.html" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +179,7 @@
     <None Include="wwwroot\ttadmin\TrnGridPage.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="wwwroot\ttadmin\simple-overlay.html" />
     <Content Include="wwwroot\ttadmin\Style.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -22,8 +22,8 @@
 
             <template is="dom-repeat" items="[[model.Oyuncular]]">
                 <tr>
-                    <!--<td><a href="/TTclient/TurnuvaOyuncuMaclar/{{item.OyuncuID}}">{{item.OyuncuAd}}</a></td>-->
-					<td><button value="{{item.OyuncuClick$::click}}" onmousedown="++this.value">{{item.OyuncuAd}}</button></td>
+                    <!--<td><a href="/TTclient/TurnuvaOyuncuMaclar/[[item.OyuncuID]]">{{item.OyuncuAd}}</a></td>-->
+					<td><button value="{{item.OyuncuClick$::click}}" onmousedown="++this.value" style="width: 100%">{{item.OyuncuAd}}</button></td>
                     <td>{{item.TakimAd}}</td>
                     <td style="text-align: right;">[[item.Puan]]</td>
                     <td style="text-align: right;">{{item.MacO}}</td>
@@ -43,6 +43,9 @@
 
 			<table>
 				<tr>
+					<th>Tarih</th>
+					<th>S/D</th>
+					<th>#</th>
 					<th>Home</th>
 					<th>Guest</th>
 					<th>Set</th>
@@ -51,8 +54,11 @@
 				<tbody>
 					<template is="dom-repeat" items="[[model.CurOyuncuMaclari]]">
 						<tr>
-							<td>[[item.HomeOyuncuAd]]</td>
-							<td>[[item.GuestOyuncuAd]]</td>
+							<td>[[item.MusabakaTarih]]</td>
+							<td style="text-align: center">[[item.Skl]]</td>
+							<td>[[item.Sira]]</td>
+							<td>[[item.HomeOyuncuInfo]]</td>
+							<td>[[item.GuestOyuncuInfo]]</td>
 							<td>[[item.Ozet.Setler]]</td>
 							<td>[[item.Ozet.Sayilar]]</td>
 						</tr>

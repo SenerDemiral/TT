@@ -1,3 +1,83 @@
-﻿.layout {
-  margin-bottom: 20px;
+﻿:root { font-size: calc(7px + .5vw);  /* default below 600px */ }
+/*
+@media (min-width: 600px){
+  :root {
+    font-size: 12px;
+  }
 }
+	*/
+html {
+	background: azure;
+}
+body {
+    font-family: Roboto, sans-serif;
+    font-weight: normal;
+	min-height: 100vh;
+	position: relative;
+	margin: 0;
+    /*font-size: 2.5vmin;*/
+
+}
+button {
+    font-family: Roboto, sans-serif;
+	font-size: calc(7px + .5vw);
+    /*font-size: 2vmin;*/
+}
+
+.heading {
+    padding: 5px;
+    margin-top: 5px;
+    background-color: #f3f3f3;
+    border: 1px solid #dedede;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+	font-size: calc(10px + .5vw);
+    /*font-size: 4vmin;*/
+	
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    width: 100%;
+    text-align: left;
+}
+
+.content {
+    background-color: beige;
+    padding: 5px;
+    border: 1px solid #dedede;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    @apply(--shadow-elevation-2dp);
+}
+
+#denemecollapseTurnuvaMusabakalar  {
+    max-height: 300px;
+}
+
+.maclar {
+    background: seashell;
+}
+    
+table, th, td {
+    border: 1px solid rgb(191,191,191);
+    border-collapse: collapse;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+    /*font-size: calc(7px + .5vw);*/
+}
+th, td {
+    padding: 3px 5px;
+}
+
+.xbutton {
+    display:table-cell;
+}
+
+/*
+@media screen and (max-height: 500px) {
+  table {
+    font-size: 16px;
+  }
+}	 */

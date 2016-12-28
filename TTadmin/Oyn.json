@@ -1,13 +1,22 @@
 {
-  "Html": "/TTadmin/OynPage.html",
-  "Oyuncular": [
-    {
-      "ID": "", 
-      "Ad": "",
-      "Sex": "",
-      "Tel": "",
-      "DgmYil": 0
-    }
-  ]
-
+	"Html": "/TTadmin/OynPage.html",
+	"htid": "Oyn",
+	"Heading": "Oyuncular",
+	"Oyns": [
+		{
+			"ID": "",
+			"Ad$": "",
+			"Sex$": "",
+			"Tel$": "",
+			"eMail$": "",
+			"DgmYil$": 0,
+			"MF": false,
+			"DF$": false
+		}
+	],
+	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
+	"CurRowID$": "",
+	"Insert$": 0,
+	"Refresh$": 0,
+	"Save$": 0
 }

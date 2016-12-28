@@ -38,21 +38,16 @@ namespace TTclient
 
 			void Handle(Input.OyuncuClick inp)
 			{
-				
 				var parent = (TurnuvaOyuncuPage)this.Parent.Parent;
 				parent.CurRowID = this.OyuncuID;
 				parent.CurRowOyuncuAd = this.OyuncuAd;
 
-				//CurOyuncuMaclariElementJson com = new CurOyuncuMaclariElementJson();
-				//com.HomeOyuncuAd = "CAN";
-				//com.GuestOyuncuAd = "DILARA";
-				//parent.CurOyuncuMaclari.Add(com);
-
-				parent.CurOyuncuMaclari = Db.SQL<TTDB.Mac>("SELECT mm FROM MAC mm WHERE mm.Turnuva.ObjectId = ? AND (mm.HomeOyuncu.ObjectId = ? OR mm.GuestOyuncu.ObjectId = ?)", parent.TurnuvaID, OyuncuID, OyuncuID);
+				parent.CurOyuncuMaclari.Data = 
+					Db.SQL<TTDB.Mac>("SELECT mm FROM MAC mm WHERE mm.Turnuva.ObjectId = ? AND (mm.HomeOyuncu.ObjectId = ? OR mm.GuestOyuncu.ObjectId = ? OR mm.HomeOyuncu2.ObjectId = ? OR mm.GuestOyuncu2.ObjectId = ?)", 
+						parent.TurnuvaID, OyuncuID, OyuncuID, OyuncuID, OyuncuID)
+					.OrderByDescending(x => x.Musabaka.Trh);
 
 				parent.OyuncuMacOpened = true;
-
-
 			}
 		}
 

@@ -27,10 +27,17 @@ namespace TTclient
 					return master;
 				});
 			});
-			/*
-			Handle.GET("/TTclient/TurnuvaOyuncuMaclar/{?}", (int OyuncuID, Response response) => {
-				return null;
-			});	 */
+			
+			Handle.GET("/TTclient/TurnuvaxxxOyuncuMaclar", () => {
+				Master master = new Master();
+				return master;
+			});
+
+			Handle.GET("/TTclient/TurnuvaOyuncuMaclar/{?}", (string param1) => {
+				var aaa = param1;
+				TurnuvaTakimPage ttp = new TurnuvaTakimPage();
+				return ttp;
+			});
 		}
 	}
 }

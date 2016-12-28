@@ -7,8 +7,11 @@
 	"CurRowOyuncuAd": "",
 	"CurOyuncuMaclari": [
 		{
-			"HomeOyuncuAd": "",
-			"GuestOyuncuAd": "",
+			"Skl": "",
+			"Sira": 0,
+			"MusabakaTarih": "",
+			"HomeOyuncuInfo": "",
+			"GuestOyuncuInfo": "",
 			"Ozet": {
 				"Setler": "",
 				"Sayilar": ""

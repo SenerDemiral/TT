@@ -6,6 +6,7 @@
 
 <template>
    <template is="dom-bind">
+		<!--<simple-overlay id="plain" tabindex=-1 class="with-margin" opened="{{model.OyuncuMacOpened$}}">-->
 		<div class="vertical layout center">
 			<paper-card heading="[[model.Heading]]">
 				<div class="card-content">
@@ -16,14 +17,13 @@
 						outside-click-deselects="false"
 						manual-column-resize="true"
 						sort-indicator="true"
-						prevent-overflow="horizontal"
 						highlighted-row="{{ model.hRow$ }}">
 
 						<hot-column value="DF$" header="Sil" type="checkbox" class="htCenter" width="30px"></hot-column>
 						<hot-column value="ID" header="ID" read-only class="htCenter"></hot-column>
 						<hot-column value="SetNo$" header="SetNo" class="htCenter"></hot-column>
-						<hot-column value="HomeSayi$" header="[[model.HomeOyuncuAd]]" class="htCenter"></hot-column>
-						<hot-column value="GuestSayi$" header="[[model.GuestOyuncuAd]]" class="htCenter"></hot-column>
+						<hot-column value="HomeSayi$" header="[[model.HomeOyuncuAd]]" width="200" class="htCenter"></hot-column>
+						<hot-column value="GuestSayi$" header="[[model.GuestOyuncuAd]]" width="200" class="htCenter"></hot-column>
 					</hot-table>
 				</div>
 				<div class="card-actions">
@@ -34,5 +34,6 @@
 				</div>
 			</paper-card>
 		</div>
+		<!--</simple-overlay>-->
    </template>
 </template>

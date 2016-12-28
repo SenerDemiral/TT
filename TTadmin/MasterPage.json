@@ -1,3 +1,14 @@
 {
-  "Html": "/TTadmin/MasterPage.html"
+	"Html": "/TTadmin/MasterPage.html",
+	"RecentOyuncular": { },
+	"OyuncularOpened": false,
+	"OyuncularToggle$": 0,
+
+	"RecentTurnuvalar": { },
+	"TurnuvalarOpened": false,
+	"TurnuvalarToggle$": 0,
+
+	"RecentTakimlar": { },
+	"TakimlarOpened": false,
+	"TakimlarToggle$": 0
 }

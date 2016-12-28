@@ -16,7 +16,6 @@
 						outside-click-deselects="false"
 						manual-column-resize="true"
 						sort-indicator="true"
-						prevent-overflow="horizontal"
 						highlighted-row="{{ model.hRow$ }}">
 
 						<hot-column value="DF$" header="Sil" type="checkbox" class="htCenter" width="30px"></hot-column>
@@ -36,11 +35,14 @@
 					<button class="btn btn-sm btn-default" value="{{model.Insert$::click}}" onmousedown="++this.value">New</button>
 					<button class="btn btn-sm btn-default" value="{{model.Save$::click}}" onmousedown="++this.value">Save</button>
 					<button class="btn btn-sm btn-default" value="{{model.Refresh$::click}}" onmousedown="++this.value">Refresh</button>
+					<button class="btn btn-sm btn-default" value="{{model.Create$::click}}" onmousedown="++this.value">Create</button>
 					<button class="btn btn-sm btn-default" value="{{model.GetMacSonuclar$::click}}" onmousedown="++this.value">Maç Sonuclari</button>
 					<can-highlighted-row-id hot-table-id="[[model.htid]]" hrow="{{model.hRow$}}" crow="{{model.CurRowID$}}"></can-highlighted-row-id>
 				</div>
 			</paper-card>
 		</div>
-		<starcounter-include partial="{{model.RecentMacSonuclar}}"></starcounter-include>
+		<div>
+			<starcounter-include partial="{{model.RecentMacSonuclar}}"></starcounter-include>
+		</div>
    </template>
 </template>

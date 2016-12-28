@@ -13,6 +13,8 @@
 						datarows="{{model.TrnMsbs}}"
 						column-sorting
 						row-headers
+						height="300"
+						width="700"
 						outside-click-deselects="false"
 						manual-column-resize="true"
 						sort-indicator="true"
@@ -20,8 +22,8 @@
 
 						<hot-column value="DF$" header="Sil" type="checkbox" class="htCenter" width="30"></hot-column>
 						<hot-column value="ID" header="ID" read-only class="htCenter"></hot-column>
-						<hot-column value="HomeTakimAd$" header="Home" type="dropdown" source="[[model.LookupTakim]]" width="200"></hot-column>
-						<hot-column value="GuestTakimAd$" header="Guest" type="dropdown" source="[[model.LookupTakim]]" width="200"></hot-column>
+						<hot-column value="HomeTakimAd$" header="Home" type="dropdown" source="[[model.LookupTakim]]"></hot-column>
+						<hot-column value="GuestTakimAd$" header="Guest" type="dropdown" source="[[model.LookupTakim]]"></hot-column>
 						<hot-column value="Tarih$" header="Tarih" type="date" date-format="DD.MM.YY"></hot-column>
 						<hot-column value="MusabakaInfo" header="ID" read-only></hot-column>
 					</hot-table>
