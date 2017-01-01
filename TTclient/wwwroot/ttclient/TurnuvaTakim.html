@@ -12,7 +12,8 @@
             <tbody>
                 <template is="dom-repeat" items="{{model.Takimlar}}">
                     <tr>
-                        <td>{{item.TakimAd}}</td>
+                        <!--<td>{{item.TakimAd}}</td>-->
+						<td><button value="{{item.TakimClick$::click}}" onmousedown="++this.value" style="width: 100%">{{item.TakimAd}}</button></td>
                         <td style="text-align:center">{{item.Ozet.Puan}}</td>
                         <td style="text-align:center">{{item.Ozet.MusabakaWin}}</td>
                         <td style="text-align:center">{{item.Ozet.MusabakaLost}}</td>
@@ -21,6 +22,45 @@
                 </template>
             </tbody>
         </table>
+
+		<simple-overlay id="plain" tabindex=-1 class="with-margin" opened="{{model.TakimMusabakaOpened$}}">
+			<h2>[[model.CurRowTakimAd]] Müsabakaları</h2>
+
+			<table>
+				<tr>
+					<th>Tarih</th>
+					<th>Home</th>
+					<th>Puan</th>
+					<th>Maç</th>
+					<th>Set</th>
+					<th>Sayı</th>
+					<th>Guest</th>
+					<th>Puan</th>
+					<th>Maç</th>
+					<th>Set</th>
+					<th>Sayı</th>
+				</tr>
+				<tbody>
+					<template is="dom-repeat" items="[[model.CurTakimMusabakalari]]">
+						<tr>
+							<td>[[item.Tarih]]</td>
+							<td>[[item.HomeTakimAd]]</td>
+							<td>[[item.Ozet.HomePuan]]</td>
+							<td>[[item.Ozet.HomeMac]]</td>
+							<td>[[item.Ozet.HomeSet]]</td>
+							<td>[[item.Ozet.HomeSayi]]</td>
+							<td>[[item.GuestTakimAd]]</td>
+							<td>[[item.Ozet.GuestPuan]]</td>
+							<td>[[item.Ozet.GuestMac]]</td>
+							<td>[[item.Ozet.GuestSet]]</td>
+							<td>[[item.Ozet.GuestSayi]]</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+
+			<button onclick="plain.close()">Close</button>
+		</simple-overlay>
 
     </template>
 </template>

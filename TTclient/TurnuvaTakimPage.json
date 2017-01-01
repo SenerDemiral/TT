@@ -2,9 +2,12 @@
 	"Html": "/TTclient/TurnuvaTakim.html",
 	"TurnuvaID": "",
 	"TurnuvaInfo": "",
+	"CurRowID": "",
+	"CurRowTakimAd": "",
 	"Takimlar": [
 		{
-			"ID": "",
+			"ID": "",	// TurnuvaTakimID
+			"TakimID": "",
 			"TakimAd": "",
 			"Ozet": {
 				"Puan": 0,
@@ -14,7 +17,28 @@
 			},
 			"Url": "",
 			"Toggle$": 0,
-			"Opened": ""
+			"Opened": "",
+			"TakimClick$": 0
+		}
+	],
+	"TakimMusabakaOpened$": false,
+	"CurTakimMusabakalari": [
+		{
+			"ID":  "",	// MusabakaID
+			"Tarih": "",
+			"HomeTakimAd": "",
+			"GuestTakimAd": "",
+			"Ozet": {
+				"HomePuan": 0,
+				"HomeMac": 0,
+				"HomeSet": 0,
+				"HomeSayi": 0,
+				"GuestPuan": 0,
+				"GuestMac": 0,
+				"GuestSet": 0,
+				"GuestSayi": 0
+			}
 		}
 	]
+
 }

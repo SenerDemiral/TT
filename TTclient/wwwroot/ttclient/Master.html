@@ -36,7 +36,7 @@
 
 <!--<template>-->
     <template is="dom-bind" id="root">
-        <button class="heading" value="{{model.TurnuvalarToggle$::click}}" onmousedown="++this.value;">Turnuvalar/Tournaments</button>
+        <button class="heading" value="{{model.TurnuvalarToggle$::click}}" onmousedown="++this.value;">[[model.TurnuvalarHeader]]</button>
         <template is="dom-if" if="{{model.TurnuvalarOpened}}">
             <iron-collapse id="collapseTurnuvalar" tabindex="0" opened="[[model.TurnuvalarOpened]]" no-animation>
                 <div class="content">
@@ -45,7 +45,7 @@
             </iron-collapse>
         </template>
 
-        <button class="heading" value="{{model.OyuncularToggle$::click}}" onmousedown="++this.value">Oyuncular/Players</button>
+        <button class="heading" value="{{model.OyuncularToggle$::click}}" onmousedown="++this.value">[[model.OyuncularHeader]]</button>
         <template is="dom-if" if="{{model.OyuncularOpened}}">
             <iron-collapse id="collapseOyuncular" tabindex="0" opened="{{model.OyuncularOpened}}" no-animation>
                 <div class="content">
@@ -54,7 +54,7 @@
             </iron-collapse>
         </template>
 
-        <button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">Takımlar/Teams</button>
+        <button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">[[model.TakimlarHeader]]</button>
         <template is="dom-if" if="{{model.TakimlarOpened}}">
             <iron-collapse id="collapseTakimlar" tabindex="0" opened="[[model.TakimlarOpened]]" no-animation>
                 <div class="content">

@@ -73,7 +73,7 @@
 		<div class="vertical layout center">
 		<div id="notes">
 		-->
-		<div class="vertical layout center">
+		<div class="vertical layout center" style="margin-bottom: 20px;">
 			<paper-card heading="[[model.Heading]]">
 				<div class="card-content">
 					<hot-table id="[[model.htid]]"
@@ -102,7 +102,9 @@
 				</div>
 			</paper-card>
 		</div>
+		<div>
 			<starcounter-include partial="{{model.RecentTakimlar}}"></starcounter-include>
 			<starcounter-include partial="{{model.RecentMusabakalar}}"></starcounter-include>
+		</div>
 	</template>
 </template>

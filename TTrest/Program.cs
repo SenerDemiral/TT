@@ -10,7 +10,10 @@ namespace TTrest
 			Console.WriteLine("TTrest");
 
 			Handle.GET("/TTrest", () => {
-				return "DENEME ";
+				var r = new Sonuc();
+				r.ID = "deneme";
+				r.Hata = "Hata Yok!";
+				return r;
 			});
 			
 

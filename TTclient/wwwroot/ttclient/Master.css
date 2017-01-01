@@ -64,3 +64,9 @@ th, td {
 .xbutton {
     display:table-cell;
 }
+
+@media all and (min-width: 600px){
+  :root {
+    font-size: 12px;
+  }
+}

@@ -2,9 +2,9 @@
 	"Html": "/TTclient/TurnuvaOyuncu.html",
 	"TurnuvaID": "",
 	"TurnuvaInfo": "",
-	"OyuncuMacOpened$": false,
 	"CurRowID": "",
 	"CurRowOyuncuAd": "",
+	"OyuncuMacOpened$": false,
 	"CurOyuncuMaclari": [
 		{
 			"Skl": "",

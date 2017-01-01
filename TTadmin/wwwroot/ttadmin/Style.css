@@ -24,6 +24,11 @@ button {
     /*font-size: 2vmin;*/
 }
 
+.layout {
+  margin-bottom: 20px;
+  /*background-color: grey;*/
+}
+
 .heading {
     padding: 5px;
     margin-top: 5px;

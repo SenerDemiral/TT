@@ -125,6 +125,7 @@ namespace TTDB
 		public string ID => this.GetObjectID();
 		public Turnuva Turnuva;
 		public Takim Takim;
+		public string TakimID => this.Takim.GetObjectID();
 		public string TakimAd => Takim != null ? Takim.Ad : "[null]"; // Takim.Ad;
 		
 		public TurnuvaTakimOzet Ozet {
