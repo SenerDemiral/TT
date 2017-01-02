@@ -29,6 +29,11 @@ namespace TTclient
 
 				parent.TakimMusabakaOpened = true;
 			}
+
+			void Handle(Input.TakimMapClick inp) {
+				var parent = (TurnuvaTakimPage)this.Parent.Parent;
+				parent.TakimMapOpened = true;
+			}
 		}
 	}
 }

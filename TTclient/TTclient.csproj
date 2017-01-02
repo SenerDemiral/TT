@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\ttclient\Master.css" />
+    <Content Include="wwwroot\ttclient\Stylesheet1.css" />
     <None Include="wwwroot\ttclient\simple-overlay.html" />
     <None Include="wwwroot\ttclient\TurnuvaOyuncu.html" />
     <None Include="wwwroot\ttclient\TurnuvaTakim.html" />

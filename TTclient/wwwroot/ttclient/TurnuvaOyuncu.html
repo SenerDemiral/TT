@@ -1,4 +1,15 @@
-﻿<template>
+﻿<link rel="import" href="/sys/paper-dialog/paper-dialog.html">
+<link rel="import" href="/sys/paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+<template>
+	<!--
+	<style is="custom-style">
+        paper-dialog {
+			margin: 5px;
+			padding: 0 5px;
+        }
+    </style>
+	-->
     <template is="dom-bind">
         <div style="font-size: 12px; text-align: center">{{model.TurnuvaInfo}}</div>
         <table>
@@ -11,13 +22,13 @@
                 <th colspan="2">Sayı</th>
             </tr>
             <tr>
-                <th>Oyn</th>
-                <th>Glp</th>
-                <th>Mğl</th>
-                <th>Ald</th>
-                <th>Vrd</th>
-                <th>Ald</th>
-                <th>Vrd</th>
+                <th>O</th>
+                <th>G</th>
+                <th>M</th>
+                <th>A</th>
+                <th>V</th>
+                <th>A</th>
+                <th>V</th>
             </tr>
 
             <template is="dom-repeat" items="[[model.Oyuncular]]">
@@ -37,9 +48,11 @@
             </template>
         </table>
 
-		<!--<button onclick="plain.open()">Plain overlay</button>-->
-		<simple-overlay id="plain" tabindex=-1 class="with-margin" opened="{{model.OyuncuMacOpened$}}">
+		<!--<button onclick="plain.open()">Plain overlay</button>
+		<simple-overlay id="plain" tabindex=-1 class="with-margin" opened="{{model.OyuncuMacOpened$}}">-->
+		<paper-dialog id="OyuncuMac" tabindex=-1 opened="{{model.OyuncuMacOpened$}}">
 			<h2>[[model.CurRowOyuncuAd]] Maçları</h2>
+			<paper-dialog-scrollable>
 
 			<table>
 				<tr>
@@ -65,9 +78,8 @@
 					</template>
 				</tbody>
 			</table>
-
-			<button onclick="plain.close()">Close</button>
-		</simple-overlay>
+			</paper-dialog-scrollable>
+		</paper-dialog>
 
     </template>
 </template>

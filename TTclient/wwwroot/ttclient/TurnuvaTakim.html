@@ -1,4 +1,33 @@
-﻿<template>
+﻿<link rel="import" href="/sys/paper-dialog/paper-dialog.html">
+<link rel="import" href="/sys/paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+<template>
+	<!--
+	<style is="custom-style">
+        paper-dialog {
+			/*margin: 5px;*/
+			padding: 0;
+        }
+        paper-dialog-scrollable {
+			/*margin: 5px;*/
+			padding: 0;
+        }
+		paper-dialog.colored {
+          border: 2px solid;
+          border-color: var(--paper-green-500);
+          background-color: var(--paper-light-green-50);
+          color: var(--paper-green-500);
+        }
+        paper-dialog.size-position {
+          position: fixed;
+          top: 16px;
+          right: 16px;
+          width: 300px;
+          height: 300px;
+          overflow: auto;
+        }
+    </style>
+	-->
     <template is="dom-bind">
         <div style="font-size: 12px; text-align: center">{{model.TurnuvaInfo}}</div>
         <table>
@@ -8,6 +37,7 @@
                 <th>Galibiyet</th>
                 <th>Mağlubiyet</th>
                 <th>Beraberlik</th>
+				<th>gMap</th>
             </tr>
             <tbody>
                 <template is="dom-repeat" items="{{model.Takimlar}}">
@@ -18,49 +48,78 @@
                         <td style="text-align:center">{{item.Ozet.MusabakaWin}}</td>
                         <td style="text-align:center">{{item.Ozet.MusabakaLost}}</td>
                         <td style="text-align:center">{{item.Ozet.MusabakaTie}}</td>
+						<td><button value="{{item.TakimMapClick$::click}}" onmousedown="++this.value" style="width: 100%">gMap</button></td>
                     </tr>
                 </template>
             </tbody>
         </table>
 
-		<simple-overlay id="plain" tabindex=-1 class="with-margin" opened="{{model.TakimMusabakaOpened$}}">
+		<paper-dialog id="TakimMusabaka" tabindex=-1 opened="{{model.TakimMusabakaOpened$}}">
 			<h2>[[model.CurRowTakimAd]] Müsabakaları</h2>
+			<paper-dialog-scrollable>
+				<table>
+					<tr>
+						<th>Tarih</th>
+						<th>Home</th>
+						<th>P</th>
+						<th>M</th>
+						<th>S</th>
+						<th>#</th>
+						<th>Guest</th>
+						<th>P</th>
+						<th>M</th>
+						<th>S</th>
+						<th>#</th>
+					</tr>
+					<tbody>
+						<template is="dom-repeat" items="[[model.CurTakimMusabakalari]]">
+							<tr>
+								<td>[[item.Tarih]]</td>
+								<td>[[item.HomeTakimAd]]</td>
+								<td>[[item.Ozet.HomePuan]]</td>
+								<td>[[item.Ozet.HomeMac]]</td>
+								<td>[[item.Ozet.HomeSet]]</td>
+								<td>[[item.Ozet.HomeSayi]]</td>
+								<td>[[item.GuestTakimAd]]</td>
+								<td>[[item.Ozet.GuestPuan]]</td>
+								<td>[[item.Ozet.GuestMac]]</td>
+								<td>[[item.Ozet.GuestSet]]</td>
+								<td>[[item.Ozet.GuestSayi]]</td>
+							</tr>
+						</template>
+					</tbody>
+				</table>
+			</paper-dialog-scrollable>
+		</paper-dialog>
 
-			<table>
-				<tr>
-					<th>Tarih</th>
-					<th>Home</th>
-					<th>Puan</th>
-					<th>Maç</th>
-					<th>Set</th>
-					<th>Sayı</th>
-					<th>Guest</th>
-					<th>Puan</th>
-					<th>Maç</th>
-					<th>Set</th>
-					<th>Sayı</th>
-				</tr>
-				<tbody>
-					<template is="dom-repeat" items="[[model.CurTakimMusabakalari]]">
-						<tr>
-							<td>[[item.Tarih]]</td>
-							<td>[[item.HomeTakimAd]]</td>
-							<td>[[item.Ozet.HomePuan]]</td>
-							<td>[[item.Ozet.HomeMac]]</td>
-							<td>[[item.Ozet.HomeSet]]</td>
-							<td>[[item.Ozet.HomeSayi]]</td>
-							<td>[[item.GuestTakimAd]]</td>
-							<td>[[item.Ozet.GuestPuan]]</td>
-							<td>[[item.Ozet.GuestMac]]</td>
-							<td>[[item.Ozet.GuestSet]]</td>
-							<td>[[item.Ozet.GuestSayi]]</td>
-						</tr>
-					</template>
-				</tbody>
-			</table>
+		<paper-dialog id="TakimMap" tabindex=-1 opened="{{model.TakimMapOpened$}}" style="height:60vh; width:80vw">
+			<google-map map="{{map}}"
+						zoom="17"
+						fit-to-marker
+						latitude="[[model.TakimLat]]"
+						longitude="[[model.TakimLon]]"
+						api-key="AIzaSyDPkEs-_HJWKejZ5qLXTmXXfVFnAXJmnt0">
+				<google-map-marker
+						latitude="[[model.TakimLat]]"
+						longitude="[[model.TakimLon]]">
+				</google-map-marker>
+			</google-map>
+		</paper-dialog>
 
-			<button onclick="plain.close()">Close</button>
-		</simple-overlay>
-
+	<!--
+		<paper-dialog id="TakimMap" tabindex=-1 opened="{{model.TakimMapOpened$}}" style="height:60vh; width:80vw">
+			<google-map map="{{map}}"
+						zoom="17"
+						fit-to-marker
+						latitude="37.041987"
+						longitude="27.428861"
+						api-key="AIzaSyDPkEs-_HJWKejZ5qLXTmXXfVFnAXJmnt0">
+				<google-map-marker
+						latitude="37.041987"
+						longitude="27.428861">
+				</google-map-marker>
+			</google-map>
+		</paper-dialog>
+	-->
     </template>
 </template>

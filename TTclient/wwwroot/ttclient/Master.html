@@ -29,6 +29,61 @@
     <link rel="import" href="/sys/starcounter-debug-aid/src/starcounter-debug-aid.html">
 	-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="import" href="/sys/app-layout/app-header.html">
+
+	<link rel="import" href="/sys/google-map/google-map.html">
+
+	<style is="custom-style">
+		body {
+			margin: 0;
+			font-family: 'Roboto', 'Noto', sans-serif;
+			background-color: #eee;
+		}
+		app-toolbar {
+			background-color: #4285f4;
+			color: #fff;
+		}
+	  
+		paper-icon-button + [main-title] {
+			margin-left: 24px;
+		}
+	
+		paper-progress {
+			display: block;
+			width: 100%;
+			--paper-progress-active-color: rgba(255, 255, 255, 0.5);
+			--paper-progress-container-color: transparent;
+		}
+	  
+		app-header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			background-color: #4285f4;
+			color: #fff;
+			/*height: 64px;*/
+		}
+
+		app-drawer {
+			--app-drawer-scrim-background: rgba(0, 0, 100, 0.8);
+			--app-drawer-content-container: {
+				background-color: #B0BEC5;
+			}
+		}
+
+		section {
+			padding-top: 24px;
+		}
+
+		[main-title] {
+			text-align: center;
+			font-size: 20px;
+			/*margin-left: 50px;*/
+			/*padding-top: 14px;*/
+		}
+
+	</style>
 
 </head>
 
@@ -36,40 +91,56 @@
 
 <!--<template>-->
     <template is="dom-bind" id="root">
-        <button class="heading" value="{{model.TurnuvalarToggle$::click}}" onmousedown="++this.value;">[[model.TurnuvalarHeader]]</button>
-        <template is="dom-if" if="{{model.TurnuvalarOpened}}">
-            <iron-collapse id="collapseTurnuvalar" tabindex="0" opened="[[model.TurnuvalarOpened]]" no-animation>
-                <div class="content">
-                    <starcounter-include partial="{{model.Turnuvalar}}"></starcounter-include>
-                </div>
-            </iron-collapse>
-        </template>
+		<app-header reveals>
+			<div main-title>MasaTenisi.online</div>
+		</app-header>
+		<section>
+			<button class="heading" value="{{model.TurnuvalarToggle$::click}}" onmousedown="++this.value;">[[model.TurnuvalarHeader]]</button>
+			<template is="dom-if" if="{{model.TurnuvalarOpened}}">
+				<iron-collapse id="collapseTurnuvalar" tabindex="0" opened="[[model.TurnuvalarOpened]]" no-animation>
+					<div class="content">
+						<starcounter-include partial="{{model.Turnuvalar}}"></starcounter-include>
+					</div>
+				</iron-collapse>
+			</template>
 
-        <button class="heading" value="{{model.OyuncularToggle$::click}}" onmousedown="++this.value">[[model.OyuncularHeader]]</button>
-        <template is="dom-if" if="{{model.OyuncularOpened}}">
-            <iron-collapse id="collapseOyuncular" tabindex="0" opened="{{model.OyuncularOpened}}" no-animation>
-                <div class="content">
-                    <starcounter-include partial="{{model.Oyuncular}}"></starcounter-include>
-                </div>
-            </iron-collapse>
-        </template>
+			<button class="heading" value="{{model.OyuncularToggle$::click}}" onmousedown="++this.value">[[model.OyuncularHeader]]</button>
+			<template is="dom-if" if="{{model.OyuncularOpened}}">
+				<iron-collapse id="collapseOyuncular" tabindex="0" opened="{{model.OyuncularOpened}}" no-animation>
+					<div class="content">
+						<starcounter-include partial="{{model.Oyuncular}}"></starcounter-include>
+					</div>
+				</iron-collapse>
+			</template>
 
-        <button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">[[model.TakimlarHeader]]</button>
-        <template is="dom-if" if="{{model.TakimlarOpened}}">
-            <iron-collapse id="collapseTakimlar" tabindex="0" opened="[[model.TakimlarOpened]]" no-animation>
-                <div class="content">
-                    <starcounter-include partial="{{model.Takimlar}}"></starcounter-include>
-                </div>
-            </iron-collapse>
-        </template>
+			<button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">[[model.TakimlarHeader]]</button>
+			<template is="dom-if" if="{{model.TakimlarOpened}}">
+				<iron-collapse id="collapseTakimlar" tabindex="0" opened="[[model.TakimlarOpened]]" no-animation>
+					<div class="content">
+						<starcounter-include partial="{{model.Takimlar}}"></starcounter-include>
+					</div>
+				</iron-collapse>
+			</template>
+		</section>
 
-    
+		<!--
+		<div style="height:300px; width:300px">
+			<google-map map="{{map}}"
+						latitude="37.77493"
+						longitude="-122.41942"
+						api-key="AIzaSyDPkEs-_HJWKejZ5qLXTmXXfVFnAXJmnt0">
+			</google-map>
+		</div>
+		-->
+
 	</template>
 <!--</template>-->
 
     <!-- Plug in client-server sync -->
     <puppet-client ref="root" useWebSocket="true"></puppet-client>
     <starcounter-debug-aid></starcounter-debug-aid>
+
+
 
 </body>
 </html>

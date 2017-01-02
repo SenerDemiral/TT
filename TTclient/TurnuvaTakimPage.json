@@ -18,13 +18,15 @@
 			"Url": "",
 			"Toggle$": 0,
 			"Opened": "",
-			"TakimClick$": 0
+			"TakimClick$": 0,
+
+			"TakimMapClick$": 0
 		}
 	],
 	"TakimMusabakaOpened$": false,
 	"CurTakimMusabakalari": [
 		{
-			"ID":  "",	// MusabakaID
+			"ID": "", // MusabakaID
 			"Tarih": "",
 			"HomeTakimAd": "",
 			"GuestTakimAd": "",
@@ -39,6 +41,8 @@
 				"GuestSayi": 0
 			}
 		}
-	]
-
+	],
+	"TakimMapOpened$": false,
+	"TakimLat": "37.041987",
+	"TakimLon": "27.428861"
 }
