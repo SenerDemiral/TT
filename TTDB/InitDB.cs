@@ -63,14 +63,14 @@ namespace TTDB
 				Takim delfi     = new Takim() { Ad = "Delfi",     Lat = "37.034957", Lon = "27.438069", Adres = "Kumbahçe Mahallesi, Delfi Hotel Spa & Wellness, Dere Sokak, Bodrum/Muğla" };
 				Takim kutay     = new Takim() { Ad = "KutayReno", Lat = "37.026259", Lon = "27.250050", Adres = "Bahçelievler Mahallesi, Avta Restaurant, Turgutreis/Bodrum/Muğla" };
 				
-				Takim gumusluk  = new Takim() { Ad = "Gümüşlük",  Lat = "37.054979", Lon = "27.233205" };   // ?
-				Takim yaliKavak = new Takim() { Ad = "YalıKavak", Lat = "37.104153", Lon = "27.287466" };	// ?
-				Takim ponpin    = new Takim() { Ad = "Ponpin",    Lat = "37.029388", Lon = "27.408416" };	// ?
-				Takim dragon    = new Takim() { Ad = "Dragon",    Lat = "37.033123", Lon = "27.429544" }; // ?
-				Takim peksimet  = new Takim() { Ad = "Peksimet",  Lat = "37.033123", Lon = "27.429544" }; // ?
-				Takim telmisos  = new Takim() { Ad = "Telmisos",  Lat = "37.033123", Lon = "27.429544" };	// ?
-				Takim kekik     = new Takim() { Ad = "Kekik",     Lat = "37.033123", Lon = "27.429544" };	// ?
-				Takim nane      = new Takim() { Ad = "Nane",      Lat = "37.033123", Lon = "27.429544" };	// ?
+				Takim gumusluk  = new Takim() { Ad = "Gümüşlük",  Lat = "37.034667", Lon = "27.426336" };   // ?
+				Takim yaliKavak = new Takim() { Ad = "YalıKavak", Lat = "37.034667", Lon = "27.426336" };	// ?
+				Takim ponpin    = new Takim() { Ad = "Ponpin",    Lat = "37.034667", Lon = "27.426336" };	// ?
+				Takim dragon    = new Takim() { Ad = "Dragon",    Lat = "37.034667", Lon = "27.426336" }; // ?
+				Takim peksimet  = new Takim() { Ad = "Peksimet",  Lat = "37.034667", Lon = "27.426336" }; // ?
+				Takim telmisos  = new Takim() { Ad = "Telmisos",  Lat = "37.034667", Lon = "27.426336" };	// ?
+				Takim kekik     = new Takim() { Ad = "Kekik",     Lat = "37.034667", Lon = "27.426336" };	// ?
+				Takim nane      = new Takim() { Ad = "Nane",      Lat = "37.034667", Lon = "27.426336" };	// ?
 
 				Turnuva trn1 = new Turnuva() { Ad = "2016 Bodrum 1.Lig", Trh = DateTime.Now };
 				Turnuva turnuva2 = new Turnuva() { Ad = "2016 Bodrum MT 2.Lig", Trh = DateTime.Now };
