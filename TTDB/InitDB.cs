@@ -11,11 +11,27 @@ namespace TTDB
 	{
 		public void Deneme()
 		{
+			Takim takim = null;
+			Db.Transact(() => {
+				takim = Db.SQL<Takim>("SELECT o FROM Takim o WHERE Ad = ?", "Promil").First;
+				takim.Lat = "37.041987";
+				takim.Lon = "27.428861";
+
+				takim = Db.SQL<Takim>("SELECT o FROM Takim o WHERE Ad = ?", "Delfi").First;
+				takim.Lat = "37.034957";
+				takim.Lon = "27.438069";
+
+				takim = Db.SQL<Takim>("SELECT o FROM Takim o WHERE Ad = ?", "KutayReno").First;
+				takim.Lat = "37.026259";
+				takim.Lon = "27.250050";
+			});
+
+
 			/*
 			Db.Transact(() => {
 				new Oyuncu() { Ad = "*" };
 			});
-			*/
+			
 			var oyuncuBos = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o WHERE Ad = ?", "*").First;
 			Db.Transact(() => {
 				var maclar = Db.SQL<Mac>("SELECT m FROM Mac m WHERE m.HomeOyuncu IS NULL");
@@ -24,7 +40,7 @@ namespace TTDB
 					mac.GuestOyuncu = oyuncuBos;
 				}
 			});
-
+			*/
 		}
 
 		public void Init()
@@ -43,17 +59,18 @@ namespace TTDB
 
 				Takim meat = new Takim() { Ad = "mEAT United" };
 
-				Takim promil = new Takim() { Ad = "Promil" };
-				Takim ponpin = new Takim() { Ad = "Ponpin" };
-				Takim dragon = new Takim() { Ad = "Dragon" };
-				Takim delfi = new Takim() { Ad = "Delfi" };
-				Takim yaliKavak = new Takim() { Ad = "YalıKavak" };
-				Takim gumusluk = new Takim() { Ad = "Gümüşlük" };
-				Takim peksimet = new Takim() { Ad = "Peksimet" };
-				Takim telmisos = new Takim() { Ad = "Telmisos" };
-				Takim kekik = new Takim() { Ad = "Kekik" };
-				Takim kutay = new Takim() { Ad = "KutayReno" };
-				Takim nane = new Takim() { Ad = "Nane" };
+				Takim promil    = new Takim() { Ad = "Promil",    Lat = "37.041987", Lon = "27.428861", Adres = "Yokuşbaşı Mahallesi, mEAT Burger & Steak House, Kıbrıs Şehitleri Caddesi, Bodrum/Muğla" };
+				Takim delfi     = new Takim() { Ad = "Delfi",     Lat = "37.034957", Lon = "27.438069", Adres = "Kumbahçe Mahallesi, Delfi Hotel Spa & Wellness, Dere Sokak, Bodrum/Muğla" };
+				Takim kutay     = new Takim() { Ad = "KutayReno", Lat = "37.026259", Lon = "27.250050", Adres = "Bahçelievler Mahallesi, Avta Restaurant, Turgutreis/Bodrum/Muğla" };
+				
+				Takim gumusluk  = new Takim() { Ad = "Gümüşlük",  Lat = "37.054979", Lon = "27.233205" };   // ?
+				Takim yaliKavak = new Takim() { Ad = "YalıKavak", Lat = "37.104153", Lon = "27.287466" };	// ?
+				Takim ponpin    = new Takim() { Ad = "Ponpin",    Lat = "37.029388", Lon = "27.408416" };	// ?
+				Takim dragon    = new Takim() { Ad = "Dragon",    Lat = "37.033123", Lon = "27.429544" }; // ?
+				Takim peksimet  = new Takim() { Ad = "Peksimet",  Lat = "37.033123", Lon = "27.429544" }; // ?
+				Takim telmisos  = new Takim() { Ad = "Telmisos",  Lat = "37.033123", Lon = "27.429544" };	// ?
+				Takim kekik     = new Takim() { Ad = "Kekik",     Lat = "37.033123", Lon = "27.429544" };	// ?
+				Takim nane      = new Takim() { Ad = "Nane",      Lat = "37.033123", Lon = "27.429544" };	// ?
 
 				Turnuva trn1 = new Turnuva() { Ad = "2016 Bodrum 1.Lig", Trh = DateTime.Now };
 				Turnuva turnuva2 = new Turnuva() { Ad = "2016 Bodrum MT 2.Lig", Trh = DateTime.Now };

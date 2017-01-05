@@ -1,0 +1,23 @@
+﻿<template>
+	<!--
+	<style is="custom-style">
+        paper-dialog {
+			margin: 5px;
+			padding: 0 5px;
+        }
+    </style>
+	-->
+    <template is="dom-bind">
+        <table>
+            <tr>
+                <th>Oyuncu</th>
+            </tr>
+
+            <template is="dom-repeat" items="[[model.Takimlar]]">
+                <tr>
+                    <td>[[item.Ad]]</td>
+                </tr>
+            </template>
+        </table>
+	</template>
+</template>

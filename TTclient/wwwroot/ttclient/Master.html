@@ -29,11 +29,33 @@
     <link rel="import" href="/sys/starcounter-debug-aid/src/starcounter-debug-aid.html">
 	-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="import" href="/sys/app-layout/app-header.html">
+	<link rel="import" href="/sys/app-layout/app-header/app-header.html">
 
 	<link rel="import" href="/sys/google-map/google-map.html">
 
 	<style is="custom-style">
+		:root {
+			--paper-dialog: {
+				margin: 0;
+				/*
+				.paper-dialog-0 > * {
+					margin-top: 20px;
+					padding: 10px 5px;
+				} */
+			}
+
+			--paper-dialog-scrollable: {
+				padding-left: 5px;
+				padding-right: 5px;
+			}
+
+			h2 {
+				margin-top: 5px;
+				padding-left: 5px;
+				margin-bottom: 5px;
+			}
+		}
+
 		body {
 			margin: 0;
 			font-family: 'Roboto', 'Noto', sans-serif;
@@ -104,6 +126,15 @@
 				</iron-collapse>
 			</template>
 
+			<button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">[[model.TakimlarHeader]]</button>
+			<template is="dom-if" if="{{model.TakimlarOpened}}">
+				<iron-collapse id="collapseTakimlar" tabindex="0" opened="[[model.TakimlarOpened]]" no-animation>
+					<div class="content">
+						<starcounter-include partial="{{model.Takimlar}}"></starcounter-include>
+					</div>
+				</iron-collapse>
+			</template>
+
 			<button class="heading" value="{{model.OyuncularToggle$::click}}" onmousedown="++this.value">[[model.OyuncularHeader]]</button>
 			<template is="dom-if" if="{{model.OyuncularOpened}}">
 				<iron-collapse id="collapseOyuncular" tabindex="0" opened="{{model.OyuncularOpened}}" no-animation>
@@ -113,14 +144,9 @@
 				</iron-collapse>
 			</template>
 
-			<button class="heading" value="{{model.TakimlarToggle$::click}}" onmousedown="++this.value">[[model.TakimlarHeader]]</button>
-			<template is="dom-if" if="{{model.TakimlarOpened}}">
-				<iron-collapse id="collapseTakimlar" tabindex="0" opened="[[model.TakimlarOpened]]" no-animation>
-					<div class="content">
-						<starcounter-include partial="{{model.Takimlar}}"></starcounter-include>
-					</div>
-				</iron-collapse>
-			</template>
+			<div>
+                <a href="/ttclient/abc">ABC</a>
+            </div>
 		</section>
 
 		<!--
@@ -131,8 +157,8 @@
 						api-key="AIzaSyDPkEs-_HJWKejZ5qLXTmXXfVFnAXJmnt0">
 			</google-map>
 		</div>
+		 <starcounter-include partial="{{model.Oyuncular}}"></starcounter-include>
 		-->
-
 	</template>
 <!--</template>-->
 

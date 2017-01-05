@@ -10,23 +10,9 @@ namespace TTadmin
 		public void RefreshOyuncu()
 		{
 			reading = true;
-			Oyns.Clear();
 
-			var oyns = Db.SQL<TTDB.Oyuncu>("SELECT tt FROM Oyuncu tt");
-			
-			OynsElementJson oej;
-			foreach(var rec in oyns) {
-				oej = this.Oyns.Add();
+			Oyns = Db.SQL<TTDB.Oyuncu>("SELECT tt FROM Oyuncu tt");
 
-				oej.ID = rec.GetObjectID();
-				oej.Ad = rec.Ad;
-				oej.Sex = rec.Sex;
-				oej.Tel = rec.Tel;
-				oej.eMail = rec.eMail;
-				oej.DgmYil = rec.DgmYil;
-
-				oej.MF = false;
-			}		
 			reading = false;
 		}
 

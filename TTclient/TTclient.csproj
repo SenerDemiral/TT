@@ -70,8 +70,14 @@
     <Compile Include="MusabakaPage.json.cs">
       <DependentUpon>MusabakaPage.json</DependentUpon>
     </Compile>
+    <Compile Include="OyuncuPage.json.cs">
+      <DependentUpon>OyuncuPage.json</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TakimPage.json.cs">
+      <DependentUpon>TakimPage.json</DependentUpon>
+    </Compile>
     <Compile Include="TurnuvaOyuncuPage.json.cs">
       <DependentUpon>TurnuvaOyuncuPage.json</DependentUpon>
     </Compile>
@@ -101,6 +107,12 @@
     <TypedJSON Include="TurnuvaOyuncuPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
+    <TypedJSON Include="OyuncuPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="TakimPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <None Include="wwwroot\ttclient\Turnuva.html" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\ttclient\Master.css" />
+    <None Include="wwwroot\ttclient\Takim.html" />
+    <None Include="wwwroot\ttclient\Oyuncu.html" />
     <Content Include="wwwroot\ttclient\Stylesheet1.css" />
     <None Include="wwwroot\ttclient\simple-overlay.html" />
     <None Include="wwwroot\ttclient\TurnuvaOyuncu.html" />

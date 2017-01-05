@@ -1,14 +1,24 @@
 {
-  "Html": "/TTadmin/TkmPage.html",
-  "Takimlar": [
-    {
-      "Ad": "",
-      "KurulusYili": 0,
-      "Tel": "",
-      "Kaptan": "",
-      "Adres": "",
-      "Lat": "",
-      "Lon": ""
-    }
-  ]
+	"Html": "/TTadmin/TkmPage.html",
+	"htid": "Trn",
+	"Heading": "Turnuvalar",
+	"Tkms": [
+		{
+			"ID": "",
+			"Ad$": "",
+			"KurYil$": 0,
+			"Tel$": "",
+			"Kaptan$": "",
+			"Adres$": "",
+			"Lat$": "",
+			"Lon$": "",
+			"MF": false, // ModifiedFlag
+			"DF$": false // DeleteFlag
+		}
+	],
+	"hRow$": -1, // highlightedRow	, $ yoksa Server'in haberi olmuyor
+	"CurRowID$": "",
+	"Insert$": 0,
+	"Refresh$": 0,
+	"Save$": 0
 }

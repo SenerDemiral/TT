@@ -31,7 +31,11 @@ namespace TTclient
 			}
 
 			void Handle(Input.TakimMapClick inp) {
+				var takim = Db.SQL<TTDB.Takim>("SELECT o FROM Takim o WHERE o.ObjectId = ?", TakimID).First;
+				
 				var parent = (TurnuvaTakimPage)this.Parent.Parent;
+				parent.TakimLat = takim.Lat;
+				parent.TakimLon = takim.Lon;
 				parent.TakimMapOpened = true;
 			}
 		}

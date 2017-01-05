@@ -38,10 +38,6 @@ namespace TTDB
 	[Database]
 	public class Oyuncu
 	{
-		public Oyuncu() {
-			Ad = "";
-			Sex = "E";
-		}
 		public string ID => this.GetObjectID();
 		public string Ad;
 		public string Sex;
@@ -77,15 +73,24 @@ namespace TTDB
 				}
 				return ozet;
 			}
-      }
-   }
+		}
+		public Oyuncu()
+		{
+			Ad = "";
+			Sex = "E";
+		}
+	}
 
 	[Database]
 	public class Takim
 	{
+		public string ID => this.GetObjectID();
 		public string Ad;
 		public string Tel;
+		public string Adres;
 		public Int16 KurYil;
+		public string Lat;
+		public string Lon;
 	}
 
 	[Database]
@@ -162,6 +167,7 @@ namespace TTDB
    [Database]
    public class TakimOyuncu
    {
+		public string ID => this.GetObjectID();
 		public Turnuva Turnuva;
 		public Takim Takim;
 		public Oyuncu Oyuncu;
@@ -358,6 +364,7 @@ namespace TTDB
 	[Database]
 	public class MacSonuc
 	{
+		public string ID => this.GetObjectID();
 		public Mac Mac;
 		public Int16 SetNo;
 		public Int16 HomeSayi;

@@ -1,0 +1,23 @@
+{
+	"Html": "/TTclient/Takim.html",
+	"Takimlar": [
+		{
+			"ID": "",
+			"Ad": "",
+			"Toggle$": 0,
+			"Opened": false,
+
+			"RecentMusabaka": { },
+			"MusabakaToggle$": 0,
+			"MusabakaOpened": false,
+
+			"RecentTakim": { },
+			"TakimToggle$": 0,
+			"TakimOpened": false,
+
+			"RecentOyuncu": { },
+			"OyuncuToggle$": 0,
+			"OyuncuOpened": false
+		}
+	]
+}

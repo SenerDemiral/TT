@@ -9,7 +9,7 @@ namespace TTclient
 		{
 			base.OnData();
 
-			Turnuvalar = Db.SQL<TTDB.Turnuva>("SELECT tt FROM Turnuva tt");
+			Turnuvalar = Db.SQL<TTDB.Turnuva>("SELECT tt FROM Turnuva tt ORDER BY tt.Ad");
 			
 			/*
 			Turnuvalar.Clear();

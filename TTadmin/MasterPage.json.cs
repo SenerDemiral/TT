@@ -29,5 +29,15 @@ namespace TTadmin
 			}
 		}
 
+		void Handle(Input.TakimlarToggle inp)
+		{
+			TakimlarOpened = !TakimlarOpened;
+			if(TakimlarOpened) {
+				var takimlar = new Tkm();
+				takimlar.Data = null;
+				RecentTakimlar = takimlar;
+			}
+		}
+
 	}
 }

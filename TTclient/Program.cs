@@ -11,6 +11,9 @@ namespace TTclient
 			Application.Current.Use(new HtmlFromJsonProvider());
 			//Application.Current.Use(new PartialToStandaloneHtmlProvider());
 
+			//TTDB.InitDB initDB = new TTDB.InitDB();
+			//initDB.Deneme();
+
 			Handle.GET("/TTclient", () => {
 				return Db.Scope(() => {
 					Master master;
@@ -35,9 +38,18 @@ namespace TTclient
 				});
 			});
 			
-			Handle.GET("/TTclient/TurnuvaxxxOyuncuMaclar", () => {
-				Master master = new Master();
-				return master;
+			Handle.GET("/TTclient/abc", () => {
+				Master master;
+
+				if(Session.Current != null) {
+					master = (Master)Session.Current.Data;
+					master.Deneme = "SENER";
+				}
+				else {
+					master = new Master();
+				}
+
+				return new MacPage();
 			});
 
 			Handle.GET("/TTclient/TurnuvaOyuncuMaclar/{?}", (string param1) => {

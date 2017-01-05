@@ -1,0 +1,49 @@
+﻿<link rel="import" href="/sys/iron-flex-layout/iron-flex-layout.html" />
+<link rel="import" href="/sys/iron-list/iron-list.html" />
+
+<template>
+	<!--
+	<style is="custom-style">
+        paper-dialog {
+			margin: 5px;
+			padding: 0 5px;
+        }
+    </style>
+
+    <template is="dom-bind">
+	<style is="custom-style">
+	    iron-list {
+		  overflow: hidden;
+		}
+		.item {
+			padding: 10px;
+			border-bottom: 1px solid #ccc;
+		}
+	</style>
+
+	<div class="item">deneme oyuncu</div>
+        <iron-list items="[[model.Oyuncu]]" as="item">
+			<template>
+				<div class="item">[[item.Ad]]</div>
+			</template>
+        </iron-list>
+	</template>
+	-->
+
+
+    <template is="dom-bind">
+		<div  style="height:80vh; overflow:auto">
+			<table>
+				<tr>
+					<th>Oyuncu</th>
+				</tr>
+
+				<template is="dom-repeat" items="[[model.Oyuncular]]">
+					<tr>
+						<td>[[item.Ad]]</td>
+					</tr>
+				</template>
+			</table>
+		</div>
+	</template>
+</template>

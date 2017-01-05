@@ -1,55 +1,43 @@
 ﻿<link rel="import" href="/sys/paper-dialog/paper-dialog.html">
 <link rel="import" href="/sys/paper-dialog-scrollable/paper-dialog-scrollable.html">
-
+<link rel="import" href="/sys/iron-icons/maps-icons.html">
+<link rel="import" href="/sys/iron-icons/social-icons.html">
+<link rel="import" href="/sys/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/sys/paper-button/paper-button.html">
+											 
 <template>
-	<!--
-	<style is="custom-style">
-        paper-dialog {
-			/*margin: 5px;*/
-			padding: 0;
-        }
-        paper-dialog-scrollable {
-			/*margin: 5px;*/
-			padding: 0;
-        }
-		paper-dialog.colored {
-          border: 2px solid;
-          border-color: var(--paper-green-500);
-          background-color: var(--paper-light-green-50);
-          color: var(--paper-green-500);
-        }
-        paper-dialog.size-position {
-          position: fixed;
-          top: 16px;
-          right: 16px;
-          width: 300px;
-          height: 300px;
-          overflow: auto;
-        }
-    </style>
-	-->
     <template is="dom-bind">
         <div style="font-size: 12px; text-align: center">{{model.TurnuvaInfo}}</div>
         <table>
             <tr>
                 <th>Takım</th>
-                <th>Puan</th>
-                <th>Galibiyet</th>
-                <th>Mağlubiyet</th>
-                <th>Beraberlik</th>
-				<th>gMap</th>
+				<th></th>
+				<th></th>
+                <th>P</th>
+                <th>G</th>
+                <th>M</th>
+                <th>B</th>
             </tr>
             <tbody>
                 <template is="dom-repeat" items="{{model.Takimlar}}">
                     <tr>
-                        <!--<td>{{item.TakimAd}}</td>-->
-						<td><button value="{{item.TakimClick$::click}}" onmousedown="++this.value" style="width: 100%">{{item.TakimAd}}</button></td>
+                        <td>[[item.TakimAd]]</td>
+		                <!--<td><paper-button style="text-transform: none;" on-click="onTakimClick">[[item.TakimAd]]<iron-icon icon="social:people"></iron-icon></paper-button></td>-->
+		                <!--<paper-button><iron-icon icon="check"></iron-icon>link</paper-button>-->
+						<td><paper-icon-button  on-click="onTakimClick" icon="social:people" style="height:20px; padding:0"></paper-icon-button></td>
+	                    <td><paper-icon-button  on-click="onTakimMapClick" icon="maps:place" style="height:20px; padding:0"></paper-icon-button></td>
+						<!--<td><button value="{{item.TakimClick$::click}}" onmousedown="++this.value" style="width: 100%">{{item.TakimAd}}</button></td>-->
+						<!--<td><button value="{{item.TakimClick$::click}}" on-click="onTakimClick" style="width: 100%">{{item.TakimAd}}</button></td>-->
                         <td style="text-align:center">{{item.Ozet.Puan}}</td>
                         <td style="text-align:center">{{item.Ozet.MusabakaWin}}</td>
                         <td style="text-align:center">{{item.Ozet.MusabakaLost}}</td>
                         <td style="text-align:center">{{item.Ozet.MusabakaTie}}</td>
-						<td><button value="{{item.TakimMapClick$::click}}" onmousedown="++this.value" style="width: 100%">gMap</button></td>
-                    </tr>
+					<!--<td><button value="{{item.TakimMapClick$::click}}" onmousedown="++this.value" style="width: 100%"><iron-icon icon="maps:place"></iron-icon></button></td>-->
+                    <!--<td><paper-icon-button valuexxx="{{item.TakimMapClick$::click}}" on-click="onTakimMapClick" icon="maps:place"></paper-icon-button></td>-->
+                    <!--<td><paper-icon-button value="{{item.TakimMapClick$::click}}" onmousedown="++this.value" icon="maps:place"></paper-icon-button></td>-->
+                    <!--<td><paper-button value="{{item.TakimMapClick$::click}}" onmousedown="++this.value" >x</paper-button></td>-->
+                    <!--<td><paper-button value="{{item.TakimMapClick$::click}}" on-click="onTakimMapClick" >x</paper-button></td>-->
+					</tr>
                 </template>
             </tbody>
         </table>
@@ -122,4 +110,29 @@
 		</paper-dialog>
 	-->
     </template>
+
+	<script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template.onTakimClick = function (event) {
+            	console.log("OnToogleCleck", event.model.__data__.item.TakimClick$);
+            	event.model.__data__.item.TakimClick$ = parseInt(event.model.__data__.item.TakimClick$, 10) + 1;
+            	//template.set("event.model.__data__.item.TakimClick$", parseInt(template.get(event.model.__data__.item.TakimClick$), 10) + 1);
+            }
+
+            template.onTakimMapClick = function (event) {
+            	console.log("OnToogleMap 1", event.model.__data__);
+            	console.log("OnToogleMap 2", event.model.__data__.item);
+            	console.log("OnToogleMap 3", event.model.__data__.item.TakimMapClick$);
+            	console.log("OnToogleMap 4", event.model.__data__['item.TakimMapClick$']);
+            	//event.stopPropagation();
+            	//event.preventDefault();
+            	event.model.__data__.item.TakimMapClick$ += 1;
+            	//event.model.__data__.item.TakimMapClick$ = parseInt(event.model.__data__.item.TakimMapClick$, 10) + 1;
+            }
+        })();
+	</script>
+
 </template>
