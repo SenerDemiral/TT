@@ -7,9 +7,9 @@ namespace TTDB
 {
 	public static class Constants {
 		public const string sepID = "·";		// Ad ·ID
-		public const string sepTkm = " •";		// Oyuncu(lar) • Takim
+		public const string sepTkm = "•";		// Oyuncu(lar) • Takim
 		public const string sepDblOyn = "+";	// Oyuncu + Oyuncu2
-		public const string sepSayi = " ";      // 11-05 ▪ 11-08
+		public const string sepSayi = "•";      // 11-05 ▪ 11-08
 												//public const string sepSayi = "■▪↔≡";      // 11-05 ▪ 11-08
 		public static readonly char[] charsToTrim = { ',', '.', '·', '•', '●', '▪', '│', ' ' };
 

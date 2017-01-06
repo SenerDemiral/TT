@@ -15,8 +15,7 @@ namespace TTadmin
 			//initDB.Deneme();
 			//initDB.Init();
 
-
-		Handle.GET("/TTadmin", () => {
+			Handle.GET("/TTadmin", () => {
 				return Db.Scope(() => {
 					MasterPage master;
 

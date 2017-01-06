@@ -7,12 +7,12 @@ body {
 	min-height: 100vh;
 	position: relative;
 	margin: 0;
-    font-size: 3vw;
+    font-size: 2vw;
 
 }
 button {
     font-family: Roboto, sans-serif;
-    font-size: 3vw;
+    font-size: 2vw;
 }
 
 .heading {
@@ -56,23 +56,20 @@ table, th, td {
 table {
     margin-left: auto;
     margin-right: auto;
-    font-size: 4vw;
+    font-size: 1.5vw;
 }
 th, td {
-    padding: 3px 3px;
+    padding: 3px 5px;
 }
 
 .xbutton {
     display:table-cell;
 }
-[table-min] {
-	font-size: 2.5vw;
-}
 
-
+/*
 @media all and (min-width: 600px){
   :root {
-    font-size: 20px;
+    font-size: 12px;
   }
 
   .heading {
@@ -86,9 +83,5 @@ th, td {
   button {
 	  font-size: 20px;
   }
-	[table-min] {
-		font-size: 20px;
-	}
 }
-
-	
+	*/

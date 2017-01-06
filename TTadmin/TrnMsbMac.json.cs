@@ -15,9 +15,7 @@ namespace TTadmin
 
 			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 			var msbObj = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
-			var ttRows = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Turnuva = ? AND tt.Musabaka = ? ORDER BY tt.Skl DESC, tt.Sira DESC", trnObj, msbObj);
-
-			//var ttRows = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Turnuva.ObjectId = ? AND tt.Musabaka.ObjectId = ? ORDER BY tt.Skl DESC, tt.Sira DESC", TurnuvaID, MusabakaID);
+			var ttRows = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Turnuva.ObjectId = ? AND tt.Musabaka.ObjectId = ? ORDER BY tt.Skl DESC, tt.Sira DESC", TurnuvaID, MusabakaID);
 			//TrnMsbMacs = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka.ObjectId = ? ORDER BY tt.Skl DESC, tt.Sira DESC", MusabakaID);
 			
 			TrnMsbMacsElementJson te;
