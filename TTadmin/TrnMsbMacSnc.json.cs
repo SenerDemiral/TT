@@ -15,7 +15,7 @@ namespace TTadmin
 
 			var macObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(MacID));
 			//var TT = Db.SQL<TTDB.TurnuvaTakim>("SELECT tt FROM TurnuvaTakim tt WHERE tt.Turnuva = ?", trnObj);
-			var TT = Db.SQL<TTDB.MacSonuc>("SELECT tt FROM MacSonuc tt WHERE tt.Mac.ObjectId = ? ORDER BY tt.SetNo", MacID);
+			var TT = Db.SQL<TTDB.MacSonuc>("SELECT tt FROM MacSonuc tt WHERE tt.Mac = ? ORDER BY tt.SetNo", macObj);
 
 			TrnMsbMacSncsElementJson te;
 			foreach(var tt in TT) {

@@ -14,8 +14,8 @@ namespace TTadmin
 			
 			TrnTkms.Clear();
 
-			//var TT = Db.SQL<TTDB.TurnuvaTakim>("SELECT tt FROM TurnuvaTakim tt WHERE tt.Turnuva = ?", trnObj);
-			var TT = Db.SQL<TTDB.TurnuvaTakim>("SELECT tt FROM TurnuvaTakim tt WHERE tt.Turnuva.ObjectId = ?", TurnuvaID);
+			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
+			var TT = Db.SQL<TTDB.TurnuvaTakim>("SELECT tt FROM TurnuvaTakim tt WHERE tt.Turnuva = ?", trnObj);
 
 			TrnTkmsElementJson te;
 			foreach(var tt in TT) {

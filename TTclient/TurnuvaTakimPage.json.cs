@@ -10,7 +10,8 @@ namespace TTclient
 		{
 			base.OnData();
 			
-			Takimlar.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva.ObjectId = ?", TurnuvaID).OrderByDescending(x => x.Ozet.Puan);
+			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
+			Takimlar.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnObj).OrderByDescending(x => x.Ozet.Puan);
 		}
 
 		[TurnuvaTakimPage_json.Takimlar]
@@ -22,20 +23,22 @@ namespace TTclient
 				parent.CurRowID = this.TakimID;
 				parent.CurRowTakimAd = this.TakimAd;
 
+				var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(parent.TurnuvaID));
+				var tkmObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
 				parent.CurTakimMusabakalari.Data =
-					Db.SQL<TTDB.Musabaka>("SELECT mm FROM Musabaka mm WHERE mm.Turnuva.ObjectId = ? AND (mm.HomeTakim.ObjectId = ? OR mm.GuestTakim.ObjectId = ?)",
-						parent.TurnuvaID, TakimID, TakimID)
+					Db.SQL<TTDB.Musabaka>("SELECT mm FROM Musabaka mm WHERE mm.Turnuva = ? AND (mm.HomeTakim = ? OR mm.GuestTakim = ?)",
+						trnObj, tkmObj, tkmObj)
 					.OrderBy(x => x.Trh);
 
 				parent.TakimMusabakaOpened = true;
 			}
 
 			void Handle(Input.TakimMapClick inp) {
-				var takim = Db.SQL<TTDB.Takim>("SELECT o FROM Takim o WHERE o.ObjectId = ?", TakimID).First;
+				var tkmObj = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
 				
 				var parent = (TurnuvaTakimPage)this.Parent.Parent;
-				parent.TakimLat = takim.Lat;
-				parent.TakimLon = takim.Lon;
+				parent.TakimLat = tkmObj.Lat;
+				parent.TakimLon = tkmObj.Lon;
 				parent.TakimMapOpened = true;
 			}
 		}

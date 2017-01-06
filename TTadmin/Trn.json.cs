@@ -23,6 +23,7 @@ namespace TTadmin
 				te.ID = trn.GetObjectID();
 				te.MF = false;
 			}*/
+			var trnObj = (TTDB.Turnuva)DbHelper.FromID((ulong)Trns[0].PK);
 			reading = false;
 		}
 

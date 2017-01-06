@@ -38,6 +38,7 @@ namespace TTDB
 	[Database]
 	public class Oyuncu
 	{
+		public ulong PK => this.GetObjectNo();
 		public string ID => this.GetObjectID();
 		public string Ad;
 		public string Sex;
@@ -84,6 +85,7 @@ namespace TTDB
 	[Database]
 	public class Takim
 	{
+		public ulong PK => this.GetObjectNo();
 		public string ID => this.GetObjectID();
 		public string Ad;
 		public string Tel;
@@ -96,6 +98,7 @@ namespace TTDB
 	[Database]
 	public class Turnuva
 	{
+		public ulong PK => this.GetObjectNo();
 		public string ID => this.GetObjectID();
 		public string Ad;
 		public DateTime Trh;
@@ -127,6 +130,7 @@ namespace TTDB
 	[Database]
 	public class TurnuvaTakim
 	{
+		public ulong PK => this.GetObjectNo();
 		public string ID => this.GetObjectID();
 		public Turnuva Turnuva;
 		public Takim Takim;
@@ -443,7 +447,8 @@ namespace TTDB
 
 		public static void DeleteTrnMsbMac(string MusabakaID)
 		{
-			var maclar = Db.SQL<Mac>("SELECT m FROM Mac m WHERE m.Musabaka.ObjectId = ?", MusabakaID);
+			var msbObj = (Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
+			var maclar = Db.SQL<Mac>("SELECT m FROM Mac m WHERE m.Musabaka = ?", msbObj);
 			Db.Transact(() => {
 				foreach(var mac in maclar) {
 					var macSonuclar = Db.SQL<MacSonuc>("SELECT m FROM MacSonuc m WHERE m.Mac = ?", mac);
@@ -457,16 +462,13 @@ namespace TTDB
 
 		public static void CreateTrnMsbMac(string MusabakaID)
 		{
-			if(Db.SQL<Mac>("SELECT m FROM Mac m WHERE m.Musabaka.ObjectId = ?", MusabakaID).First == null) {
-				var musabakaObj = (Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
-
-				//var oyuncuBos = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o WHERE Ad = ?", "*").First;
-
+			var msbObj = (Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
+			if(Db.SQL<Mac>("SELECT m FROM Mac m WHERE m.Musabaka = ?", msbObj).First == null) {
 				Db.Transact(() => {
 					for(int i = 0; i < 8; i++) {
 						var mac = new Mac();
-						mac.Turnuva = musabakaObj.Turnuva;
-						mac.Musabaka = musabakaObj;
+						mac.Turnuva = msbObj.Turnuva;
+						mac.Musabaka = msbObj;
 						mac.Skl = "S";
 						mac.Sira = (short)(i + 1);
 						for(int k = 1; k < 4; k++) {
@@ -477,8 +479,8 @@ namespace TTDB
 					}
 					for(int i = 0; i < 4; i++) {
 						var mac = new Mac();
-						mac.Turnuva = musabakaObj.Turnuva;
-						mac.Musabaka = musabakaObj;
+						mac.Turnuva = msbObj.Turnuva;
+						mac.Musabaka = msbObj;
 						mac.Skl = "D";
 						mac.Sira = (short)(i + 1);
 						for(int k = 1; k < 4; k++) {
@@ -493,9 +495,9 @@ namespace TTDB
 
 		public static IEnumerable<TurnuvaOyuncuOzet> TurnuvaOyuncularOzet(string turnuvaID)
 		{
-			var turnuva = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
+			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
 
-			QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ?", turnuva);
+			QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ?", trnObj);
 
 			foreach(var t in to) {
 				TurnuvaOyuncuOzet too = new TurnuvaOyuncuOzet();

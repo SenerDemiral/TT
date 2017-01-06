@@ -10,7 +10,8 @@ namespace TTclient
 
 			//Musabakalar
 
-			Musabakalar = Db.SQL<TTDB.Musabaka>("SELECT tt FROM Musabaka tt WHERE tt.Turnuva.ObjectId = ? ORDER BY tt.Trh", TurnuvaID);
+			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
+			Musabakalar = Db.SQL<TTDB.Musabaka>("SELECT tt FROM Musabaka tt WHERE tt.Turnuva = ? ORDER BY tt.Trh", trnObj);
 
 			/*
 			Turnuvalar.Clear();

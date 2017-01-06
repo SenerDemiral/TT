@@ -42,9 +42,11 @@ namespace TTclient
 				parent.CurRowID = this.OyuncuID;
 				parent.CurRowOyuncuAd = this.OyuncuAd;
 
-				parent.CurOyuncuMaclari.Data = 
-					Db.SQL<TTDB.Mac>("SELECT mm FROM MAC mm WHERE mm.Turnuva.ObjectId = ? AND (mm.HomeOyuncu.ObjectId = ? OR mm.GuestOyuncu.ObjectId = ? OR mm.HomeOyuncu2.ObjectId = ? OR mm.GuestOyuncu2.ObjectId = ?)", 
-						parent.TurnuvaID, OyuncuID, OyuncuID, OyuncuID, OyuncuID)
+				var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(parent.TurnuvaID));
+				var oynObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(OyuncuID));
+				parent.CurOyuncuMaclari.Data =
+					Db.SQL<TTDB.Mac>("SELECT mm FROM MAC mm WHERE mm.Turnuva = ? AND (mm.HomeOyuncu = ? OR mm.GuestOyuncu = ? OR mm.HomeOyuncu2 = ? OR mm.GuestOyuncu2 = ?)", 
+						trnObj, oynObj, oynObj, oynObj, oynObj)
 					.OrderByDescending(x => x.Musabaka.Trh);
 
 				parent.OyuncuMacOpened = true;
