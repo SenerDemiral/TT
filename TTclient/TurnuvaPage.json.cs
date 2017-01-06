@@ -1,4 +1,4 @@
-using Starcounter;
+ï»¿using Starcounter;
 using Starcounter.Templates;
 
 namespace TTclient
@@ -58,7 +58,7 @@ namespace TTclient
 					takim.TurnuvaID = ID;
 					var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(ID));
 
-					takim.TurnuvaInfo = $"{trn.Ad} Takým Sonuçlarý";
+					takim.TurnuvaInfo = $"{trn.Ad} TakÄ±m SonuÃ§larÄ±";
 					takim.Data = null;
 					RecentTakim = takim;
 				}
@@ -74,7 +74,7 @@ namespace TTclient
 					oyuncu.TurnuvaID = ID;
 					var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(ID));
 
-					oyuncu.TurnuvaInfo = $"{trn.Ad} Oyuncu Sonuçlarý";
+					oyuncu.TurnuvaInfo = $"{trn.Ad} Oyuncu SonuÃ§larÄ±";
 					oyuncu.Data = null;
 					RecentOyuncu = oyuncu;
 				}

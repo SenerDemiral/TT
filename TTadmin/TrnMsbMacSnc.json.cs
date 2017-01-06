@@ -1,4 +1,4 @@
-using Starcounter;
+ï»¿using Starcounter;
 using Starcounter.Templates;
 
 namespace TTadmin
@@ -15,7 +15,8 @@ namespace TTadmin
 
 			var macObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(MacID));
 			//var TT = Db.SQL<TTDB.TurnuvaTakim>("SELECT tt FROM TurnuvaTakim tt WHERE tt.Turnuva = ?", trnObj);
-			var TT = Db.SQL<TTDB.MacSonuc>("SELECT tt FROM MacSonuc tt WHERE tt.Mac.ObjectId = ? ORDER BY tt.SetNo", MacID);
+			//var TT = Db.SQL<TTDB.MacSonuc>("SELECT tt FROM MacSonuc tt WHERE tt.Mac.ObjectId = ? ORDER BY tt.SetNo", MacID);
+			var TT = Db.SQL<TTDB.MacSonuc>("SELECT tt FROM MacSonuc tt WHERE tt.Mac = ? ORDER BY tt.SetNo", macObj);
 
 			TrnMsbMacSncsElementJson te;
 			foreach(var tt in TT) {
@@ -26,7 +27,7 @@ namespace TTadmin
 				te.GuestSayi = tt.GuestSayi;
 				te.MF = false;
 
-				//var tID = te.TakimAd.Substring(te.TakimAd.IndexOf('·')+1);
+				//var tID = te.TakimAd.Substring(te.TakimAd.IndexOf('Â·')+1);
 			}
 			reading = false;
 		}
@@ -40,7 +41,7 @@ namespace TTadmin
 			var guest = mac.GuestOyuncuInfo;
 
 			htid = "TrnMsbMacSnc" + CurRowID;
-			Heading = $"{mac.Musabaka.HomeTakim.Ad} - {mac.Musabaka.GuestTakim.Ad} {mac.Skl}/{mac.Sira} Sonuçlarý";
+			Heading = $"{mac.Musabaka.HomeTakim.Ad} - {mac.Musabaka.GuestTakim.Ad} {mac.Skl}/{mac.Sira} SonuÃ§larÄ±";
 			HomeOyuncuAd = $"{(mac.HomeOyuncu == null ? "" : mac.HomeOyuncu.Ad)}{(mac.HomeOyuncu2 == null ? "" : TTDB.Constants.sepDblOyn + mac.HomeOyuncu2.Ad)}";
 			GuestOyuncuAd = $"{(mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad)}{(mac.GuestOyuncu2 == null ? "" : TTDB.Constants.sepDblOyn + mac.GuestOyuncu2.Ad)}";
 
@@ -51,7 +52,7 @@ namespace TTadmin
 		{
 			reading = true;
 			var p = this.TrnMsbMacSncs.Add();
-			//p.TakimAd = "deneme  ·W4";
+			//p.TakimAd = "deneme  Â·W4";
 			reading = false;
 		}
 

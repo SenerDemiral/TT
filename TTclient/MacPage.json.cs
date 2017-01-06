@@ -10,7 +10,7 @@ namespace TTclient
 
 			//Musabakalar
 
-			Maclar = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka.ObjectId = ?", MusabakaID);
+			Maclar = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka.ObjectId = ? ORDER BY tt.Skl DESC, tt.Sira DESC", MusabakaID);
 
 			/*
 			Turnuvalar.Clear();

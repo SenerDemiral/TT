@@ -14,7 +14,14 @@ namespace TTclient
 			//TTDB.InitDB initDB = new TTDB.InitDB();
 			//initDB.Deneme();
 
-			Handle.GET("/TTclient", () => {
+			Handle.GET("/sener", (Request req) => {
+				Console.WriteLine(req.Body);
+				return "";
+			});
+
+			Handle.GET("/", (Request req) => {
+				Console.WriteLine(req.Body);
+
 				return Db.Scope(() => {
 					Master master;
 					
