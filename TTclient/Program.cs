@@ -58,12 +58,9 @@ namespace TTclient
 				return ttp;
 			});
 
-			Handle.GET("/abc", () => {
-				return Db.Scope(() => {
-					Master master = new Master();
-					TurnuvaTakimPage ttp = new TurnuvaTakimPage();
-					return master;
-				});
+			Handle.GET("/sener", (Request req) => {
+				Console.WriteLine(req.Body);
+				return "";
 			});
 		}
 	}

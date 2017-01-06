@@ -6,8 +6,8 @@ namespace TT
     {
         public void RefreshData(string turnuvaID)
         {
-            var turnuva = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
-            Musabakalar = Db.SQL("SELECT o FROM Musabaka o where o.Turnuva.ObjectId = ?", turnuvaID);
+            var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
+            Musabakalar = Db.SQL("SELECT o FROM Musabaka o where o.Turnuva = ?", trnObj);
         //    Musabakalar = Db.SQL("SELECT o FROM Musabaka o where o.Turnuva = ?", DbHelper.Base64DecodeObjectID(turnuvaID));
         }
 

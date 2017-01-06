@@ -10,7 +10,8 @@ namespace TTclient
 
 			//Musabakalar
 
-			Maclar = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka.ObjectId = ?", MusabakaID);
+			var msbObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
+			Maclar = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka = ?", msbObj);
 
 			/*
 			Turnuvalar.Clear();

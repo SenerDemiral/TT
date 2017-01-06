@@ -15,9 +15,10 @@ namespace TTadmin
 
 			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 			var msbObj = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
-			var ttRows = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Turnuva.ObjectId = ? AND tt.Musabaka.ObjectId = ? ORDER BY tt.Skl DESC, tt.Sira DESC", TurnuvaID, MusabakaID);
+			var ttRows = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Turnuva = ? AND tt.Musabaka = ? ORDER BY tt.Skl DESC, tt.Sira DESC", trnObj, msbObj);
+			//var ttRows = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Turnuva.ObjectId = ? AND tt.Musabaka.ObjectId = ? ORDER BY tt.Skl DESC, tt.Sira DESC", TurnuvaID, MusabakaID);
 			//TrnMsbMacs = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka.ObjectId = ? ORDER BY tt.Skl DESC, tt.Sira DESC", MusabakaID);
-			
+
 			TrnMsbMacsElementJson te;
 			foreach(var row in ttRows) {
 				te = this.TrnMsbMacs.Add();
@@ -40,16 +41,16 @@ namespace TTadmin
 			}
 			
 
-			var musabaka = Db.SQL<TTDB.Musabaka>("SELECT m FROM Musabaka m where m.ObjectId = ?", MusabakaID).First;
+			//var musabaka = Db.SQL<TTDB.Musabaka>("SELECT m FROM Musabaka m where m.ObjectId = ?", MusabakaID).First;
 			LookupHomeOyuncu.Clear();
 			//var hRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva.ObjectId = ? AND t.Takim.ObjectId = ?", TurnuvaID, musabaka.HomeTakim.GetObjectID());
-			var hRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva.ObjectId = ? AND t.Takim = ?", TurnuvaID, msbObj.HomeTakim);
+			var hRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva = ? AND t.Takim = ?", trnObj, msbObj.HomeTakim);
 			foreach(var r in hRows) {
 				string s = "'" + r.Oyuncu.Ad + " ·" + r.Oyuncu.GetObjectID() + "'";
 				LookupHomeOyuncu.Add(new Json(s));
 			}
 			LookupGuestOyuncu.Clear();
-			var gRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva.ObjectId = ? AND t.Takim.ObjectId = ?", TurnuvaID, musabaka.GuestTakim.GetObjectID());
+			var gRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva = ? AND t.Takim = ?", trnObj, msbObj.GuestTakim);
 			foreach(var r in gRows) {
 				string s = "'" + r.Oyuncu.Ad + " ·" + r.Oyuncu.GetObjectID() + "'";
 				LookupGuestOyuncu.Add(new Json(s));
