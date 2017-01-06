@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using Starcounter;
 using Starcounter.Templates;
 
@@ -20,7 +20,7 @@ namespace TTadmin
 			TrnTkmsElementJson te;
 			foreach(var tt in TT) {
 				te = this.TrnTkms.Add();
-				te.TakimAd = string.Format("{0} ·{1}", tt.Takim.Ad, tt.Takim.GetObjectID());
+				te.TakimAd = string.Format("{0} Â·{1}", tt.Takim.Ad, tt.Takim.GetObjectID());
 				te.ID = tt.GetObjectID();
 				te.MF = false;
 
@@ -31,13 +31,13 @@ namespace TTadmin
 				te.MusabakaOynadigi = ozet.MusabakaOynadigi;
 				te.Puan = ozet.Puan;
 
-				//var tID = te.TakimAd.Substring(te.TakimAd.IndexOf('·')+1);
+				//var tID = te.TakimAd.Substring(te.TakimAd.IndexOf('Â·')+1);
 			}
 
 			LookupTakim.Clear();
 			var takimlar = Db.SQL<TTDB.Takim>("SELECT t FROM Takim t");
 			foreach(var takim in takimlar) {
-				string s = "'" + takim.Ad + " ·" + takim.GetObjectID() + "'";
+				string s = "'" + takim.Ad + " Â·" + takim.GetObjectID() + "'";
 				LookupTakim.Add(new Json(s));
 			}
 
@@ -51,7 +51,7 @@ namespace TTadmin
 			var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 
 			htid = "TrnTkm" + TurnuvaID;
-			Heading = trn.Ad + " Takýmlarý";
+			Heading = trn.Ad + " TakÄ±mlarÄ±";
 
 			RefreshTurnuvaTakim();
 		}
@@ -60,7 +60,7 @@ namespace TTadmin
 		{
 			reading = true;
 			var p = this.TrnTkms.Add();
-			//p.TakimAd = "deneme  ·W4";
+			//p.TakimAd = "deneme  Â·W4";
 			reading = false;
 		}
 
@@ -125,7 +125,7 @@ namespace TTadmin
 			oyuncular.htid = "TrnTkmOyn" + CurRowID;
 			var result = TTDB.Hlpr.GetIdsFromText(takimAd);
 			oyuncular.TakimID = result.Item2;
-			oyuncular.Heading = result.Item1 + " Oyuncularý"; */
+			oyuncular.Heading = result.Item1 + " OyuncularÃ½"; */
 
 			oyuncular.Data = null;	// Trigger TrnTkmOyn.OnData
 			RecentOyuncular = oyuncular;

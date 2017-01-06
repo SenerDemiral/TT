@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using Starcounter;
 using Starcounter.Templates;
 
@@ -21,19 +21,19 @@ namespace TTadmin
 			foreach(var tt in TM) {
 				te = this.TrnMsbs.Add();
 				te.ID = tt.GetObjectID();
-				te.HomeTakimAd = string.Format("{0} ·{1}", tt.HomeTakim.Ad, tt.HomeTakim.GetObjectID());
-				te.GuestTakimAd = string.Format("{0} ·{1}", tt.GuestTakim.Ad, tt.GuestTakim.GetObjectID());
+				te.HomeTakimAd = string.Format("{0} Â·{1}", tt.HomeTakim.Ad, tt.HomeTakim.GetObjectID());
+				te.GuestTakimAd = string.Format("{0} Â·{1}", tt.GuestTakim.Ad, tt.GuestTakim.GetObjectID());
 				te.Tarih = string.Format("{0:dd.MM.yy}", tt.Trh);
 				te.MusabakaInfo = tt.MusabakaInfo;
 				te.MF = false;
 
-				//var tID = te.TakimAd.Substring(te.TakimAd.IndexOf('·')+1);
+				//var tID = te.TakimAd.Substring(te.TakimAd.IndexOf('Â·')+1);
 			}
 
 			LookupTakim.Clear();
 			var takimlar = Db.SQL<TTDB.TurnuvaTakim>("SELECT t FROM TurnuvaTakim t");
 			foreach(var takim in takimlar) {
-				string s = "'" + takim.Takim.Ad + " ·" + takim.Takim.GetObjectID() + "'";
+				string s = "'" + takim.Takim.Ad + " Â·" + takim.Takim.GetObjectID() + "'";
 				LookupTakim.Add(new Json(s));
 			}
 
@@ -46,7 +46,7 @@ namespace TTadmin
 
 			var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 			htid = "TrnMsb" + TurnuvaID;
-			Heading = trn.Ad + " Müsabakalarý";
+			Heading = trn.Ad + " MÃ¼sabakalarÄ±";
 
 			RefreshTurnuvaMusabaka();
 		}
@@ -55,7 +55,7 @@ namespace TTadmin
 		{
 			reading = true;
 			var p = this.TrnMsbs.Add();
-			//p.TakimAd = "deneme  ·W4";
+			//p.TakimAd = "deneme  Â·W4";
 			p.Tarih = string.Format("{0:dd.MM.yy}", DateTime.Today);
 			reading = false;
 		}
@@ -79,9 +79,9 @@ namespace TTadmin
 							deleteVar = true;
 						}
 						else {
-							var homeTkmID = pet.HomeTakimAd.Substring(pet.HomeTakimAd.IndexOf('·') + 1);
+							var homeTkmID = pet.HomeTakimAd.Substring(pet.HomeTakimAd.IndexOf('Â·') + 1);
 							trnObj.HomeTakim = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(homeTkmID));
-							var guestTkmID = pet.GuestTakimAd.Substring(pet.GuestTakimAd.IndexOf('·') + 1);
+							var guestTkmID = pet.GuestTakimAd.Substring(pet.GuestTakimAd.IndexOf('Â·') + 1);
 							trnObj.GuestTakim = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(guestTkmID));
 							trnObj.Trh = DateTime.ParseExact(pet.Tarih, "dd.MM.yy", System.Globalization.CultureInfo.InvariantCulture);
 							//trnObj.Ad = pet.TakimAd;
@@ -91,9 +91,9 @@ namespace TTadmin
 						var t = new TTDB.Musabaka();
 						pet.ID = t.GetObjectID();
 						t.Turnuva = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
-						var homeTkmID = pet.HomeTakimAd.Substring(pet.HomeTakimAd.IndexOf('·') + 1);
+						var homeTkmID = pet.HomeTakimAd.Substring(pet.HomeTakimAd.IndexOf('Â·') + 1);
 						t.HomeTakim = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(homeTkmID));
-						var guestTkmID = pet.GuestTakimAd.Substring(pet.GuestTakimAd.IndexOf('·') + 1);
+						var guestTkmID = pet.GuestTakimAd.Substring(pet.GuestTakimAd.IndexOf('Â·') + 1);
 						t.GuestTakim = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(guestTkmID));
 						t.Trh = DateTime.ParseExact(pet.Tarih, "dd.MM.yy", System.Globalization.CultureInfo.InvariantCulture);
 					}
@@ -127,7 +127,7 @@ namespace TTadmin
 			var musabaka = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(CurRowID));
 			maclar.HomeTakimAd = TTDB.Hlpr.GetFirstName(musabaka.HomeTakim.Ad);
 			maclar.GuestTakimAd = TTDB.Hlpr.GetFirstName(musabaka.GuestTakim.Ad);
-			maclar.Heading = $"{musabaka.HomeTakim.Ad} - {musabaka.GuestTakim.Ad} Maçlarý";
+			maclar.Heading = $"{musabaka.HomeTakim.Ad} - {musabaka.GuestTakim.Ad} MaÃ§larÄ±";
 			maclar.Data = null;
 			RecentMaclar = maclar;
 		}

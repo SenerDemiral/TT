@@ -1,4 +1,4 @@
-using Starcounter;
+ï»¿using Starcounter;
 using Starcounter.Templates;
 
 namespace TTadmin
@@ -26,13 +26,13 @@ namespace TTadmin
 				te.Skl = row.Skl;
 				te.Sira = row.Sira;
 				if(row.HomeOyuncu != null)
-					te.HomeOyuncuAd = string.Format("{0} ·{1}", row.HomeOyuncu.Ad, row.HomeOyuncu.GetObjectID());
+					te.HomeOyuncuAd = string.Format("{0} Â·{1}", row.HomeOyuncu.Ad, row.HomeOyuncu.GetObjectID());
 				if (row.HomeOyuncu2 != null)
-					te.HomeOyuncuAd2 = string.Format("{0} ·{1}", row.HomeOyuncu2.Ad, row.HomeOyuncu2.GetObjectID());
+					te.HomeOyuncuAd2 = string.Format("{0} Â·{1}", row.HomeOyuncu2.Ad, row.HomeOyuncu2.GetObjectID());
 				if(row.GuestOyuncu != null)
-					te.GuestOyuncuAd = string.Format("{0} ·{1}", row.GuestOyuncu.Ad, row.GuestOyuncu.GetObjectID());
+					te.GuestOyuncuAd = string.Format("{0} Â·{1}", row.GuestOyuncu.Ad, row.GuestOyuncu.GetObjectID());
 				if(row.GuestOyuncu2 != null)
-					te.GuestOyuncuAd2 = string.Format("{0} ·{1}", row.GuestOyuncu2.Ad, row.GuestOyuncu2.GetObjectID());
+					te.GuestOyuncuAd2 = string.Format("{0} Â·{1}", row.GuestOyuncu2.Ad, row.GuestOyuncu2.GetObjectID());
 				te.MF = false;
 				var ozet = row.Ozet;
 				te.Ozet.Puanlar = ozet.Puanlar;
@@ -46,13 +46,13 @@ namespace TTadmin
 			//var hRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva.ObjectId = ? AND t.Takim.ObjectId = ?", TurnuvaID, musabaka.HomeTakim.GetObjectID());
 			var hRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva = ? AND t.Takim = ?", trnObj, msbObj.HomeTakim);
 			foreach(var r in hRows) {
-				string s = "'" + r.Oyuncu.Ad + " ·" + r.Oyuncu.GetObjectID() + "'";
+				string s = "'" + r.Oyuncu.Ad + " Â·" + r.Oyuncu.GetObjectID() + "'";
 				LookupHomeOyuncu.Add(new Json(s));
 			}
 			LookupGuestOyuncu.Clear();
 			var gRows = Db.SQL<TTDB.TakimOyuncu>("SELECT t FROM TakimOyuncu t WHERE t.Turnuva = ? AND t.Takim = ?", trnObj, msbObj.GuestTakim);
 			foreach(var r in gRows) {
-				string s = "'" + r.Oyuncu.Ad + " ·" + r.Oyuncu.GetObjectID() + "'";
+				string s = "'" + r.Oyuncu.Ad + " Â·" + r.Oyuncu.GetObjectID() + "'";
 				LookupGuestOyuncu.Add(new Json(s));
 			}
 
@@ -67,7 +67,7 @@ namespace TTadmin
 			var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 
 			htid = "TrnMsbMac" + MusabakaID;
-			Heading = $"{musabaka.HomeTakim.Ad} - {musabaka.GuestTakim.Ad} Maçlarý";
+			Heading = $"{musabaka.HomeTakim.Ad} - {musabaka.GuestTakim.Ad} MaÃ§larÄ±";
 			HomeTakimAd = TTDB.Hlpr.GetFirstName(musabaka.HomeTakim.Ad);
 			GuestTakimAd = TTDB.Hlpr.GetFirstName(musabaka.GuestTakim.Ad);
 
@@ -78,7 +78,7 @@ namespace TTadmin
 		{
 			reading = true;
 			var p = this.TrnMsbMacs.Add();
-			//p.TakimAd = "deneme  ·W4";
+			//p.TakimAd = "deneme  Â·W4";
 			reading = false;
 		}
 
@@ -113,22 +113,22 @@ namespace TTadmin
 						else {
 							trnObj.Skl = pet.Skl;
 							trnObj.Sira = (short)pet.Sira;
-							if(pet.HomeOyuncuAd.IndexOf('·') >= 0) {
-								oynID = pet.HomeOyuncuAd.Substring(pet.HomeOyuncuAd.IndexOf('·') + 1);
+							if(pet.HomeOyuncuAd.IndexOf('Â·') >= 0) {
+								oynID = pet.HomeOyuncuAd.Substring(pet.HomeOyuncuAd.IndexOf('Â·') + 1);
 								trnObj.HomeOyuncu = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(oynID));
 							}
 
-							if(pet.GuestOyuncuAd.IndexOf('·') >= 0) {
-								oynID = pet.GuestOyuncuAd.Substring(pet.GuestOyuncuAd.IndexOf('·') + 1);
+							if(pet.GuestOyuncuAd.IndexOf('Â·') >= 0) {
+								oynID = pet.GuestOyuncuAd.Substring(pet.GuestOyuncuAd.IndexOf('Â·') + 1);
 								trnObj.GuestOyuncu = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(oynID));
 							}
 
-							if(pet.HomeOyuncuAd2.IndexOf('·') >= 0) {
-								oynID = pet.HomeOyuncuAd2.Substring(pet.HomeOyuncuAd2.IndexOf('·') + 1);
+							if(pet.HomeOyuncuAd2.IndexOf('Â·') >= 0) {
+								oynID = pet.HomeOyuncuAd2.Substring(pet.HomeOyuncuAd2.IndexOf('Â·') + 1);
 								trnObj.HomeOyuncu2 = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(oynID));
 							}
-							if(pet.GuestOyuncuAd2.IndexOf('·') >= 0) {
-								oynID = pet.GuestOyuncuAd2.Substring(pet.GuestOyuncuAd2.IndexOf('·') + 1);
+							if(pet.GuestOyuncuAd2.IndexOf('Â·') >= 0) {
+								oynID = pet.GuestOyuncuAd2.Substring(pet.GuestOyuncuAd2.IndexOf('Â·') + 1);
 								trnObj.GuestOyuncu2 = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(oynID));
 							}
 						}
@@ -141,27 +141,27 @@ namespace TTadmin
 						t.Turnuva = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 						t.Musabaka = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
 
-						if(pet.HomeOyuncuAd.IndexOf('·') >= 0) {
-							oynID = pet.HomeOyuncuAd.Substring(pet.HomeOyuncuAd.IndexOf('·') + 1);
+						if(pet.HomeOyuncuAd.IndexOf('Â·') >= 0) {
+							oynID = pet.HomeOyuncuAd.Substring(pet.HomeOyuncuAd.IndexOf('Â·') + 1);
 							t.HomeOyuncu = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(oynID));
 						}
 						else
 							t.HomeOyuncu = oyuncuBos;
 
-						if(pet.GuestOyuncuAd.IndexOf('·') >= 0) {
-							oynID = pet.GuestOyuncuAd.Substring(pet.GuestOyuncuAd.IndexOf('·') + 1);
+						if(pet.GuestOyuncuAd.IndexOf('Â·') >= 0) {
+							oynID = pet.GuestOyuncuAd.Substring(pet.GuestOyuncuAd.IndexOf('Â·') + 1);
 							t.GuestOyuncu = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(oynID));
 						}
 						else
 							t.GuestOyuncu = oyuncuBos;
 
-						if(pet.HomeOyuncuAd2.IndexOf('·') >= 0) {
-							oynID = pet.HomeOyuncuAd2.Substring(pet.HomeOyuncuAd2.IndexOf('·') + 1);
+						if(pet.HomeOyuncuAd2.IndexOf('Â·') >= 0) {
+							oynID = pet.HomeOyuncuAd2.Substring(pet.HomeOyuncuAd2.IndexOf('Â·') + 1);
 							t.HomeOyuncu2 = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(oynID));
 						}
 						
-						if(pet.GuestOyuncuAd2.IndexOf('·') >= 0) {
-							oynID = pet.GuestOyuncuAd2.Substring(pet.GuestOyuncuAd2.IndexOf('·') + 1);
+						if(pet.GuestOyuncuAd2.IndexOf('Â·') >= 0) {
+							oynID = pet.GuestOyuncuAd2.Substring(pet.GuestOyuncuAd2.IndexOf('Â·') + 1);
 							t.GuestOyuncu2 = (TTDB.Oyuncu)DbHelper.FromID(DbHelper.Base64DecodeObjectID(oynID));
 						}
 					}
