@@ -40,7 +40,7 @@ namespace TTadmin
 			var guest = mac.GuestOyuncuInfo;
 
 			htid = "TrnMsbMacSnc" + CurRowID;
-			Heading = $"{mac.Musabaka.HomeTakim.Ad} - {mac.Musabaka.GuestTakim.Ad} {mac.Skl}/{mac.Sira} Sonu�lar�";
+			Heading = $"{mac.Musabaka.HomeTakim.Ad} - {mac.Musabaka.GuestTakim.Ad} {mac.Skl}/{mac.Sira} Sonuçları";
 			HomeOyuncuAd = $"{(mac.HomeOyuncu == null ? "" : mac.HomeOyuncu.Ad)}{(mac.HomeOyuncu2 == null ? "" : TTDB.Constants.sepDblOyn + mac.HomeOyuncu2.Ad)}";
 			GuestOyuncuAd = $"{(mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad)}{(mac.GuestOyuncu2 == null ? "" : TTDB.Constants.sepDblOyn + mac.GuestOyuncu2.Ad)}";
 
