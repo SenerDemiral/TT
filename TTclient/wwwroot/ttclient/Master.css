@@ -66,7 +66,10 @@ th, td {
     display:table-cell;
 }
 
-/*
+[winner] {
+	background-color: aquamarine;
+}
+
 @media all and (min-width: 600px){
   :root {
     font-size: 12px;
@@ -84,4 +87,3 @@ th, td {
 	  font-size: 20px;
   }
 }
-	*/

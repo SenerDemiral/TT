@@ -30,6 +30,24 @@ namespace TTclient
 						trnObj, tkmObj, tkmObj)
 					.OrderBy(x => x.Trh);
 
+				foreach(var msbk in parent.CurTakimMusabakalari)
+				{
+					var msbkObj = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(msbk.ID));
+					
+					msbk.IsHome = false;
+					if(msbkObj.HomeTakim.GetObjectNo() == tkmObj.GetObjectNo())
+						msbk.IsHome = true;
+
+					msbk.IsWinner = false;
+					if(msbk.IsHome) {
+						if(msbkObj.Ozet.HomePuan > msbkObj.Ozet.GuestPuan)
+							msbk.IsWinner = true;							
+					}
+					else {
+						if(msbkObj.Ozet.GuestPuan > msbkObj.Ozet.HomePuan)
+							msbk.IsWinner = true;
+					}
+				}
 				parent.TakimMusabakaOpened = true;
 			}
 

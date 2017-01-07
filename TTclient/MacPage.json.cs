@@ -11,7 +11,7 @@ namespace TTclient
 			//Musabakalar
 
 			var msbObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
-			Maclar = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka = ?", msbObj);
+			Maclar = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka = ? ORDER BY tt.Skl DESC, tt.Sira DESC", msbObj);
 
 			/*
 			Turnuvalar.Clear();

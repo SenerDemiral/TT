@@ -28,6 +28,8 @@
 		{
 			"ID": "", // MusabakaID
 			"Tarih": "",
+			"IsHome": false,
+			"IsWinner": false,
 			"HomeTakimAd": "",
 			"GuestTakimAd": "",
 			"Ozet": {

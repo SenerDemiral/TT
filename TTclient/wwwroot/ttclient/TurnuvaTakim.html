@@ -61,14 +61,28 @@
 					</tr>
 					<tbody>
 						<template is="dom-repeat" items="[[model.CurTakimMusabakalari]]">
-							<tr>
+							<tr winner$="[[item.IsWinner]]">
 								<td>[[item.Tarih]]</td>
-								<td>[[item.HomeTakimAd]]</td>
+
+								<template is="dom-if" if="[[item.IsHome]]">
+									<td><b>[[item.HomeTakimAd]]</b></td>
+								</template>
+								<template is="dom-if" if="[[!item.IsHome]]">
+									<td>[[item.HomeTakimAd]]</td>
+								</template>
+								
 								<td>[[item.Ozet.HomePuan]]</td>
 								<td>[[item.Ozet.HomeMac]]</td>
 								<td>[[item.Ozet.HomeSet]]</td>
 								<td>[[item.Ozet.HomeSayi]]</td>
-								<td>[[item.GuestTakimAd]]</td>
+
+								<template is="dom-if" if="[[!item.IsHome]]">
+									<td><b>[[item.GuestTakimAd]]</b></td>
+								</template>
+								<template is="dom-if" if="[[item.IsHome]]">
+									<td>[[item.GuestTakimAd]]</td>
+								</template>
+								
 								<td>[[item.Ozet.GuestPuan]]</td>
 								<td>[[item.Ozet.GuestMac]]</td>
 								<td>[[item.Ozet.GuestSet]]</td>
