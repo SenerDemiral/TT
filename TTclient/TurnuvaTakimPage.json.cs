@@ -39,11 +39,23 @@ namespace TTclient
 						msbk.IsHome = true;
 
 					msbk.IsWinner = false;
+					msbk.Sonuc = "X";
 					if(msbk.IsHome) {
 						if(msbkObj.Ozet.HomePuan > msbkObj.Ozet.GuestPuan)
-							msbk.IsWinner = true;							
+							msbk.Sonuc = "G";
+						if(msbkObj.Ozet.HomePuan < msbkObj.Ozet.GuestPuan)
+							msbk.Sonuc = "M";
+						if(msbkObj.Ozet.HomePuan == msbkObj.Ozet.GuestPuan && msbkObj.Ozet.HomePuan != 0)
+							msbk.Sonuc = "B";
 					}
 					else {
+						if(msbkObj.Ozet.HomePuan > msbkObj.Ozet.GuestPuan)
+							msbk.Sonuc = "M";
+						if(msbkObj.Ozet.HomePuan < msbkObj.Ozet.GuestPuan)
+							msbk.Sonuc = "G";
+						if(msbkObj.Ozet.HomePuan == msbkObj.Ozet.GuestPuan && msbkObj.Ozet.HomePuan != 0)
+							msbk.Sonuc = "B";
+
 						if(msbkObj.Ozet.GuestPuan > msbkObj.Ozet.HomePuan)
 							msbk.IsWinner = true;
 					}

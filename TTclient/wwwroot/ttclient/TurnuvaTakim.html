@@ -61,7 +61,7 @@
 					</tr>
 					<tbody>
 						<template is="dom-repeat" items="[[model.CurTakimMusabakalari]]">
-							<tr winner$="[[item.IsWinner]]">
+							<tr winner$="[[item.Sonuc]]">
 								<td>[[item.Tarih]]</td>
 
 								<template is="dom-if" if="[[item.IsHome]]">
@@ -93,7 +93,7 @@
 				</table>
 			</paper-dialog-scrollable>
 		</paper-dialog>
-
+		<!--
 		<paper-dialog id="TakimMap" tabindex=-1 opened="{{model.TakimMapOpened$}}" style="height:60vh; width:80vw">
 			<google-map map="{{map}}"
 						zoom="17"
@@ -107,7 +107,7 @@
 				</google-map-marker>
 			</google-map>
 		</paper-dialog>
-
+			 -->
 	<!--
 		<paper-dialog id="TakimMap" tabindex=-1 opened="{{model.TakimMapOpened$}}" style="height:60vh; width:80vw">
 			<google-map map="{{map}}"

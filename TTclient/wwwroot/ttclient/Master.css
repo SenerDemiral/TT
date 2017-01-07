@@ -66,8 +66,14 @@ th, td {
     display:table-cell;
 }
 
-[winner] {
+[winner="G"] {
 	background-color: aquamarine;
+}
+[winner="B"] {
+	background-color: yellow;
+}
+[winner="M"] {
+	background-color: pink;
 }
 
 @media all and (min-width: 600px){

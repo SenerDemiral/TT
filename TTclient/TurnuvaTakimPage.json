@@ -30,6 +30,7 @@
 			"Tarih": "",
 			"IsHome": false,
 			"IsWinner": false,
+			"Sonuc": "",
 			"HomeTakimAd": "",
 			"GuestTakimAd": "",
 			"Ozet": {
