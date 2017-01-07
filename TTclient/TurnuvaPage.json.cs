@@ -58,7 +58,7 @@ namespace TTclient
 					takim.TurnuvaID = ID;
 					var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(ID));
 
-					takim.TurnuvaInfo = $"{trn.Ad} Tak�m Sonu�lar�";
+					takim.TurnuvaInfo = $"{trn.Ad} Takım Sonuçları";
 					takim.Data = null;
 					RecentTakim = takim;
 				}
@@ -74,7 +74,7 @@ namespace TTclient
 					oyuncu.TurnuvaID = ID;
 					var trn = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(ID));
 
-					oyuncu.TurnuvaInfo = $"{trn.Ad} Oyuncu Sonu�lar�";
+					oyuncu.TurnuvaInfo = $"{trn.Ad} Oyuncu Sonuçları";
 					oyuncu.Data = null;
 					RecentOyuncu = oyuncu;
 				}
