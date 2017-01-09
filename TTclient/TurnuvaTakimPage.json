@@ -19,7 +19,7 @@
 			"Toggle$": 0,
 			"Opened": "",
 			"TakimClick$": 0,
-
+			"abcd$": 0,
 			"TakimMapClick$": 0
 		}
 	],
@@ -47,5 +47,6 @@
 	],
 	"TakimMapOpened$": false,
 	"TakimLat": "37.041987",
-	"TakimLon": "27.428861"
+	"TakimLon": "27.428861",
+	"TakimMap": {}
 }

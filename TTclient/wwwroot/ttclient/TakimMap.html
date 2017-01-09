@@ -1,0 +1,19 @@
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+
+<template>
+    <template is="dom-bind">
+	<paper-dialog id="TakimMap" tabindex=-1 opened="{{model.TakimMapOpened$}}" style="height:60vh; width:80vw">
+			<google-map map="{{map}}"
+						zoom="17"
+						fit-to-marker
+						latitude="[[model.TakimLat]]"
+						longitude="[[model.TakimLon]]"
+						api-key="AIzaSyDPkEs-_HJWKejZ5qLXTmXXfVFnAXJmnt0">
+				<google-map-marker
+						latitude="[[model.TakimLat]]"
+						longitude="[[model.TakimLon]]">
+				</google-map-marker>
+			</google-map>
+		</paper-dialog>
+    </template>
+</template>

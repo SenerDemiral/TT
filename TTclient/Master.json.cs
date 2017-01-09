@@ -9,7 +9,13 @@ namespace TTclient
 			TurnuvalarOpened = !TurnuvalarOpened;
 			if(TurnuvalarOpened) {
 				Turnuvalar = new TurnuvaPage();
+				//(Turnuvalar as TurnuvaPage).RefreshTurnuva();
+
 				Turnuvalar.Data = null;
+				
+				//var trnPge = new TurnuvaPage();
+				//trnPge.Turnuvalar = Db.SQL<TTDB.Turnuva>("SELECT tt FROM Turnuva tt ORDER BY tt.Ad");
+				//Turnuvalar = trnPge;
 			}
 		}
 

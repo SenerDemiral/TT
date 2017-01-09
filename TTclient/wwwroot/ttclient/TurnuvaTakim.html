@@ -22,11 +22,11 @@
                 <template is="dom-repeat" items="{{model.Takimlar}}">
                     <tr>
                         <td>[[item.TakimAd]]</td>
+						<!--<td><button value="{{item.abcd$::click}}" onmousedown="++this.value" style="width: 100%">{{item.TakimAd}}</button></td>-->
 		                <!--<td><paper-button style="text-transform: none;" on-click="onTakimClick">[[item.TakimAd]]<iron-icon icon="social:people"></iron-icon></paper-button></td>-->
 		                <!--<paper-button><iron-icon icon="check"></iron-icon>link</paper-button>-->
 						<td><paper-icon-button  on-click="onTakimClick" icon="social:people" style="height:20px; padding:0"></paper-icon-button></td>
 	                    <td><paper-icon-button  on-click="onTakimMapClick" icon="maps:place" style="height:20px; padding:0"></paper-icon-button></td>
-						<!--<td><button value="{{item.TakimClick$::click}}" onmousedown="++this.value" style="width: 100%">{{item.TakimAd}}</button></td>-->
 						<!--<td><button value="{{item.TakimClick$::click}}" on-click="onTakimClick" style="width: 100%">{{item.TakimAd}}</button></td>-->
                         <td style="text-align:center">{{item.Ozet.Puan}}</td>
                         <td style="text-align:center">{{item.Ozet.MusabakaWin}}</td>
@@ -93,6 +93,13 @@
 				</table>
 			</paper-dialog-scrollable>
 		</paper-dialog>
+		
+		<template is="dom-if" if="[[model.TakimMapOpened$]]">
+			<div class="content">
+				<starcounter-include partial="[[model.TakimMap]]"></starcounter-include>
+			</div>
+		</template>
+		
 		<!--
 		<paper-dialog id="TakimMap" tabindex=-1 opened="{{model.TakimMapOpened$}}" style="height:60vh; width:80vw">
 			<google-map map="{{map}}"
@@ -107,7 +114,7 @@
 				</google-map-marker>
 			</google-map>
 		</paper-dialog>
-			 -->
+		-->
 	<!--
 		<paper-dialog id="TakimMap" tabindex=-1 opened="{{model.TakimMapOpened$}}" style="height:60vh; width:80vw">
 			<google-map map="{{map}}"
@@ -131,19 +138,19 @@
             var template = script.previousElementSibling;
 
             template.onTakimClick = function (event) {
-            	console.log("OnToogleCleck", event.model.__data__.item.TakimClick$);
+            	//console.log("OnToogleClick", event.model.__data__.item.TakimClick$);
             	event.model.__data__.item.TakimClick$ = parseInt(event.model.__data__.item.TakimClick$, 10) + 1;
             	//template.set("event.model.__data__.item.TakimClick$", parseInt(template.get(event.model.__data__.item.TakimClick$), 10) + 1);
             }
 
             template.onTakimMapClick = function (event) {
-            	console.log("OnToogleMap 1", event.model.__data__);
-            	console.log("OnToogleMap 2", event.model.__data__.item);
-            	console.log("OnToogleMap 3", event.model.__data__.item.TakimMapClick$);
-            	console.log("OnToogleMap 4", event.model.__data__['item.TakimMapClick$']);
+            	//console.log("OnToogleMap 1", event.model.__data__);
+            	//console.log("OnToogleMap 2", event.model.__data__.item);
+            	//console.log("OnToogleMap 3", event.model.__data__.item.TakimMapClick$);
+            	//console.log("OnToogleMap 4", event.model.__data__['item.TakimMapClick$']);
             	//event.stopPropagation();
             	//event.preventDefault();
-            	event.model.__data__.item.TakimMapClick$ += 1;
+            event.model.__data__.item.TakimMapClick$ += 1;
             	//event.model.__data__.item.TakimMapClick$ = parseInt(event.model.__data__.item.TakimMapClick$, 10) + 1;
             }
         })();

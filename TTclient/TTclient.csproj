@@ -75,6 +75,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TakimMap.json.cs">
+      <DependentUpon>TakimMap.json</DependentUpon>
+    </Compile>
     <Compile Include="TakimPage.json.cs">
       <DependentUpon>TakimPage.json</DependentUpon>
     </Compile>
@@ -113,6 +116,9 @@
     <TypedJSON Include="TakimPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
+    <TypedJSON Include="TakimMap.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <None Include="wwwroot\ttclient\Turnuva.html" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\ttclient\Master.css" />
+    <None Include="wwwroot\ttclient\TakimMap.html" />
     <None Include="wwwroot\ttclient\Takim.html" />
     <None Include="wwwroot\ttclient\Oyuncu.html" />
     <Content Include="wwwroot\ttclient\Stylesheet1.css" />

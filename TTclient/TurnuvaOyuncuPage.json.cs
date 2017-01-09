@@ -1,5 +1,7 @@
 using Starcounter;
 using System.Linq;
+using System;
+using System.Diagnostics;
 
 namespace TTclient
 {
@@ -8,7 +10,7 @@ namespace TTclient
 		protected override void OnData()
 		{
 			base.OnData();
-
+			var sw = Stopwatch.StartNew();
 			var ccc = TTDB.Hlpr.TurnuvaOyuncularOzet(TurnuvaID).OrderByDescending(x => x.Puan).ThenBy(y => y.MacM).OrderByDescending(y => y.SetA * 2);
 			foreach(var o in ccc) {
 				OyuncularElementJson item = new OyuncularElementJson();
@@ -27,6 +29,13 @@ namespace TTclient
 
 				Oyuncular.Add(item);
 			}
+			Console.WriteLine(string.Format("OyuncuPage.OnData-LinqSort ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
+		}
+
+		void Handle(Input.OyuncuMacOpened inp)
+		{
+			if(inp.Value == false)
+				CurOyuncuMaclari.Data = null;
 		}
 
 		[TurnuvaOyuncuPage_json.Oyuncular]

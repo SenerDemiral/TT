@@ -2,6 +2,7 @@
 using Starcounter;
 //using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace TTDB
 {
@@ -102,6 +103,13 @@ namespace TTDB
 		public string ID => this.GetObjectID();
 		public string Ad;
 		public DateTime Trh;
+
+		public string Tarih {
+			get {
+				return string.Format("{0:dd.MM.yy}", Trh);
+			}
+		}
+
 		public string TurnuvaInfo {
 			get {
 				return string.Format("Tarih<{0:dd.MM.yy}> ID<{1}>", Trh, this.GetObjectNo());
@@ -116,6 +124,7 @@ namespace TTDB
 		public Int16 MusabakaLost;
 		public Int16 MusabakaTie;
 		public Int16 MusabakaOynadigi;
+		public int MacCnt;
 
 		public TurnuvaTakimOzet()
 		{
@@ -124,7 +133,14 @@ namespace TTDB
 			MusabakaLost = 0;
 			MusabakaTie = 0;
 			MusabakaOynadigi = 0;
+			MacCnt = 0;
 		}
+	}
+	public class TT
+	{
+		public ulong PK;
+		public string TakimAd;
+		public TurnuvaTakimOzet Ozet;
 	}
 
 	[Database]
@@ -142,27 +158,33 @@ namespace TTDB
 				TurnuvaTakimOzet ozet = new TurnuvaTakimOzet();
 				// Evinde oynadiklari
 				QueryResultRows<Musabaka> hta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.Turnuva = ? AND ta.HomeTakim = ?", this.Turnuva, this.Takim);
-				foreach (var ta in hta) {
-					ozet.Puan += ta.Ozet.HomePuan;
-					if (ta.Ozet.HomePuan > ta.Ozet.GuestPuan)
+				foreach(var ta in hta) {
+					Ozet o = ta.Ozet;
+					ozet.Puan += o.HomePuan;
+					if(o.HomePuan > o.GuestPuan)
 						ozet.MusabakaWin++;
-					else if (ta.Ozet.HomePuan < ta.Ozet.GuestPuan)
+					else if(o.HomePuan < o.GuestPuan)
 						ozet.MusabakaLost++;
-					else if(ta.Ozet.HomePuan > 0 || ta.Ozet.GuestPuan > 0)
+					else if(o.HomePuan > 0 || o.GuestPuan > 0)
 						ozet.MusabakaTie++;
+					ozet.MacCnt += o.Cnt;
 				}
 				// Misafir oynadiklari
 				QueryResultRows<Musabaka> gta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.Turnuva = ? AND ta.GuestTakim = ?", this.Turnuva, this.Takim);
-				foreach (var ta in gta) {
-					ozet.Puan += ta.Ozet.GuestPuan;
-					if (ta.Ozet.GuestPuan > ta.Ozet.HomePuan)
+				foreach(var ta in gta) {
+					Ozet o = ta.Ozet;
+					ozet.Puan += o.GuestPuan;
+					if(o.GuestPuan > o.HomePuan)
 						ozet.MusabakaWin++;
-					else if (ta.Ozet.GuestPuan < ta.Ozet.HomePuan)
+					else if(o.GuestPuan < o.HomePuan)
 						ozet.MusabakaLost++;
-					else if(ta.Ozet.HomePuan > 0 || ta.Ozet.GuestPuan > 0)
+					else if(o.HomePuan > 0 || o.GuestPuan > 0)
 						ozet.MusabakaTie++;
+					ozet.MacCnt += o.Cnt;
 				}
 				ozet.MusabakaOynadigi = (short)(ozet.MusabakaWin + ozet.MusabakaLost + ozet.MusabakaTie);
+				var trnNo = this.Turnuva.GetObjectNo();
+				string tkm = string.Format("{0} {1}", this.Takim.GetObjectNo(), this.TakimAd);
 				return ozet;
 			}
 		}
@@ -216,19 +238,26 @@ namespace TTDB
 		public Ozet Ozet {
 			get {
 				Ozet ozet = new Ozet();
+				
 				QueryResultRows<Mac> ms = Db.SQL<Mac>("SELECT ms FROM TTDB.Mac ms WHERE ms.Musabaka = ?", this);
 				foreach (var m in ms) {
-					ozet.HomePuan += m.Ozet.HomePuan;
-					ozet.HomeMac += m.Ozet.HomeMac;
-					ozet.HomeSet += m.Ozet.HomeSet;
-					ozet.HomeSayi += m.Ozet.HomeSayi;
+					Ozet o = m.Ozet;
+
+					ozet.HomePuan += o.HomePuan;
+					ozet.HomeMac += o.HomeMac;
+					ozet.HomeSet += o.HomeSet;
+					ozet.HomeSayi += o.HomeSayi;
 					
-					ozet.GuestPuan += m.Ozet.GuestPuan;
-					ozet.GuestMac += m.Ozet.GuestMac;
-					ozet.GuestSet += m.Ozet.GuestSet;
-					ozet.GuestSayi += m.Ozet.GuestSayi;
+					ozet.GuestPuan += o.GuestPuan;
+					ozet.GuestMac += o.GuestMac;
+					ozet.GuestSet += o.GuestSet;
+					ozet.GuestSayi += o.GuestSayi;
+
+					ozet.Cnt += o.Cnt;
 				}
 				
+				var aaaa = this.GetObjectNo();
+				var bbbb = this.HomeTakimAd + " " + this.GuestTakimAd;
 				return ozet;
 			}
 		}
@@ -247,9 +276,10 @@ namespace TTDB
 		public string Puanlar;   // H:G
 		public string Setler;   // H:G
 		public string Sayilar;  // H:G, H:G,...
-		
+		public int Cnt;
 		public Ozet()
 		{
+			Cnt = 0;
 			HomePuan = 0;
 			HomeMac = 0;
 			HomeSet = 0;
@@ -312,15 +342,13 @@ namespace TTDB
 			}
 		}
 
-		
-		
 		public Ozet Ozet {
 			get {
 				Ozet ozet = new Ozet();
 				string sayilar = "";
 				Int16 hSet = 0;
 				Int16 gSet = 0;
-				
+				int i = 0;
 				QueryResultRows<MacSonuc> ms = Db.SQL<MacSonuc>("SELECT ms FROM TTDB.MacSonuc ms WHERE ms.Mac = ?", this);
 				foreach (var m in ms) {
 					ozet.HomeSayi += m.HomeSayi;
@@ -331,6 +359,8 @@ namespace TTDB
 					   hSet++;
 					else
 					   gSet++;
+
+					ozet.Cnt++;
 				}
 				
 				if (hSet > gSet) {
@@ -521,22 +551,24 @@ namespace TTDB
 
 				foreach(var m in hMac) {
 					oMac++;
-					aMac += m.Ozet.HomeMac;
-					aSet += m.Ozet.HomeSet;
-					vSet += m.Ozet.GuestSet;
-					aSay += m.Ozet.HomeSayi;
-					vSay += m.Ozet.GuestSayi;
+					Ozet o = m.Ozet;
+					aMac += o.HomeMac;
+					aSet += o.HomeSet;
+					vSet += o.GuestSet;
+					aSay += o.HomeSayi;
+					vSay += o.GuestSayi;
 				}
 				// Guest olarak oynadiklar
 				QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestOyuncu = ?", t.Oyuncu);
 
 				foreach(var m in gMac) {
 					oMac++;
-					aMac += m.Ozet.GuestMac;
-					aSet += m.Ozet.GuestSet;
-					vSet += m.Ozet.HomeSet;
-					aSay += m.Ozet.GuestSayi;
-					vSay += m.Ozet.HomeSayi;
+					Ozet o = m.Ozet;
+					aMac += o.GuestMac;
+					aSet += o.GuestSet;
+					vSet += o.HomeSet;
+					aSay += o.GuestSayi;
+					vSay += o.HomeSayi;
 				}
 
 				too.Puan = (Int16)(aMac * 2 + (oMac - aMac));

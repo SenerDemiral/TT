@@ -11,15 +11,15 @@
 			"Toggle$": 0,
 			"Opened": false,
 
-			"RecentMusabaka": { },
+			"RecentMusabakalar": { },
 			"MusabakaToggle$": 0,
 			"MusabakaOpened": false,
 
-			"RecentTakim": { },
+			"RecentTakimlar": { },
 			"TakimToggle$": 0,
 			"TakimOpened": false,
 
-			"RecentOyuncu": { },
+			"RecentOyuncular": { },
 			"OyuncuToggle$": 0,
 			"OyuncuOpened": false
 		}
