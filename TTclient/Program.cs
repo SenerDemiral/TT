@@ -25,14 +25,14 @@ namespace TTclient
 			//Db.SQL("CREATE INDEX TakimOyuncuTkmIdx ON TakimOyuncu(Takim)");
 			//Db.SQL("CREATE INDEX TakimOyuncuOynIdx ON TakimOyuncu(Oyuncu)");
 
-			Handle.GET("/", (Request req) => {
+			Handle.GET("/abc", (Request req) => {
 				return Self.GET("/TTclient");
 			});
 
-			Handle.GET("/TTclient", (Request req) => {
+			Handle.GET("/TTclient", () => {
 				return Db.Scope(() => {
 					Master master;
-					
+
 					if(Session.Current != null) {
 						master = (Master)Session.Current.Data;
 					}
@@ -41,8 +41,9 @@ namespace TTclient
 						//master.Data = null; // Master.OnData yi tetiklemek icin
 						master.Session = new Session(SessionOptions.PatchVersioning);
 					}
-					
+
 					//TTDB.Mac.deneme("dilara");
+					
 					var sw = Stopwatch.StartNew();
 					var turnuvaSay = Db.SQL<Int64>("SELECT COUNT(t) FROM Turnuva t").First;
 					master.TurnuvalarHeader = $"Turnuvalar {turnuvaSay}";
@@ -57,7 +58,7 @@ namespace TTclient
 					return master;
 				});
 			});
-			
+
 			Handle.GET("/TTclient/abc", () => {
 				Master master;
 
@@ -80,7 +81,7 @@ namespace TTclient
 
 			Handle.GET("/sener", (Request req) => {
 				Console.WriteLine(req.Body);
-				return "";
+				return Self.GET("/TTclient");
 			});
 		}
 	}

@@ -90,11 +90,11 @@ td, th {
 	font-weight: bold;
 }
 [winner="G"] {
-	background-color: aquamarine;
+	background-color: #ccffcc; /*Galip*/
 }
 [winner="B"] {
-	background-color: yellow;
+	background-color: #ffff80; /*Beraber*/
 }
 [winner="M"] {
-	background-color: pink;
+	background-color: #ffe6cc; /*Maglup;*/
 }

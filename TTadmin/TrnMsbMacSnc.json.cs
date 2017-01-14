@@ -77,6 +77,18 @@ namespace TTadmin
 							trnObj.SetNo = (short)pet.SetNo;
 							trnObj.HomeSayi = (short)pet.HomeSayi;
 							trnObj.GuestSayi = (short)pet.GuestSayi;
+							if(trnObj.HomeSayi == 0 && trnObj.GuestSayi != 0) {
+								if(trnObj.GuestSayi < 10)
+									trnObj.HomeSayi = 11;
+								else
+									trnObj.HomeSayi = (short)(trnObj.GuestSayi + 2);
+							}
+							if(trnObj.HomeSayi != 0 && trnObj.GuestSayi == 0) {
+								if(trnObj.HomeSayi < 10)
+									trnObj.GuestSayi = 11;
+								else
+									trnObj.GuestSayi = (short)(trnObj.HomeSayi + 2);
+							}
 						}
 					}
 					else {
@@ -90,13 +102,15 @@ namespace TTadmin
 				}
 			}
 			Transaction.Commit();
-
+			/*
 			if(deleteVar)
 				RefreshMacSonuc();
 			else {
 				for(int i = 0; i < TrnMsbMacSncs.Count; i++)
 					TrnMsbMacSncs[i].MF = false;
 			}
+			*/
+			RefreshMacSonuc();
 			reading = false;
 		}
 
