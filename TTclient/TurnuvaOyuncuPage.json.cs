@@ -51,13 +51,44 @@ namespace TTclient
 				parent.CurRowID = this.OyuncuID;
 				parent.CurRowOyuncuAd = this.OyuncuAd;
 
+				parent.CurOyuncuMaclari.Clear();
+				foreach(var mac in TTDB.Hlpr.TurnuvaOyuncuMaclarOzet(parent.TurnuvaID, OyuncuID)) {
+					CurOyuncuMaclariElementJson item = new CurOyuncuMaclariElementJson();
+					item.IsHome = mac.IsHome;
+					item.Sonuc = mac.Sonuc;
+					item.MusabakaTarih = mac.MusabakaTarih;
+					item.Skl = mac.Skl;
+					item.Sira = mac.Sira;
+					item.HomeOyuncuInfo = mac.HomeOyuncuInfo;
+					item.GuestOyuncuInfo = mac.GuestOyuncuInfo;
+					item.Ozet.Setler = mac.Setler;
+					item.Ozet.Sayilar = mac.Sayilar;
+
+					parent.CurOyuncuMaclari.Add(item);
+
+				}
+
+				/*
 				var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(parent.TurnuvaID));
 				var oynObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(OyuncuID));
+				var oynNo = (long)oynObj.GetObjectNo();
 				parent.CurOyuncuMaclari.Data =
-					Db.SQL<TTDB.Mac>("SELECT mm FROM MAC mm WHERE mm.Turnuva = ? AND (mm.HomeOyuncu = ? OR mm.GuestOyuncu = ? OR mm.HomeOyuncu2 = ? OR mm.GuestOyuncu2 = ?)", 
+					Db.SQL<TTDB.Mac>("SELECT mm FROM MAC mm WHERE mm.Turnuva = ? AND (mm.HomeOyuncu = ? OR mm.GuestOyuncu = ? OR mm.HomeOyuncu2 = ? OR mm.GuestOyuncu2 = ?)",
 						trnObj, oynObj, oynObj, oynObj, oynObj)
 					.OrderByDescending(x => x.Musabaka.Trh);
 
+				foreach(var mac in parent.CurOyuncuMaclari)
+				{
+					mac.IsHome = false;
+					if(oynNo == mac.HomeOyuncuNo || oynNo == mac.HomeOyuncu2No)		// HomeOyuncu degilse Guestdir
+						mac.IsHome = true;
+					
+					if(mac.IsHome) {
+						if(mac.Home)
+					}
+
+				}
+				*/
 				parent.OyuncuMacOpened = true;
 			}
 		}

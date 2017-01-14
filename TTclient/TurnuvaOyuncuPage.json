@@ -5,19 +5,6 @@
 	"CurRowID": "",
 	"CurRowOyuncuAd": "",
 	"OyuncuMacOpened$": false,
-	"CurOyuncuMaclari": [
-		{
-			"Skl": "",
-			"Sira": 0,
-			"MusabakaTarih": "",
-			"HomeOyuncuInfo": "",
-			"GuestOyuncuInfo": "",
-			"Ozet": {
-				"Setler": "",
-				"Sayilar": ""
-			}
-		}
-	],
 	"Oyuncular": [
 		{
 			"OyuncuID": "",
@@ -32,6 +19,21 @@
 			"SayiA": 0,
 			"SayiV": 0,
 			"OyuncuClick$": 0
+		}
+	],
+	"CurOyuncuMaclari": [
+		{
+			"Skl": "",
+			"Sira": 0,
+			"MusabakaTarih": "",
+			"HomeOyuncuInfo": "",
+			"GuestOyuncuInfo": "",
+			"Ozet": {
+				"Setler": "",
+				"Sayilar": ""
+			},
+			"Sonuc": "",
+			"IsHome": false
 		}
 	]
 }

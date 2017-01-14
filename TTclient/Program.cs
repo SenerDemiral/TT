@@ -25,11 +25,11 @@ namespace TTclient
 			//Db.SQL("CREATE INDEX TakimOyuncuTkmIdx ON TakimOyuncu(Takim)");
 			//Db.SQL("CREATE INDEX TakimOyuncuOynIdx ON TakimOyuncu(Oyuncu)");
 
-			Handle.GET("/", () => {
+			Handle.GET("/", (Request req) => {
 				return Self.GET("/TTclient");
 			});
 
-			Handle.GET("/TTclient", () => {
+			Handle.GET("/TTclient", (Request req) => {
 				return Db.Scope(() => {
 					Master master;
 					

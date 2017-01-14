@@ -49,22 +49,20 @@
 			<table>
 				<tr>
 					<th>Tarih</th>
-					<th>S/D</th>
 					<th>#</th>
 					<th>Home</th>
-					<th>Guest</th>
 					<th>Set</th>
+					<th>Guest</th>
 					<th>Sayı</th>
 				</tr>
 				<tbody>
 					<template is="dom-repeat" items="[[model.CurOyuncuMaclari]]">
-						<tr>
+						<tr winner$="[[item.Sonuc]]">
 							<td>[[item.MusabakaTarih]]</td>
-							<td style="text-align: center">[[item.Skl]]</td>
-							<td>[[item.Sira]]</td>
-							<td>[[item.HomeOyuncuInfo]]</td>
-							<td>[[item.GuestOyuncuInfo]]</td>
+							<td style="text-align: center">[[item.Skl]][[item.Sira]]</td>
+							<td is-home$="[[item.IsHome]]">[[item.HomeOyuncuInfo]]</td>
 							<td>[[item.Ozet.Setler]]</td>
+							<td is-home$="[[!item.IsHome]]">[[item.GuestOyuncuInfo]]</td>
 							<td>[[item.Ozet.Sayilar]]</td>
 						</tr>
 					</template>

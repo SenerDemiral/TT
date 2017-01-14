@@ -3,15 +3,16 @@ using Starcounter;
 //using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace TTDB
 {
 	public static class Constants {
 		public const string sepID = "·";		// Ad ·ID
-		public const string sepTkm = "•";		// Oyuncu(lar) • Takim
+		public const string sepTkm = " ";		// Oyuncu(lar) • Takim
 		public const string sepDblOyn = "+";	// Oyuncu + Oyuncu2
-		public const string sepSayi = "•";      // 11-05 ▪ 11-08
-												//public const string sepSayi = "■▪↔≡";      // 11-05 ▪ 11-08
+		public const string sepSayi = " ";      // 11-05 • 11-08
+											   //public const string sepSayi = "■▪↔≡";      // 11-05 ▪ 11-08
 		public static readonly char[] charsToTrim = { ',', '.', '·', '•', '●', '▪', '│', ' ' };
 
 	}
@@ -293,6 +294,11 @@ namespace TTDB
 		}
 	}
 
+	public class OyuncuMac
+	{
+
+	}
+	
 	[Database]
 	public partial class Mac
 	{
@@ -386,13 +392,6 @@ namespace TTDB
 			}
 		}
 
-		public static Ozet deneme (string txt) {
-			Ozet ozet = new Ozet();
-			string sayilar = "";
-			Int16 hSet = 0;
-			Int16 gSet = 0;
-			return ozet;
-		}
 	}
 
 	[Database]
@@ -403,6 +402,31 @@ namespace TTDB
 		public Int16 SetNo;
 		public Int16 HomeSayi;
 		public Int16 GuestSayi;
+	}
+
+	public class TurnuvaOyuncuMacOzet
+	{
+		public string MusabakaTarih;
+		public string Skl;
+		public Int16 Sira;
+		public string Sonuc;
+		public bool IsHome;
+		public string HomeOyuncuInfo;
+		public string GuestOyuncuInfo;
+		public string Setler;
+		public string Sayilar;
+
+		public TurnuvaOyuncuMacOzet() {
+			MusabakaTarih = "";
+			Skl = "";
+			Sira = 0;
+			Sonuc = "X";
+			IsHome = false;
+			HomeOyuncuInfo = "";
+			GuestOyuncuInfo = "";
+			Setler = "";
+			Sayilar = "";
+		}
 	}
 
 	public class TurnuvaOyuncuOzet
@@ -522,6 +546,55 @@ namespace TTDB
 				});
 			}
 		}
+
+		public static IEnumerable<TurnuvaOyuncuMacOzet> TurnuvaOyuncuMaclarOzet(string turnuvaID, string oyuncuID) 
+		{
+			
+			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
+			var oynObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(oyuncuID));
+			var oynNo = oynObj.GetObjectNo();
+
+			var maclar = Db.SQL<Mac>("SELECT mm FROM MAC mm WHERE mm.Turnuva = ? AND (mm.HomeOyuncu = ? OR mm.GuestOyuncu = ? OR mm.HomeOyuncu2 = ? OR mm.GuestOyuncu2 = ?)",
+						trnObj, oynObj, oynObj, oynObj, oynObj)
+					.OrderByDescending(x => x.Musabaka.Trh);
+
+			foreach(var mac in maclar) {
+				TurnuvaOyuncuMacOzet tomo = new TurnuvaOyuncuMacOzet();
+				tomo.IsHome = false;
+				if(oynNo == mac.HomeOyuncu.GetObjectNo() || (mac.HomeOyuncu2 != null && oynNo == mac.HomeOyuncu2.GetObjectNo()))     // HomeOyuncu degilse Guestdir
+					tomo.IsHome = true;
+				// Beraberlik olmaz
+				var ozet = mac.Ozet;
+				tomo.Sonuc = "X";
+				if(tomo.IsHome) {
+					if(ozet.HomeSet > ozet.GuestSet)
+						tomo.Sonuc = "G";
+					else if(ozet.HomeSet < ozet.GuestSet)
+						tomo.Sonuc = "M";
+					else if(ozet.HomeSet == ozet.GuestSet && ozet.HomeSet != 0)
+						tomo.Sonuc = "B";
+				}
+				else {
+					if(ozet.HomeSet > ozet.GuestSet)
+						tomo.Sonuc = "M";
+					else if(ozet.HomeSet < ozet.GuestSet)
+						tomo.Sonuc = "G";
+					else if(ozet.HomeSet == ozet.GuestSet && ozet.HomeSet != 0)
+						tomo.Sonuc = "B";
+				}
+
+				tomo.MusabakaTarih = mac.MusabakaTarih;
+				tomo.Skl = mac.Skl;
+				tomo.Sira = mac.Sira;
+				tomo.HomeOyuncuInfo = mac.HomeOyuncuInfo;
+				tomo.GuestOyuncuInfo = mac.GuestOyuncuInfo;
+				tomo.Setler = ozet.Setler;
+				tomo.Sayilar = ozet.Sayilar;
+
+				yield return tomo;
+			}
+		}
+
 
 		public static IEnumerable<TurnuvaOyuncuOzet> TurnuvaOyuncularOzet(string turnuvaID)
 		{

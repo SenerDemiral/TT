@@ -142,7 +142,7 @@ namespace TTclient
 						trnObj, tkmObj, tkmObj)
 					.OrderBy(x => x.Trh);
 				Console.WriteLine(string.Format("TurnuvaTakimPage.CurTakimMusabakalari ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
-
+				/*
 				sw = Stopwatch.StartNew();
 				parent.CurTakimMusabakalari.Data =
 					Db.SQL<TTDB.Musabaka>("SELECT mm FROM Musabaka mm WHERE mm.Turnuva = ? AND (mm.HomeTakim = ? OR mm.GuestTakim = ?) ORDER BY mm.Trh",
@@ -156,7 +156,7 @@ namespace TTclient
 						trnObj, tkmObj, tkmObj);
 
 				Console.WriteLine(string.Format("TurnuvaTakimPage.CurTakimMusabakalari ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
-
+				*/
 				foreach(var msbk in parent.CurTakimMusabakalari)
 				{
 					var msbkObj = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(msbk.ID));

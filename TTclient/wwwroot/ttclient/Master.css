@@ -1,18 +1,64 @@
-﻿html {
-	background: azure;
+﻿:root {
+  font-size: 10px;
+}
+
+button {
+  font-size: 10px;
+}
+
+table {
+  font-size: 10px;
+}
+
+paper-dialog {
+  font-size: 10px;
+}
+
+@media (min-width: 400px) and (max-width: 800px) {
+	:root {
+		font-size: calc( 10px + (24 - 10) * ( (100vw - 400px) / ( 800 - 400) ));
+	}
+	button {
+		font-size: calc( 10px + (24 - 10) * ( (100vw - 400px) / ( 800 - 400) ));
+		/*font-size: calc( 12px + (24 - 12) * ( (100vw - 400px) / ( 800 - 400) ));*/
+	}
+	paper-dialog {
+		font-size: calc( 10px + (24 - 10) * ( (100vw - 400px) / ( 800 - 400) ));
+	}
+
+	table {
+		font-size: calc( 10px + (14 - 10) * ( (100vw - 400px) / ( 800 - 400) ));
+	}
+}
+
+@media (min-width: 800px) {
+  :root {
+    font-size: 24px;
+  }
+	button {
+		font-size: 24px;
+	       }
+
+	table {
+		font-size: 14px;
+	}
 }
 body {
-    font-family: Roboto, sans-serif;
-    font-weight: normal;
-	min-height: 100vh;
-	position: relative;
-	margin: 0;
-    font-size: 2vw;
-
+  padding: 0 1em;
 }
-button {
-    font-family: Roboto, sans-serif;
-    font-size: 2vw;
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: 1px solid #CBCBCB;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td, th {
+  	line-height: 1em;
+	padding: 0.3em 0.3em;
+	border: 1px solid #CBCBCB;
 }
 
 .heading {
@@ -22,7 +68,7 @@ button {
     border: 1px solid #dedede;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    font-size: 3vw;
+    /*font-size: 3vw;*/
 	
     cursor: pointer;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -40,32 +86,9 @@ button {
     @apply(--shadow-elevation-2dp);
 }
 
-#denemecollapseTurnuvaMusabakalar  {
-    max-height: 300px;
+[is-home] {
+	font-weight: bold;
 }
-
-.maclar {
-    background: seashell;
-}
-    
-table, th, td {
-    border: 1px solid rgb(191,191,191);
-    border-collapse: collapse;
-	line-height: normal;
-}
-table {
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1.5vw;
-}
-th, td {
-    padding: 3px 5px;
-}
-
-.xbutton {
-    display:table-cell;
-}
-
 [winner="G"] {
 	background-color: aquamarine;
 }
@@ -74,22 +97,4 @@ th, td {
 }
 [winner="M"] {
 	background-color: pink;
-}
-
-@media all and (min-width: 600px){
-  :root {
-    font-size: 12px;
-  }
-
-  .heading {
-	  font-size: 20px;
-  }
-
-  table {
-	  font-size: 20px;
-  }
-
-  button {
-	  font-size: 20px;
-  }
 }
