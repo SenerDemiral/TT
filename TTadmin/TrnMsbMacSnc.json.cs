@@ -80,14 +80,17 @@ namespace TTadmin
 							if(trnObj.HomeSayi == 0 && trnObj.GuestSayi != 0) {
 								if(trnObj.GuestSayi < 10)
 									trnObj.HomeSayi = 11;
-								else
+								else if(trnObj.GuestSayi > 11)
 									trnObj.HomeSayi = (short)(trnObj.GuestSayi + 2);
 							}
 							if(trnObj.HomeSayi != 0 && trnObj.GuestSayi == 0) {
 								if(trnObj.HomeSayi < 10)
 									trnObj.GuestSayi = 11;
-								else
+								else if(trnObj.HomeSayi > 11)
 									trnObj.GuestSayi = (short)(trnObj.HomeSayi + 2);
+							}
+							if(trnObj.HomeSayi == trnObj.GuestSayi) {
+								trnObj.Delete();
 							}
 						}
 					}
