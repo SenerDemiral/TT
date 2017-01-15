@@ -78,15 +78,21 @@ namespace TTadmin
 							trnObj.HomeSayi = (short)pet.HomeSayi;
 							trnObj.GuestSayi = (short)pet.GuestSayi;
 							if(trnObj.HomeSayi == 0 && trnObj.GuestSayi != 0) {
-								if(trnObj.GuestSayi < 10)
+								if(trnObj.GuestSayi < 0) {
+									trnObj.GuestSayi = 11;	// 0-11
+								}
+								else if(trnObj.GuestSayi < 10)
 									trnObj.HomeSayi = 11;
-								else if(trnObj.GuestSayi > 11)
+								else if(trnObj.GuestSayi >= 10)
 									trnObj.HomeSayi = (short)(trnObj.GuestSayi + 2);
 							}
 							if(trnObj.HomeSayi != 0 && trnObj.GuestSayi == 0) {
-								if(trnObj.HomeSayi < 10)
+								if(trnObj.HomeSayi < 0) {
+									trnObj.HomeSayi = 11;  // 11-0
+								}
+								else if(trnObj.HomeSayi < 10)
 									trnObj.GuestSayi = 11;
-								else if(trnObj.HomeSayi > 11)
+								else if(trnObj.HomeSayi >= 10)
 									trnObj.GuestSayi = (short)(trnObj.HomeSayi + 2);
 							}
 							if(trnObj.HomeSayi == trnObj.GuestSayi) {
