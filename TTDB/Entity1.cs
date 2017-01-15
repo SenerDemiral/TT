@@ -561,7 +561,7 @@ namespace TTDB
 			foreach(var mac in maclar) {
 				TurnuvaOyuncuMacOzet tomo = new TurnuvaOyuncuMacOzet();
 				tomo.IsHome = false;
-				if(oynNo == mac.HomeOyuncu.GetObjectNo() || (mac.HomeOyuncu2 != null && oynNo == mac.HomeOyuncu2.GetObjectNo()))     // HomeOyuncu degilse Guestdir
+				if((mac.HomeOyuncu != null && oynNo == mac.HomeOyuncu.GetObjectNo()) || (mac.HomeOyuncu2 != null && oynNo == mac.HomeOyuncu2.GetObjectNo()))     // HomeOyuncu degilse Guestdir
 					tomo.IsHome = true;
 				// Beraberlik olmaz
 				var ozet = mac.Ozet;
@@ -600,12 +600,17 @@ namespace TTDB
 		{
 			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
 
-			QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ?", trnObj);
+			// Bir oyuncu her devre baska takimda oynayabilir
+			// Db.SQL distinct support etmiyor
+			// var deneme = Db.SQL("select distinct m.Oyuncu.ObjectNo from TakimOyuncu m where m.Turnuva = ?", trnObj);
+
+			//QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ?", trnObj);
+			var to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ?", trnObj).Select(m => m.Oyuncu).Distinct();	// return IEnumerable<Oyuncu>
 
 			foreach(var t in to) {
 				TurnuvaOyuncuOzet too = new TurnuvaOyuncuOzet();
 
-				int oMac = 0,   // Oynadigi
+				int oMac = 0,  // Oynadigi
 				   aMac = 0,   // Aldigi
 				   aSet = 0,   // Aldigi
 				   vSet = 0,   // Verdigi
@@ -613,14 +618,22 @@ namespace TTDB
 				   vSay = 0;
 
 				//Console.WriteLine(string.Format("    {0}/{1}", t.OyuncuAd, t.TakimAd));
+				/*
 				if(t.Oyuncu != null) {
 					too.OyuncuID = t.Oyuncu.GetObjectID();
 					too.OyuncuAd = t.Oyuncu.Ad;
 				}
 				too.TakimAd = t.Takim.Ad;
+				*/
+				if(t != null) {
+					too.OyuncuID = t.GetObjectID();
+					too.OyuncuAd = t.Ad;
+				}
+				too.TakimAd = "";
 
 				// Home olarak oynadiklari
-				QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.HomeOyuncu = ?", t.Oyuncu);
+				//QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.HomeOyuncu = ?", trnObj, t.Oyuncu);
+				QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.HomeOyuncu = ?", trnObj, t);
 
 				foreach(var m in hMac) {
 					oMac++;
@@ -632,7 +645,8 @@ namespace TTDB
 					vSay += o.GuestSayi;
 				}
 				// Guest olarak oynadiklar
-				QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.GuestOyuncu = ?", t.Oyuncu);
+				//QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.GuestOyuncu = ?", trnObj, t.Oyuncu);
+				QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.GuestOyuncu = ?", trnObj, t);
 
 				foreach(var m in gMac) {
 					oMac++;

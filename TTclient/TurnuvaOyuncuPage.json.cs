@@ -10,6 +10,7 @@ namespace TTclient
 		protected override void OnData()
 		{
 			base.OnData();
+
 			var sw = Stopwatch.StartNew();
 			var ccc = TTDB.Hlpr.TurnuvaOyuncularOzet(TurnuvaID).OrderByDescending(x => x.Puan).ThenBy(y => y.MacM).OrderByDescending(y => y.SetA * 2);
 			foreach(var o in ccc) {

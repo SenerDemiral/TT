@@ -10,17 +10,21 @@
                 <th rowspan="2">Takım</th>
                 <th rowspan="2">Puan</th>
                 <th colspan="3">Maç</th>
+				<!--
                 <th colspan="2">Set</th>
                 <th colspan="2">Sayı</th>
+				-->
             </tr>
             <tr>
                 <th>O</th>
                 <th>G</th>
                 <th>M</th>
+				<!--
                 <th>A</th>
                 <th>V</th>
                 <th>A</th>
                 <th>V</th>
+				-->
             </tr>
 
             <template is="dom-repeat" items="[[model.Oyuncular]]">
@@ -32,10 +36,12 @@
                     <td style="text-align: right;">{{item.MacO}}</td>
                     <td style="text-align: right;">{{item.MacG}}</td>
                     <td style="text-align: right;">{{item.MacM}}</td>
-                    <td style="text-align: right;">{{item.SetA}}</td>
+                    <!--
+					<td style="text-align: right;">{{item.SetA}}</td>
                     <td style="text-align: right;">{{item.SetV}}</td>
                     <td style="text-align: right;">{{item.SayiA}}</td>
                     <td style="text-align: right;">{{item.SayiV}}</td>
+					-->
                 </tr>
             </template>
         </table>
