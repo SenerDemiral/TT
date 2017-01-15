@@ -25,11 +25,20 @@ namespace TTadmin
 				te.MF = false;
 
 				var ozet = tt.Ozet;
-				te.MusabakaWin = ozet.MusabakaWin;
-				te.MusabakaLost = ozet.MusabakaLost;
-				te.MusabakaTie = ozet.MusabakaTie;
-				te.MusabakaOynadigi = ozet.MusabakaOynadigi;
-				te.Puan = ozet.Puan;
+
+				te.TrnPuan = ozet.TrnPuan;
+				te.PuanA = ozet.PuanA;
+				te.PuanV = ozet.PuanV;
+				te.MsbkO = ozet.MsbkO;
+				te.MsbkA = ozet.MsbkA;
+				te.MsbkB = ozet.MsbkB;
+				te.MsbkV = ozet.MsbkV;
+				te.MacA = ozet.MacA;
+				te.MacV = ozet.MacV;
+				te.SetA = ozet.SetA;
+				te.SetV = ozet.SetV;
+				te.SayiA = ozet.SayiA;
+				te.SayiV = ozet.SayiV;
 
 				//var tID = te.TakimAd.Substring(te.TakimAd.IndexOf('·')+1);
 			}

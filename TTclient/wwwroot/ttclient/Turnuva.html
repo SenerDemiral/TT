@@ -9,21 +9,21 @@
             </button>
             <iron-collapse id="collapse[[item.ID]]" tabindex="0" opened="[[item.Opened]]" no-animation>
                 <div class="content">
+                    <button class="heading" value="{{item.TakimToggle$::click}}" onmousedown="++this.value" style="text-align:center">Takımlar</button>
+                    <template is="dom-if" if="[[item.TakimOpened]]">
+                        <iron-collapse id="collapseTurnuvaTakimlar" tabindex="0" opened="[[item.TakimOpened]]" no-animation>
+                            <div class="content">
+                                <starcounter-include partial="[[item.RecentTakimlar]]"></starcounter-include>
+                            </div>
+                        </iron-collapse>
+                    </template>
+
                     <button class="heading" value="{{item.MusabakaToggle$::click}}" onmousedown="++this.value" style="text-align:center">Musabakalar</button>
                     <template is="dom-if" if="[[item.MusabakaOpened]]">
                         <iron-collapse id="collapseTurnuvaMusabakalar" tabindex="0" opened="[[item.MusabakaOpened]]" no-animation>
                             <div class="content">
                                 <!--<div style="text-align: center;">[[item.Ad]]</div>-->
                                 <starcounter-include partial="[[item.RecentMusabakalar]]"></starcounter-include>
-                            </div>
-                        </iron-collapse>
-                    </template>
-
-                    <button class="heading" value="{{item.TakimToggle$::click}}" onmousedown="++this.value" style="text-align:center">Takımlar</button>
-                    <template is="dom-if" if="[[item.TakimOpened]]">
-                        <iron-collapse id="collapseTurnuvaTakimlar" tabindex="0" opened="[[item.TakimOpened]]" no-animation>
-                            <div class="content">
-                                <starcounter-include partial="[[item.RecentTakimlar]]"></starcounter-include>
                             </div>
                         </iron-collapse>
                     </template>

@@ -120,20 +120,39 @@ namespace TTDB
 
 	public class TurnuvaTakimOzet
 	{
-		public Int16 Puan;
-		public Int16 MusabakaWin;
-		public Int16 MusabakaLost;
-		public Int16 MusabakaTie;
-		public Int16 MusabakaOynadigi;
+		public int TrnPuan;
+		public int PuanAV;
+		public int PuanA;
+		public int PuanV;
+		public int MsbkO;
+		public int MsbkA;
+		public int MsbkB;
+		public int MsbkV;
+		public int MacA;
+		public int MacV;
+		public int SetA;
+		public int SetV;
+		public int SayiA;
+		public int SayiV;
 		public int MacCnt;
 
 		public TurnuvaTakimOzet()
 		{
-			Puan = 0;
-			MusabakaWin = 0;
-			MusabakaLost = 0;
-			MusabakaTie = 0;
-			MusabakaOynadigi = 0;
+			TrnPuan = 0;
+			PuanAV = 0;
+			PuanA = 0;
+			PuanV = 0 ;
+			MsbkO = 0;
+			MsbkA = 0;
+			MsbkB = 0;
+			MsbkV = 0;
+			MacA = 0;
+			MacV = 0;
+			SetA = 0;
+			SetV = 0;
+			SayiA = 0;
+			SayiV = 0;
+
 			MacCnt = 0;
 		}
 	}
@@ -161,31 +180,50 @@ namespace TTDB
 				QueryResultRows<Musabaka> hta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.Turnuva = ? AND ta.HomeTakim = ?", this.Turnuva, this.Takim);
 				foreach(var ta in hta) {
 					Ozet o = ta.Ozet;
-					ozet.Puan += o.HomePuan;
+
+					ozet.PuanA += o.HomePuan;
+					ozet.PuanV += o.GuestPuan;
+					ozet.MacA += o.HomeMac;
+					ozet.MacV += o.GuestMac;
+					ozet.SetA += o.HomeSet;
+					ozet.SetV += o.GuestSet;
+					ozet.SayiA += o.HomeSayi;
+					ozet.SayiV += o.GuestSayi;
 					if(o.HomePuan > o.GuestPuan)
-						ozet.MusabakaWin++;
+						ozet.MsbkA++;
 					else if(o.HomePuan < o.GuestPuan)
-						ozet.MusabakaLost++;
+						ozet.MsbkV++;
 					else if(o.HomePuan > 0 || o.GuestPuan > 0)
-						ozet.MusabakaTie++;
+						ozet.MsbkB++;
 					ozet.MacCnt += o.Cnt;
 				}
 				// Misafir oynadiklari
 				QueryResultRows<Musabaka> gta = Db.SQL<Musabaka>("SELECT ta FROM TTDB.Musabaka ta WHERE ta.Turnuva = ? AND ta.GuestTakim = ?", this.Turnuva, this.Takim);
 				foreach(var ta in gta) {
 					Ozet o = ta.Ozet;
-					ozet.Puan += o.GuestPuan;
+					
+					ozet.PuanA += o.GuestPuan;
+					ozet.PuanV += o.HomePuan;
+					ozet.MacA += o.GuestMac;
+					ozet.MacV += o.HomeMac;
+					ozet.SetA += o.GuestSet;
+					ozet.SetV += o.HomeSet;
+					ozet.SayiA += o.GuestSayi;
+					ozet.SayiV += o.HomeSayi;
 					if(o.GuestPuan > o.HomePuan)
-						ozet.MusabakaWin++;
+						ozet.MsbkA++;
 					else if(o.GuestPuan < o.HomePuan)
-						ozet.MusabakaLost++;
+						ozet.MsbkV++;
 					else if(o.HomePuan > 0 || o.GuestPuan > 0)
-						ozet.MusabakaTie++;
+						ozet.MsbkB++;
 					ozet.MacCnt += o.Cnt;
 				}
-				ozet.MusabakaOynadigi = (short)(ozet.MusabakaWin + ozet.MusabakaLost + ozet.MusabakaTie);
+				ozet.MsbkO = ozet.MsbkA + ozet.MsbkB + ozet.MsbkV;
 				var trnNo = this.Turnuva.GetObjectNo();
 				string tkm = string.Format("{0} {1}", this.Takim.GetObjectNo(), this.TakimAd);
+
+				ozet.TrnPuan = ozet.MsbkA * 3 + ozet.MsbkB;
+				ozet.PuanAV = ozet.PuanA - ozet.PuanV;
 				return ozet;
 			}
 		}

@@ -15,7 +15,7 @@ namespace TTclient
 			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 
 			var sw = Stopwatch.StartNew();
-			Takimlar.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnObj).OrderByDescending(x => x.Ozet.Puan);
+			Takimlar.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnObj).OrderByDescending(x => x.Ozet.TrnPuan).ThenByDescending(x => x.Ozet.PuanAV);
 			Console.WriteLine(string.Format("TurnuvaTakimPage.OnData-LinqSort ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
 			
 			/*
