@@ -643,9 +643,9 @@ namespace TTDB
 			// var deneme = Db.SQL("select distinct m.Oyuncu.ObjectNo from TakimOyuncu m where m.Turnuva = ?", trnObj);
 
 			//QueryResultRows<TakimOyuncu> to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ?", trnObj);
-			var to = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ?", trnObj).Select(m => m.Oyuncu).Distinct();	// return IEnumerable<Oyuncu>
+			var oyuncular = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ?", trnObj).Select(m => m.Oyuncu).Distinct();	// return IEnumerable<Oyuncu>
 
-			foreach(var t in to) {
+			foreach(var oyuncu in oyuncular) {
 				TurnuvaOyuncuOzet too = new TurnuvaOyuncuOzet();
 
 				//Console.WriteLine(string.Format("    {0}/{1}", t.OyuncuAd, t.TakimAd));
@@ -656,41 +656,41 @@ namespace TTDB
 				}
 				too.TakimAd = t.Takim.Ad;
 				*/
-				if(t != null) {
-					too.OyuncuID = t.GetObjectID();
-					too.OyuncuAd = t.Ad;
+				if(oyuncu != null) {
+					too.OyuncuID = oyuncu.GetObjectID();
+					too.OyuncuAd = oyuncu.Ad;
 				}
 				too.TakimAd = "";
 
 				// Home olarak oynadiklari
 				//QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.HomeOyuncu = ?", trnObj, t.Oyuncu);
-				QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.HomeOyuncu = ?", trnObj, t);
+				QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND (m.HomeOyuncu = ? OR m.HomeOyuncu2 = ?)", trnObj, oyuncu, oyuncu);
 
 				foreach(var m in hMac) {
-					Ozet o = m.Ozet;
+					Ozet ozt = m.Ozet;
 
 					too.MacO++;
-					too.Puan += o.HomePuan;
-					too.MacG += o.HomeMac;
-					too.SetA += o.HomeSet;
-					too.SetV += o.GuestSet;
-					too.SayiA += o.HomeSayi;
-					too.SayiV += o.GuestSayi;
+					too.Puan += ozt.HomePuan;
+					too.MacG += ozt.HomeMac;
+					too.SetA += ozt.HomeSet;
+					too.SetV += ozt.GuestSet;
+					too.SayiA += ozt.HomeSayi;
+					too.SayiV += ozt.GuestSayi;
 				}
 				// Guest olarak oynadiklar
 				//QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.GuestOyuncu = ?", trnObj, t.Oyuncu);
-				QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.GuestOyuncu = ?", trnObj, t);
+				QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND (m.GuestOyuncu = ? OR m.GuestOyuncu2 = ?)", trnObj, oyuncu, oyuncu);
 
 				foreach(var m in gMac) {
-					Ozet o = m.Ozet;
+					Ozet ozt = m.Ozet;
 
 					too.MacO++;
-					too.Puan += o.GuestPuan;
-					too.MacG += o.GuestMac;
-					too.SetA += o.GuestSet;
-					too.SetV += o.HomeSet;
-					too.SayiA += o.GuestSayi;
-					too.SayiV += o.HomeSayi;
+					too.Puan += ozt.GuestPuan;
+					too.MacG += ozt.GuestMac;
+					too.SetA += ozt.GuestSet;
+					too.SetV += ozt.HomeSet;
+					too.SayiA += ozt.GuestSayi;
+					too.SayiV += ozt.HomeSayi;
 				}
 
 				too.MacM = too.MacO - too.MacG;
