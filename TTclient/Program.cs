@@ -32,6 +32,7 @@ namespace TTclient
 
 			Handle.GET("/TTclient", (Request req) => {
 				Console.WriteLine(ConnCount++);
+				Console.WriteLine(req.ClientIpAddress.ToString());
 				return Db.Scope(() => {
 					Master master;
 
