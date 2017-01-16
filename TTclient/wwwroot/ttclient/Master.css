@@ -86,6 +86,10 @@ td, th {
     @apply(--shadow-elevation-2dp);
 }
 
+.single {
+	background-color: #e4d4f3;
+}
+
 .double {
 	background-color: #e4d4f3;
 }
