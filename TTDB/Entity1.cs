@@ -304,30 +304,34 @@ namespace TTDB
 
 	public class Ozet {
 		public int HomePuan;
-		public int GuestPuan;
 		public int HomeMac;
 		public int HomeSet;
+		public int HomeSayi;
+		public int GuestPuan;
 		public int GuestMac;
 		public int GuestSet;
-		public int HomeSayi;
 		public int GuestSayi;
 
 		public int HomePuanD;
-		public int GuestPuanD;
-		public int HomeMacD;
+		public int HomeMacOD;
+		public int HomeMacGD;
 		public int HomeSetD;
-		public int GuestMacD;
-		public int GuestSetD;
 		public int HomeSayiD;
+		public int GuestPuanD;
+		public int GuestMacOD;
+		public int GuestMacGD;
+		public int GuestSetD;
 		public int GuestSayiD;
 
 		public int HomePuanS;
-		public int GuestPuanS;
-		public int HomeMacS;
+		public int HomeMacOS;
+		public int HomeMacGS;
 		public int HomeSetS;
-		public int GuestMacS;
-		public int GuestSetS;
 		public int HomeSayiS;
+		public int GuestPuanS;
+		public int GuestMacOS;
+		public int GuestMacGS;
+		public int GuestSetS;
 		public int GuestSayiS;
 
 		public string Puanlar;   // H:G
@@ -340,23 +344,34 @@ namespace TTDB
 			HomePuan = 0;
 			HomeMac = 0;
 			HomeSet = 0;
+			HomeSayi = 0;
 			GuestPuan = 0;
 			GuestMac = 0;
 			GuestSet = 0;
+			GuestSayi = 0;
 
+			
 			HomePuanD = 0;
-			HomeMacD = 0;
+			HomeMacOD = 0;
+			HomeMacGD = 0;
 			HomeSetD = 0;
+			HomeSayiD = 0;
 			GuestPuanD = 0;
-			GuestMacD = 0;
+			GuestMacOD = 0;
+			GuestMacGD = 0;
 			GuestSetD = 0;
+			GuestSayiD = 0;
 
 			HomePuanS = 0;
-			HomeMacS = 0;
+			HomeMacOS = 0;
+			HomeMacGS = 0;
 			HomeSetS = 0;
+			HomeSayiS = 0;
 			GuestPuanS = 0;
-			GuestMacS = 0;
+			GuestMacOS = 0;
+			GuestMacGS = 0;
 			GuestSetS = 0;
+			GuestSayiS = 0;
 
 			Puanlar = "";
 			Setler = "";
@@ -433,7 +448,7 @@ namespace TTDB
 						if(Skl == "D")
 							ozet.HomeSetD++;
 						else
-							ozet.HomeSetD++;
+							ozet.HomeSetS++;
 					}
 					else { 
 						ozet.GuestSet++;
@@ -453,31 +468,40 @@ namespace TTDB
 						ozet.GuestSayiS += m.GuestSayi;
 					}
 				}
-				
-				if (ozet.HomeSet > ozet.GuestSet) {
+
+				if(Skl == "D") {
+					ozet.HomeMacOD++;
+					ozet.GuestMacOD++;
+				}
+				else {
+					ozet.HomeMacOS++;
+					ozet.GuestMacOS++;
+				}
+
+				if(ozet.HomeSet > ozet.GuestSet) {
 					ozet.HomeMac = 1;
 					if(Skl == "D") {
 						ozet.HomePuan = 3;
 						ozet.HomePuanD = 3;
-						ozet.HomeMacD = 1;
+						ozet.HomeMacGD = 1;
 					}
 					else {
 						ozet.HomePuan = 2;
 						ozet.HomePuanS = 2;
-						ozet.HomeMacS = 1;
+						ozet.HomeMacGS = 1;
 					}
 				}
 				else if (ozet.HomeSet < ozet.GuestSet) {
 					ozet.GuestMac = 1;
 					if(Skl == "D") {
 						ozet.GuestPuan = 3;
-						ozet.GuestMacD = 1;
 						ozet.GuestPuanD = 3;
+						ozet.GuestMacGD = 1;
 					}
 					else {
 						ozet.GuestPuan = 2;
-						ozet.GuestMacS = 1;
 						ozet.GuestPuanS = 2;
+						ozet.GuestMacGS = 1;
 					}
 				}
 				
@@ -764,7 +788,10 @@ namespace TTDB
 				foreach(var m in hMac) {
 					Ozet ozt = m.Ozet;
 
-					too.MacO += ozt.HomeMac;
+					too.MacO++;
+					too.MacOD += ozt.HomeMacOD;
+					too.MacOS += ozt.HomeMacOS;
+
 					too.Puan += ozt.HomePuan;
 					too.MacG += ozt.HomeMac;
 					too.SetA += ozt.HomeSet;
@@ -772,17 +799,15 @@ namespace TTDB
 					too.SayiA += ozt.HomeSayi;
 					too.SayiV += ozt.GuestSayi;
 
-					too.MacOD += ozt.HomeMacD;
 					too.PuanD += ozt.HomePuanD;
-					too.MacGD += ozt.HomeMacD;
+					too.MacGD += ozt.HomeMacGD;
 					too.SetAD += ozt.HomeSetD;
 					too.SetVD += ozt.GuestSetD;
 					too.SayiAD += ozt.HomeSayiD;
 					too.SayiVD += ozt.GuestSayiD;
 
-					too.MacOS += ozt.HomeMacS;
 					too.PuanS += ozt.HomePuanS;
-					too.MacGS += ozt.HomeMacS;
+					too.MacGS += ozt.HomeMacGS;
 					too.SetAS += ozt.HomeSetS;
 					too.SetVS += ozt.GuestSetS;
 					too.SayiAS += ozt.HomeSayiS;
@@ -795,25 +820,29 @@ namespace TTDB
 				foreach(var m in gMac) {
 					Ozet ozt = m.Ozet;
 
-					too.MacO += ozt.GuestMac;
+					too.MacO++;
+					too.MacOD += ozt.GuestMacOD;
+					too.MacOS += ozt.GuestMacOS;
+
 					too.Puan += ozt.GuestPuan;
 					too.MacG += ozt.GuestMac;
+
 					too.SetA += ozt.GuestSet;
 					too.SetV += ozt.HomeSet;
 					too.SayiA += ozt.GuestSayi;
 					too.SayiV += ozt.HomeSayi;
 
-					too.MacOD += ozt.GuestMacD;
 					too.PuanD += ozt.GuestPuanD;
-					too.MacGD += ozt.GuestMacD;
+					too.MacGD += ozt.GuestMacGD;
+					
 					too.SetAD += ozt.GuestSetD;
 					too.SetVD += ozt.HomeSetD;
 					too.SayiAD += ozt.GuestSayiD;
 					too.SayiVD += ozt.HomeSayiD;
 
-					too.MacOS += ozt.GuestMacS;
 					too.PuanS += ozt.GuestPuanS;
-					too.MacGS += ozt.GuestMacS;
+					too.MacGS += ozt.GuestMacGS;
+					
 					too.SetAS += ozt.GuestSetS;
 					too.SetVS += ozt.HomeSetS;
 					too.SayiAS += ozt.GuestSayiS;
