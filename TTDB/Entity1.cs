@@ -472,14 +472,14 @@ namespace TTDB
 		public string OyuncuID;
 		public string OyuncuAd;
 		public string TakimAd;
-		public Int16 Puan;
-		public Int16 MacO;
-		public Int16 MacG;
-		public Int16 MacM;
-		public Int16 SetA;
-		public Int16 SetV;
-		public Int16 SayiA;
-		public Int16 SayiV;
+		public int Puan;
+		public int MacO;
+		public int MacG;
+		public int MacM;
+		public int SetA;
+		public int SetV;
+		public int SayiA;
+		public int SayiV;
 		
 		public TurnuvaOyuncuOzet()
 		{
@@ -648,13 +648,6 @@ namespace TTDB
 			foreach(var t in to) {
 				TurnuvaOyuncuOzet too = new TurnuvaOyuncuOzet();
 
-				int oMac = 0,  // Oynadigi
-				   aMac = 0,   // Aldigi
-				   aSet = 0,   // Aldigi
-				   vSet = 0,   // Verdigi
-				   aSay = 0,
-				   vSay = 0;
-
 				//Console.WriteLine(string.Format("    {0}/{1}", t.OyuncuAd, t.TakimAd));
 				/*
 				if(t.Oyuncu != null) {
@@ -674,36 +667,33 @@ namespace TTDB
 				QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.HomeOyuncu = ?", trnObj, t);
 
 				foreach(var m in hMac) {
-					oMac++;
 					Ozet o = m.Ozet;
-					aMac += o.HomeMac;
-					aSet += o.HomeSet;
-					vSet += o.GuestSet;
-					aSay += o.HomeSayi;
-					vSay += o.GuestSayi;
+
+					too.MacO++;
+					too.Puan += o.HomePuan;
+					too.MacG += o.HomeMac;
+					too.SetA += o.HomeSet;
+					too.SetV += o.GuestSet;
+					too.SayiA += o.HomeSayi;
+					too.SayiV += o.GuestSayi;
 				}
 				// Guest olarak oynadiklar
 				//QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.GuestOyuncu = ?", trnObj, t.Oyuncu);
 				QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.GuestOyuncu = ?", trnObj, t);
 
 				foreach(var m in gMac) {
-					oMac++;
 					Ozet o = m.Ozet;
-					aMac += o.GuestMac;
-					aSet += o.GuestSet;
-					vSet += o.HomeSet;
-					aSay += o.GuestSayi;
-					vSay += o.HomeSayi;
+
+					too.MacO++;
+					too.Puan += o.GuestPuan;
+					too.MacG += o.GuestMac;
+					too.SetA += o.GuestSet;
+					too.SetV += o.HomeSet;
+					too.SayiA += o.GuestSayi;
+					too.SayiV += o.HomeSayi;
 				}
 
-				too.Puan = (Int16)(aMac * 2 + (oMac - aMac));
-				too.MacO = (Int16)oMac;
-				too.MacG = (Int16)aMac;
-				too.MacM = (Int16)(oMac - aMac);
-				too.SetA = (Int16)aSet;
-				too.SetV = (Int16)vSet;
-				too.SayiA = (Int16)aSay;
-				too.SayiV = (Int16)vSay;
+				too.MacM = too.MacO - too.MacG;
 
 				//ltoo.Add(too);
 				yield return too;
