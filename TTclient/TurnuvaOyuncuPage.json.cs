@@ -28,6 +28,24 @@ namespace TTclient
 				item.SayiA = o.SayiA;
 				item.SayiV = o.SayiV;
 
+				item.PuanD = o.PuanD;
+				item.MacOD = o.MacOD;
+				item.MacGD = o.MacGD;
+				item.MacMD = o.MacMD;
+				item.SetAD = o.SetAD;
+				item.SetVD = o.SetVD;
+				item.SayiAD = o.SayiAD;
+				item.SayiVD = o.SayiVD;
+
+				item.PuanS = o.PuanS;
+				item.MacOS = o.MacOS;
+				item.MacGS = o.MacGS;
+				item.MacMS = o.MacMS;
+				item.SetAS = o.SetAS;
+				item.SetVS = o.SetVS;
+				item.SayiAS = o.SayiAS;
+				item.SayiVS = o.SayiVS;
+
 				Oyuncular.Add(item);
 			}
 			Console.WriteLine(string.Format("OyuncuPage.OnData-LinqSort ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));

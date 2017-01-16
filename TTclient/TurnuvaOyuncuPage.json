@@ -18,6 +18,25 @@
 			"SetV": 0,
 			"SayiA": 0,
 			"SayiV": 0,
+
+			"PuanD": 0,
+			"MacOD": 0,
+			"MacGD": 0,
+			"MacMD": 0,
+			"SetAD": 0,
+			"SetVD": 0,
+			"SayiAD": 0,
+			"SayiVD": 0,
+
+			"PuanS": 0,
+			"MacOS": 0,
+			"MacGS": 0,
+			"MacMS": 0,
+			"SetAS": 0,
+			"SetVS": 0,
+			"SayiAS": 0,
+			"SayiVS": 0,
+
 			"OyuncuClick$": 0
 		}
 	],
