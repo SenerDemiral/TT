@@ -8,6 +8,7 @@ namespace TTclient
 	{
 		static void Main()
 		{
+			int ConnCount = 0;
 			Console.WriteLine("ttClient");
 			Application.Current.Use(new HtmlFromJsonProvider());
 			//Application.Current.Use(new PartialToStandaloneHtmlProvider());
@@ -25,11 +26,12 @@ namespace TTclient
 			//Db.SQL("CREATE INDEX TakimOyuncuTkmIdx ON TakimOyuncu(Takim)");
 			//Db.SQL("CREATE INDEX TakimOyuncuOynIdx ON TakimOyuncu(Oyuncu)");
 
-			Handle.GET("/abc", (Request req) => {
+			Handle.GET("/", (Request req) => {
 				return Self.GET("/TTclient");
 			});
 
-			Handle.GET("/TTclient", () => {
+			Handle.GET("/TTclient", (Request req) => {
+				Console.WriteLine(ConnCount++);
 				return Db.Scope(() => {
 					Master master;
 
