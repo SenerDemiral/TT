@@ -19,7 +19,7 @@ paper-dialog {
 		font-size: calc( 10px + (24 - 10) * ( (100vw - 400px) / ( 800 - 400) ));
 	}
 	button {
-		font-size: calc( 10px + (24 - 10) * ( (100vw - 400px) / ( 800 - 400) ));
+		font-size: calc( 10px + (20 - 10) * ( (100vw - 400px) / ( 800 - 400) ));
 		/*font-size: calc( 12px + (24 - 12) * ( (100vw - 400px) / ( 800 - 400) ));*/
 	}
 	paper-dialog {
@@ -36,7 +36,7 @@ paper-dialog {
     font-size: 24px;
   }
 	button {
-		font-size: 24px;
+		font-size: 20px;
 	       }
 
 	table {
@@ -84,6 +84,14 @@ td, th {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     @apply(--shadow-elevation-2dp);
+}
+
+.double {
+	background-color: #e4d4f3;
+}
+
+.td-tar {
+	text-align: right;
 }
 
 [is-home] {
