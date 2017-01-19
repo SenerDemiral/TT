@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTclient", "TTclient\TTclie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTrest", "TTrest\TTrest.csproj", "{7CFCB4B5-E4FA-43A6-A84A-CE46DEE8E7DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTdnm", "TTdnm\TTdnm.csproj", "{CB3A7CC7-2DCB-49AB-A40A-AA0B2433DE27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -39,6 +41,10 @@ Global
 		{7CFCB4B5-E4FA-43A6-A84A-CE46DEE8E7DC}.Debug|x64.Build.0 = Debug|x64
 		{7CFCB4B5-E4FA-43A6-A84A-CE46DEE8E7DC}.Release|x64.ActiveCfg = Release|x64
 		{7CFCB4B5-E4FA-43A6-A84A-CE46DEE8E7DC}.Release|x64.Build.0 = Release|x64
+		{CB3A7CC7-2DCB-49AB-A40A-AA0B2433DE27}.Debug|x64.ActiveCfg = Debug|x64
+		{CB3A7CC7-2DCB-49AB-A40A-AA0B2433DE27}.Debug|x64.Build.0 = Debug|x64
+		{CB3A7CC7-2DCB-49AB-A40A-AA0B2433DE27}.Release|x64.ActiveCfg = Release|x64
+		{CB3A7CC7-2DCB-49AB-A40A-AA0B2433DE27}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

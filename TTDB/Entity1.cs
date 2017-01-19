@@ -7,6 +7,27 @@ using System.Linq;
 
 namespace TTDB
 {
+	[Database]
+	public class Parent
+	{
+		public string Name { get; set; }
+
+		QueryResultRows<Child> Children {
+			get {
+				return Db.SQL<Child>("SELECT c FROM TTDB.Child c WHERE c.Parent = ?", this);
+			}
+		}
+	}
+
+	[Database]
+	public class Child
+	{
+		public string Name { get; set; }
+		public Parent Parent { get; set; }
+	}
+
+
+
 	public static class Constants {
 		public const string sepID = "·";		// Ad ·ID
 		public const string sepTkm = " ";		// Oyuncu(lar) • Takim
