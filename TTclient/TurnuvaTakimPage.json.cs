@@ -126,8 +126,22 @@ namespace TTclient
 		[TurnuvaTakimPage_json.Takimlar]
 		partial class TakimlarElementJson : Json 
 		{
-			
-			void Handle(Input.TakimClick inp)
+			void Handle(Input.TakimOyuncuClick inp)
+			{
+				var parent = (TurnuvaTakimPage)this.Parent.Parent;
+				parent.CurRowID = this.TakimID;
+				parent.CurRowTakimAd = this.TakimAd;
+
+				var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(parent.TurnuvaID));
+				var tkmObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
+				var sw = Stopwatch.StartNew();
+				var ccc = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(parent.TurnuvaID, TakimID).OrderByDescending(x => x.PuanS);
+
+				parent.CurTakimOyunculari.Data = ccc;
+				parent.TakimOyuncuOpened = true;
+			}
+
+			void Handle(Input.TakimMsbkClick inp)
 			{
 				var parent = (TurnuvaTakimPage)this.Parent.Parent;
 				parent.CurRowID = this.TakimID;

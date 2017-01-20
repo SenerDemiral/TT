@@ -16,15 +16,24 @@ namespace TTclient
 			//TTDB.InitDB initDB = new TTDB.InitDB();
 			//initDB.Deneme();
 
-			//Db.SQL("CREATE INDEX MacSonucMacIdx ON MacSonuc(Mac)");
-			//Db.SQL("CREATE INDEX MacMsbkIdx ON Mac(Musabaka)");
-			//Db.SQL("CREATE INDEX MusabakaTrnIdx ON Musabaka(Turnuva)");
-			//Db.SQL("CREATE INDEX MusabakaTrnHomeTkmIdx ON Musabaka(Turnuva, HomeTakim)");
-			//Db.SQL("CREATE INDEX MusabakaTrnGuestTkmIdx ON Musabaka(Turnuva, GuestTakim)");
-			//Db.SQL("CREATE INDEX TurnuvaTakimTkmIdx ON TurnuvaTakim(Takim)");
-			//Db.SQL("CREATE INDEX TakimOyuncuTrnIdx ON TakimOyuncu(Turnuva)");
-			//Db.SQL("CREATE INDEX TakimOyuncuTkmIdx ON TakimOyuncu(Takim)");
-			//Db.SQL("CREATE INDEX TakimOyuncuOynIdx ON TakimOyuncu(Oyuncu)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "MacSonucMacIdx").First == null)
+				Db.SQL("CREATE INDEX MacSonucMacIdx ON MacSonuc(Mac)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "MacMsbkIdx").First == null)
+				Db.SQL("CREATE INDEX MacMsbkIdx ON Mac(Musabaka)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "MusabakaTrnIdx").First == null)
+				Db.SQL("CREATE INDEX MusabakaTrnIdx ON Musabaka(Turnuva)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "MusabakaTrnHomeTkmIdx").First == null)
+				Db.SQL("CREATE INDEX MusabakaTrnHomeTkmIdx ON Musabaka(Turnuva, HomeTakim)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "MusabakaTrnGuestTkmIdx").First == null)
+				Db.SQL("CREATE INDEX MusabakaTrnGuestTkmIdx ON Musabaka(Turnuva, GuestTakim)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "TurnuvaTakimTkmIdx").First == null)
+				Db.SQL("CREATE INDEX TurnuvaTakimTkmIdx ON TurnuvaTakim(Takim)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "TakimOyuncuTrnIdx").First == null)
+				Db.SQL("CREATE INDEX TakimOyuncuTrnIdx ON TakimOyuncu(Turnuva)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "TakimOyuncuTkmIdx").First == null)
+				Db.SQL("CREATE INDEX TakimOyuncuTkmIdx ON TakimOyuncu(Takim)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "TakimOyuncuOynIdx").First == null)
+				Db.SQL("CREATE INDEX TakimOyuncuOynIdx ON TakimOyuncu(Oyuncu)");
 
 			Handle.GET("/", (Request req) => {
 				return Self.GET("/TTclient");
@@ -47,7 +56,7 @@ namespace TTclient
 					}
 
 					//TTDB.Mac.deneme("dilara");
-					
+
 					var sw = Stopwatch.StartNew();
 					var turnuvaSay = Db.SQL<Int64>("SELECT COUNT(t) FROM Turnuva t").First;
 					master.TurnuvalarHeader = $"Turnuvalar {turnuvaSay}";
@@ -58,7 +67,7 @@ namespace TTclient
 					//var macSay = Db.SQL<Int64>("SELECT COUNT(t) FROM Mac t").First;
 					//var macSonucSay = Db.SQL<Int64>("SELECT COUNT(t) FROM MacSonuc t").First;
 					Console.WriteLine(string.Format("Toplamlar ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
-					
+
 					return master;
 				});
 			});
@@ -88,5 +97,5 @@ namespace TTclient
 				return Self.GET("/TTclient");
 			});
 		}
-	}
+	} 
 }

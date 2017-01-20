@@ -68,6 +68,10 @@ namespace TTDB
 		public string Tel;
 		public string eMail;
 		public Int16 DgmYil;
+		public int InitialRating;			// Ilk Rating,  manuel entry
+		public int CurrentRating;			// Guncel Rating, computed per request
+		public DateTime CurrentRatingDate;	// Rating son guncelleme tarihi. 1.Yari bitiminde, 2.yari bitiminde vs.
+
 		public OyuncuOzet Ozet {
 			get {
 			   OyuncuOzet ozet = new OyuncuOzet();
@@ -772,7 +776,93 @@ namespace TTDB
 				yield return tomo;
 			}
 		}
+		public static IEnumerable<TurnuvaOyuncuOzet> TurnuvaTakimOyuncularOzet(string turnuvaID, string takimID)
+		{
+			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
+			var tkmObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(takimID));
 
+			var oyuncular = Db.SQL<TakimOyuncu>("select m from TakimOyuncu m where m.Turnuva = ? AND m.Takim = ?", trnObj, tkmObj).Select(m => m.Oyuncu).Distinct();    // return IEnumerable<Oyuncu>
+
+			foreach(var oyuncu in oyuncular) {
+				TurnuvaOyuncuOzet too = new TurnuvaOyuncuOzet();
+				if(oyuncu != null) {
+					too.OyuncuID = oyuncu.GetObjectID();
+					too.OyuncuAd = oyuncu.Ad;
+				}
+				too.TakimAd = "";
+
+				// Home olarak oynadiklari
+				QueryResultRows<Mac> hMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.Musabaka.HomeTakim = ? AND (m.HomeOyuncu = ? OR m.HomeOyuncu2 = ?)", trnObj, tkmObj, oyuncu, oyuncu);
+				foreach(var m in hMac) {
+					Ozet ozt = m.Ozet;
+
+					too.MacO++;
+					too.MacOD += ozt.HomeMacOD;
+					too.MacOS += ozt.HomeMacOS;
+
+					too.Puan += ozt.HomePuan;
+					too.MacG += ozt.HomeMac;
+					too.SetA += ozt.HomeSet;
+					too.SetV += ozt.GuestSet;
+					too.SayiA += ozt.HomeSayi;
+					too.SayiV += ozt.GuestSayi;
+
+					too.PuanD += ozt.HomePuanD;
+					too.MacGD += ozt.HomeMacGD;
+					too.SetAD += ozt.HomeSetD;
+					too.SetVD += ozt.GuestSetD;
+					too.SayiAD += ozt.HomeSayiD;
+					too.SayiVD += ozt.GuestSayiD;
+
+					too.PuanS += ozt.HomePuanS;
+					too.MacGS += ozt.HomeMacGS;
+					too.SetAS += ozt.HomeSetS;
+					too.SetVS += ozt.GuestSetS;
+					too.SayiAS += ozt.HomeSayiS;
+					too.SayiVS += ozt.GuestSayiS;
+				}
+
+				// Guest olarak oynadiklari
+				QueryResultRows<Mac> gMac = Db.SQL<Mac>("select m from Mac m where m.Turnuva = ? AND m.Musabaka.GuestTakim = ? AND (m.GuestOyuncu = ? OR m.GuestOyuncu2 = ?)", trnObj, tkmObj, oyuncu, oyuncu);
+				foreach(var m in gMac) {
+					Ozet ozt = m.Ozet;
+
+					too.MacO++;
+					too.MacOD += ozt.GuestMacOD;
+					too.MacOS += ozt.GuestMacOS;
+
+					too.Puan += ozt.GuestPuan;
+					too.MacG += ozt.GuestMac;
+
+					too.SetA += ozt.GuestSet;
+					too.SetV += ozt.HomeSet;
+					too.SayiA += ozt.GuestSayi;
+					too.SayiV += ozt.HomeSayi;
+
+					too.PuanD += ozt.GuestPuanD;
+					too.MacGD += ozt.GuestMacGD;
+
+					too.SetAD += ozt.GuestSetD;
+					too.SetVD += ozt.HomeSetD;
+					too.SayiAD += ozt.GuestSayiD;
+					too.SayiVD += ozt.HomeSayiD;
+
+					too.PuanS += ozt.GuestPuanS;
+					too.MacGS += ozt.GuestMacGS;
+
+					too.SetAS += ozt.GuestSetS;
+					too.SetVS += ozt.HomeSetS;
+					too.SayiAS += ozt.GuestSayiS;
+					too.SayiVS += ozt.HomeSayiS;
+				}
+				
+				too.MacM = too.MacO - too.MacG;
+				too.MacMD = too.MacOD - too.MacGD;
+				too.MacMS = too.MacOS - too.MacGS;
+
+				yield return too;
+			}
+		}
 
 		public static IEnumerable<TurnuvaOyuncuOzet> TurnuvaOyuncularOzet(string turnuvaID)
 		{
