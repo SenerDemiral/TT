@@ -18,6 +18,11 @@ namespace TTclient
 
 			//Db.SQL("CREATE INDEX MacSonucMacIdx ON MacSonuc(Mac)");
 			//Db.SQL("CREATE INDEX MacMsbkIdx ON Mac(Musabaka)");
+			//Db.SQL("CREATE INDEX MacHomeOyuncuIdx ON Mac(HomeOyuncu)");
+			//Db.SQL("CREATE INDEX MacHomeOyuncu2Idx ON Mac(HomeOyuncu2)");
+			//Db.SQL("CREATE INDEX MacGuestOyuncuIdx ON Mac(GuestOyuncu)");
+			//Db.SQL("CREATE INDEX MacGuestOyuncu2Idx ON Mac(GuestOyuncu2)");
+
 			//Db.SQL("CREATE INDEX MusabakaTrnIdx ON Musabaka(Turnuva)");
 			//Db.SQL("CREATE INDEX MusabakaTrnHomeTkmIdx ON Musabaka(Turnuva, HomeTakim)");
 			//Db.SQL("CREATE INDEX MusabakaTrnGuestTkmIdx ON Musabaka(Turnuva, GuestTakim)");
