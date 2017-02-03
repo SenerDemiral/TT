@@ -1,46 +1,5 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Bodrum Masa Tenisi</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/sys/webcomponentsjs/webcomponents.js"></script>
-    <link rel="import" href="/sys/starcounter.html">
-    <link rel="import" src="/sys/polymer/polymer.html">
-    <link rel="import" href="/sys/starcounter-include/starcounter-include.html">
-
-    <link rel="import" href="/sys/puppet-redirect/puppet-redirect.html">
-    <link rel="import" href="/sys/starcounter-debug-aid/src/starcounter-debug-aid.html">
-    <link rel="import" href="/sys/puppet-redirect/puppet-redirect.html">
-
-    <!--
-    <link rel="import" href="https://cdn.vaadin.com/vaadin-core-elements/latest/vaadin-grid/vaadin-grid.html">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700">
-    <link rel="stylesheet" href="/TT/style.css">
-    <link rel="stylesheet" href="/TTclient/Master.css">
-    -->
-    <link rel="import" href="/sys/iron-collapse/iron-collapse.html">
-
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-	<link rel="import" href="/TTadmin/simple-overlay.html">
-	<link rel="import" href="/sys/can-highlighted-row-id/can-highlighted-row-id.html" />
-	<link rel="import" href="/sys/hot-table/hot-table.html" />
-	<link rel="import" href="/sys/paper-styles/color.html">
-	<link rel="import" href="/sys/paper-card/paper-card.html">
-	<link rel="import" href="/sys/iron-flex-layout/iron-flex-layout-classes.html">
-	<link rel="stylesheet" href="/TTadmin/style.css">
-
-</head>
-
-<body>
-
-	<template>
-		<style is="custom-style"  include="iron-flex iron-flex-alignment"></style>
-	</template>
-
-    <template is="dom-bind" id="root">
+﻿<template>
+	<template is="dom-bind" id="root">
         <button class="heading" value="{{model.TurnuvalarToggle$::click}}" onmousedown="++this.value;">Turnuvalar/Tournaments</button>
         <template is="dom-if" if="{{model.TurnuvalarOpened}}">
             <iron-collapse id="collapseTurnuvalar" tabindex="0" opened="[[model.TurnuvalarOpened]]" no-animation>
@@ -67,13 +26,5 @@
                 </div>
             </iron-collapse>
         </template>
-
-    
 	</template>
-
-    <!-- Plug in client-server sync -->
-    <puppet-client ref="root" useWebSocket="true"></puppet-client>
-    <starcounter-debug-aid></starcounter-debug-aid>
-
-</body>
-</html>
+</template>

@@ -35,7 +35,147 @@ namespace TTDB
 		public const string sepSayi = " ";      // 11-05 • 11-08
 											   //public const string sepSayi = "■▪↔≡";      // 11-05 ▪ 11-08
 		public static readonly char[] charsToTrim = { ',', '.', '·', '•', '●', '▪', '│', ' ' };
+	}
 
+	public static class RatingChart 
+	{
+		public static void InitRank() {
+			Db.Transact(() => {
+				QueryResultRows<Oyuncu> Oyuncus = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o");
+				foreach(var o in Oyuncus) {
+					o.Rank = 1900;
+					o.NOPX = 0;
+					o.NOPXtxt = "";
+				}
+			});
+		}
+
+		// Rank calculation 
+		public static void RankCalcultion(DateTime startDate, int idx) {
+			DateTime endDate = startDate.AddDays(5);
+			int ER = 0;
+			int UR = 0;
+			int nopx = 0;
+			int hRank = 0;
+			int gRank = 0;
+
+			Db.Transact(() => {
+				QueryResultRows<Mac> Macs = Db.SQL<Mac>("SELECT m FROM Mac m WHERE m.Skl = ? AND m.Musabaka.Trh >= ? AND m.Musabaka.Trh <= ? AND m.HomeOyuncu IS NOT NULL AND m.GuestOyuncu IS NOT NULL", "S", startDate, endDate);
+
+				foreach(var m in Macs) {
+					var ozt = m.Ozet;
+
+					hRank = m.HomeOyuncu == null ? 1900 : m.HomeOyuncu.Rank;
+					gRank = m.GuestOyuncu == null ? 1900 : m.GuestOyuncu.Rank;
+
+					var result = NOPX(hRank, gRank);
+					ER = result.Item1;
+					UR = result.Item2;
+
+					if(hRank >= gRank) {
+						if(ozt.HomePuan > ozt.GuestPuan) {
+							nopx = ER;
+							m.HomeOyuncu.NOPX += ER;
+							m.GuestOyuncu.NOPX -= ER;
+						}
+						else {
+							nopx = UR;
+							m.HomeOyuncu.NOPX -= UR;
+							m.GuestOyuncu.NOPX += UR;
+						}
+					}
+					else {
+						if(ozt.GuestPuan > ozt.HomePuan) {
+							nopx = ER;
+							m.HomeOyuncu.NOPX -= ER;
+							m.GuestOyuncu.NOPX += ER;
+						}
+						else {
+							nopx = UR;
+							m.HomeOyuncu.NOPX += UR;
+							m.GuestOyuncu.NOPX -= UR;
+						}
+					}
+
+					Console.WriteLine(string.Format("{0}/{6} {1} <> {2}  {3}-{4} {5}", m.Musabaka.Trh, m.HomeOyuncuAd, m.GuestOyuncuAd, ozt.HomePuan, ozt.GuestPuan, nopx, idx));
+					//Console.WriteLine(string.Format("{0}/{6} {1} <> {2}  {3}-{4} {5}", m.Musabaka.Trh, m.HomeOyuncuAd, m.GuestOyuncuAd, ozt.HomePuan, ozt.GuestPuan, nopx, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(m.Musabaka.Trh, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday)));
+				}
+
+				// Add NOPX to Rank
+				QueryResultRows<Oyuncu> Oyuncus = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o");
+				foreach(var o in Oyuncus) {
+					o.Rank += o.NOPX;
+					//o.NOPXtxt += string.Format("{0} ", o.NOPX);
+					o.NOPXtxt += $"{(o.NOPX > 0 ? "+" : "")}{o.NOPX} ";
+					o.NOPX = 0;
+				}
+			});
+
+		}
+
+
+
+		//NumberOfPointsExchange between players
+		public static Tuple<int, int> NOPX(int HomePlayerRate, int GusetPlayerRate) {
+			int PS = Math.Abs(HomePlayerRate - GusetPlayerRate);	// Point Spread between players
+			int ER = 0; // ExpectedResult
+			int UR = 0;	// UpsetResult
+			
+			if(PS < 13) {
+				ER = 8;
+				UR = 8;
+			}
+			else if(PS < 38) {
+				ER = 7;
+				UR = 10;
+			}
+			else if(PS < 63) {
+				ER = 6;
+				UR = 13;
+			}
+			else if(PS < 88) {
+				ER = 5;
+				UR = 16;
+			}
+			else if(PS < 113) {
+				ER = 4;
+				UR = 20;
+			}
+			else if(PS < 138) {
+				ER = 3;
+				UR = 25;
+			}
+			else if(PS < 163) {
+				ER = 2;
+				UR = 30;
+			}
+			else if(PS < 188) {
+				ER = 2;
+				UR = 35;
+			}
+			else if(PS < 213) {
+				ER = 1;
+				UR = 40;
+			}
+			else if(PS < 238) {
+				ER = 1;
+				UR = 45;
+			}
+			else {
+				ER = 0;
+				UR = 50;
+			}
+
+			var tuple = new Tuple<int, int>(ER, UR);
+			return tuple;
+
+			//var result = TTDB.Hlpr.GetIdsFromText(takimAd);
+			// result.Item1 -> ER
+			// result.Item2 -> UR
+			//oyuncular.TakimID = result.Item2;
+			//oyuncular.Heading = result.Item1 + " Oyuncuları"; */
+
+		}
 	}
 
 	public class OyuncuOzet
@@ -68,9 +208,14 @@ namespace TTDB
 		public string Tel;
 		public string eMail;
 		public Int16 DgmYil;
-		public int InitialRating;			// Ilk Rating,  manuel entry
-		public int CurrentRating;			// Guncel Rating, computed per request
-		public DateTime CurrentRatingDate;	// Rating son guncelleme tarihi. 1.Yari bitiminde, 2.yari bitiminde vs.
+
+		public int Rank;
+		public int NOPX;
+		public string NOPXtxt;
+
+		//public int InitialRating;			// Ilk Rating,  manuel entry
+		//public int CurrentRating;			// Guncel Rating, computed per request
+		//public DateTime CurrentRatingDate;	// Rating son guncelleme tarihi. 1.Yari bitiminde, 2.yari bitiminde vs.
 
 		public OyuncuOzet Ozet {
 			get {

@@ -27,13 +27,36 @@ namespace TTdnm
 			//Db.SQL("CREATE INDEX TakimOyuncuTkmIdx ON TakimOyuncu(Takim)");
 			//Db.SQL("CREATE INDEX TakimOyuncuOynIdx ON TakimOyuncu(Oyuncu)");
 
+			Handle.GET("/A1", () => {
+				TTDB.RatingChart.InitRank();
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-10-31"), 1);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-11-07"), 2);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-11-14"), 3);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-11-21"), 4);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-11-28"), 5);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-12-05"), 6);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-12-12"), 7);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-12-19"), 8);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-12-26"), 9);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-02"), 10);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-09"), 11);
+
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-16"), 12);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-23"), 13);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-30"), 14);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-02-06"), 15);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-02-13"), 16);
+				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-02-20"), 17);
+				return "OK";
+			});
+
 			Handle.GET("/MsbkCache", () => {
 			StringBuilder sb = new StringBuilder();
 			Stopwatch watch = new Stopwatch();
 
 			watch.Start();
 
-			var cT = new Trnv();
+			var cT = new Trnv();							 
 			cT.Msbks = new List<Msbk>();
 			for(int i = 0; i < 1000; i++) {
 				foreach(var M in Db.SQL<Musabaka>("SELECT m FROM Musabaka m")) {

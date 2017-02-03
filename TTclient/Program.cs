@@ -10,12 +10,115 @@ namespace TTclient
 		{
 			int ConnCount = 0;
 			Console.WriteLine("ttClient");
+
+			var html = @"<!DOCTYPE html>
+				<html>
+				<head>
+					<meta charset=""utf-8"">
+					<title>{0}</title>
+					<script src=""/sys/webcomponentsjs/webcomponents.min.js""></script>
+					<link rel=""import"" href=""/sys/polymer/polymer.html"">
+					<link rel=""import"" href=""/sys/starcounter.html"">
+					<link rel=""import"" href=""/sys/starcounter-include/starcounter-include.html"">
+					<link rel=""import"" href=""/sys/starcounter-debug-aid/src/starcounter-debug-aid.html"">
+					<link rel=""import"" href=""/sys/bootstrap.html"">
+					<link rel=""import"" href=""/TTclient/simple-overlay.html"">
+					<link rel=""import"" href=""/sys/iron-collapse/iron-collapse.html"">
+		 			<link rel=""import"" href=""/sys/app-layout/app-header/app-header.html"">
+					<link rel=""import"" href=""/sys/google-map/google-map.html"">
+			   		<link rel=""stylesheet"" href=""/TTclient/Master.css"">
+				  
+					<style>
+						body {{
+							margin: 0px;
+						}}
+					</style>
+
+					<style is=""custom-style"">
+						:root {{
+							--paper-dialog {{
+								margin: 0;
+								font-size: 12px;
+							}}
+
+							--paper-dialog-scrollable {{
+									padding-left: 5px;
+									padding-right: 5px;
+								}}
+
+							h2 {{
+									margin-top: 5px;
+									padding-left: 5px;
+									margin-bottom: 5px;
+								}}
+						}}
+
+						body {{
+								margin: 0;
+								font-family: 'Roboto', 'Noto', sans-serif;
+								background-color: #eee;
+						}}
+
+						app-toolbar {{
+							background-color: #4285f4;
+							color: #fff;
+						}}
+
+						paper-icon-button + [main-title] {{
+							margin-left: 24px;
+						}}
+
+						paper-progress {{
+							display: block;
+							width: 100%;
+							--paper-progress-active-color: rgba(255, 255, 255, 0.5);
+							--paper-progress-container-color: transparent;
+						}}
+
+						app-header {{
+							position: fixed;
+							top: 0;
+							left: 0;
+							width: 100%;
+							background-color: #4285f4;
+							color: #fff;
+						}}
+
+						app-drawer {{
+							--app-drawer-scrim-background: rgba(0, 0, 100, 0.8);
+							--app-drawer-content-container: {{
+								background-color: #B0BEC5;
+							}}
+						}}
+
+						section {{
+								padding-top: 24px;
+						}}
+
+						[main-title] {{
+							text-align: center;
+							font-size: 20px;
+						}}
+
+					</style>
+
+
+				</head>
+				<body>
+					<template is=""dom-bind"" id=""puppet-root"">
+						<template is=""imported-template"" content$=""{{{{model.Html}}}}"" model=""{{{{model}}}}""></template>
+					</template>
+					<puppet-client ref=""puppet-root"" remote-url=""{1}""></puppet-client>
+					<starcounter-debug-aid></starcounter-debug-aid>
+				</body>
+				</html>";
+
 			Application.Current.Use(new HtmlFromJsonProvider());
-			//Application.Current.Use(new PartialToStandaloneHtmlProvider());
+			Application.Current.Use(new PartialToStandaloneHtmlProvider(html));
 
 			//TTDB.InitDB initDB = new TTDB.InitDB();
 			//initDB.Deneme();
-
+			
 			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "MacSonucMacIdx").First == null)
 				Db.SQL("CREATE INDEX MacSonucMacIdx ON MacSonuc(Mac)");
 			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "MacMsbkIdx").First == null)
@@ -34,7 +137,7 @@ namespace TTclient
 				Db.SQL("CREATE INDEX TakimOyuncuTkmIdx ON TakimOyuncu(Takim)");
 			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "TakimOyuncuOynIdx").First == null)
 				Db.SQL("CREATE INDEX TakimOyuncuOynIdx ON TakimOyuncu(Oyuncu)");
-
+			
 			Handle.GET("/", (Request req) => {
 				return Self.GET("/TTclient");
 			});
@@ -51,8 +154,9 @@ namespace TTclient
 					}
 					else {
 						master = new Master();
-						//master.Data = null; // Master.OnData yi tetiklemek icin
-						master.Session = new Session(SessionOptions.PatchVersioning);
+						//master.Session = new Session(SessionOptions.PatchVersioning);
+						var sf = Session.Flags.PatchVersioning;
+						master.Session = new Session(sf);
 					}
 
 					//TTDB.Mac.deneme("dilara");
