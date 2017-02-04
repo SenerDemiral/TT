@@ -50,6 +50,97 @@ namespace TTDB
 			});
 		}
 
+		public static void InitRank2()
+		{
+			Db.Transact(() => {
+				QueryResultRows<Oyuncu> Oyuncus = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o");
+				foreach(var o in Oyuncus) {
+					o.Rank2 = 1900;
+					o.NOPX2 = 0;
+					o.NOPX2txt = "";
+
+					o.oMacS = 0;
+					o.aMacS = 0;
+					o.avMacS = 0;
+					o.avSetS = 0;
+
+					o.Rank3 = 0;
+				}
+			});
+		}
+		public static void RankCalcultion2(DateTime startDate, DateTime endDate)
+		{
+			int nopx = 0;
+			int avMacS = 0;
+			int avSetS = 0;
+
+			Db.Transact(() => {
+				QueryResultRows<Mac> Macs = Db.SQL<Mac>("SELECT m FROM Mac m WHERE m.Skl = ? AND m.Musabaka.Trh >= ? AND m.Musabaka.Trh <= ? AND m.HomeOyuncu IS NOT NULL AND m.GuestOyuncu IS NOT NULL", "S", startDate, endDate);
+
+				foreach(var m in Macs) {
+					var ozt = m.Ozet;
+					// Winner +Sira, Looser -Sira
+					nopx = (11 - m.Sira);
+					m.HomeOyuncu.oMacS += 1;
+					m.GuestOyuncu.oMacS += 1;
+					avMacS = 1;
+					avSetS = Math.Abs(ozt.HomeSetS - ozt.GuestSetS);
+					m.HomeOyuncu.NOPX2txt += string.Format("{0} ", m.Sira);
+					m.GuestOyuncu.NOPX2txt += string.Format("{0} ", m.Sira);
+					if(ozt.HomePuan > ozt.GuestPuan) {
+						m.HomeOyuncu.Rank2 += nopx;
+						m.GuestOyuncu.Rank2 -= nopx;
+
+						m.HomeOyuncu.aMacS += 1;
+						m.HomeOyuncu.avMacS += avMacS;
+						m.HomeOyuncu.avSetS += avSetS;
+						m.GuestOyuncu.avMacS -= avMacS;
+						m.GuestOyuncu.avSetS -= avSetS;
+
+						m.HomeOyuncu.Rank3 += nopx;
+						m.GuestOyuncu.Rank3 += 1; //-= avMacS + nopx;
+												  //m.HomeOyuncu.Rank3 += avMacS + nopx;
+												  //m.GuestOyuncu.Rank3 -= m.Sira;
+												  //m.GuestOyuncu.Rank3 -= nopx;
+					}
+					else {
+						m.HomeOyuncu.Rank2 -= nopx;
+						m.GuestOyuncu.Rank2 += nopx;
+
+						m.GuestOyuncu.aMacS += 1;
+						m.HomeOyuncu.avMacS -= avMacS;
+						m.HomeOyuncu.avSetS -= avSetS;
+						m.GuestOyuncu.avMacS += avMacS;
+						m.GuestOyuncu.avSetS += avSetS;
+
+						m.HomeOyuncu.Rank3 += 1; //-= avMacS + nopx;
+						m.GuestOyuncu.Rank3 += nopx;
+						//m.HomeOyuncu.Rank3 -= m.Sira;
+						//m.HomeOyuncu.Rank3 -= nopx;
+						//m.GuestOyuncu.Rank3 += avMacS + nopx;
+					}
+				}
+
+				QueryResultRows<Oyuncu> Oyuncu = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o");
+				foreach(var o in Oyuncu) {
+					o.Rank = o.Rank3 + 1900;
+				}
+			});
+
+		}
+
+		public static void Write2File() {
+			//QueryResultRows<Oyuncu> Oyuncu = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o ORDER BY o.Rank3 DESC, o.avMacS DESC");
+			QueryResultRows<Oyuncu> Oyuncu = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o WHERE o.oMacS > ? ORDER BY o.Rank DESC", 0);
+
+			using(System.IO.StreamWriter writer = new System.IO.StreamWriter("C:\\Starcounter\\log.txt", true)) {
+				writer.WriteLine("Oyuncu,oMacS,aMacS,avMacS,avSetS,RankS,OynadigiSiraS,Rank,RankPuan");
+				foreach(var o in Oyuncu) {
+					writer.WriteLine($"{o.Ad},{o.oMacS},{o.aMacS},{o.avMacS},{o.avSetS},{o.Rank3},{o.NOPX2txt},{o.Rank},{o.NOPXtxt}");
+				}
+			}
+		}
+
 		// Rank calculation 
 		public static void RankCalcultion(DateTime startDate, int idx) {
 			DateTime endDate = startDate.AddDays(5);
@@ -106,7 +197,15 @@ namespace TTDB
 				foreach(var o in Oyuncus) {
 					o.Rank += o.NOPX;
 					//o.NOPXtxt += string.Format("{0} ", o.NOPX);
-					o.NOPXtxt += $"{(o.NOPX > 0 ? "+" : "")}{o.NOPX} ";
+					//o.NOPXtxt += $"{(o.NOPX == 0 ? "±" : "")}{(o.NOPX > 0 ? "+" : "")}{o.NOPX}│";
+					if(o.NOPX == 0)
+						o.NOPXtxt += " • ";
+					else if(o.NOPX > 0)
+						o.NOPXtxt += "+" + o.NOPX;
+					else
+						o.NOPXtxt += o.NOPX;
+					o.NOPXtxt += "│";
+					//o.NOPXtxt += $"{(o.NOPX == 0 ? "XX" : "")}{(o.NOPX > 0 ? "+"+{o.NOPX} : "")}{(o.NOPX < 0 ? "{o.NOPX}" : "")}│";
 					o.NOPX = 0;
 				}
 			});
@@ -212,6 +311,16 @@ namespace TTDB
 		public int Rank;
 		public int NOPX;
 		public string NOPXtxt;
+		public int Rank2;
+		public int NOPX2;
+		public string NOPX2txt;
+		// Single oynadiklari
+		public int Rank3;
+		public int oMacS;
+		public int aMacS;
+		
+		public int avMacS;
+		public int avSetS;	// aSet - vSet
 
 		//public int InitialRating;			// Ilk Rating,  manuel entry
 		//public int CurrentRating;			// Guncel Rating, computed per request
