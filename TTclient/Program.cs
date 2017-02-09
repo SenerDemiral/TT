@@ -1,6 +1,8 @@
 ﻿using System;
 using Starcounter;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 
 namespace TTclient
 {
@@ -197,8 +199,16 @@ namespace TTclient
 			});
 
 			Handle.GET("/sener", (Request req) => {
+				StringBuilder sb = new StringBuilder();
+
+				//var sener = TTDB.Hlpr.OyuncuMaclari("nM");
+				var sener = TTDB.Hlpr.OyuncuMaclari("nM").OrderByDescending(x => x.Skl).ThenByDescending(y => y.Trh);
+				foreach(var sen in sener) {
+					sb.AppendFormat("{5} {0}-{1}-{2}-{3,-30}-{4}", sen.Skl, sen.Sira, sen.GM, sen.RakipAd, sen.RakipTakimAd, sen.Tarih);
+					sb.AppendLine();
+				}
 				Console.WriteLine(req.Body);
-				return Self.GET("/TTclient");
+				return sb.ToString();
 			});
 		}
 	} 

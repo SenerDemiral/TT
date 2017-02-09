@@ -28,24 +28,25 @@ namespace TTdnm
 			//Db.SQL("CREATE INDEX TakimOyuncuOynIdx ON TakimOyuncu(Oyuncu)");
 
 			Handle.GET("/Write2File", () => {
-				TTDB.RatingChart.Write2File();
+				TTDB.RatingChart.Write2File(2005);	// 1.Lig
 				return "Log.txt written";
 			});
 
-			Handle.GET("/CalcRank2", () => {
+			Handle.GET("/CalcRankBaz", () => {
+				// Bir kere yapilir herseyi initialize eder.
+				// RankBaz hesaplandiktan sonra Rank = RankBaz + 1900 olarak update eder.
+				TTDB.RatingChart.RankCalcultionBaz(DateTime.Parse("2016-10-31"), DateTime.Parse("2017-01-14"));
 
-				TTDB.RatingChart.InitRank();
-				TTDB.RatingChart.InitRank2();
-
-				TTDB.RatingChart.RankCalcultion2(DateTime.Parse("2016-10-31"), DateTime.Parse("2017-01-14"));
-
-				return "CalcRank2";
+				return "CalcRankBaz";
 			});
 
 			Handle.GET("/CalcRank", () => {
+				// Bir periyod icin yalniz bir kere yapilmali, aksi halde mukerrer olur!!!
+				// Her seferinde iki tarih arasindaki (Ptesi-Cuma) Single maclara gore NOPX hesaplar ve Rank'i update eder.
+				// Yeni giren oyuncu icin BazRank manuel girilir ve Rank = BazRank yapilir.
 
 				/*
-				TTDB.RatingChart.InitRank();
+				// Burasi BazRank hesaplamasinda kullanildi
 				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-10-31"), 1);
 				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-11-07"), 2);
 				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2016-11-14"), 3);
@@ -58,14 +59,38 @@ namespace TTdnm
 				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-02"), 10);
 				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-09"), 11);
 				*/
-				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-16"), 12);
-				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-23"), 13);
-				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-01-30"), 14);
-				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-02-06"), 15);
-				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-02-13"), 16);
-				TTDB.RatingChart.RankCalcultion(DateTime.Parse("2017-02-20"), 17);
+				// Baz hesaplandi, sadece bir kere olacak
+				// Asil Rank bundan sonra baslayacak hepsini tekrar yap, boylece Hata/Eksik tamamlanabilir!!!
+				TTDB.RatingChart.InitRank();
+				ulong turnuvaNO = 2005;
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2016-10-31"), 1);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2016-11-07"), 2);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2016-11-14"), 3);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2016-11-21"), 4);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2016-11-28"), 5);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2016-12-05"), 6);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2016-12-12"), 7);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2016-12-19"), 8);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2016-12-26"), 9);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2017-01-02"), 10);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2017-01-09"), 11);
+
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2017-01-16"), 12);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2017-01-23"), 13);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2017-01-30"), 14);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2017-02-06"), 15);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2017-02-13"), 16);
+				TTDB.RatingChart.RankCalcultion(turnuvaNO, DateTime.Parse("2017-02-20"), 17);
 				
 				return "CalcRank";
+			});
+
+			Handle.GET("/CalcRankMsbk", () => {
+				TTDB.RatingChart.InitRank();
+				ulong turnuvaNO = 2005;
+				TTDB.RatingChart.RankCalcultionMusabaka(turnuvaNO);
+				
+				return "CalcRankMsbk";
 			});
 
 			Handle.GET("/MsbkCache", () => {

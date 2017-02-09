@@ -135,7 +135,7 @@ namespace TTclient
 				var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(parent.TurnuvaID));
 				var tkmObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
 				var sw = Stopwatch.StartNew();
-				var ccc = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(parent.TurnuvaID, TakimID).OrderByDescending(x => x.PuanS);
+				var ccc = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(parent.TurnuvaID, TakimID).OrderByDescending(x => x.Rank);
 
 				parent.CurTakimOyunculari.Data = ccc;
 				parent.TakimOyuncuOpened = true;

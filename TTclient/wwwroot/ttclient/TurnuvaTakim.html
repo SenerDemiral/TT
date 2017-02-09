@@ -74,6 +74,7 @@
         <table>
             <tr>
                 <th rowspan="2">Oyuncu</th>
+                <th rowspan="2">Rank</th>
                 <!--<th rowspan="2">Takım</th>-->
                 <th colspan="4">Toplam</th>
                 <th colspan="4">Double</th>
@@ -111,7 +112,8 @@
                     <!--<td><a href="/TTclient/TurnuvaOyuncuMaclar/[[item.OyuncuID]]">{{item.OyuncuAd}}</a></td>-->
 					<td><button value="{{item.OyuncuClick$::click}}" onmousedown="++this.value" style="width: 100%">{{item.OyuncuAd}}</button></td>
                     <!--<td>{{item.TakimAd}}</td>-->
-                    <td style="text-align: right;"><b>[[item.Puan]]</b></td>
+                    <td style="text-align: right;"><b>[[item.Rank]]</b></td>
+                    <td style="text-align: right;">[[item.Puan]]</td>
                     <td style="text-align: right;">{{item.MacO}}</td>
                     <td style="text-align: right;">{{item.MacG}}</td>
                     <td style="text-align: right;">{{item.MacM}}</td>
