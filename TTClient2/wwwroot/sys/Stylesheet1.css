@@ -1,0 +1,28 @@
+﻿table {
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: 1px solid #CBCBCB;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td, th {
+  	line-height: 1em;
+	padding: 0.3em 0.3em;
+	border: 1px solid #CBCBCB;
+}
+
+th {
+	text-align:center;
+}
+
+[winner="G"] {
+	background-color: #ccffcc; /*Galip*/
+}
+[winner="B"] {
+	background-color: #ffff80; /*Beraber*/
+}
+[winner="M"] {
+	background-color: #ffe6cc; /*Maglup;*/
+}
+

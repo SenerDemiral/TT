@@ -11,7 +11,10 @@
 			"HomeTakimID": "",
 			"HomeTakimAd": "",
 			"GuestTakimID": "",
-			"GuestTakimAd": ""
+			"GuestTakimAd": "",
+			"HomePuan": "",
+			"GuestPuan": "",
+			"GBM": ""
 		}
 	]
 }

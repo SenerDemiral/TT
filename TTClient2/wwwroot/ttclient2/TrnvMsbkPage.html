@@ -4,12 +4,28 @@
     <template is="dom-bind">
 		<div>TrnvMsbkPage</div>    
 		<h4>TrnvMsbkPage: [[model.TurnuvaInfo]] Müsabakaları</h4>    
+		<!--
 		<ul>
 			<template is="dom-repeat" items="{{model.TrnvMsbk}}">
-				<li>[[item.Tarih]] : [[item.HomeTakimAd]] - [[item.GuestTakimAd]] 
+				<li>[[item.Tarih]] : [[item.HomeTakimAd]] [[item.HomePuan]] - [[item.GuestPuan]] [[item.GuestTakimAd]] 
 					<a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a>
 				</li>
 			</template>
 		</ul>
+		-->
+		<table>
+			<tbody>
+				<template is="dom-repeat" items="{{model.TrnvMsbk}}">
+					<tr>
+						<td><b>[[item.Tarih]]</b></td>
+						<td>[[item.HomeTakimAd]]</td>
+						<td style="text-align:center"><b>[[item.HomePuan]]</b></td>
+						<td style="text-align:center"><b>[[item.GuestPuan]]</b></td>
+						<td>[[item.GuestTakimAd]]</td>
+						<td><a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a></td>
+					</tr>
+				</template>
+			</tbody>
+		</table>
     </template>
 </template>

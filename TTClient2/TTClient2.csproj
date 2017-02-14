@@ -103,9 +103,7 @@
       <DependentUpon>TrnvTkmPage.json</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\sys\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\TTDB\TTDB.csproj">
       <Project>{71cbfa78-a124-4090-958c-cb94f4144f77}</Project>
@@ -191,6 +189,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\ttclient2\MsbkMacPage.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\sys\Stylesheet1.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(StarcounterBin)\Starcounter.MsBuild.targets" />

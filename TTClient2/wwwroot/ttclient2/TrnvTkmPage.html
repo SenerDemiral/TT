@@ -3,15 +3,53 @@
 <template>
     <template is="dom-bind">
 		<h4>TrnvTkmPage: [[model.TurnuvaInfo]] Takım Sonuçları</h4>    
+		<!--
 		<ul>
 			<template is="dom-repeat" items="{{model.TrnvTkm}}">
 				<li>[[item.TakimID]] [[item.TakimAd]] 
-					<!--<a href="[[item.TrnvTkmMsbkUrl]]">Müsabakalar</a>-->
 					<a href="/ttClient2/TrnvTkmMsbk/[[model.TurnuvaID]]/[[item.TakimID]]">Müsabakalar</a>
 					<a href="/ttClient2/TrnvTkmOync/[[model.TurnuvaID]]/[[item.TakimID]]">Oyuncular</a>
 					<a href="/ttClient2/TkmMap/[[item.TakimID]]">gMap</a>
 				</li>
 			</template>
 		</ul>
+		-->
+		<table>
+			<thead>
+				<tr>
+					<th rowspan="2">Takım</th>
+					<th colspan="2">Puan</th>
+					<th colspan="4">Müsabaka</th>
+					<th rowspan="2"></th>
+					<th rowspan="2"></th>
+					<th rowspan="2"></th>
+				</tr>
+				<tr>
+					<th>A</th>
+					<th>V</th>
+					<th>O</th>
+					<th>A</th>
+					<th>B</th>
+					<th>V</th>
+				</tr>
+			</thead>
+			<tbody>
+				<template is="dom-repeat" items="{{model.TrnvTkm}}">
+					<tr>
+						<td><b>[[item.TakimAd]]</b></td>
+						<td style="text-align:center">[[item.PuanA]]</td>
+						<td style="text-align:center">[[item.PuanV]]</td>
+						<td style="text-align:center"><b>[[item.MsbkO]]</b></td>
+						<td style="text-align:center">[[item.MsbkA]]</td>
+						<td style="text-align:center">[[item.MsbkB]]</td>
+						<td style="text-align:center">[[item.MsbkV]]</td>
+						<td><a href="/ttClient2/TrnvTkmMsbk/[[model.TurnuvaID]]/[[item.TakimID]]">Müsabakalar</a></td>
+						<td><a href="/ttClient2/TrnvTkmOync/[[model.TurnuvaID]]/[[item.TakimID]]">Oyuncular</a></td>
+						<td><a href="/ttClient2/TkmMap/[[item.TakimID]]">gMap</a></td>
+					</tr">
+				</template>
+			</tbody>
+		</table>
+
 	</template>
 </template>

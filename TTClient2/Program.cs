@@ -20,6 +20,7 @@ namespace TTClient2
 					<link rel=""import"" href=""/sys/starcounter-include/starcounter-include.html"">
 					<link rel=""import"" href=""/sys/starcounter-debug-aid/src/starcounter-debug-aid.html"">
 					<link rel=""import"" href=""/sys/bootstrap.html"">
+			   		<link rel=""stylesheet"" href=""/sys/Stylesheet1.css"">
 					<style>
 						body {{
 							margin: 20px;

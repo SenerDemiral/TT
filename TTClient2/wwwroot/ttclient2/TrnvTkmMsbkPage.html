@@ -3,13 +3,28 @@
 <template>
     <template is="dom-bind">
 		<h4>TrnvTkmMsbkPage: [[model.TurnuvaInfo]] [[model.TakimInfo]] Müsabakaları</h4>    
+		<!--
 		<ul>
 			<template is="dom-repeat" items="{{model.TrnvTkmMsbk}}">
-				<li>[[item.Tarih]] : [[item.HomeTakimAd]] - [[item.GuestTakimAd]] 
-					<!--<a href="[[item.TrnvTkmMsbkUrl]]">Müsabakalar</a>-->
+				<li>[[item.Tarih]] : [[item.HomeTakimAd]] [[item.HomePuan]] - [[item.GuestPuan]] [[item.GuestTakimAd]]  
 					<a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a>
 				</li>
 			</template>
 		</ul>
+		-->
+		<table>
+			<tbody>
+				<template is="dom-repeat" items="{{model.TrnvTkmMsbk}}">
+					<tr winner$="[[item.GBM]]">
+						<td><b>[[item.Tarih]]</b></td>
+						<td>[[item.HomeTakimAd]]</td>
+						<td style="text-align:center"><b>[[item.HomePuan]]</b></td>
+						<td style="text-align:center"><b>[[item.GuestPuan]]</b></td>
+						<td>[[item.GuestTakimAd]]</td>
+						<td><a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a></td>
+					</tr">
+				</template>
+			</tbody>
+		</table>
     </template>
 </template>
