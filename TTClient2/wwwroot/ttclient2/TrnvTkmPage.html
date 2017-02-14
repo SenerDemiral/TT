@@ -1,0 +1,17 @@
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+
+<template>
+    <template is="dom-bind">
+		<h4>TrnvTkmPage: [[model.TurnuvaInfo]] Takım Sonuçları</h4>    
+		<ul>
+			<template is="dom-repeat" items="{{model.TrnvTkm}}">
+				<li>[[item.TakimID]] [[item.TakimAd]] 
+					<!--<a href="[[item.TrnvTkmMsbkUrl]]">Müsabakalar</a>-->
+					<a href="/ttClient2/TrnvTkmMsbk/[[model.TurnuvaID]]/[[item.TakimID]]">Müsabakalar</a>
+					<a href="/ttClient2/TrnvTkmOync/[[model.TurnuvaID]]/[[item.TakimID]]">Oyuncular</a>
+					<a href="/ttClient2/TkmMap/[[item.TakimID]]">gMap</a>
+				</li>
+			</template>
+		</ul>
+	</template>
+</template>

@@ -1,0 +1,22 @@
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+
+<template>
+    <template is="dom-bind">
+		<ul class="kitchensink-menu__list">
+            <li><a href="/ttClient2/Text">Text</a></li>
+            <li><a href="/ttClient2/Button">Button</a></li>
+            <li><a href="/ttClient2/Textarea">Textarea</a></li>
+            <li><a href="/ttClient2/Markdown">Markdown</a></li>
+            <li><a href="/ttClient2/Html">Html</a></li>
+            <li><a href="/ttClient2/Datepicker">Datepicker</a></li>
+            <li><a href="/ttClient2/Url">Url</a></li>
+            <li><a href="/ttClient2/Trnv">Turnuvalar</a></li>
+            <li><a href="javascript:history.go(-1)">Validation</a></li>
+			
+        </ul>
+		<input type="button" value="GoBack" onclick="history.go(-1)" />        
+		<div class="kitchensink-layout__column-right">
+            <starcounter-include partial="{{model.CurrentPage}}"></starcounter-include>
+        </div>
+    </template>
+</template>

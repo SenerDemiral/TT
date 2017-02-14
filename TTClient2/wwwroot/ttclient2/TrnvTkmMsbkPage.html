@@ -1,0 +1,15 @@
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+
+<template>
+    <template is="dom-bind">
+		<h4>TrnvTkmMsbkPage: [[model.TurnuvaInfo]] [[model.TakimInfo]] Müsabakaları</h4>    
+		<ul>
+			<template is="dom-repeat" items="{{model.TrnvTkmMsbk}}">
+				<li>[[item.Tarih]] : [[item.HomeTakimAd]] - [[item.GuestTakimAd]] 
+					<!--<a href="[[item.TrnvTkmMsbkUrl]]">Müsabakalar</a>-->
+					<a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a>
+				</li>
+			</template>
+		</ul>
+    </template>
+</template>

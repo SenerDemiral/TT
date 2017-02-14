@@ -1,0 +1,17 @@
+{
+	"Html": "/ttClient2/TrnvTkmMsbkPage.html",
+	"TurnuvaID": "",
+	"TurnuvaInfo": "",
+	"TakimID": "",
+	"TakimInfo": "",
+	"TrnvTkmMsbk": [
+		{
+			"ID": "",
+			"Tarih": "",
+			"HomeTakimID": "",
+			"HomeTakimAd": "",
+			"GuestTakimID": "",
+			"GuestTakimAd": ""
+		}
+	]
+}

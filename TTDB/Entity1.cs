@@ -79,7 +79,7 @@ namespace TTDB
 				QueryResultRows<Oyuncu> Oyuncus = Db.SQL<Oyuncu>("SELECT o FROM Oyuncu o");
 				foreach(var o in Oyuncus)
 				{
-					o.Rank = o.BazRank;
+					o.Rank = o.BazRank == 0 ? 1900 : o.BazRank;
 					o.NOPX = 0;
 					o.NopxTxt = "";
 				}
@@ -194,7 +194,7 @@ namespace TTDB
 			}
 		}
 
-		// Rank calculation Musabaka Tarihine gore
+		// Rank calculation Musabaka Tarihine gore. Her musabaka da Rank degisir.
 		public static void RankCalcultionMusabaka(ulong turnuvaNO)
 		{
 			int ER = 0;
@@ -208,8 +208,6 @@ namespace TTDB
 			Db.Transact(() =>
 			{
 				// Iki oyuncu da tanimli olmali!!!
-				// Eksik/Hatali girisler bitirildikten sonra yapilmali, geri donusu YOK!!!
-				// Son yapilan hesaplama tekrarlanabilmeli, yada ilkinden itibaren tekrar hesaplanmali!!
 				QueryResultRows<Musabaka> Msbks = Db.SQL<Musabaka>("SELECT m FROM Musabaka m WHERE m.Turnuva = ? ORDER BY m.Trh", trnObj);
 
 				foreach(var msbk in Msbks)
@@ -258,7 +256,7 @@ namespace TTDB
 							}
 						}
 
-						Console.WriteLine(string.Format("{0}/{6} {1} <> {2}  {3}-{4} {5} {7}", m.Musabaka.Trh, m.HomeOyuncuAd, m.GuestOyuncuAd, ozt.HomePuan, ozt.GuestPuan, nopx, m.HomeOyuncu.Rank, m.GuestOyuncu.Rank));
+						//Console.WriteLine(string.Format("{0}/{6} {1} <> {2}  {3}-{4} {5} {7}", m.Musabaka.Trh, m.HomeOyuncuAd, m.GuestOyuncuAd, ozt.HomePuan, ozt.GuestPuan, nopx, m.HomeOyuncu.Rank, m.GuestOyuncu.Rank));
 						//Console.WriteLine(string.Format("{0}/{6} {1} <> {2}  {3}-{4} {5}", m.Musabaka.Trh, m.HomeOyuncuAd, m.GuestOyuncuAd, ozt.HomePuan, ozt.GuestPuan, nopx, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(m.Musabaka.Trh, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday)));
 					}
 
@@ -527,6 +525,10 @@ namespace TTDB
 		{
 			Ad = "";
 			Sex = "E";
+			BazRank = 1900;
+			Rank = 1900;
+			NOPX = 0;
+			NopxTxt = "";
 		}
 	}
 
@@ -695,6 +697,8 @@ namespace TTDB
 		public string ID => this.GetObjectID();
 		public Turnuva Turnuva;
 		public Takim HomeTakim;
+		public string HomeTakimID => this.HomeTakim.GetObjectID();
+		public string GuestTakimID => this.GuestTakim.GetObjectID();
 		public Takim GuestTakim;
 		public DateTime Trh;
 		public string Yeri;
@@ -1551,6 +1555,7 @@ namespace TTDB
 		public string RakipTakimAd;
 		public DateTime Trh;
 		public string Tarih;
+		public string TrnvTur;
 		public string HG;
 		public string Skl;
 		public int Sira;
@@ -1562,5 +1567,25 @@ namespace TTDB
 		public int SayiA;
 		public int SayiV;
 		public string GM;   // Galip/Maglup
+
+		public OyuncuMac()
+		{
+			TakimAd = "";
+			RakipAd = "";
+			RakipTakimAd = "";
+			Tarih = "";
+			TrnvTur = "T";	// Takim
+			HG = "?";
+			Skl = "?";
+			Sira = 0;
+			MacA = 0;
+			MacV = 0;
+			SetA = 0;
+			SetV = 0;
+			SayiA = 0;
+			SayiV = 0;
+			GM = "?";
+
+		}
 	}
 }

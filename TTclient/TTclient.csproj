@@ -138,6 +138,7 @@
     <None Include="wwwroot\ttclient\TakimMap.html" />
     <None Include="wwwroot\ttclient\Takim.html" />
     <None Include="wwwroot\ttclient\Oyuncu.html" />
+    <None Include="wwwroot\ttclient\OyuncuMaclari.html" />
     <Content Include="wwwroot\ttclient\Stylesheet1.css" />
     <None Include="wwwroot\ttclient\simple-overlay.html" />
     <None Include="wwwroot\ttclient\TurnuvaOyuncu.html" />
