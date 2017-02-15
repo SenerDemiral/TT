@@ -1,7 +1,31 @@
-﻿<link rel="import" href="/sys/polymer/polymer.html">
-
-<template>
+﻿<template>
     <template is="dom-bind">
-		<h4>MsbkMacPage: [[model.MusabakaInfo]] Maçları</h4>    
+		<h4 style="text-align:center">[[model.MusabakaInfo]] Maçları</h4>    
+
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th winner$="[[model.HTGBM]]">[[model.HomeTakimAd]]</th>
+					<th>[[model.HomeTakimPuan]]</th>
+					<th>[[model.GuestTakimPuan]]</th>
+					<th winner$="[[model.GTGBM]]">[[model.GuestTakimAd]]</th>
+				</tr>
+			</thead>
+			<tbody>
+				<template is="dom-repeat" items="{{model.MsbkMac}}">
+					<tr>
+						<td>[[item.Skl]][[item.Sira]]</td>
+						<td winner$="[[item.HGM]]">[[item.HomeOyuncuIsim]]</td>
+						<td style="text-align:center">[[item.HomeSet]]</td>
+						<td style="text-align:center">[[item.GuestSet]]</td>
+						<td winner$="[[item.GGM]]">[[item.GuestOyuncuIsim]]</td>
+					</tr">
+				</template>
+			</tbody>
+		</table>
+
+		<div style="text-align:center">[[model.TurnuvaAd]]</div>    
+
     </template>
 </template>

@@ -1,6 +1,4 @@
-﻿<link rel="import" href="/sys/polymer/polymer.html">
-
-<template>
+﻿<template>
     <template is="dom-bind">
 		<h4>TrnvPage</h4>
 		<!--
@@ -12,10 +10,12 @@
 		-->
 		<ul>
 			<template is="dom-repeat" items="{{model.Trnv}}">
-				<li>[[item.ID]] [[item.Ad]] 
+				<li>[[item.ID]]: [[item.Ad]] 
 					<a href="/ttClient2/TrnvTkm/[[item.ID]]">Takımlar</a>
 					<a href="/ttClient2/TrnvMsbk/[[item.ID]]">Müsabakalar</a>
 					<a href="/ttClient2/TrnvOync/[[item.ID]]">Oyuncular</a>
+		            <button class="btn btn-sm btn-default" value="{{item.DenemeClick$::click}}" onmousedown="++this.value">Deneme</button>
+
 				</li>
 		    </template>
 		</ul>

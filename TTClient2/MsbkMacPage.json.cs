@@ -10,9 +10,54 @@ namespace TTClient2
 			base.OnData();
 			
 			var msbkObj = (TTDB.Musabaka)DbHelper.FromID(DbHelper.Base64DecodeObjectID(MusabakaID));
-			MusabakaInfo = $"{msbkObj.Tarih} : {msbkObj.HomeTakimAd} - {msbkObj.GuestTakimAd}";
+			HomeTakimAd = msbkObj.HomeTakimAd;
+			GuestTakimAd = msbkObj.GuestTakimAd;
+			TurnuvaAd = msbkObj.Turnuva.Ad;
+			var ozt = msbkObj.Ozet;
+			MusabakaInfo = $"{msbkObj.Tarih} : {msbkObj.HomeTakimAd} {ozt.HomePuan}-{ozt.GuestPuan} {msbkObj.GuestTakimAd}";
+			HomeTakimPuan = ozt.HomePuan;
+			GuestTakimPuan = ozt.GuestPuan;
+			if(HomeTakimPuan == GuestTakimPuan)
+			{
+				HTGBM = "B";
+				GTGBM = "B";
+			}
+			else if(HomeTakimPuan > GuestTakimPuan)
+			{
+				HTGBM = "G";
+				GTGBM = "M";
+			}
+			else {
+				HTGBM = "M";
+				GTGBM = "G";
+			}
 
-			//MsbkMac = Db.SQL<TTDB.Musabaka>("SELECT tt FROM Musabaka tt WHERE tt.Turnuva = ? AND (tt.HomeTakim = ? OR tt.GuestTakim = ?) ORDER BY tt.Trh", trnvObj, tkmObj, tkmObj);
+			MsbkMac = Db.SQL<TTDB.Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka = ? ORDER BY tt.Skl DESC, tt.Sira DESC", msbkObj);
+		}
+
+		[MsbkMacPage_json.MsbkMac]
+		partial class MsbkMacPageElementJson : Json
+		{
+			protected override void OnData()
+			{
+				base.OnData();
+
+				var macObj = (TTDB.Mac)DbHelper.FromID(DbHelper.Base64DecodeObjectID(ID));
+				var ozt = macObj.Ozet;
+
+				HomeSet = ozt.HomeSet;
+				GuestSet = ozt.GuestSet;
+
+				if(HomeSet > GuestSet) {
+					HGM = "G";
+					GGM = "M";
+				}
+				else {
+					HGM = "M";
+					GGM = "G";
+				}
+
+			}
 		}
 	}
 }

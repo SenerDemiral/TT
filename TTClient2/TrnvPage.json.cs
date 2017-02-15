@@ -8,7 +8,7 @@ namespace TTClient2
 		protected override void OnData()
 		{
 			base.OnData();
-			Trnv = Db.SQL<TTDB.Turnuva>("SELECT tt FROM Turnuva tt ORDER BY tt.Ad");
+			Trnv.Data = Db.SQL<TTDB.Turnuva>("SELECT tt FROM Turnuva tt ORDER BY tt.Ad");
 		}
 
 		[TrnvPage_json.Trnv]
@@ -22,6 +22,11 @@ namespace TTClient2
 				TrnvMsbkUrl = $"/ttClient2/TrnvMsbk/{this.ID}";
 				TrnvOyncUrl = $"/ttClient2/TrnvOync/{this.ID}";
 			}
+
+			void Handle(Input.DenemeClick inp) {
+
+			}
+
 		}
 	}
 }

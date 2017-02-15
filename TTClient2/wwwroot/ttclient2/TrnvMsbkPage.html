@@ -1,9 +1,6 @@
-﻿<link rel="import" href="/sys/polymer/polymer.html">
-
-<template>
+﻿<template>
     <template is="dom-bind">
-		<div>TrnvMsbkPage</div>    
-		<h4>TrnvMsbkPage: [[model.TurnuvaInfo]] Müsabakaları</h4>    
+		<h4 style="text-align:center">[[model.TurnuvaInfo]] Müsabakaları</h4>    
 		<!--
 		<ul>
 			<template is="dom-repeat" items="{{model.TrnvMsbk}}">
@@ -18,11 +15,16 @@
 				<template is="dom-repeat" items="{{model.TrnvMsbk}}">
 					<tr>
 						<td><b>[[item.Tarih]]</b></td>
-						<td>[[item.HomeTakimAd]]</td>
+						<td winner$="[[item.HTGBM]]">[[item.HomeTakimAd]]</td>
 						<td style="text-align:center"><b>[[item.HomePuan]]</b></td>
 						<td style="text-align:center"><b>[[item.GuestPuan]]</b></td>
-						<td>[[item.GuestTakimAd]]</td>
-						<td><a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a></td>
+						<td winner$="[[item.GTGBM]]">[[item.GuestTakimAd]]</td>
+						<template is="dom-if" if="[[item.GTGBM]]" restamp>
+							<td><a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a></td>
+						</template>
+						<template is="dom-if" if="[[!item.GTGBM]]" restamp>
+							<td></td>
+						</template>
 					</tr>
 				</template>
 			</tbody>

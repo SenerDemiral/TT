@@ -6,7 +6,9 @@
 			"Ad": "",
 			"TrnvTkmUrl": "",
 			"TrnvMsbkUrl": "",
-			"TrnvOyncUrl": ""
+			"TrnvOyncUrl": "",
+
+			"DenemeClick$": 0
 		}
 	]
 }

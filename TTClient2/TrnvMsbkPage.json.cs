@@ -27,7 +27,25 @@ namespace TTClient2
 
 				HomePuan = $"{(ozt.HomePuan == 0 ? "" : ozt.HomePuan.ToString())}";
 				GuestPuan = $"{(ozt.GuestPuan == 0 ? "" : ozt.GuestPuan.ToString())}";
-				
+
+				if((ozt.HomePuan + ozt.GuestPuan) > 0)
+				{
+					if(ozt.HomePuan == ozt.GuestPuan)
+					{
+						HTGBM = "B";
+						GTGBM = "B";
+					}
+					else if(ozt.HomePuan > ozt.GuestPuan)
+					{
+						HTGBM = "G";
+						GTGBM = "M";
+					}
+					else
+					{
+						HTGBM = "M";
+						GTGBM = "G";
+					}
+				}
 			}
 		}
 

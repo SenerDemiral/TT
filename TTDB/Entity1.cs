@@ -846,6 +846,17 @@ namespace TTDB
 		public string Skl;  // Single/Double/MixDouble
 		public Int16 Sira;
 
+		public string HomeOyuncuIsim {
+			get {
+				return $"{(HomeOyuncu == null ? "" : HomeOyuncu.Ad)}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + HomeOyuncu2.Ad)}";
+			}
+		}
+		public string GuestOyuncuIsim {
+			get {
+				return $"{(GuestOyuncu == null ? "" : GuestOyuncu.Ad)}{(GuestOyuncu2 == null ? "" : Constants.sepDblOyn + GuestOyuncu2.Ad)}";
+			}
+		}
+
 		public string HomeOyuncuAd {
 			get {
 				return $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}";

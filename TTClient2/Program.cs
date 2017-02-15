@@ -31,7 +31,7 @@ namespace TTClient2
 					<template is=""dom-bind"" id=""puppet-root"">
 						<template is=""imported-template"" content$=""{{{{model.Html}}}}"" model=""{{{{model}}}}""></template>
 					</template>
-					<puppet-client ref=""puppet-root"" remote-url=""{1}""></puppet-client>
+					<puppet-client ref=""puppet-root"" remote-url=""{1}"" use-web-socket=""true""></puppet-client>
 					<starcounter-debug-aid></starcounter-debug-aid>
 				</body>
 				</html>";
@@ -74,24 +74,44 @@ namespace TTClient2
 				});
 			});
 			*/
-			Handle.GET("/TTclient2/master", () =>
+			Handle.GET("/ttClient2/master", (Request req) => {
+				return Db.Scope(() => {
+					//MasterPage master;
+
+					if(Session.Current != null) {
+						return (MasterPage)Session.Current.Data;
+					}
+					else {
+						var master = new MasterPage();
+						master.Session = new Session(Session.Flags.PatchVersioning);
+						master.CurrentPage = new NavPage();
+						
+						return master;
+					}
+				});
+			});
+
+			Handle.GET("/TTclient2/masterX", () =>
             {
-                Session session = Session.Current;
-                if (session != null && session.Data != null)
-                    return session.Data;
+				return Db.Scope(() =>
+				{
+					Session session = Session.Current;
+					if(session != null && session.Data != null)
+						return session.Data;
 
-                var master = new MasterPage();
+					var master = new MasterPage();
 
-                if (session == null)
-                {
-                    session = new Session(Session.Flags.PatchVersioning);
-                }
+					if(session == null)
+					{
+						session = new Session(Session.Flags.PatchVersioning);
+					}
 
-                var nav = new NavPage();
-                master.CurrentPage = nav;
+					var nav = new NavPage();
+					master.CurrentPage = nav;
 
-                master.Session = session;
-                return master;
+					master.Session = session;
+					return master;
+				});
             });
 
 			Handle.GET("/ttClient2", () => Self.GET("/TTclient2/master"));
@@ -102,19 +122,22 @@ namespace TTClient2
 			
 			Handle.GET("/ttClient2/partial/TrnvTkm/{?}", (string param) => new TrnvTkmPage());
 
-			Handle.GET("/ttClient2/TrnvTkm/{?}", (string param) =>
+			Handle.GET("/ttClient2/TrnvTkm/{?}", (string trnvID) =>
 			{
-				var master = (MasterPage)Self.GET("/TTclient2/master");
+				var master = (MasterPage)Self.GET("/ttClient2/master");
+				
 				var nav = master.CurrentPage as NavPage;
-				nav.CurrentPage = new TrnvTkmPage();
-				(nav.CurrentPage as TrnvTkmPage).TurnuvaID = param;
-				nav.CurrentPage.Data = null;
 				/*
-				if (!(master.CurrentPage is TrnvTkmPage)) {
-					master.CurrentPage = new TrnvTkmPage();
-					(master.CurrentPage as TrnvTkmPage).TrnvID = param;
-					master.CurrentPage.Data = null;
-                }*/
+				nav.CurrentPage = new TrnvTkmPage();
+				(nav.CurrentPage as TrnvTkmPage).TurnuvaID = trnvID;
+				nav.CurrentPage.Data = null;
+				*/
+				
+				if (!(nav.CurrentPage is TrnvTkmPage)) {
+					nav.CurrentPage = new TrnvTkmPage();
+					(nav.CurrentPage as TrnvTkmPage).TurnuvaID = trnvID;
+					nav.CurrentPage.Data = null;
+                }
                 return master;
 			});
 

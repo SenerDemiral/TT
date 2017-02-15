@@ -26,3 +26,9 @@ th {
 	background-color: #ffe6cc; /*Maglup;*/
 }
 
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
+

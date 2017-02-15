@@ -1,10 +1,26 @@
 {
 	"Html": "/ttClient2/MsbkMacPage.html",
+
 	"MusabakaID": "",
 	"MusabakaInfo": "",
+	"TurnuvaAd": "",
+	"HomeTakimAd": "",
+	"GuestTakimAd": "",
+	"HomeTakimPuan": 0,
+	"GuestTakimPuan": 0,
+	"HTGBM": "",
+	"GTGBM": "",
 	"MsbkMac": [
 		{
-			"ID": ""
+			"ID": "",
+			"Skl": "",
+			"Sira": 0,
+			"HomeOyuncuIsim": "",
+			"GuestOyuncuIsim": "",
+			"HomeSet": 0,
+			"GuestSet": 0,
+			"HGM": "M",
+			"GGM": "M"
 		}
 	]
 }
