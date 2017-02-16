@@ -15,7 +15,9 @@ namespace TTClient2
 			var tkmObj = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
 			TakimInfo = tkmObj.Ad;
 
-			TrnvTkmOync = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Turnuva = ? AND tt.Takim = ?", trnvObj, tkmObj);//.OrderByDescending(x => x.Ozet.TrnPuan);
+			//TrnvTkmOync = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Turnuva = ? AND tt.Takim = ?", trnvObj, tkmObj);//.OrderByDescending(x => x.Ozet.TrnPuan);
+		
+			TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID).OrderByDescending(x => x.MacG);	
 		}
 
 	}

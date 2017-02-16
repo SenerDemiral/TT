@@ -14,7 +14,8 @@ namespace TTClient2
 			GuestTakimAd = msbkObj.GuestTakimAd;
 			TurnuvaAd = msbkObj.Turnuva.Ad;
 			var ozt = msbkObj.Ozet;
-			MusabakaInfo = $"{msbkObj.Tarih} : {msbkObj.HomeTakimAd} {ozt.HomePuan}-{ozt.GuestPuan} {msbkObj.GuestTakimAd}";
+			//MusabakaInfo = $"{msbkObj.Tarih} : {msbkObj.HomeTakimAd} {ozt.HomePuan}-{ozt.GuestPuan} {msbkObj.GuestTakimAd}";
+			MusabakaInfo = $"{msbkObj.Tarih} : {msbkObj.HomeTakimAd} - {msbkObj.GuestTakimAd}";
 			HomeTakimPuan = ozt.HomePuan;
 			GuestTakimPuan = ozt.GuestPuan;
 			if(HomeTakimPuan == GuestTakimPuan)

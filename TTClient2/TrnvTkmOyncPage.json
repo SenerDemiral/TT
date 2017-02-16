@@ -9,8 +9,19 @@
 			"ID": "",
 			"OyuncuID": "",
 			"OyuncuAd": "",
-			"OyuncuRank": 0,
-			"OyuncuPuan": 0
+			"Rank": 0,
+			"MacO": 0,
+			"MacG": 0,
+			"MacM": 0,
+			
+			"MacOS": 0,
+			"MacOD": 0,
+			"MacGS": 0,
+			"MacMS": 0,
+			"MacGD": 0,
+			"MacMD": 0,
+			"PuanS": 0,
+			"PuanD": 0
 		}
 	]
 

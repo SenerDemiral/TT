@@ -938,13 +938,13 @@ namespace TTDB
 
 				if(Skl == "D")
 				{
-					ozet.HomeMacOD++;
-					ozet.GuestMacOD++;
+					ozet.HomeMacOD = 1;
+					ozet.GuestMacOD = 1;
 				}
 				else
 				{
-					ozet.HomeMacOS++;
-					ozet.GuestMacOS++;
+					ozet.HomeMacOS = 1;
+					ozet.GuestMacOS = 1;
 				}
 
 				if(ozet.HomeSet > ozet.GuestSet)
@@ -1243,6 +1243,7 @@ namespace TTDB
 				yield return tomo;
 			}
 		}
+
 		public static IEnumerable<TurnuvaOyuncuOzet> TurnuvaTakimOyuncularOzet(string turnuvaID, string takimID)
 		{
 			var trnObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(turnuvaID));
@@ -1268,29 +1269,32 @@ namespace TTDB
 					Ozet ozt = m.Ozet;
 
 					too.MacO++;
-					too.MacOD += ozt.HomeMacOD;
 					too.MacOS += ozt.HomeMacOS;
+					too.MacOD += ozt.HomeMacOD;
+					
+					too.MacG += ozt.HomeMac;
+					too.MacGS += ozt.HomeMacGS;
+					too.MacGD += ozt.HomeMacGD;
 
 					too.Puan += ozt.HomePuan;
-					too.MacG += ozt.HomeMac;
-					too.SetA += ozt.HomeSet;
-					too.SetV += ozt.GuestSet;
-					too.SayiA += ozt.HomeSayi;
-					too.SayiV += ozt.GuestSayi;
-
-					too.PuanD += ozt.HomePuanD;
-					too.MacGD += ozt.HomeMacGD;
-					too.SetAD += ozt.HomeSetD;
-					too.SetVD += ozt.GuestSetD;
-					too.SayiAD += ozt.HomeSayiD;
-					too.SayiVD += ozt.GuestSayiD;
-
 					too.PuanS += ozt.HomePuanS;
-					too.MacGS += ozt.HomeMacGS;
+					too.PuanD += ozt.HomePuanD;
+
+					too.SetA += ozt.HomeSet;
 					too.SetAS += ozt.HomeSetS;
+					too.SetAD += ozt.HomeSetD;
+
+					too.SetV += ozt.GuestSet;
 					too.SetVS += ozt.GuestSetS;
+					too.SetVD += ozt.GuestSetD;
+
+					too.SayiA += ozt.HomeSayi;
 					too.SayiAS += ozt.HomeSayiS;
+					too.SayiAD += ozt.HomeSayiD;
+
+					too.SayiV += ozt.GuestSayi;
 					too.SayiVS += ozt.GuestSayiS;
+					too.SayiVD += ozt.GuestSayiD;
 				}
 
 				// Guest olarak oynadiklari
@@ -1300,37 +1304,37 @@ namespace TTDB
 					Ozet ozt = m.Ozet;
 
 					too.MacO++;
-					too.MacOD += ozt.GuestMacOD;
 					too.MacOS += ozt.GuestMacOS;
+					too.MacOD += ozt.GuestMacOD;
 
-					too.Puan += ozt.GuestPuan;
 					too.MacG += ozt.GuestMac;
-
-					too.SetA += ozt.GuestSet;
-					too.SetV += ozt.HomeSet;
-					too.SayiA += ozt.GuestSayi;
-					too.SayiV += ozt.HomeSayi;
-
-					too.PuanD += ozt.GuestPuanD;
+					too.MacGS += ozt.GuestMacGS;
 					too.MacGD += ozt.GuestMacGD;
 
-					too.SetAD += ozt.GuestSetD;
-					too.SetVD += ozt.HomeSetD;
-					too.SayiAD += ozt.GuestSayiD;
-					too.SayiVD += ozt.HomeSayiD;
-
+					too.Puan += ozt.GuestPuan;
 					too.PuanS += ozt.GuestPuanS;
-					too.MacGS += ozt.GuestMacGS;
+					too.PuanD += ozt.GuestPuanD;
 
+					too.SetA += ozt.GuestSet;
 					too.SetAS += ozt.GuestSetS;
+					too.SetAD += ozt.GuestSetD;
+
+					too.SetV += ozt.HomeSet;
 					too.SetVS += ozt.HomeSetS;
+					too.SetVD += ozt.HomeSetD;
+
+					too.SayiA += ozt.GuestSayi;
 					too.SayiAS += ozt.GuestSayiS;
+					too.SayiAD += ozt.GuestSayiD;
+
+					too.SayiV += ozt.HomeSayi;
 					too.SayiVS += ozt.HomeSayiS;
+					too.SayiVD += ozt.HomeSayiD;
 				}
 
 				too.MacM = too.MacO - too.MacG;
-				too.MacMD = too.MacOD - too.MacGD;
 				too.MacMS = too.MacOS - too.MacGS;
+				too.MacMD = too.MacOD - too.MacGD;
 
 				if(too.MacO != 0)
 					yield return too;
@@ -1596,7 +1600,7 @@ namespace TTDB
 					
 					yield return oyncMac;
 				}
-				var gMac = Db.SQL<Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka = ? AND tt.GuestOyuncu = ?", m, oyncObj);
+				var gMac = Db.SQL<Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka = ? AND (tt.GuestOyuncu = ? OR tt.GuestOyuncu2 = ?)", m, oyncObj, oyncObj);
 				foreach(var mac in gMac)
 				{
 					var ozt = mac.Ozet;

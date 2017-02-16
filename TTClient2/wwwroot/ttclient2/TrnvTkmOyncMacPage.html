@@ -6,7 +6,23 @@
 				<tr>
 					<th colspan="7">[[model.OyuncuInfo]] [[model.TakimInfo]]</th>
 				</tr>
+				<tr>
+					<th rowspan="2">Tarih</th>
+					<th rowspan="2">SS</th>
+					<th rowspan="2">Partner</th>
+					<th colspan="2">Set</th>
+					<th colspan="2" rowspan="2">Rakip</th>
+				</tr>
+				<tr>
+					<th>A</th>
+					<th>V</th>
+				</tr>
 			</thead>
+			<tfoot>
+				<tr>
+					<th colspan="7">[[model.TurnuvaInfo]]</th>
+				</tr>
+			</tfoot>
 			<tbody>
 				<template is="dom-repeat" items="{{model.TrnvTkmOyncMac}}">
 					<tr winner$="[[item.GM]]">
@@ -21,11 +37,6 @@
 					</tr>
 				</template>
 			</tbody>
-			<tfoot>
-				<tr>
-					<th colspan="7">[[model.TurnuvaInfo]]</th>
-				</tr>
-			</tfoot>
 		</table>
     </template>
 </template>

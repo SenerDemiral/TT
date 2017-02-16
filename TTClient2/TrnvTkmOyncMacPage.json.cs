@@ -18,7 +18,8 @@ namespace TTClient2
 			OyuncuInfo = oyncObj.Ad;
 
 			//TrnvTkmOyncMac.Data
-			TrnvTkmOyncMac.Data = TTDB.Hlpr.TrnvTkmOyncMac(TurnuvaID, TakimID, OyuncuID).OrderByDescending(x => x.Skl).ThenBy(y => y.Trh);
+			//TrnvTkmOyncMac.Data = TTDB.Hlpr.TrnvTkmOyncMac(TurnuvaID, TakimID, OyuncuID).OrderByDescending(x => x.Skl).ThenBy(y => y.Trh);
+			TrnvTkmOyncMac.Data = TTDB.Hlpr.TrnvTkmOyncMac(TurnuvaID, TakimID, OyuncuID).OrderByDescending(x => x.Skl).ThenBy(y => y.Sira);
 			/*
 			foreach(var o in ttom) 
 			{ 
