@@ -1,3 +1,17 @@
 {
-	"Html": "/ttClient2/TrnvTkmOyncPage.html"
+	"Html": "/ttClient2/TrnvTkmOyncPage.html",
+	"TurnuvaID": "",
+	"TurnuvaInfo": "",
+	"TakimID": "",
+	"TakimInfo": "",
+	"TrnvTkmOync": [
+		{
+			"ID": "",
+			"OyuncuID": "",
+			"OyuncuAd": "",
+			"OyuncuRank": 0,
+			"OyuncuPuan": 0
+		}
+	]
+
 }

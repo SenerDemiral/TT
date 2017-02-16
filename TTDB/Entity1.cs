@@ -686,6 +686,8 @@ namespace TTDB
 		public Turnuva Turnuva;
 		public Takim Takim;
 		public Oyuncu Oyuncu;
+		public string OyuncuID => this.Oyuncu.GetObjectID();
+		public int OyuncuRank => this.Oyuncu.Rank;
 		public string OyuncuAd => Oyuncu != null ? Oyuncu.Ad : "";
 		//public string TakimAd => Takim.Ad;
 		//public string TurnuvaAd => Turnuva.Ad;
@@ -1556,11 +1558,79 @@ namespace TTDB
 				yield return om;
 			}
 		}
+
+		public static IEnumerable<OyuncuMac> TrnvTkmOyncMac(string trnvID, string tkmID, string oyncID)
+		{
+
+			var trnvObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(trnvID));
+			var tkmObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(tkmID));
+			var oyncObj = DbHelper.FromID(DbHelper.Base64DecodeObjectID(oyncID));
+			
+			var msbkList = Db.SQL<Musabaka>("SELECT tt FROM Musabaka tt WHERE tt.Turnuva = ? AND (tt.HomeTakim = ? OR tt.GuestTakim = ?)", trnvObj, tkmObj, tkmObj);
+			foreach(var m in msbkList)
+			{
+				var hMac = Db.SQL<Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka = ? AND (tt.HomeOyuncu = ? OR tt.HomeOyuncu2 = ?)", m, oyncObj, oyncObj);
+				foreach(var mac in hMac)
+				{
+					var ozt = mac.Ozet;
+					var oyncMac = new OyuncuMac();
+					oyncMac.Trh = m.Trh;
+					oyncMac.Tarih = m.Tarih;
+					oyncMac.RakipAd = mac.GuestOyuncuIsim;
+					oyncMac.RakipTakimAd = mac.Musabaka.GuestTakimAd;
+					oyncMac.Skl = mac.Skl;
+					oyncMac.Sira = mac.Sira;
+					oyncMac.SetA = ozt.HomeSet;
+					oyncMac.SetV = ozt.GuestSet;
+					oyncMac.SayiA = ozt.HomeSayi;
+					oyncMac.SayiV = ozt.GuestSayi;
+					oyncMac.GM = oyncMac.SetA > oyncMac.SetV ? "G" : "M";
+
+					if(mac.Skl == "D")
+					{
+						if(mac.HomeOyuncu.GetObjectNo() == oyncObj.GetObjectNo())
+							oyncMac.PartnerAd = mac.HomeOyuncu2 == null ? "" : mac.HomeOyuncu2.Ad;
+						else
+							oyncMac.PartnerAd = mac.HomeOyuncu == null ? "" : mac.HomeOyuncu.Ad;
+					}
+					
+					yield return oyncMac;
+				}
+				var gMac = Db.SQL<Mac>("SELECT tt FROM Mac tt WHERE tt.Musabaka = ? AND tt.GuestOyuncu = ?", m, oyncObj);
+				foreach(var mac in gMac)
+				{
+					var ozt = mac.Ozet;
+					var oyncMac = new OyuncuMac();
+					oyncMac.Trh = m.Trh;
+					oyncMac.Tarih = m.Tarih;
+					oyncMac.RakipAd = mac.HomeOyuncuIsim;
+					oyncMac.RakipTakimAd = mac.Musabaka.HomeTakimAd;
+					oyncMac.Skl = mac.Skl;
+					oyncMac.Sira = mac.Sira;
+					oyncMac.SetA = ozt.GuestSet;
+					oyncMac.SetV = ozt.HomeSet;
+					oyncMac.SayiA = ozt.GuestSayi;
+					oyncMac.SayiV = ozt.HomeSayi;
+					oyncMac.GM = oyncMac.SetA > oyncMac.SetV ? "G" : "M";
+					
+					if(mac.Skl == "D")
+					{
+						if(mac.GuestOyuncu.GetObjectNo() == oyncObj.GetObjectNo())
+							oyncMac.PartnerAd = mac.GuestOyuncu2 == null ? "" : mac.GuestOyuncu2.Ad;
+						else
+							oyncMac.PartnerAd = mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad;
+					}
+					yield return oyncMac;
+				}
+			}
+
+		}
 	}
 
 	public class OyuncuMac
 	{
 		public string OyuncuID;
+		public string PartnerAd;
 		public string TakimAd;
 		public string RakipAd;
 		public string RakipTakimAd;
@@ -1581,7 +1651,9 @@ namespace TTDB
 
 		public OyuncuMac()
 		{
+			
 			TakimAd = "";
+			PartnerAd = "";
 			RakipAd = "";
 			RakipTakimAd = "";
 			Tarih = "";

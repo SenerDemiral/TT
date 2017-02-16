@@ -174,6 +174,31 @@ namespace TTClient2
                 
 				return master;
 			});
+			Handle.GET("/ttClient2/TrnvTkmOync/{?}/{?}", (string trnvID, string tkmID) =>
+			{
+				var master = (MasterPage)Self.GET("/ttClient2/master");
+				var nav = master.CurrentPage as NavPage;
+				nav.CurrentPage = new TrnvTkmOyncPage();
+				(nav.CurrentPage as TrnvTkmOyncPage).TurnuvaID = trnvID;
+				(nav.CurrentPage as TrnvTkmOyncPage).TakimID = tkmID;
+				nav.CurrentPage.Data = null;
+                
+				return master;
+			});
+			Handle.GET("/ttClient2/TrnvTkmOyncMac/{?}/{?}/{?}", (string trnvID, string tkmID, string oyncID) =>
+			{
+				var master = (MasterPage)Self.GET("/ttClient2/master");
+				var nav = master.CurrentPage as NavPage;
+				nav.CurrentPage = new TrnvTkmOyncMacPage();
+				(nav.CurrentPage as TrnvTkmOyncMacPage).TurnuvaID = trnvID;
+				(nav.CurrentPage as TrnvTkmOyncMacPage).TakimID = tkmID;
+				(nav.CurrentPage as TrnvTkmOyncMacPage).OyuncuID = oyncID;
+				nav.CurrentPage.Data = null;
+                
+				return master;
+			});
+
+
 			/*
 			Handle.GET("/ttClient2/TrnvTkm/{?}", (string param) =>
 			{

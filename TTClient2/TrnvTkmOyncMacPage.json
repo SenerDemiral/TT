@@ -1,3 +1,23 @@
 {
-	"Html": "/ttClient2/TrnvTkmOyncMacPage.html"
+	"Html": "/ttClient2/TrnvTkmOyncMacPage.html",
+	"TurnuvaID": "",
+	"TurnuvaInfo": "",
+	"TakimID": "",
+	"TakimInfo": "",
+	"OyuncuID": "",
+	"OyuncuInfo": "",
+	"TrnvTkmOyncMac": [
+		{
+			"Tarih": "",
+			"PartnerAd": "",
+			"RakipAd": "",
+			"RakipTakimAd": "",
+			"Skl": "",
+			"Sira": 0,
+			"SetA": 0,
+			"SetV": 0,
+			"GM": ""
+
+		}
+	]
 }
