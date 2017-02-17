@@ -32,7 +32,7 @@ namespace TTDB
 	{
 		public const string sepID = "·";        // Ad ·ID
 		public const string sepTkm = " ";       // Oyuncu(lar) • Takim
-		public const string sepDblOyn = "+";    // Oyuncu + Oyuncu2
+		public const string sepDblOyn = "+ ";    // Oyuncu + Oyuncu2
 		public const string sepSayi = " ";      // 11-05 • 11-08
 												//public const string sepSayi = "■▪↔≡";      // 11-05 ▪ 11-08
 		public static readonly char[] charsToTrim = { ',', '.', '·', '•', '●', '▪', '│', ' ' };
@@ -1031,6 +1031,7 @@ namespace TTDB
 		public string OyuncuID;
 		public string OyuncuAd;
 		public string TakimAd;
+		public int Idx;
 		public int Rank;
 		public int Puan;
 		public int MacO;
@@ -1064,6 +1065,7 @@ namespace TTDB
 			OyuncuID = "";
 			OyuncuAd = "";
 			TakimAd = "";
+			Idx = 0;
 			Rank = 0;
 			Puan = 0;
 			MacO = 0;

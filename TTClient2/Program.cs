@@ -13,6 +13,7 @@ namespace TTClient2
 				<html>
 				<head>
 					<meta charset=""utf-8"">
+				    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
 					<title>{0}</title>
 					<script src=""/sys/webcomponentsjs/webcomponents.min.js""></script>
 					<link rel=""import"" href=""/sys/polymer/polymer.html"">
@@ -116,12 +117,21 @@ namespace TTClient2
 
 			Handle.GET("/ttClient2", () => Self.GET("/TTclient2/master"));
 
-			Handle.GET("/ttClient2/partial/Trnv", () => new TrnvPage());
-            Handle.GET("/ttClient2/Trnv", () => WrapPage<TrnvPage>("/ttClient2/partial/Trnv"));
+			//Handle.GET("/ttClient2/partial/Trnv", () => new TrnvPage());
+            //Handle.GET("/ttClient2/Trnv", () => WrapPage<TrnvPage>("/ttClient2/partial/Trnv"));
 
 			
-			Handle.GET("/ttClient2/partial/TrnvTkm/{?}", (string param) => new TrnvTkmPage());
+			//Handle.GET("/ttClient2/partial/TrnvTkm/{?}", (string param) => new TrnvTkmPage());
 
+			Handle.GET("/ttClient2/Trnv", () =>
+			{
+				var master = (MasterPage)Self.GET("/TTclient2/master");
+				var nav = master.CurrentPage as NavPage;
+				nav.CurrentPage = new TrnvPage();
+				nav.CurrentPage.Data = null;
+                
+				return master;
+			});
 			Handle.GET("/ttClient2/TrnvTkm/{?}", (string trnvID) =>
 			{
 				var master = (MasterPage)Self.GET("/ttClient2/master");
@@ -193,6 +203,15 @@ namespace TTClient2
 				(nav.CurrentPage as TrnvTkmOyncMacPage).TurnuvaID = trnvID;
 				(nav.CurrentPage as TrnvTkmOyncMacPage).TakimID = tkmID;
 				(nav.CurrentPage as TrnvTkmOyncMacPage).OyuncuID = oyncID;
+				nav.CurrentPage.Data = null;
+                
+				return master;
+			});
+			Handle.GET("/ttClient2/OyncRank", () =>
+			{
+				var master = (MasterPage)Self.GET("/TTclient2/master");
+				var nav = master.CurrentPage as NavPage;
+				nav.CurrentPage = new OyncRankPage();
 				nav.CurrentPage.Data = null;
                 
 				return master;

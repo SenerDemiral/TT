@@ -1,6 +1,5 @@
 ﻿<template>
     <template is="dom-bind">
-		<h4 style="text-align:center">[[model.TurnuvaInfo]] Müsabakaları</h4>    
 		<!--
 		<ul>
 			<template is="dom-repeat" items="{{model.TrnvMsbk}}">
@@ -11,6 +10,11 @@
 		</ul>
 		-->
 		<table>
+			<thead>
+				<tr>
+					<th colspan="6">[[model.TurnuvaInfo]] Müsabakaları</th>
+				</tr>
+			</thead>
 			<tbody>
 				<template is="dom-repeat" items="{{model.TrnvMsbk}}">
 					<tr>

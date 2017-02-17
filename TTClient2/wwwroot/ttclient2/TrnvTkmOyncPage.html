@@ -1,18 +1,18 @@
 ﻿<template>
     <template is="dom-bind">
-		<div>TrnvTkmOyncPage</div>    
 		<table>
 			<thead>
 				<tr>
 					<th colspan="12">[[model.TakimInfo]] Oyuncuları</th>
 				</tr>
 				<tr>
+					<th rowspan="2">#</th>
 					<th rowspan="2">Oyuncu</th>
 					<th rowspan="2">Rank</th>
 					<th colspan="3">Maç </th>
 					<th colspan="3">Single</th>
 					<th colspan="3">Double</th>
-					<th rowspan="2">Maçları</th>
+					<!--<th rowspan="2">Maçları</th>-->
 				</tr>
 				<tr>
 					<th>O</th>
@@ -31,7 +31,10 @@
 			<tbody>
 				<template is="dom-repeat" items="{{model.TrnvTkmOync}}">
 					<tr>
-						<td><b>[[item.OyuncuAd]]</b></td>
+						<td>[[item.Idx]]</td>
+						<td><a href="/ttClient2/TrnvTkmOyncMac/[[model.TurnuvaID]]/[[model.TakimID]]/[[item.OyuncuID]]">[[item.OyuncuAd]]</a></td>
+
+						<!--<td><b>[[item.OyuncuAd]]</b></td>-->
 						<td style="text-align:center">[[item.Rank]]</td>
 					
 						<td style="text-align:center"><b>[[item.MacO]]</b></td>
@@ -46,7 +49,7 @@
 						<td style="text-align:center" winner="G">[[item.MacGD]]</td>
 						<td style="text-align:center" winner="M">[[item.MacMD]]</td>
 						
-						<td><a href="/ttClient2/TrnvTkmOyncMac/[[model.TurnuvaID]]/[[model.TakimID]]/[[item.OyuncuID]]">Maçlar</a></td>
+						<!--<td><a href="/ttClient2/TrnvTkmOyncMac/[[model.TurnuvaID]]/[[model.TakimID]]/[[item.OyuncuID]]">Maçlar</a></td>-->
 					</tr>
 				</template>
 			</tbody>

@@ -1,24 +1,23 @@
 ﻿<template>
     <template is="dom-bind">
-		<h4>TrnvPage</h4>
-		<!--
-		<ul class="kitchensink-menu__list">
-            <li><a href="/ttClient2/TrnvTkm">Takimlar</a></li>
-            <li><a href="/ttClient2/TrnvMsbk">Musabakalar</a></li>
-            <li><a href="/ttClient2/TrnvOync">Oyuncular</a></li>
-        </ul>
-		-->
-		<ul>
-			<template is="dom-repeat" items="{{model.Trnv}}">
-				<li>[[item.ID]]: [[item.Ad]] 
-					<a href="/ttClient2/TrnvTkm/[[item.ID]]">Takımlar</a>
-					<a href="/ttClient2/TrnvMsbk/[[item.ID]]">Müsabakalar</a>
-					<a href="/ttClient2/TrnvOync/[[item.ID]]">Oyuncular</a>
-		            <button class="btn btn-sm btn-default" value="{{item.DenemeClick$::click}}" onmousedown="++this.value">Deneme</button>
-
-				</li>
-		    </template>
-		</ul>
+		<table>
+			<thead>
+				<tr>
+					<th colspan="4">Turnuvalar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<template is="dom-repeat" items="{{model.Trnv}}">
+					<tr>
+						<td>[[item.Ad]]</td> 
+						<td><a href="/ttClient2/TrnvTkm/[[item.ID]]">Takım Sonuçları</a></td>
+						<td><a href="/ttClient2/TrnvMsbk/[[item.ID]]">Takım Müsabakaları</a></td>
+						<!--<td><a href="/ttClient2/TrnvOync/[[item.ID]]">Oyuncular</a></td>-->
+					    <!--<td><button class="btn btn-sm btn-default" value="{{item.DenemeClick$::click}}" onmousedown="++this.value">Deneme</button></td>-->
+					</tr>
+				</template>
+			</tbody>
+		</table>
 
     </template>
 </template>

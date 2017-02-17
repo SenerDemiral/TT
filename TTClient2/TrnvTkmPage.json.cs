@@ -14,7 +14,8 @@ namespace TTClient2
 			var trnvObj = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 			TurnuvaInfo = trnvObj.Ad;
 			//TrnvTkm = Db.SQL<TTDB.TurnuvaTakim>("SELECT tt FROM TurnuvaTakim tt WHERE tt.Turnuva = ? ORDER BY tt.TakimAd", trnvObj);
-			TrnvTkm.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnvObj).OrderByDescending(x => x.Ozet.TrnPuan).ThenByDescending(x => x.Ozet.PuanAV);
+			//TrnvTkm.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnvObj).OrderByDescending(x => x.Ozet.TrnPuan).ThenByDescending(x => x.Ozet.PuanAV);
+			TrnvTkm.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnvObj).OrderByDescending(x => x.Ozet.PuanAV);
 		}
 
 		[TrnvTkmPage_json.TrnvTkm]
@@ -29,6 +30,7 @@ namespace TTClient2
 				var ozt = trnvTkmObj.Ozet;
 				PuanA = ozt.PuanA;
 				PuanV = ozt.PuanV;
+				PuanAV = PuanA - PuanV;
 				MsbkO = ozt.MsbkO;
 				MsbkA = ozt.MsbkA;
 				MsbkB = ozt.MsbkB;
