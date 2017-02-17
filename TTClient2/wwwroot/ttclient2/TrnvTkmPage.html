@@ -14,7 +14,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th colspan="10">Takım Sonuçları</th>
+					<th colspan="10" scope="row"">Takım Sonuçları</th>
 				</tr>
 				<tr>
 					<th rowspan="2">Takım</th>
@@ -35,7 +35,7 @@
 			</thead>
 			<tfoot>
 				<tr>
-					<th colspan="10">[[model.TurnuvaInfo]]</th>
+					<th colspan="10" scope="row">[[model.TurnuvaInfo]]</th>
 				</tr>
 			</tfoot>
 
@@ -43,13 +43,13 @@
 				<template is="dom-repeat" items="{{model.TrnvTkm}}">
 					<tr>
 						<td><b>[[item.TakimAd]]</b></td>
-						<td style="text-align:center">[[item.PuanA]]</td>
-						<td style="text-align:center">[[item.PuanV]]</td>
-						<td style="text-align:center">[[item.PuanAV]]</td>
-						<td style="text-align:center"><b>[[item.MsbkO]]</b></td>
-						<td style="text-align:center">[[item.MsbkA]]</td>
-						<td style="text-align:center">[[item.MsbkB]]</td>
-						<td style="text-align:center">[[item.MsbkV]]</td>
+						<td abbr="A">[[item.PuanA]]</td>
+						<td abbr="V">[[item.PuanV]]</td>
+						<td abbr="AV">[[item.PuanAV]]</td>
+						<td abbr="O">[[item.MsbkO]]</td>
+						<td abbr="A">[[item.MsbkA]]</td>
+						<td abbr="B">[[item.MsbkB]]</td>
+						<td abbr="V">[[item.MsbkV]]</td>
 						<td><a href="/ttClient2/TrnvTkmMsbk/[[model.TurnuvaID]]/[[item.TakimID]]">Msbk</a></td>
 						<td><a href="/ttClient2/TrnvTkmOync/[[model.TurnuvaID]]/[[item.TakimID]]">Oync</a></td>
 						<!--<td><a href="/ttClient2/TkmMap/[[item.TakimID]]">gMap</a></td>-->

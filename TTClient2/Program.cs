@@ -216,6 +216,16 @@ namespace TTClient2
                 
 				return master;
 			});
+			Handle.GET("/ttClient2/OyncMac/{?}", (string oyncID) =>
+			{
+				var master = (MasterPage)Self.GET("/TTclient2/master");
+				var nav = master.CurrentPage as NavPage;
+				nav.CurrentPage = new OyncMacPage();
+				(nav.CurrentPage as OyncMacPage).OyuncuID = oyncID;
+				nav.CurrentPage.Data = null;
+                
+				return master;
+			});
 
 
 			/*

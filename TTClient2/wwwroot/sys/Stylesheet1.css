@@ -14,16 +14,68 @@ td, th {
 
 th {
 	text-align:center;
+	border: 2px solid #CBCBCB;
+}
+/*
+thead {
+	background-color: maroon;
+	color: white;
+}
+
+tfoot {
+	background-color: maroon;
+	color: white;
+}
+*/
+[scope="row"] {
+	background-color: orange;
+	color: white;
+}
+
+[abbr="O"] {	/*Oynadigi*/
+	text-align: center;
+	font-weight: bold;
+}
+[abbr="A"] {	/*Aldigi*/
+	text-align: center;
+}
+[abbr="B"] {	/*Berabere*/
+	text-align: center;
+}
+[abbr="V"] {	/*Verdigi*/
+	text-align: center;
+}
+[abbr="AV"] {	/*Avaraj Aldigi-Verdigi*/
+	text-align: center;
+}
+[abbr="R"] {	/*Rank*/
+	text-align: center;
+}
+[abbr="#"] {	/*Index*/
+	text-align: center;
+}
+[abbr="D"] {	/*OyuncuDouble*/
+	font-style: normal;
+}
+[abbr="S"] {	/*OyuncuSingle*/
+	font-style: normal;
+}
+[abbr="G"] {	/*Galip*/
+	background-color: #ccffcc;
+	color: black;
 }
 
 [winner="G"] {
 	background-color: #ccffcc; /*Galip*/
+	color: black;
 }
 [winner="B"] {
 	background-color: #ffff80; /*Beraber*/
+	color: black;
 }
 [winner="M"] {
 	background-color: #ffe6cc; /*Maglup;*/
+	color: black;
 }
 
 @media print {

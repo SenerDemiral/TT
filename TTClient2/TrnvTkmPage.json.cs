@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using System.Linq;
 using Starcounter;
 
@@ -10,17 +12,21 @@ namespace TTClient2
 		protected override void OnData()
 		{
 			base.OnData();
-			
+							
+			var sw = Stopwatch.StartNew();
+
 			var trnvObj = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 			TurnuvaInfo = trnvObj.Ad;
 			//TrnvTkm = Db.SQL<TTDB.TurnuvaTakim>("SELECT tt FROM TurnuvaTakim tt WHERE tt.Turnuva = ? ORDER BY tt.TakimAd", trnvObj);
 			//TrnvTkm.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnvObj).OrderByDescending(x => x.Ozet.TrnPuan).ThenByDescending(x => x.Ozet.PuanAV);
 			TrnvTkm.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnvObj).OrderByDescending(x => x.Ozet.PuanAV);
+			sw.Stop();
+			Console.WriteLine(string.Format("TrnvTkm ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
 		}
 
 		[TrnvTkmPage_json.TrnvTkm]
 		partial class TrnvTkmPageElementJson : Json 
-		{
+		{	
 			protected override void OnData()
 			{
 				base.OnData();
@@ -41,7 +47,7 @@ namespace TTClient2
 				//var turnuvaID = parent.TurnuvaID;
 				//TrnvTkmMsbkUrl = $"/ttClient2/TrnvTkmMsbk/{turnuvaID}/{TakimID}";
 				//TrnvTkmOyncUrl = $"/ttClient2/TrnvTkmOync/{turnuvaID}/{TakimID}";
-			}
+			} 
 		}
 
 	}

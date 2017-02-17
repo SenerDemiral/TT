@@ -1463,20 +1463,20 @@ namespace TTDB
 			// Bir oyuncu her devre baska takimda oynayabilir
 
 			QueryResultRows<Mac> HomeSngMac = Db.SQL<Mac>("select m from Mac m where m.Skl = ? AND m.HomeOyuncu = ?", "S", oyncObj);
-			foreach(var m in HomeSngMac)
+			foreach(var mac in HomeSngMac)
 			{
-				Ozet ozt = m.Ozet;
+				Ozet ozt = mac.Ozet;
 				OyuncuMac om = new OyuncuMac()
 				{
-					Trh = m.Musabaka.Trh,
-					Tarih = m.Musabaka.Tarih,
-					TakimAd = m.Musabaka.HomeTakimAd,
-					RakipAd = m.GuestOyuncu == null ? "" : m.GuestOyuncu.Ad,
-					RakipTakimAd = m.Musabaka.GuestTakimAd,
+					Trh = mac.Musabaka.Trh,
+					Tarih = mac.Musabaka.Tarih,
+					TakimAd = mac.Musabaka.HomeTakimAd,
+					RakipAd = mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad,
+					RakipTakimAd = mac.Musabaka.GuestTakimAd,
 
 					HG = "H",
 					Skl = "S",
-					Sira = m.Sira,
+					Sira = mac.Sira,
 					MacA = ozt.HomeMacGS,
 					MacV = ozt.GuestMacGS,
 					SetA = ozt.HomeSetS,
@@ -1488,20 +1488,20 @@ namespace TTDB
 				yield return om;
 			}
 			QueryResultRows<Mac> HomeDblMac = Db.SQL<Mac>("select m from Mac m where m.Skl = ? AND (m.HomeOyuncu = ? OR m.HomeOyuncu2 = ?)", "D", oyncObj, oyncObj);
-			foreach(var m in HomeDblMac)
+			foreach(var mac in HomeDblMac)
 			{
-				Ozet ozt = m.Ozet;
+				Ozet ozt = mac.Ozet;
 				OyuncuMac om = new OyuncuMac()
 				{
-					Trh = m.Musabaka.Trh,
-					Tarih = m.Musabaka.Tarih,
-					TakimAd = m.Musabaka.HomeTakimAd,
-					RakipAd = m.GuestOyuncu == null ? "" : m.GuestOyuncu.Ad,
-					RakipTakimAd = m.Musabaka.GuestTakimAd,
+					Trh = mac.Musabaka.Trh,
+					Tarih = mac.Musabaka.Tarih,
+					TakimAd = mac.Musabaka.HomeTakimAd,
+					RakipAd = mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad,
+					RakipTakimAd = mac.Musabaka.GuestTakimAd,
 
 					HG = "H",
 					Skl = "D",
-					Sira = m.Sira,
+					Sira = mac.Sira,
 					MacA = ozt.HomeMacGD,
 					MacV = ozt.GuestMacGD,
 					SetA = ozt.HomeSetD,
@@ -1510,24 +1510,28 @@ namespace TTDB
 					SayiV = ozt.GuestSayiD
 				};
 				om.GM = om.MacA > om.MacV ? "G" : "M";
+				if(mac.HomeOyuncu.GetObjectNo() == oyncObj.GetObjectNo())
+					om.PartnerAd = mac.HomeOyuncu2 == null ? "" : mac.HomeOyuncu2.Ad;
+				else
+					om.PartnerAd = mac.HomeOyuncu == null ? "" : mac.HomeOyuncu.Ad;
 				yield return om;
 			}
 
 			QueryResultRows<Mac> GuestSngMac = Db.SQL<Mac>("select m from Mac m where m.Skl = ? AND m.GuestOyuncu = ?", "S", oyncObj);
-			foreach(var m in GuestSngMac)
+			foreach(var mac in GuestSngMac)
 			{
-				Ozet ozt = m.Ozet;
+				Ozet ozt = mac.Ozet;
 				OyuncuMac om = new OyuncuMac()
 				{
-					Trh = m.Musabaka.Trh,
-					Tarih = m.Musabaka.Tarih,
-					TakimAd = m.Musabaka.GuestTakimAd,
-					RakipAd = m.HomeOyuncu == null ? "" : m.HomeOyuncu.Ad,
-					RakipTakimAd = m.Musabaka.HomeTakimAd,
+					Trh = mac.Musabaka.Trh,
+					Tarih = mac.Musabaka.Tarih,
+					TakimAd = mac.Musabaka.GuestTakimAd,
+					RakipAd = mac.HomeOyuncu == null ? "" : mac.HomeOyuncu.Ad,
+					RakipTakimAd = mac.Musabaka.HomeTakimAd,
 
 					HG = "G",
 					Skl = "S",
-					Sira = m.Sira,
+					Sira = mac.Sira,
 					MacA = ozt.GuestMacGS,
 					MacV = ozt.HomeMacGS,
 					SetA = ozt.GuestSetS,
@@ -1539,28 +1543,32 @@ namespace TTDB
 				yield return om;
 			}
 			QueryResultRows<Mac> GuestDblMac = Db.SQL<Mac>("select m from Mac m where m.Skl = ? AND (m.GuestOyuncu = ? OR m.GuestOyuncu2 = ?)", "D", oyncObj, oyncObj);
-			foreach(var m in GuestDblMac)
+			foreach(var mac in GuestDblMac)
 			{
-				Ozet ozt = m.Ozet;
+				Ozet ozt = mac.Ozet;
 				OyuncuMac om = new OyuncuMac()
 				{
-					Trh = m.Musabaka.Trh,
-					Tarih = m.Musabaka.Tarih,
-					TakimAd = m.Musabaka.GuestTakimAd,
-					RakipAd = m.HomeOyuncu == null ? "" : m.HomeOyuncu.Ad,
-					RakipTakimAd = m.Musabaka.HomeTakimAd,
+					Trh = mac.Musabaka.Trh,
+					Tarih = mac.Musabaka.Tarih,
+					TakimAd = mac.Musabaka.GuestTakimAd,
+					RakipAd = mac.HomeOyuncu == null ? "" : mac.HomeOyuncu.Ad,
+					RakipTakimAd = mac.Musabaka.HomeTakimAd,
 
 					HG = "G",
 					Skl = "D",
-					Sira = m.Sira,
+					Sira = mac.Sira,
 					MacA = ozt.GuestMacGD,
 					MacV = ozt.HomeMacGD,
 					SetA = ozt.GuestSetD,
 					SetV = ozt.HomeSetD,
 					SayiA = ozt.GuestSayiD,
-					SayiV = ozt.HomeSayiD
+					SayiV = ozt.HomeSayiD,
 				};
 				om.GM = om.MacA > om.MacV ? "G" : "M";
+				if(mac.GuestOyuncu.GetObjectNo() == oyncObj.GetObjectNo())
+					om.PartnerAd = mac.GuestOyuncu2 == null ? "" : mac.GuestOyuncu2.Ad;
+				else
+					om.PartnerAd = mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad;
 				yield return om;
 			}
 		}

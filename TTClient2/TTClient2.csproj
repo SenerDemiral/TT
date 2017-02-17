@@ -73,6 +73,9 @@
     <Compile Include="NavPage.json.cs">
       <DependentUpon>NavPage.json</DependentUpon>
     </Compile>
+    <Compile Include="OyncMacPage.json.cs">
+      <DependentUpon>OyncMacPage.json</DependentUpon>
+    </Compile>
     <Compile Include="OyncRankPage.json.cs">
       <DependentUpon>OyncRankPage.json</DependentUpon>
     </Compile>
@@ -158,6 +161,9 @@
     <TypedJSON Include="OyncRankPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
+    <TypedJSON Include="OyncMacPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <None Include="wwwroot\ttclient2\MasterPage.html" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\sys\Stylesheet1.css" />
+    <None Include="wwwroot\ttclient2\OyncMacPage.html" />
     <None Include="wwwroot\ttclient2\OyncRankPage.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
