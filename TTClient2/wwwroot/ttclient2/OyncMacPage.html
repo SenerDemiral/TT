@@ -3,13 +3,13 @@
 		<table>
 			<thead>
 				<tr>
-					<th colspan="8" scope="row">[[model.OyuncuInfo]]</th>
+					<th colspan="7" scope="row">[[model.OyuncuInfo]]</th>
 				</tr>
 				<tr>
 					<th>Tarih</th>
 					<th>Takım</th>
 					<th>SS</th>
-					<th>Partner</th>
+					<!--<th>Partner</th>-->
 					<th>A</th>
 					<th>V</th>
 					<th colspan="2">Rakip</th>
@@ -17,16 +17,36 @@
 			</thead>
 			<tbody>
 				<template is="dom-repeat" items="{{model.OyncMac}}">
-					<tr winner$="[[item.GM]]" abbr$="[[item.Skl]]">
-						<td>[[item.Tarih]]</td>
-						<td>[[item.TakimAd]]</td>
-						<td>[[item.Skl]][[item.Sira]]</td>
-						<td>[[item.PartnerAd]]</td>
-						<td style="text-align:center"><b>[[item.SetA]]</b></td>
-						<td style="text-align:center"><b>[[item.SetV]]</b></td>
-						<td>[[item.RakipAd]]</td>
-						<td>[[item.RakipTakimAd]]</td>
-					</tr>
+					<template is="dom-if" if="[[!item.isDbl]]" restamp>
+						<tr winner$="[[item.GM]]">
+							<td>[[item.Tarih]]</td>
+							<td>[[item.TakimAd]]</td>
+							<td>[[item.Skl]][[item.Sira]]</td>
+							<!--<td>[[item.PartnerAd]]</td>-->
+							<td style="text-align:center"><b>[[item.SetA]]</b></td>
+							<td style="text-align:center"><b>[[item.SetV]]</b></td>
+							<td>[[item.RakipAd]]</td>
+							<td>[[item.RakipTakimAd]]</td>
+						</tr>
+					</template>
+					<template is="dom-if" if="[[item.isDbl]]" restamp>
+						<tr><td colspan="7"></td></tr>
+						<tr winner$="[[item.GM]]">
+							<td>[[item.Tarih]]</td>
+							<td>[[item.TakimAd]]</td>
+							
+							<td rowspan="2">[[item.Skl]][[item.Sira]]</td>
+							<td rowspan="2" style="text-align:center"><b>[[item.SetA]]</b></td>
+							<td rowspan="2" style="text-align:center"><b>[[item.SetV]]</b></td>
+							
+							<td>[[item.RakipAd]]</td>
+							<td rowspan="2">[[item.RakipTakimAd]]</td>
+						</tr>
+						<tr winner$="[[item.GM]]">
+							<td colspan="2">[[item.PartnerAd]]</td>
+							<td>[[item.RakipAd2]]</td>
+						</tr>
+					</template>
 				</template>
 			</tbody>
 		</table>

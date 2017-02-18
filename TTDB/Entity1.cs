@@ -847,6 +847,7 @@ namespace TTDB
 		public Oyuncu GuestOyuncu2;
 		public string Skl;  // Single/Double/MixDouble
 		public Int16 Sira;
+		public bool isDbl => this.Skl == "D" ? true : false;
 
 		public string HomeOyuncuIsim {
 			get {
@@ -859,42 +860,33 @@ namespace TTDB
 			}
 		}
 
-		public string HomeOyuncuAd {
+		public string HomeOyuncuAd => $"{(HomeOyuncu == null ? "" : HomeOyuncu.Ad)}";
+		public string HomeOyuncu2Ad => $"{(HomeOyuncu2 == null ? "" : HomeOyuncu2.Ad)}";
+		public string GuestOyuncuAd => $"{(GuestOyuncu == null ? "" : GuestOyuncu.Ad)}";
+		public string GuestOyuncu2Ad => $"{(GuestOyuncu2 == null ? "" : GuestOyuncu2.Ad)}";
+		
+		public string HomeOyuncuInfo => $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}{(Musabaka == null ? "" : Constants.sepTkm + Musabaka.HomeTakim.Ad)}";
+		public string GuestOyuncuInfo => $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}{(Musabaka == null ? "" : Constants.sepTkm + Musabaka.HomeTakim.Ad)}";
+
+		public string HomeOyuncuAdNic {
 			get {
 				return $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}";
 			}
 		}
-		public string GuestOyuncuAd {
+		public string GuestOyuncuAdNic {
 			get {
 				return $"{(GuestOyuncu == null ? "" : Hlpr.GetFirstName(GuestOyuncu.Ad))}{(GuestOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(GuestOyuncu2.Ad))}";
 			}
 		}
 
-		public string HomeOyuncuInfo {
-			get {
-				return $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}{(Musabaka == null ? "" : Constants.sepTkm + Musabaka.HomeTakim.Ad)}";
-			}
-		}
-
-		public string GuestOyuncuInfo {
-			get {
-				string info = "";
-				if(GuestOyuncu != null)
-					info = Hlpr.GetFirstName(GuestOyuncu.Ad);
-				if(GuestOyuncu2 != null)
-					info += Constants.sepDblOyn + Hlpr.GetFirstName(GuestOyuncu2.Ad);
-				if(Musabaka != null)
-					info += Constants.sepTkm + Musabaka.GuestTakim.Ad;
-				return info;
-			}
-		}
-
+		public string MusabakaTarih => $"{Musabaka.Trh:dd.MM.yy}";
+		/*
 		public string MusabakaTarih {
 			get {
 				return string.Format("{0:dd.MM.yy}", Musabaka.Trh);
 			}
 		}
-
+		*/
 		public Ozet Ozet {
 			get {
 				Ozet ozet = new Ozet();
@@ -1472,6 +1464,7 @@ namespace TTDB
 					Tarih = mac.Musabaka.Tarih,
 					TakimAd = mac.Musabaka.HomeTakimAd,
 					RakipAd = mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad,
+					//RakipAd2 = mac.GuestOyuncu2 == null ? "" : mac.GuestOyuncu2.Ad,
 					RakipTakimAd = mac.Musabaka.GuestTakimAd,
 
 					HG = "H",
@@ -1497,10 +1490,12 @@ namespace TTDB
 					Tarih = mac.Musabaka.Tarih,
 					TakimAd = mac.Musabaka.HomeTakimAd,
 					RakipAd = mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad,
+					RakipAd2 = mac.GuestOyuncu2 == null ? "" : mac.GuestOyuncu2.Ad,
 					RakipTakimAd = mac.Musabaka.GuestTakimAd,
 
 					HG = "H",
 					Skl = "D",
+					isDbl = true,
 					Sira = mac.Sira,
 					MacA = ozt.HomeMacGD,
 					MacV = ozt.GuestMacGD,
@@ -1552,10 +1547,12 @@ namespace TTDB
 					Tarih = mac.Musabaka.Tarih,
 					TakimAd = mac.Musabaka.GuestTakimAd,
 					RakipAd = mac.HomeOyuncu == null ? "" : mac.HomeOyuncu.Ad,
+					RakipAd2 = mac.HomeOyuncu2 == null ? "" : mac.HomeOyuncu2.Ad,
 					RakipTakimAd = mac.Musabaka.HomeTakimAd,
 
 					HG = "G",
 					Skl = "D",
+					isDbl = true,
 					Sira = mac.Sira,
 					MacA = ozt.GuestMacGD,
 					MacV = ozt.HomeMacGD,
@@ -1602,6 +1599,7 @@ namespace TTDB
 
 					if(mac.Skl == "D")
 					{
+						oyncMac.isDbl = true;
 						if(mac.HomeOyuncu.GetObjectNo() == oyncObj.GetObjectNo())
 							oyncMac.PartnerAd = mac.HomeOyuncu2 == null ? "" : mac.HomeOyuncu2.Ad;
 						else
@@ -1629,6 +1627,7 @@ namespace TTDB
 					
 					if(mac.Skl == "D")
 					{
+						oyncMac.isDbl = true;
 						if(mac.GuestOyuncu.GetObjectNo() == oyncObj.GetObjectNo())
 							oyncMac.PartnerAd = mac.GuestOyuncu2 == null ? "" : mac.GuestOyuncu2.Ad;
 						else
@@ -1647,12 +1646,14 @@ namespace TTDB
 		public string PartnerAd;
 		public string TakimAd;
 		public string RakipAd;
+		public string RakipAd2;
 		public string RakipTakimAd;
 		public DateTime Trh;
 		public string Tarih;
 		public string TrnvTur;
 		public string HG;
 		public string Skl;
+		public bool isDbl;
 		public int Sira;
 
 		public int MacA;
@@ -1669,11 +1670,13 @@ namespace TTDB
 			TakimAd = "";
 			PartnerAd = "";
 			RakipAd = "";
+			RakipAd2 = "";
 			RakipTakimAd = "";
 			Tarih = "";
 			TrnvTur = "T";	// Takim
 			HG = "?";
 			Skl = "?";
+			isDbl = false;
 			Sira = 0;
 			MacA = 0;
 			MacV = 0;

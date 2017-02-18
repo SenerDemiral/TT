@@ -15,7 +15,7 @@ namespace TTClient2
 
 			//TrnvTkmOyncMac.Data
 			//TrnvTkmOyncMac.Data = TTDB.Hlpr.TrnvTkmOyncMac(TurnuvaID, TakimID, OyuncuID).OrderByDescending(x => x.Skl).ThenBy(y => y.Trh);
-			OyncMac.Data = TTDB.Hlpr.OyuncuMaclari(OyuncuID).OrderByDescending(x => x.Trh);
+			OyncMac.Data = TTDB.Hlpr.OyuncuMaclari(OyuncuID).OrderByDescending(x => x.Skl).ThenBy(y => y.Trh); ; // OrderByDescending(x => x.Trh);
 		}
 	}
 }

@@ -12,6 +12,9 @@
 					<th winner$="[[model.GTGBM]]">[[model.GuestTakimPuan]]</th>
 					<th winner$="[[model.GTGBM]]">[[model.GuestTakimAd]]</th>
 				</tr>
+				<tr>
+					<td class="blank_row"></td>
+				</tr>
 			</thead>
 			<tfoot>
 				<tr>
@@ -20,13 +23,32 @@
 			</tfoot>
 			<tbody>
 				<template is="dom-repeat" items="{{model.MsbkMac}}">
-					<tr>
-						<td>[[item.Skl]][[item.Sira]]</td>
-						<td winner$="[[item.HGM]]">[[item.HomeOyuncuIsim]]</td>
-						<td style="text-align:center"><b>[[item.HomeSet]]</b></td>
-						<td style="text-align:center"><b>[[item.GuestSet]]</b></td>
-						<td winner$="[[item.GGM]]">[[item.GuestOyuncuIsim]]</td>
-					</tr">
+					<template is="dom-if" if="[[!item.isDbl]]" restamp>
+						<tr>
+							<td>[[item.Skl]][[item.Sira]]</td>
+							<td winner$="[[item.HGM]]">[[item.HomeOyuncuAd]]</td>
+							<td style="text-align:center"><b>[[item.HomeSet]]</b></td>
+							<td style="text-align:center"><b>[[item.GuestSet]]</b></td>
+							<td winner$="[[item.GGM]]">[[item.GuestOyuncuAd]]</td>
+						</tr">
+					</template>
+					<template is="dom-if" if="[[item.isDbl]]" restamp>
+						<tr>
+							<td class="blank_row"></td>
+						</tr>
+						<tr>
+							<td rowspan="2">[[item.Skl]][[item.Sira]]</td>
+							<td winner$="[[item.HGM]]">[[item.HomeOyuncuAd]]</td>
+							<td rowspan="2" style="text-align:center"><b>[[item.HomeSet]]</b></td>
+							<td rowspan="2" style="text-align:center"><b>[[item.GuestSet]]</b></td>
+							<td winner$="[[item.GGM]]">[[item.GuestOyuncuAd]]</td>
+						</tr">
+						<tr>
+							<td winner$="[[item.HGM]]">[[item.HomeOyuncu2Ad]]</td>
+							<td winner$="[[item.GGM]]">[[item.GuestOyuncu2Ad]]</td>
+						</tr">
+					</template>
+
 				</template>
 			</tbody>
 		</table>

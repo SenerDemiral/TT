@@ -1,7 +1,7 @@
 ﻿table {
 	border-collapse: collapse;
 	border-spacing: 0px;
-	border: 1px solid #CBCBCB;
+	/*border: 1px solid #CBCBCB;*/
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -14,8 +14,11 @@ td, th {
 
 th {
 	text-align:center;
-	border: 2px solid #CBCBCB;
 }
+.blank_row {
+	border: none;
+}
+
 /*
 thead {
 	background-color: maroon;
@@ -55,7 +58,7 @@ tfoot {
 	text-align: center;
 }
 [abbr="D"] {	/*OyuncuDouble*/
-	font-style: normal;
+	font-weight: bold;
 }
 [abbr="S"] {	/*OyuncuSingle*/
 	font-style: normal;
@@ -68,6 +71,7 @@ tfoot {
 [winner="G"] {
 	background-color: #ccffcc; /*Galip*/
 	color: black;
+	/*background: linear-gradient(#ccffcc, white);*/
 }
 [winner="B"] {
 	background-color: #ffff80; /*Beraber*/
