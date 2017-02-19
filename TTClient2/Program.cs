@@ -76,6 +76,10 @@ namespace TTClient2
 				});
 			});
 			*/
+			Handle.GET("/", () => {
+				return Self.GET("/ttClient2/master");
+			});
+			
 			Handle.GET("/ttClient2/master", (Request req) => {
 				return Db.Scope(() => {
 					//MasterPage master;
