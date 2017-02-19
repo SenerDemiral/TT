@@ -1,0 +1,14 @@
+{
+	"Html": "/ttClient2/TrnvPage.html",
+	"Trnv": [
+		{
+			"ID": "",
+			"Ad": "",
+			"TrnvTkmUrl": "",
+			"TrnvMsbkUrl": "",
+			"TrnvOyncUrl": "",
+
+			"DenemeClick$": 0
+		}
+	]
+}

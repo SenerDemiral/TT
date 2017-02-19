@@ -1,0 +1,41 @@
+﻿<template>
+    <template is="dom-bind">
+		<table>
+			<thead>
+				<tr>
+					<th colspan="7" scope="row">[[model.OyuncuInfo]] @[[model.TakimInfo]]</th>
+				</tr>
+				<tr>
+					<th rowspan="2">Tarih</th>
+					<th rowspan="2">SS</th>
+					<th rowspan="2">Partner</th>
+					<th colspan="2">Set</th>
+					<th colspan="2" rowspan="2">Rakip</th>
+				</tr>
+				<tr>
+					<th>A</th>
+					<th>V</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th colspan="7" scope="row">[[model.TurnuvaInfo]]</th>
+				</tr>
+			</tfoot>
+			<tbody>
+				<template is="dom-repeat" items="{{model.TrnvTkmOyncMac}}">
+					<tr winner$="[[item.GM]]">
+						<td>[[item.Tarih]]</td>
+						<td abbr$="[[item.Skl]]">[[item.Skl]][[item.Sira]]</td>
+						<td>[[item.PartnerAd]]</td>
+						<td style="text-align:center"><b>[[item.SetA]]</b></td>
+						<td style="text-align:center"><b>[[item.SetV]]</b></td>
+						<td>[[item.RakipAd]]</td>
+						<td>[[item.RakipTakimAd]]</td>
+						
+					</tr>
+				</template>
+			</tbody>
+		</table>
+    </template>
+</template>

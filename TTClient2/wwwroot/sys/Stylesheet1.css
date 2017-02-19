@@ -1,0 +1,90 @@
+﻿table {
+	border-collapse: collapse;
+	border-spacing: 0px;
+	/*border: 1px solid #CBCBCB;*/
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td, th {
+  	line-height: 1em;
+	padding: 0.3em 0.3em;
+	border: 1px solid #CBCBCB;
+}
+
+th {
+	text-align:center;
+}
+.blank_row {
+	border: none;
+}
+
+/*
+thead {
+	background-color: maroon;
+	color: white;
+}
+
+tfoot {
+	background-color: maroon;
+	color: white;
+}
+*/
+[scope="row"] {
+	background-color: orange;
+	color: white;
+}
+
+[abbr="O"] {	/*Oynadigi*/
+	text-align: center;
+	font-weight: bold;
+}
+[abbr="A"] {	/*Aldigi*/
+	text-align: center;
+}
+[abbr="B"] {	/*Berabere*/
+	text-align: center;
+}
+[abbr="V"] {	/*Verdigi*/
+	text-align: center;
+}
+[abbr="AV"] {	/*Avaraj Aldigi-Verdigi*/
+	text-align: center;
+}
+[abbr="R"] {	/*Rank*/
+	text-align: center;
+}
+[abbr="#"] {	/*Index*/
+	text-align: center;
+}
+[abbr="D"] {	/*OyuncuDouble*/
+	font-weight: bold;
+}
+[abbr="S"] {	/*OyuncuSingle*/
+	font-style: normal;
+}
+[abbr="G"] {	/*Galip*/
+	background-color: #ccffcc;
+	color: black;
+}
+
+[winner="G"] {
+	background-color: #ccffcc; /*Galip*/
+	color: black;
+	/*background: linear-gradient(#ccffcc, white);*/
+}
+[winner="B"] {
+	background-color: #ffff80; /*Beraber*/
+	color: black;
+}
+[winner="M"] {
+	background-color: #ffe6cc; /*Maglup;*/
+	color: black;
+}
+
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
+

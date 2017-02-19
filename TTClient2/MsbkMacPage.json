@@ -1,0 +1,31 @@
+{
+	"Html": "/ttClient2/MsbkMacPage.html",
+
+	"MusabakaID": "",
+	"MusabakaInfo": "",
+	"TurnuvaAd": "",
+	"HomeTakimAd": "",
+	"GuestTakimAd": "",
+	"HomeTakimPuan": 0,
+	"GuestTakimPuan": 0,
+	"HTGBM": "",
+	"GTGBM": "",
+	"MsbkMac": [
+		{
+			"ID": "",
+			"Skl": "",
+			"isDbl": false,
+			"Sira": 0,
+			"HomeOyuncuAd": "",
+			"HomeOyuncu2Ad": "",
+			"HomeOyuncuIsim": "",
+			"GuestOyuncuIsim": "",
+			"GuestOyuncuAd": "",
+			"GuestOyuncu2Ad": "",
+			"HomeSet": 0,
+			"GuestSet": 0,
+			"HGM": "M",
+			"GGM": "M"
+		}
+	]
+}

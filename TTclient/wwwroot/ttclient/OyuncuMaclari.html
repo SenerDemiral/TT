@@ -1,0 +1,49 @@
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+
+<template>
+    <template is="dom-bind" id="tmpl">
+        <div style="font-size: 12px; text-align: center">{{model.OyuncuInfo}}</div>
+        <table>
+            <tr>
+				<th>idx</th>
+				<th>Tarih</th>
+				<th>Tür</th>	<!--Ferdi/Takim-->
+				<th>S/D</th>	<!--Single/Double-->
+				<th>Sıra</th>
+				<th>G/M</th>	<!--Galip/Maglup-->
+				<th>aSet</th>
+				<th>vSet</th>
+				<th>aSayı</th>
+				<th>vSayı</th>
+				<th>RakipOyuncu</th>
+				<th>RakipTakım</th>
+            </tr>
+            <template is="dom-repeat" items="[[model.OyuncuMaclari]]">
+                <tr winner$="[[item.GM]]">
+					<td>[[displayIndex(index)]]</td>
+					<td>[[item.Tarih]]</td>
+					<td>[[item.TrnvTur]]</td>
+					<td>[[item.Skl]]</td>
+					<td>[[item.Sira]]</td>
+					<td>[[item.GM]]</td>
+					<td>[[item.SetA]]</td>
+					<td>[[item.SetV]]</td>
+					<td>[[item.SayiA]]</td>
+					<td>[[item.SayiV]]</td>
+					<td>[[item.RakipAd]]</td>
+					<td>[[item.RakipTakimAd]]</td>
+				</tr>
+			</template>
+		</table>        
+    </template>
+	<script>
+		document.addEventListener('polymer-ready', function() {
+			var script = document._currentScript || document.currentScript;
+			var template = script.previousElementSibling;
+			//var template = document.querySelector('#tmpl');
+			template.displayIndex = function (index) {
+				return index + 1;
+			}
+		});
+	</script>
+</template>

@@ -1,0 +1,21 @@
+{
+  "name": "TTClient2",
+  "homepage": "https://github.com/SenerDemiral/TT",
+  "authors": [
+    "SenerDemiral <sener.demiral@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "wwwroot/sys",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-icons": "PolymerElements/iron-icons#^1.2.0"
+  }
+}

@@ -1,0 +1,37 @@
+﻿<template>
+    <template is="dom-bind">
+		<!--
+		<ul>
+			<template is="dom-repeat" items="{{model.TrnvMsbk}}">
+				<li>[[item.Tarih]] : [[item.HomeTakimAd]] [[item.HomePuan]] - [[item.GuestPuan]] [[item.GuestTakimAd]] 
+					<a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a>
+				</li>
+			</template>
+		</ul>
+		-->
+		<table>
+			<thead>
+				<tr>
+					<th colspan="6" scope="row">[[model.TurnuvaInfo]] Müsabakaları</th>
+				</tr>
+			</thead>
+			<tbody>
+				<template is="dom-repeat" items="{{model.TrnvMsbk}}">
+					<tr>
+						<td><b>[[item.Tarih]]</b></td>
+						<td winner$="[[item.HTGBM]]">[[item.HomeTakimAd]]</td>
+						<td style="text-align:center"><b>[[item.HomePuan]]</b></td>
+						<td style="text-align:center"><b>[[item.GuestPuan]]</b></td>
+						<td winner$="[[item.GTGBM]]">[[item.GuestTakimAd]]</td>
+						<template is="dom-if" if="[[item.GTGBM]]" restamp>
+							<td><a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a></td>
+						</template>
+						<template is="dom-if" if="[[!item.GTGBM]]" restamp>
+							<td></td>
+						</template>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+    </template>
+</template>

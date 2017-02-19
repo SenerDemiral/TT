@@ -1,0 +1,23 @@
+{
+	"Html": "/ttClient2/OyncMacPage.html",
+
+	"OyuncuID": "",
+	"OyuncuInfo": "",
+	"OyncMac": [
+		{
+			"Tarih": "",
+			"PartnerAd": "",
+			"TakimAd": "",
+			"TurnuvaAd": "",
+			"RakipAd": "",
+			"RakipAd2": "",
+			"RakipTakimAd": "",
+			"Skl": "",
+			"isDbl": false,
+			"Sira": 0,
+			"SetA": 0,
+			"SetV": 0,
+			"GM": ""
+		}
+	]
+}

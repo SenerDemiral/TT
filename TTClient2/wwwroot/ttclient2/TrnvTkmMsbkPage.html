@@ -1,0 +1,33 @@
+﻿<template>
+    <template is="dom-bind">
+		<table>
+			<thead>
+				<tr>
+					<th colspan="6" scope="row">[[model.TakimInfo]] Müsabakaları</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th colspan="6" scope="row">[[model.TurnuvaInfo]]</th>
+				</tr>
+			</tfoot>
+			<tbody>
+				<template is="dom-repeat" items="{{model.TrnvTkmMsbk}}">
+					<tr winner$="[[item.GBM]]">
+						<td><b>[[item.Tarih]]</b></td>
+						<td>[[item.HomeTakimAd]]</td>
+						<td style="text-align:center"><b>[[item.HomePuan]]</b></td>
+						<td style="text-align:center"><b>[[item.GuestPuan]]</b></td>
+						<td>[[item.GuestTakimAd]]</td>
+						<template is="dom-if" if="[[item.GBM]]" restamp>
+							<td><a href="/ttClient2/MsbkMac/[[item.ID]]">Maçlar</a></td>
+						</template>
+						<template is="dom-if" if="[[!item.GBM]]" restamp>
+							<td></td>
+						</template>
+					</tr">
+				</template>
+			</tbody>
+		</table>
+    </template>
+</template>

@@ -12,7 +12,8 @@ namespace TTclient
 			base.OnData();
 
 			var sw = Stopwatch.StartNew();
-			var ccc = TTDB.Hlpr.TurnuvaOyuncularOzet(TurnuvaID).OrderByDescending(x => x.Puan).ThenByDescending(y => y.MacG - y.MacM);
+			//var ccc = TTDB.Hlpr.TurnuvaOyuncularOzet(TurnuvaID).OrderByDescending(x => x.Puan).ThenByDescending(y => y.MacG - y.MacM);
+			var ccc = TTDB.Hlpr.TurnuvaOyuncularOzet(TurnuvaID).OrderByDescending(x => x.Rank);
 			foreach(var o in ccc) {
 				OyuncularElementJson item = new OyuncularElementJson();
 
