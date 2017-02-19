@@ -20,8 +20,8 @@ namespace TTClient2
 			//TrnvTkmOync = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Turnuva = ? AND tt.Takim = ?", trnvObj, tkmObj);//.OrderByDescending(x => x.Ozet.TrnPuan);
 
 			//TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID).OrderByDescending(x => (x.MacGS - x.MacMS) + (x.MacGD - x.MacMD));
-			TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID)
-				.OrderByDescending(x => (x.MacGS - x.MacMS) + (x.MacGD - x.MacMD));
+			//TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID).OrderByDescending(x => (x.MacGS - x.MacMS) + (x.MacGD - x.MacMD));
+			TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID).OrderByDescending(x => x.Rank);
 
 		}
 
