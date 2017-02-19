@@ -3,7 +3,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th colspan="12" scope="row">[[model.TakimInfo]] Oyuncuları</th>
+					<th colspan="12" scope="row">[[model.TakimInfo]] Oyuncuları (Sıralama: SnglAvr+DblAvr)</th>
 				</tr>
 				<tr>
 					<th rowspan="2">#</th>
@@ -36,13 +36,13 @@
 			<tbody>
 				<template is="dom-repeat" items="{{model.TrnvTkmOync}}">
 					<tr>
-						<td>[[item.Idx]]</td>
+						<td abbr="#">[[item.Idx]]</td>
 						<td><a href="/ttClient2/TrnvTkmOyncMac/[[model.TurnuvaID]]/[[model.TakimID]]/[[item.OyuncuID]]">[[item.OyuncuAd]]</a></td>
 
 						<!--<td><b>[[item.OyuncuAd]]</b></td>-->
-						<td style="text-align:center">[[item.Rank]]</td>
+						<td abbr="R">[[item.Rank]]</td>
 					
-						<td style="text-align:center"><b>[[item.MacO]]</b></td>
+						<td abbr="R"><b>[[item.MacO]]</b></td>
 						<td style="text-align:center" winner="G">[[item.MacG]]</td>
 						<td style="text-align:center" winner="M">[[item.MacM]]</td>
 						

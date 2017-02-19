@@ -35,6 +35,10 @@ tfoot {
 	color: white;
 }
 
+[abbr="P"] {	/*Puan*/
+	text-align: center;
+	font-weight: bold;
+}
 [abbr="O"] {	/*Oynadigi*/
 	text-align: center;
 	font-weight: bold;

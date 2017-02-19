@@ -22,7 +22,7 @@ namespace TTClient2
 			
 			
 			var sw = Stopwatch.StartNew();
-			TrnvTkm.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnvObj).OrderByDescending(x => x.Ozet.PuanAV);
+			TrnvTkm.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnvObj).OrderByDescending(x => x.Ozet.TrnPuan).ThenByDescending(x => x.Ozet.PuanAV);;
 			/*
 			foreach(var r in recs) {
 				//TrnvTkmPageElementJson ttp = new TrnvTkmPageElementJson();
@@ -50,7 +50,8 @@ namespace TTClient2
 				MsbkA = ozt.MsbkA;
 				MsbkB = ozt.MsbkB;
 				MsbkV = ozt.MsbkV;
-				
+
+				TrnPuan = ozt.TrnPuan;
 
 				//var parent = (TrnvTkmPage)this.Parent.Parent;
 				//var turnuvaID = parent.TurnuvaID;

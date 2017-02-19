@@ -16,46 +16,45 @@
 		<table>
 			<thead>
 				<tr>
-					<th colspan="10" scope="row"">Takım Sonuçları</th>
+					<th colspan="9" scope="row"">Takım Sonuçları</th>
 				</tr>
 				<tr>
 					<th rowspan="2">Takım</th>
-					<th colspan="3">Puan</th>
-					<th colspan="4">Müsabaka</th>
-					<th rowspan="2"></th>
+					<th colspan="6">Müsabaka</th>
 					<th rowspan="2"></th>
 				</tr>
 				<tr>
-					<th>A</th>
-					<th>V</th>
-					<th>A-V</th>
+					<th>P</th>
 					<th>O</th>
 					<th>A</th>
 					<th>B</th>
 					<th>V</th>
+					<th>Avr</th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<th colspan="10" scope="row">[[model.TurnuvaInfo]]</th>
+					<th colspan="9" scope="row">[[model.TurnuvaInfo]]</th>
 				</tr>
 			</tfoot>
 
 			<tbody>
 				<template is="dom-repeat" items="{{model.TrnvTkm}}">
 					<tr>
-						<td><b>[[item.TakimAd]]</b></td>
-						<td abbr="A">[[item.PuanA]]</td>
-						<td abbr="V">[[item.PuanV]]</td>
-						<td abbr="AV">[[item.PuanAV]]</td>
+						<td><a href="/ttClient2/TrnvTkmMsbk/[[model.TurnuvaID]]/[[item.TakimID]]">[[item.TakimAd]]</a></td>
+						<td abbr="P">[[item.TrnPuan]]</td>
 						<td abbr="O">[[item.MsbkO]]</td>
-						<td abbr="A">[[item.MsbkA]]</td>
-						<td abbr="B">[[item.MsbkB]]</td>
-						<td abbr="V">[[item.MsbkV]]</td>
-						<td><a href="/ttClient2/TrnvTkmMsbk/[[model.TurnuvaID]]/[[item.TakimID]]"><iron-icon icon="social:group" style="height: 18px;"></iron-icon></a></td>
+						<td abbr="A" winner="G">[[item.MsbkA]]</td>
+						<td abbr="B" winner="B">[[item.MsbkB]]</td>
+						<td abbr="V" winner="M">[[item.MsbkV]]</td>
+						<td abbr="AV">[[item.PuanAV]]</td>
+
+						<!--<td abbr="A">[[item.PuanA]]</td>-->
+						<!--<td abbr="V">[[item.PuanV]]</td>-->
+						<!--<td><a href="/ttClient2/TrnvTkmMsbk/[[model.TurnuvaID]]/[[item.TakimID]]"><iron-icon icon="social:group" style="height: 18px;"></iron-icon></a></td>-->
 						<td><a href="/ttClient2/TrnvTkmOync/[[model.TurnuvaID]]/[[item.TakimID]]"><iron-icon icon="social:person" style="height: 18px;"></iron-icon></a></td>
 						<!--<td><a href="/ttClient2/TkmMap/[[item.TakimID]]">gMap</a></td>-->
-					</tr">
+					</tr>
 				</template>
 			</tbody>
 		</table>
