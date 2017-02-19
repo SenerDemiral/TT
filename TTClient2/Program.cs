@@ -89,14 +89,15 @@ namespace TTClient2
 					}
 					else {
 						var master = new MasterPage();
-						master.Session = new Session(SessionOptions.PatchVersioning);
+						//master.Session = new Session(SessionOptions.PatchVersioning);
+						master.Session = new Session(Session.Flags.PatchVersioning);
 						master.CurrentPage = new NavPage();
 						
 						return master;
 					}
 				});
 			});
-
+			/*
 			Handle.GET("/TTclient2/masterX", () =>
             {
 				return Db.Scope(() =>
@@ -119,7 +120,7 @@ namespace TTClient2
 					return master;
 				});
             });
-
+			*/
 			Handle.GET("/ttClient2", () => Self.GET("/TTclient2/master"));
 
 			//Handle.GET("/ttClient2/partial/Trnv", () => new TrnvPage());

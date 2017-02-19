@@ -12,7 +12,7 @@ namespace TTClient2
 			base.OnData();
 
 			//TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID).OrderByDescending(x => (x.MacGS - x.MacMS) + (x.MacGD - x.MacMD));
-			OyncRank = Db.SQL<TTDB.Oyuncu>("SELECT o FROM Oyuncu o WHERE o.NopxTxt > ? ORDER BY o.Rank DESC", "");
+			OyncRank = Db.SQL<TTDB.Oyuncu>("SELECT o FROM Oyuncu o WHERE o.NopxTxt > ? ORDER BY o.Rank DESC, o.BazRank DESC", "");
 		}
 
 		[OyncRankPage_json.OyncRank]
