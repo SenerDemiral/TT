@@ -82,6 +82,10 @@ namespace TTDB
 					o.Rank = o.BazRank == 0 ? 1900 : o.BazRank;
 					o.NOPX = 0;
 					o.NopxTxt = "";
+
+					o.oMacS = 0;
+					o.aMacS = 0;
+					o.vMacS = 0;
 				}
 			});
 		}
@@ -110,7 +114,6 @@ namespace TTDB
 			int avSetS = 0;
 
 			InitRankBaz();
-			InitRank();
 
 			Db.Transact(() =>
 			{
@@ -202,6 +205,8 @@ namespace TTDB
 			int nopx = 0;
 			int hRank = 0;
 			int gRank = 0;
+			
+			InitRank();
 
 			var trnObj = DbHelper.FromID(turnuvaNO);
 
@@ -255,6 +260,20 @@ namespace TTDB
 								m.GuestOyuncu.NOPX -= UR;
 							}
 						}
+
+						m.HomeOyuncu.oMacS = m.HomeOyuncu.oMacS + 1;
+						m.GuestOyuncu.oMacS = m.GuestOyuncu.oMacS + 1;
+						if(ozt.HomePuan > ozt.GuestPuan)
+						{
+							m.HomeOyuncu.aMacS += 1;
+							m.GuestOyuncu.vMacS += 1;
+						}
+						else
+						{
+							m.HomeOyuncu.vMacS += 1;
+							m.GuestOyuncu.aMacS += 1;
+						}
+
 
 						//Console.WriteLine(string.Format("{0}/{6} {1} <> {2}  {3}-{4} {5} {7}", m.Musabaka.Trh, m.HomeOyuncuAd, m.GuestOyuncuAd, ozt.HomePuan, ozt.GuestPuan, nopx, m.HomeOyuncu.Rank, m.GuestOyuncu.Rank));
 						//Console.WriteLine(string.Format("{0}/{6} {1} <> {2}  {3}-{4} {5}", m.Musabaka.Trh, m.HomeOyuncuAd, m.GuestOyuncuAd, ozt.HomePuan, ozt.GuestPuan, nopx, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(m.Musabaka.Trh, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday)));
@@ -481,6 +500,7 @@ namespace TTDB
 		// Single oynadiklari
 		public int oMacS;
 		public int aMacS;
+		public int vMacS;
 		public int avMacS;
 		public int avSetS;  // aSet - vSet
 

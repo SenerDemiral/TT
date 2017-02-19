@@ -57,6 +57,8 @@ tfoot {
 }
 [abbr="R"] {	/*Rank*/
 	text-align: center;
+	background-color: blue; /*Galip*/
+	color: white;
 }
 [abbr="#"] {	/*Index*/
 	text-align: center;

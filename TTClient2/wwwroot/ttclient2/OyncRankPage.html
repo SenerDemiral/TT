@@ -3,15 +3,21 @@
 		<table>
 			<thead>
 				<tr scope="row">
-					<th>#</th>
-					<th>Oyuncu</th>
-					<th>BazRank</th>
-					<th>Rank</th>
+					<th rowspan="2">#</th>
+					<th rowspan="2">Oyuncu</th>
+					<th rowspan="2">BazRank</th>
+					<th rowspan="2">Rank</th>
+					<th colspan="3">Sngl Maç</th>
+				</tr>
+				<tr scope="row">
+					<th>O</th>
+					<th>A</th>
+					<th>V</th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<th colspan="3" scope="row">www.masatenisi.online</th>
+					<th colspan="6" scope="row">www.masatenisi.online</th>
 				</tr>
 			</tfoot>
 
@@ -20,8 +26,11 @@
 					<tr>
 						<td abbr="#">[[item.Idx]]</td>
 						<td><a href="/ttClient2/OyncMac/[[item.ID]]">[[item.Ad]]</a></td>
-						<td abbr="R">[[item.BazRank]]</td>
+						<td abbr="#">[[item.BazRank]]</td>
 						<td abbr="R">[[item.Rank]]</td>
+						<td abbr="O">[[item.oMacS]]</td>
+						<td abbr="A">[[item.aMacS]]</td>
+						<td abbr="V">[[item.vMacS]]</td>
 					</tr">
 				</template>
 			</tbody>

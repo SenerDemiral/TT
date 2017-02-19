@@ -8,7 +8,7 @@
 				<tr>
 					<th>Tarih</th>
 					<th>Takım</th>
-					<th>SS</th>
+					<th>S#</th>
 					<!--<th>Partner</th>-->
 					<th>A</th>
 					<th>V</th>
@@ -30,7 +30,7 @@
 						</tr>
 					</template>
 					<template is="dom-if" if="[[item.isDbl]]" restamp>
-						<tr><td colspan="7"></td></tr>
+						<tr><td class="blank_row"></td></tr>
 						<tr winner$="[[item.GM]]">
 							<td>[[item.Tarih]]</td>
 							<td>[[item.TakimAd]]</td>

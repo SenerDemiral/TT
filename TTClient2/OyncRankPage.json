@@ -6,7 +6,10 @@
 			"Idx": 0,
 			"Ad": "",
 			"BazRank": 0,
-			"Rank": 0
+			"Rank": 0,
+			"oMacS": 0,
+			"aMacS": 0,
+			"vMacS": 0
 		}
 	]
 }
