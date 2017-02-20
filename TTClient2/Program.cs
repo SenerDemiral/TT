@@ -92,7 +92,7 @@ namespace TTClient2
 						//master.Session = new Session(SessionOptions.PatchVersioning);
 						master.Session = new Session(Session.Flags.PatchVersioning);
 						master.CurrentPage = new NavPage();
-						
+						// deneme
 						return master;
 					}
 				});
