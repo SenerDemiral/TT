@@ -89,8 +89,8 @@ namespace TTClient2
 					}
 					else {
 						var master = new MasterPage();
-						master.Session = new Session(SessionOptions.PatchVersioning);
-						//master.Session = new Session(Session.Flags.PatchVersioning);
+						//master.Session = new Session(SessionOptions.PatchVersioning);
+						master.Session = new Session(Session.Flags.PatchVersioning);
 						master.CurrentPage = new NavPage();
 						// deneme
 						return master;
@@ -128,6 +128,16 @@ namespace TTClient2
 
 			
 			//Handle.GET("/ttClient2/partial/TrnvTkm/{?}", (string param) => new TrnvTkmPage());
+
+			Handle.GET("/ttClient2/Bilgi/RankCalc", () =>
+			{
+				var master = (MasterPage)Self.GET("/TTclient2/master");
+				var nav = master.CurrentPage as NavPage;
+				nav.CurrentPage = new Bilgi.RankCalc();
+				nav.CurrentPage.Data = null;
+                
+				return master;
+			});
 
 			Handle.GET("/ttClient2/Trnv", () =>
 			{

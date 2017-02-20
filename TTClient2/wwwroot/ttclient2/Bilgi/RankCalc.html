@@ -1,0 +1,85 @@
+﻿<template>
+    <template is="dom-bind">
+		<div style="width:90vw">
+			<ul>
+				<li>USATT Derecelendirmeler İşleme Sistemi</li>
+				<ul>
+					<li>Turnuvalar kronolojik sıraya göre işlenir.</li>
+					<li>Geç raporlama turnuvaları, ne zaman alındığına bakılmaksızın kronolojik sıraya göre işlenir.</li>
+					<li> Genel turnuva sonuçlarında maç kazanıp kaybedilerek puan kazanılır / kaybedilir.</li>
+					<li>Bir oyuncu daha yüksek puanı olan birçok rakibi yenerse, puanlar yukarı doğru ayarlanabilir ve turnuva bu yüksek puanlarla yeniden işlenir.</li>
+					<li>Bu, maçı kaybetmiş oyuncuların derecelendirmelerini çok zayıf olan bir oyuncuya korumak ve o oyuncu rekabetin girdiği oyların çok üstünde tutarlı bir oyun düzeyi göstermek için yapılır.</li>
+					<li>Her yeni üyeye ilk turnuvalarından alınan sonuçlara göre bir puan verilir. Ne kadar çok maç bildirilirse ilk derece okadar doğru olacaktır.</li>
+					<li><a href="http://www.teamusa.org/usa-table-tennis/ratings/rating-system">Detaylı bilgi</a></li>
+				</ul>
+			</ul>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Oyuncular Arasındaki Fark</th>
+					<th>Beklenen Sonuç</br>(Üst oyuncunun kazanması)</br>Değiştirilen puan sayısı</th>
+					<th>Beklenmiyen Sonuç</br>(Ast oyuncunun kazanması)</br>Değiştirilen puan sayısı</th>
+				</tr>
+			</thead>
+			<tbody style="text-align: center">
+				<tr>
+					<td>0 - 12</td>
+					<td>8</td>
+					<td>8</td>
+				</tr>
+				<tr>
+					<td>3 - 37</td>
+					<td>7</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td>38 - 62</td>
+					<td>6</td>
+					<td>13</td>
+				</tr>
+				<tr>
+					<td>63 - 87</td>
+					<td>5</td>
+					<td>16</td>
+				</tr>
+				<tr>
+					<td>88 - 112</td>
+					<td>4</td>
+					<td>20</td>
+				</tr>
+				<tr>
+					<td>113 - 137</td>
+					<td>3</td>
+					<td>25</td>
+				</tr>
+				<tr>
+					<td>138 - 162</td>
+					<td>2</td>
+					<td>30</td>
+				</tr>
+				<tr>
+					<td>163 - 187</td>
+					<td>2</td>
+					<td>35</td>
+				</tr>
+				<tr>
+					<td>188 - 212</td>
+					<td>1</td>
+					<td>40</td>
+				</tr>
+				<tr>
+					<td>213 - 237</td>
+					<td>1</td>
+					<td>45</td>
+				</tr>
+				<tr>
+					<td>238 - ∞</td>
+					<td>0</td>
+					<td>50</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+    </template>
+</template>
