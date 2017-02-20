@@ -89,8 +89,8 @@ namespace TTClient2
 					}
 					else {
 						var master = new MasterPage();
-						//master.Session = new Session(SessionOptions.PatchVersioning);
-						master.Session = new Session(Session.Flags.PatchVersioning);
+						master.Session = new Session(SessionOptions.PatchVersioning);
+						//master.Session = new Session(Session.Flags.PatchVersioning);
 						master.CurrentPage = new NavPage();
 						
 						return master;

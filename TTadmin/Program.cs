@@ -62,8 +62,8 @@ namespace TTadmin
 						master = new MasterPage();
 						//master.Data = null; // Trn.OnData yi tetiklemek icin
 						//master.Session = new Session(SessionOptions.PatchVersioning);
-						var sf = Session.Flags.PatchVersioning;
-						master.Session = new Session(sf);
+						master.Session = new Session(SessionOptions.PatchVersioning);
+						//master.Session = new Session(Session.Flags.PatchVersioning);
 						//master.RecentTurnuvalar = new Trn();
 					}
 					//TTDB.Mac.deneme("dilara");
