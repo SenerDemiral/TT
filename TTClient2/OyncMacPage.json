@@ -17,7 +17,10 @@
 			"Sira": 0,
 			"SetA": 0,
 			"SetV": 0,
-			"GM": ""
+			"GM": "",
+			"Rank": 0,
+			"RakipRank": 0,
+			"NOPX": 0
 		}
 	]
 }

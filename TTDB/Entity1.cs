@@ -1504,6 +1504,10 @@ namespace TTDB
 					SetV = ozt.GuestSetS,
 					SayiA = ozt.HomeSayiS,
 					SayiV = ozt.GuestSayiS,
+					
+					NOPX = mac.NOPX,
+					Rank = mac.HomeOyuncuRank,
+					RakipRank = mac.GuestOyuncuRank,
 				};
 				om.GM = om.MacA > om.MacV ? "G" : "M";
 				yield return om;
@@ -1560,7 +1564,11 @@ namespace TTDB
 					SetA = ozt.GuestSetS,
 					SetV = ozt.HomeSetS,
 					SayiA = ozt.GuestSayiS,
-					SayiV = ozt.HomeSayiS
+					SayiV = ozt.HomeSayiS,
+
+					NOPX = mac.NOPX,
+					Rank = mac.GuestOyuncuRank,
+					RakipRank = mac.HomeOyuncuRank,
 				};
 				om.GM = om.MacA > om.MacV ? "G" : "M";
 				yield return om;
