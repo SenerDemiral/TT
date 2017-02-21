@@ -226,6 +226,10 @@ namespace TTDB
 						hRank = m.HomeOyuncu.Rank;
 						gRank = m.GuestOyuncu.Rank;
 
+						// Before Rank
+						m.HomeOyuncuRank = hRank;
+						m.GuestOyuncuRank = gRank;
+
 						var result = NOPX(hRank, gRank);
 						ER = result.Item1;
 						UR = result.Item2;
@@ -260,6 +264,7 @@ namespace TTDB
 								m.GuestOyuncu.NOPX -= UR;
 							}
 						}
+						m.NOPX = nopx;
 
 						m.HomeOyuncu.oMacS = m.HomeOyuncu.oMacS + 1;
 						m.GuestOyuncu.oMacS = m.GuestOyuncu.oMacS + 1;
@@ -868,6 +873,9 @@ namespace TTDB
 		public string Skl;  // Single/Double/MixDouble
 		public Int16 Sira;
 		public bool isDbl => this.Skl == "D" ? true : false;
+		public int HomeOyuncuRank;
+		public int GuestOyuncuRank;
+		public int NOPX;
 
 		public string HomeOyuncuIsim {
 			get {
@@ -1607,7 +1615,8 @@ namespace TTDB
 					var oyncMac = new OyuncuMac();
 					oyncMac.Trh = m.Trh;
 					oyncMac.Tarih = m.Tarih;
-					oyncMac.RakipAd = mac.GuestOyuncuIsim;
+					oyncMac.RakipAd = mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad;
+					oyncMac.RakipAd2 = mac.GuestOyuncu2 == null ? "" : mac.GuestOyuncu2.Ad;
 					oyncMac.RakipTakimAd = mac.Musabaka.GuestTakimAd;
 					oyncMac.Skl = mac.Skl;
 					oyncMac.Sira = mac.Sira;
@@ -1625,6 +1634,12 @@ namespace TTDB
 						else
 							oyncMac.PartnerAd = mac.HomeOyuncu == null ? "" : mac.HomeOyuncu.Ad;
 					}
+					else 
+					{
+						oyncMac.NOPX = mac.NOPX;
+						oyncMac.Rank = mac.HomeOyuncuRank;
+						oyncMac.RakipRank = mac.GuestOyuncuRank;
+					}
 					
 					yield return oyncMac;
 				}
@@ -1635,7 +1650,8 @@ namespace TTDB
 					var oyncMac = new OyuncuMac();
 					oyncMac.Trh = m.Trh;
 					oyncMac.Tarih = m.Tarih;
-					oyncMac.RakipAd = mac.HomeOyuncuIsim;
+					oyncMac.RakipAd = mac.HomeOyuncu == null ? "" : mac.HomeOyuncu.Ad;
+					oyncMac.RakipAd2 = mac.HomeOyuncu2 == null ? "" : mac.HomeOyuncu2.Ad;
 					oyncMac.RakipTakimAd = mac.Musabaka.HomeTakimAd;
 					oyncMac.Skl = mac.Skl;
 					oyncMac.Sira = mac.Sira;
@@ -1653,6 +1669,13 @@ namespace TTDB
 						else
 							oyncMac.PartnerAd = mac.GuestOyuncu == null ? "" : mac.GuestOyuncu.Ad;
 					}
+					else
+					{
+						oyncMac.NOPX = mac.NOPX;
+						oyncMac.Rank = mac.GuestOyuncuRank;
+						oyncMac.RakipRank = mac.HomeOyuncuRank;
+					}
+
 					yield return oyncMac;
 				}
 			}
@@ -1675,6 +1698,10 @@ namespace TTDB
 		public string Skl;
 		public bool isDbl;
 		public int Sira;
+
+		public int Rank;
+		public int RakipRank;
+		public int NOPX;
 
 		public int MacA;
 		public int MacV;
@@ -1705,6 +1732,7 @@ namespace TTDB
 			SayiA = 0;
 			SayiV = 0;
 			GM = "?";
+			
 
 		}
 	}
