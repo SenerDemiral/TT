@@ -18,11 +18,12 @@ namespace TTClient2
 			TakimInfo = tkmObj.Ad;
 
 			//TrnvTkmOync = Db.SQL<TTDB.TakimOyuncu>("SELECT tt FROM TakimOyuncu tt WHERE tt.Turnuva = ? AND tt.Takim = ?", trnvObj, tkmObj);//.OrderByDescending(x => x.Ozet.TrnPuan);
-
 			//TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID).OrderByDescending(x => (x.MacGS - x.MacMS) + (x.MacGD - x.MacMD));
-			//TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID).OrderByDescending(x => (x.MacGS - x.MacMS) + (x.MacGD - x.MacMD));
+			
+			var sw = System.Diagnostics.Stopwatch.StartNew();
 			TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID).OrderByDescending(x => x.Rank);
-
+			sw.Stop();
+			System.Console.WriteLine(string.Format("TrnvTkmOyncPage ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
 		}
 
 		[TrnvTkmOyncPage_json.TrnvTkmOync]

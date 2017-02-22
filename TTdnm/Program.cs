@@ -174,6 +174,31 @@ namespace TTdnm
 
 				return "Done";
 			});
+
+			Handle.GET("/testFormID", () => { 
+				StringBuilder sb = new StringBuilder();
+				Stopwatch watch = new Stopwatch();
+			
+				watch.Start();
+
+				var tbl = Db.SQL<Starcounter.Metadata.Table>("select t from Starcounter.Metadata.Table t where t.FullName LIKE ?", "Simplified%");
+				foreach(var t in tbl)
+				{
+					sb.Append(t.FullName).AppendLine();
+					Db.SQL("DROP TABLE " + t.FullName);
+
+				}
+				/*
+
+				for(int i = 0; i < 1000000; i++) {
+					var oyncObj = DbHelper.FromID(2508);
+				}
+				*/
+				watch.Stop();
+				sb.Append("Compare by reference took: " + watch.Elapsed).Append(Environment.NewLine);
+
+				return sb.ToString();
+			});
 			
 			Handle.GET("/Run/{?}", (int count) => {
 				StringBuilder sb = new StringBuilder();

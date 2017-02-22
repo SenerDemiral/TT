@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Linq;
 using Starcounter;
 
@@ -21,7 +20,7 @@ namespace TTClient2
 			//TrnvTkm.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnvObj).OrderByDescending(x => x.Ozet.PuanAV);
 			
 			
-			var sw = Stopwatch.StartNew();
+			var sw = System.Diagnostics.Stopwatch.StartNew();
 			TrnvTkm.Data = Db.SQL<TTDB.TurnuvaTakim>("SELECT o FROM TTDB.TurnuvaTakim o WHERE o.Turnuva = ?", trnvObj).OrderByDescending(x => x.Ozet.TrnPuan).ThenByDescending(x => x.Ozet.PuanAV);;
 			/*
 			foreach(var r in recs) {
@@ -30,7 +29,7 @@ namespace TTClient2
 			}	   */
 			//TrnvTkm.Data = recs;
 			sw.Stop();
-			Console.WriteLine(string.Format("TrnvTkm ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
+			Console.WriteLine(string.Format("TrnvTkmPage ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
 		}
 
 		[TrnvTkmPage_json.TrnvTkm]

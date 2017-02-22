@@ -14,7 +14,11 @@ namespace TTClient2
 			var tkmObj = (TTDB.Takim)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TakimID));
 			TakimInfo = tkmObj.Ad;
 			
+
+			var sw = System.Diagnostics.Stopwatch.StartNew();
 			TrnvTkmMsbk = Db.SQL<TTDB.Musabaka>("SELECT tt FROM Musabaka tt WHERE tt.Turnuva = ? AND (tt.HomeTakim = ? OR tt.GuestTakim = ?) ORDER BY tt.Trh", trnvObj, tkmObj, tkmObj);
+			sw.Stop();
+			System.Console.WriteLine(string.Format("TrnvTkmMsbkPage ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
 		}
 
 		[TrnvTkmMsbkPage_json.TrnvTkmMsbk]

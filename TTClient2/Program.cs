@@ -40,6 +40,72 @@ namespace TTClient2
 
 			Application.Current.Use(new HtmlFromJsonProvider());
 			Application.Current.Use(new PartialToStandaloneHtmlProvider(html));
+
+			/*
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "MusabakaTrnHomeTkmIdx").First == null)
+				Db.SQL("CREATE INDEX MusabakaHomeTkmIdx ON Musabaka(Turnuva, HomeTakim)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "MusabakaTrnGuestTkmIdx").First == null)
+				Db.SQL("CREATE INDEX MusabakaGuestTkmIdx ON Musabaka(Turnuva, GuestTakim)");
+			*/
+			/*
+			Db.SQL("DROP INDEX MacSonucMacIdx ON MacSonuc");
+			Db.SQL("DROP INDEX MacMsbkIdx ON Mac");
+			Db.SQL("DROP INDEX MusabakaTrnIdx ON Musabaka");
+			Db.SQL("DROP INDEX MusabakaTrnHomeTkmIdx ON Musabaka");
+			Db.SQL("DROP INDEX MusabakaTrnGuestTkmIdx ON Musabaka");
+			Db.SQL("DROP INDEX TurnuvaTakimTkmIdx ON TurnuvaTakim");
+			Db.SQL("DROP INDEX TakimOyuncuTrnIdx ON TakimOyuncu");
+			Db.SQL("DROP INDEX TakimOyuncuTkmIdx ON TakimOyuncu");
+			Db.SQL("DROP INDEX TakimOyuncuOynIdx ON TakimOyuncu");
+
+			Db.SQL("DROP INDEX MacSonuc_MacIdx ON MacSonuc");
+			Db.SQL("DROP INDEX Mac_MusbakaIdx ON Mac");
+			Db.SQL("DROP INDEX Musabaka_TurnuvaIdx ON Musabaka");
+			Db.SQL("DROP INDEX Musabaka_HomeTakimIdx ON Musabaka");
+			Db.SQL("DROP INDEX Musabaka_GuestTakimIdx ON Musabaka");
+			Db.SQL("DROP INDEX Musabaka_TrhIdx ON Musabaka");
+			Db.SQL("DROP INDEX TurnuvaTakim_TakimIdx ON TurnuvaTakim");
+			Db.SQL("DROP INDEX TakimOyuncu_TurnuvaIdx ON TakimOyuncu");
+			Db.SQL("DROP INDEX TakimOyuncu_TakimIdx ON TakimOyuncu");
+			Db.SQL("DROP INDEX TakimOyuncu_OyuncuIdx ON TakimOyuncu");
+			*/
+
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_MacSonuc_Mac").First == null)
+				Db.SQL("CREATE INDEX ttIndex_MacSonuc_Mac ON MacSonuc(Mac)");
+			
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_Mac_Musabaka").First == null)
+				Db.SQL("CREATE INDEX ttIndex_Mac_Musabaka ON Mac(Musabaka)");
+			
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_Mac_HomeOyuncu").First == null)
+				Db.SQL("CREATE INDEX ttIndex_Mac_HomeOyuncu ON Mac(HomeOyuncu)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_Mac_HomeOyuncu2").First == null)
+				Db.SQL("CREATE INDEX ttIndex_Mac_HomeOyuncu2 ON Mac(HomeOyuncu2)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_Mac_GuestOyuncu").First == null)
+				Db.SQL("CREATE INDEX ttIndex_Mac_GuestOyuncu ON Mac(GuestOyuncu)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_Mac_GuestOyuncu2").First == null)
+				Db.SQL("CREATE INDEX ttIndex_Mac_GuestOyuncu2 ON Mac(GuestOyuncu2)");
+			
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_Musabaka_Turnuva").First == null)
+				Db.SQL("CREATE INDEX ttIndex_Musabaka_Turnuva ON Musabaka(Turnuva)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_Musabaka_HomeTakim").First == null)
+				Db.SQL("CREATE INDEX ttIndex_Musabaka_HomeTakim ON Musabaka(HomeTakim)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_Musabaka_GuestTakim").First == null)
+				Db.SQL("CREATE INDEX ttIndex_Musabaka_GuestTakim ON Musabaka(GuestTakim)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_Musabaka_Trh").First == null)
+				Db.SQL("CREATE INDEX ttIndex_Musabaka_Trh ON Musabaka(Trh)");
+
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_TurnuvaTakim_Turnuva").First == null)
+				Db.SQL("CREATE INDEX ttIndex_TurnuvaTakim_Turnuva ON TurnuvaTakim(Turnuva)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_TurnuvaTakim_Takim").First == null)
+				Db.SQL("CREATE INDEX ttIndex_TurnuvaTakim_Takim ON TurnuvaTakim(Takim)");
+
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_TakimOyuncu_Turnuva").First == null)
+				Db.SQL("CREATE INDEX ttIndex_TakimOyuncu_Turnuva ON TakimOyuncu(Turnuva)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_TakimOyuncu_Takim").First == null)
+				Db.SQL("CREATE INDEX ttIndex_TakimOyuncu_Takim ON TakimOyuncu(Takim)");
+			if(Db.SQL("SELECT i FROM Starcounter.Metadata.\"Index\" i WHERE Name = ?", "ttIndex_TakimOyuncu_Oyuncu").First == null)
+				Db.SQL("CREATE INDEX ttIndex_TakimOyuncu_Oyuncu ON TakimOyuncu(Oyuncu)");
+
 			/*
 			Handle.GET("/TTclient2", () =>
 			{

@@ -12,7 +12,10 @@ namespace TTClient2
 			var trnvObj = (TTDB.Turnuva)DbHelper.FromID(DbHelper.Base64DecodeObjectID(TurnuvaID));
 			TurnuvaInfo = trnvObj.Ad;
 
+			var sw = System.Diagnostics.Stopwatch.StartNew();
 			TrnvMsbk = Db.SQL<TTDB.Musabaka>("SELECT tt FROM Musabaka tt WHERE tt.Turnuva = ? ORDER BY tt.Trh", trnvObj);
+			sw.Stop();
+			System.Console.WriteLine(string.Format("TrnvMsbkPage ms:{0}, tick:{1}", sw.ElapsedMilliseconds, sw.ElapsedTicks));
 		}
 
 		[TrnvMsbkPage_json.TrnvMsbk]
