@@ -1,15 +1,15 @@
 ﻿<template>
     <template is="dom-bind">
 		<div style="width:90vw">
-			<ul>
-				<li>USATT Derecelendirme İşleme Sistemi</li>
+			<p>
+				<b>USATT Derecelendirme İşleme Sistemi</b>
 				<ul>
 					<li>Turnuvalar kronolojik sıraya göre işlenir.</li>
 					<li>Geç raporlama turnuvaları, ne zaman alındığına bakılmaksızın kronolojik sıraya göre işlenir.</li>
 					<li>Genel turnuva sonuçlarında maç kazanıp kaybedilerek puan kazanılır / kaybedilir.</li>
 					<li>Bir oyuncu daha yüksek puanı olan birçok rakibi yenerse, puanlar yukarı doğru ayarlanabilir ve turnuva bu yüksek puanlarla yeniden işlenir.</li>
 					<li>Bu, maçı kaybetmiş oyuncuların derecelendirmelerini çok zayıf olan bir oyuncuya korumak ve o oyuncu rekabetin girdiği oyların çok üstünde tutarlı bir oyun düzeyi göstermek için yapılır.</li>
-					<li>Her yeni üyeye ilk turnuvalarından alınan sonuçlara göre bir puan verilir. Ne kadar çok maç bildirilirse ilk derece okadar doğru olacaktır.</li>
+					<li>Her yeni üyeye ilk turnuvalarından alınan sonuçlara göre bir puan verilir (BazRank). Ne kadar çok maç bildirilirse ilk derece okadar doğru olacaktır.</li>
 					<li><a href="http://www.teamusa.org/usa-table-tennis/ratings/rating-system">Detaylı bilgi</a></li>
 					<li>Rank 2000 ve 1960 olan iki oyuncu maç yaptığında (Rank farkı 40) </li>
 					<li> eğer üst oyuncu yenerse kazanan 6 puan artar, kaybedenden 6 puan düşülür </li>
@@ -18,20 +18,21 @@
 					<li></li>
 
 				</ul>
-			</ul>
-			<ul>
-				<li>BazRank hesaplaması</li>
-				<li>1. Devrede yapılan tüm maçlarda oyuncunun oynadığı sıraya göre puan verildi.</li>
-				<li>Kazanan oyuncu 11-Sıra puan aldı. (Eğer 2.sırada maç yaptıysa 9 (11-2) puan aldı)</li>
-				<li>Kaybeden oyuncu 1 puan aldı. (Oynayan ile oynamayan farkı yaratmak için)</li>
-				<li>Bu kazanılan puanlara 1900 eklenerek BazRank oluşturuldu.</li>
-				<li></li>
-			</ul>
+			</p>
+			<p>
+				<b>BazRank Hesaplanması</b>
+				<ul>
+					<li>1. Devrede yapılan tüm maçlarda oyuncunun oynadığı sıraya göre puan verildi.</li>
+					<li>Kazanan oyuncu 11-Sıra puan aldı. (Eğer 2.sırada maç yaptıysa 9 (11-2) puan aldı)</li>
+					<li>Kaybeden oyuncu 1 puan aldı. (Oynayan ile oynamayan farkı yaratmak için)</li>
+					<li>Bu kazanılan puanlara 1900 eklenerek BazRank oluşturuldu. (USATT Rank sistemine uyabilmek için)</li>
+				</ul>
+			</p>
 
 		<table>
 			<thead>
 				<tr>
-					<th>Oyuncular Arasındaki Fark</th>
+					<th>Oyuncular Arasındaki</br>Rank Farkı</th>
 					<th>Beklenen Sonuç</br>(Üst oyuncunun kazanması)</br>Değiştirilen puan sayısı</th>
 					<th>Beklenmiyen Sonuç</br>(Ast oyuncunun kazanması)</br>Değiştirilen puan sayısı</th>
 				</tr>
@@ -43,7 +44,7 @@
 					<td>8</td>
 				</tr>
 				<tr>
-					<td>3 - 37</td>
+					<td>13 - 37</td>
 					<td>7</td>
 					<td>10</td>
 				</tr>
