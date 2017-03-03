@@ -35,7 +35,7 @@ namespace TTDB
 		public const string sepDblOyn = "+ ";    // Oyuncu + Oyuncu2
 		public const string sepSayi = " ";      // 11-05 • 11-08
 												//public const string sepSayi = "■▪↔≡";      // 11-05 ▪ 11-08
-		public static readonly char[] charsToTrim = { ',', '.', '·', '•', '●', '▪', '│', ' ' };
+		public static readonly char[] charsToTrim = { ',', '.', '·', '•', '●', '▪', '│', ' ', '/' };
 	}
 
 	public static class RatingChart
@@ -916,8 +916,8 @@ namespace TTDB
 					sayilar += string.Format("{0}-{1}{2}", m.HomeSayi.ToString().PadLeft(2, '0'), m.GuestSayi.ToString().PadLeft(2, '0'), Constants.sepSayi);
 					if(m.HomeSayi > m.GuestSayi)
 					{
-						ozet.HomeSayilar += m.GuestSayi.ToString() + ", ";
-						ozet.GuestSayilar += "-" + m.GuestSayi.ToString() + ", ";
+						ozet.HomeSayilar += m.GuestSayi.ToString() + "/";
+						ozet.GuestSayilar += "-" + m.GuestSayi.ToString() + "/";
 						ozet.HomeSet++;
 						if(Skl == "D")
 							ozet.HomeSetD++;
@@ -926,8 +926,8 @@ namespace TTDB
 					}
 					else
 					{
-						ozet.HomeSayilar += "-" + m.HomeSayi.ToString() + ", ";
-						ozet.GuestSayilar += m.HomeSayi.ToString() + ", ";
+						ozet.HomeSayilar += "-" + m.HomeSayi.ToString() + "/";
+						ozet.GuestSayilar += m.HomeSayi.ToString() + "/";
 						ozet.GuestSet++;
 						if(Skl == "D")
 							ozet.GuestSetD++;
