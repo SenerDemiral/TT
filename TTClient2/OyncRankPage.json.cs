@@ -1,3 +1,4 @@
+using System.Linq;
 using Starcounter;
 
 namespace TTClient2
@@ -13,6 +14,14 @@ namespace TTClient2
 
 			//TrnvTkmOync.Data = TTDB.Hlpr.TurnuvaTakimOyuncularOzet(TurnuvaID, TakimID).OrderByDescending(x => (x.MacGS - x.MacMS) + (x.MacGD - x.MacMD));
 			OyncRank = Db.SQL<TTDB.Oyuncu>("SELECT o FROM Oyuncu o WHERE o.NopxTxt > ? ORDER BY o.Rank DESC, o.BazRank DESC", "");
+		}
+
+		void Handle(Input.SortAd inp)
+		{
+			// Asagidaki TrnvTkmOyncPageElementJson.OnData yi tetikliyor Idx degisiyor YAPMA
+			//OyncRank = Db.SQL<TTDB.Oyuncu>("SELECT o FROM Oyuncu o WHERE o.NopxTxt > ? ORDER BY o.Ad", "");
+			OyncRank.Data = OyncRank.OrderBy(x => x.Ad).ToArray<TrnvTkmOyncPageElementJson>();
+
 		}
 
 		[OyncRankPage_json.OyncRank]

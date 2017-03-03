@@ -25,7 +25,11 @@
 			"HomeSet": 0,
 			"GuestSet": 0,
 			"HGM": "M",
-			"GGM": "M"
+			"GGM": "M",
+			"HomeOyuncuRank": 0,
+			"NOPX": 0,
+			"GuestOyuncuRank": 0,
+			"Sayilar": ""
 		}
 	]
 }

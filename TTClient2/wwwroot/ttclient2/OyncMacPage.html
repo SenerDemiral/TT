@@ -3,13 +3,14 @@
 		<table style="margin-bottom:20px">
 			<thead>
 				<tr>
-					<th colspan="10" scope="row">[[model.OyuncuInfo]]</th>
+					<th colspan="11" scope="row">[[model.OyuncuInfo]]</th>
 				</tr>
 				<tr>
 					<th>Tarih</th>
+					<th>#</th>
 					<th>Takım</th>
-					<th>S#</th>
 					<th>A</th>
+					<th></th>
 					<th>V</th>
 					<th>Rank</th>
 					<th>«»</th>
@@ -21,15 +22,16 @@
 					<template is="dom-if" if="[[!item.isDbl]]" restamp>
 						<tr winner$="[[item.GM]]">
 							<td>[[item.Tarih]]</td>
-							<td>[[item.TakimAd]]</td>
-							<td>[[item.Skl]][[item.Sira]]</td>
+							<td>[[item.Sira]]</td>
+							<td style="font-size:0.8em">[[item.TakimAd]]</td>
 							<td style="text-align:center"><b>[[item.SetA]]</b></td>
+							<td style="text-align:center;font-size:0.8em">[[item.Sayilar]]</td>
 							<td style="text-align:center"><b>[[item.SetV]]</b></td>
 							<td abbr="R">[[item.Rank]]</td>
 							<td style="text-align:center">[[item.NOPX]]</td>
 							<td>[[item.RakipRank]]</td>
 							<td>[[item.RakipAd]]</td>
-							<td>[[item.RakipTakimAd]]</td>
+							<td style="font-size:0.8em">[[item.RakipTakimAd]]</td>
 
 						</tr>
 					</template>

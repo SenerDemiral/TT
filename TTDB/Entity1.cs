@@ -788,10 +788,12 @@ namespace TTDB
 		public int HomeMac;
 		public int HomeSet;
 		public int HomeSayi;
+		public string HomeSayilar;
 		public int GuestPuan;
 		public int GuestMac;
 		public int GuestSet;
 		public int GuestSayi;
+		public string GuestSayilar;
 
 		public int HomePuanD;
 		public int HomeMacOD;
@@ -826,10 +828,12 @@ namespace TTDB
 			HomeMac = 0;
 			HomeSet = 0;
 			HomeSayi = 0;
+			HomeSayilar = "";
 			GuestPuan = 0;
 			GuestMac = 0;
 			GuestSet = 0;
 			GuestSayi = 0;
+			GuestSayilar = "";
 
 
 			HomePuanD = 0;
@@ -877,16 +881,8 @@ namespace TTDB
 		public int GuestOyuncuRank;
 		public int NOPX;
 
-		public string HomeOyuncuIsim {
-			get {
-				return $"{(HomeOyuncu == null ? "" : HomeOyuncu.Ad)}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + HomeOyuncu2.Ad)}";
-			}
-		}
-		public string GuestOyuncuIsim {
-			get {
-				return $"{(GuestOyuncu == null ? "" : GuestOyuncu.Ad)}{(GuestOyuncu2 == null ? "" : Constants.sepDblOyn + GuestOyuncu2.Ad)}";
-			}
-		}
+		public string HomeOyuncuIsim => $"{(HomeOyuncu == null ? "" : HomeOyuncu.Ad)}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + HomeOyuncu2.Ad)}";
+		public string GuestOyuncuIsim => $"{(GuestOyuncu == null ? "" : GuestOyuncu.Ad)}{(GuestOyuncu2 == null ? "" : Constants.sepDblOyn + GuestOyuncu2.Ad)}";
 
 		public string HomeOyuncuAd => $"{(HomeOyuncu == null ? "" : HomeOyuncu.Ad)}";
 		public string HomeOyuncu2Ad => $"{(HomeOyuncu2 == null ? "" : HomeOyuncu2.Ad)}";
@@ -896,16 +892,8 @@ namespace TTDB
 		public string HomeOyuncuInfo => $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}{(Musabaka == null ? "" : Constants.sepTkm + Musabaka.HomeTakim.Ad)}";
 		public string GuestOyuncuInfo => $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}{(Musabaka == null ? "" : Constants.sepTkm + Musabaka.HomeTakim.Ad)}";
 
-		public string HomeOyuncuAdNic {
-			get {
-				return $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}";
-			}
-		}
-		public string GuestOyuncuAdNic {
-			get {
-				return $"{(GuestOyuncu == null ? "" : Hlpr.GetFirstName(GuestOyuncu.Ad))}{(GuestOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(GuestOyuncu2.Ad))}";
-			}
-		}
+		public string HomeOyuncuAdNic => $"{(HomeOyuncu == null ? "" : Hlpr.GetFirstName(HomeOyuncu.Ad))}{(HomeOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(HomeOyuncu2.Ad))}";
+		public string GuestOyuncuAdNic => $"{(GuestOyuncu == null ? "" : Hlpr.GetFirstName(GuestOyuncu.Ad))}{(GuestOyuncu2 == null ? "" : Constants.sepDblOyn + Hlpr.GetFirstName(GuestOyuncu2.Ad))}";
 
 		public string MusabakaTarih => $"{Musabaka.Trh:dd.MM.yy}";
 		/*
@@ -919,7 +907,7 @@ namespace TTDB
 			get {
 				Ozet ozet = new Ozet();
 				string sayilar = "";
-				QueryResultRows<MacSonuc> ms = Db.SQL<MacSonuc>("SELECT ms FROM TTDB.MacSonuc ms WHERE ms.Mac = ?", this);
+				QueryResultRows<MacSonuc> ms = Db.SQL<MacSonuc>("SELECT ms FROM TTDB.MacSonuc ms WHERE ms.Mac = ? ORDER BY ms.SetNo", this);
 				foreach(var m in ms)
 				{
 					ozet.HomeSayi += m.HomeSayi;
@@ -928,6 +916,8 @@ namespace TTDB
 					sayilar += string.Format("{0}-{1}{2}", m.HomeSayi.ToString().PadLeft(2, '0'), m.GuestSayi.ToString().PadLeft(2, '0'), Constants.sepSayi);
 					if(m.HomeSayi > m.GuestSayi)
 					{
+						ozet.HomeSayilar += m.GuestSayi.ToString() + ", ";
+						ozet.GuestSayilar += "-" + m.GuestSayi.ToString() + ", ";
 						ozet.HomeSet++;
 						if(Skl == "D")
 							ozet.HomeSetD++;
@@ -936,6 +926,8 @@ namespace TTDB
 					}
 					else
 					{
+						ozet.HomeSayilar += "-" + m.HomeSayi.ToString() + ", ";
+						ozet.GuestSayilar += m.HomeSayi.ToString() + ", ";
 						ozet.GuestSet++;
 						if(Skl == "D")
 							ozet.GuestSetD++;
@@ -1003,6 +995,8 @@ namespace TTDB
 				ozet.Puanlar = string.Format("{0}-{1}", ozet.HomePuan, ozet.GuestPuan);
 				ozet.Setler = string.Format("{0}-{1} ", ozet.HomeSet, ozet.GuestSet);
 				ozet.Sayilar = sayilar.TrimEnd(Constants.charsToTrim);
+				ozet.HomeSayilar = ozet.HomeSayilar.TrimEnd(Constants.charsToTrim);
+				ozet.GuestSayilar = ozet.GuestSayilar.TrimEnd(Constants.charsToTrim);
 
 				return ozet;
 			}
@@ -1572,6 +1566,7 @@ namespace TTDB
 					SetV = ozt.GuestSetS,
 					SayiA = ozt.HomeSayiS,
 					SayiV = ozt.GuestSayiS,
+					Sayilar = ozt.HomeSayilar,
 					
 					NOPX = mac.NOPX,
 					Rank = mac.HomeOyuncuRank,
@@ -1602,7 +1597,8 @@ namespace TTDB
 					SetA = ozt.HomeSetD,
 					SetV = ozt.GuestSetD,
 					SayiA = ozt.HomeSayiD,
-					SayiV = ozt.GuestSayiD
+					SayiV = ozt.GuestSayiD,
+					Sayilar = ozt.HomeSayilar,
 				};
 				om.GM = om.MacA > om.MacV ? "G" : "M";
 				if(mac.HomeOyuncu.GetObjectNo() == oyncObj.GetObjectNo())
@@ -1633,6 +1629,7 @@ namespace TTDB
 					SetV = ozt.HomeSetS,
 					SayiA = ozt.GuestSayiS,
 					SayiV = ozt.HomeSayiS,
+					Sayilar = ozt.GuestSayilar,
 
 					NOPX = mac.NOPX,
 					Rank = mac.GuestOyuncuRank,
@@ -1664,6 +1661,7 @@ namespace TTDB
 					SetV = ozt.HomeSetD,
 					SayiA = ozt.GuestSayiD,
 					SayiV = ozt.HomeSayiD,
+					Sayilar = ozt.GuestSayilar,
 				};
 				om.GM = om.MacA > om.MacV ? "G" : "M";
 				if(mac.GuestOyuncu.GetObjectNo() == oyncObj.GetObjectNo())
@@ -1701,6 +1699,7 @@ namespace TTDB
 					oyncMac.SayiA = ozt.HomeSayi;
 					oyncMac.SayiV = ozt.GuestSayi;
 					oyncMac.GM = oyncMac.SetA > oyncMac.SetV ? "G" : "M";
+					oyncMac.Sayilar = ozt.HomeSayilar;
 
 					if(mac.Skl == "D")
 					{
@@ -1736,6 +1735,7 @@ namespace TTDB
 					oyncMac.SayiA = ozt.GuestSayi;
 					oyncMac.SayiV = ozt.HomeSayi;
 					oyncMac.GM = oyncMac.SetA > oyncMac.SetV ? "G" : "M";
+					oyncMac.Sayilar = ozt.GuestSayilar;
 					
 					if(mac.Skl == "D")
 					{
@@ -1786,6 +1786,7 @@ namespace TTDB
 		public int SayiA;
 		public int SayiV;
 		public string GM;   // Galip/Maglup
+		public string Sayilar;
 
 		public OyuncuMac()
 		{
@@ -1808,8 +1809,7 @@ namespace TTDB
 			SayiA = 0;
 			SayiV = 0;
 			GM = "?";
-			
-
+			Sayilar = "";
 		}
 	}
 }

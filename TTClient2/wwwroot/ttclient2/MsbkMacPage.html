@@ -3,12 +3,13 @@
 		<table>
 			<thead>
 				<tr>
-					<th colspan="5" scope="row">[[model.MusabakaInfo]] Maçları</th>
+					<th colspan="6" scope="row">[[model.MusabakaInfo]] Maçları</th>
 				</tr>
 				<tr>
 					<th></th>
 					<th winner$="[[model.HTGBM]]">[[model.HomeTakimAd]]</th>
 					<th winner$="[[model.HTGBM]]">[[model.HomeTakimPuan]]</th>
+					<th></th>
 					<th winner$="[[model.GTGBM]]">[[model.GuestTakimPuan]]</th>
 					<th winner$="[[model.GTGBM]]">[[model.GuestTakimAd]]</th>
 				</tr>
@@ -18,7 +19,7 @@
 			</thead>
 			<tfoot>
 				<tr>
-					<th colspan="5" scope="row">[[model.TurnuvaAd]]</th>
+					<th colspan="6" scope="row">[[model.TurnuvaAd]]</th>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -26,10 +27,12 @@
 					<template is="dom-if" if="[[!item.isDbl]]" restamp>
 						<tr>
 							<td>[[item.Skl]][[item.Sira]]</td>
-							<td winner$="[[item.HGM]]">[[item.HomeOyuncuAd]]</td>
+							<!--<td winner$="[[item.HGM]]">[[item.HomeOyuncuAd]] <span class="badge" style="font-size:10px">[[item.HomeOyuncuRank]]</span></td>-->
+							<td winner$="[[item.HGM]]">[[item.HomeOyuncuAd]] <span style="font-size:xx-small">[[item.HomeOyuncuRank]]</span></td>
 							<td style="text-align:center"><b>[[item.HomeSet]]</b></td>
+							<td style="text-align:center;font-size:0.8em">[[item.Sayilar]]</td>
 							<td style="text-align:center"><b>[[item.GuestSet]]</b></td>
-							<td winner$="[[item.GGM]]">[[item.GuestOyuncuAd]]</td>
+							<td winner$="[[item.GGM]]">[[item.GuestOyuncuAd]] <span style="font-size:xx-small">[[item.GuestOyuncuRank]]</span></td>
 						</tr">
 					</template>
 					<template is="dom-if" if="[[item.isDbl]]" restamp>
@@ -40,6 +43,7 @@
 							<td rowspan="2">[[item.Skl]][[item.Sira]]</td>
 							<td winner$="[[item.HGM]]">[[item.HomeOyuncuAd]]</td>
 							<td rowspan="2" style="text-align:center"><b>[[item.HomeSet]]</b></td>
+							<td rowspan="2" style="text-align:center;font-size:0.8em">[[item.Sayilar]]</td>
 							<td rowspan="2" style="text-align:center"><b>[[item.GuestSet]]</b></td>
 							<td winner$="[[item.GGM]]">[[item.GuestOyuncuAd]]</td>
 						</tr">
