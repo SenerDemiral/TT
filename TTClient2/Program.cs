@@ -1,5 +1,6 @@
 ﻿using System;
 using Starcounter;
+using Starcounter.Internal;
 
 namespace TTClient2
 {
@@ -164,8 +165,11 @@ namespace TTClient2
 					}
 					else {
 						var master = new MasterPage();
-						master.Session = new Session(SessionOptions.PatchVersioning);
-						//master.Session = new Session(Session.Flags.PatchVersioning);
+						var cv = Starcounter.Internal.CurrentVersion.Version;
+						if (string.Compare(cv, "2.4") < 0)
+							master.Session = new Session(SessionOptions.PatchVersioning);
+						else
+							master.Session = new Session(Session.Flags.PatchVersioning);
 						master.CurrentPage = new NavPage();
 						// deneme
 						return master;
