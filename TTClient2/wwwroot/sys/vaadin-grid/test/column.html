@@ -1,0 +1,173 @@
+<!doctype html>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>iron-list test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="helpers.html">
+  <link rel="import" href="../vaadin-grid.html">
+</head>
+<body>
+
+  <dom-module id="x-grid">
+    <template>
+      <vaadin-grid id="grid" columns="{{columns}}" size="10">
+        <vaadin-grid-column-group>
+          <template class="header">group header1</template>
+          <vaadin-grid-column>
+            <template class="header">header1</template>
+            <template>cell</template>
+            <template class="footer">footer1</template>
+          </vaadin-grid-column>
+          <vaadin-grid-column>
+            <template class="header">header2</template>
+            <template>cell</template>
+            <template class="footer">footer2</template>
+          </vaadin-grid-column>
+        </vaadin-grid-column-group>
+      </vaadin-grid>
+    </template>
+    <script>
+      document.addEventListener('WebComponentsReady', function() {
+        Polymer({
+          is: 'x-grid'
+        });
+      });
+    </script>
+  </dom-module>
+
+  <test-fixture id="grid">
+    <template>
+      <x-grid></x-grid>
+    </template>
+  </test-fixture>
+
+  <script>
+
+    describe('column', function() {
+      var container, column, grid;
+
+      beforeEach(function(done) {
+        container = fixture('grid');
+        grid = container.$.grid;
+        grid.dataSource = infiniteDataSource;
+        column = Polymer.dom(grid).querySelector('vaadin-grid-column');
+        flush(done);
+      });
+
+      describe('properties', function() {
+        describe('flex', function() {
+          it('should have default value', function() {
+            expect(column.flexGrow).to.eql(1);
+          });
+
+          it('should be bound to header cells', function() {
+            column.flexGrow = 2;
+
+            var header = grid.$.scroller.$.header;
+
+            expect(header._rows[0].cells[0].style.flexGrow).to.eql('3'); // colspan 2 + 1
+            expect(header._rows[1].cells[0].style.flexGrow).to.eql('2');
+          });
+
+          it('should be bound to row cells', function() {
+            column.flexGrow = 2;
+
+            expect(grid.$.scroller._physicalItems[0].cells[0].style.flexGrow).to.eql('2');
+          });
+
+          it('should be bound to footer cells', function() {
+            column.flexGrow = 2;
+
+            expect(grid.$.scroller.$.footer._rows[0].cells[0].style.flexGrow).to.eql('2');
+          });
+        });
+
+        describe('width', function() {
+          it('should have default width', function() {
+            expect(column.width).to.eql('100px');
+          });
+
+          it('should be bound to header cells', function() {
+            column.width = '20%';
+
+            var header = grid.$.scroller.$.header;
+
+            expect(header._rows[0].cells[0].style.width).to.eql('calc(20% + 100px)');
+          });
+
+          it('should be bound to row cells', function() {
+            column.width = '200px';
+
+            expect(grid.$.scroller._physicalItems[0].cells[0].style.width).to.eql('200px');
+          });
+
+          it('should be bound to footer cells', function() {
+            column.width = '200px';
+
+            expect(grid.$.scroller.$.footer._rows[0].cells[0].style.width).to.eql('200px');
+          });
+        });
+
+        describe('hidden', function() {
+          it('should default to undefined', function() {
+            expect(column.hidden).to.eql(undefined);
+          });
+
+          it('should not be bound to column-group header cells', function() {
+            column.hidden = true;
+
+            expect(grid.$.scroller.$.header._rows[0].cells[0].style.display).to.eql('');
+          });
+
+          it('should bind colSpan to column-group header cells', function() {
+            expect(grid.$.scroller.$.header._rows[0].cells[0].colSpan).to.eql(2);
+
+            column.hidden = true;
+
+            expect(grid.$.scroller.$.header._rows[0].cells[0].colSpan).to.eql(1);
+          });
+
+          it('should not be bound to column header cells', function() {
+            column.hidden = true;
+
+            expect(window.getComputedStyle(grid.$.scroller.$.header._rows[1].cells[0]).display).to.eql('none');
+          });
+
+          it('should be bound to row cells', function() {
+            column.hidden = true;
+
+            expect(window.getComputedStyle(grid.$.scroller._physicalItems[0].cells[0]).display).to.eql('none');
+          });
+
+          it('should be bound to footer cells', function() {
+            column.hidden = true;
+
+            expect(window.getComputedStyle(grid.$.scroller.$.footer._rows[0].cells[0]).display).to.eql('none');
+          });
+        });
+      });
+
+      describe('cell template', function() {
+        it('should read template from light DOM', function() {
+          expect(getCellContent(grid.$.scroller._physicalItems[0].cells[0]).textContent).to.contain('cell');
+        });
+      });
+
+      describe('header templates', function() {
+        it('should read templates from light DOM', function() {
+          expect(getCellContent(grid.$.scroller.$.header._rows[0].cells[0]).textContent).to.contain('group header1');
+          expect(getCellContent(grid.$.scroller.$.header._rows[1].cells[0]).textContent).to.contain('header1');
+        });
+      });
+    });
+
+  </script>
+
+</body>
+</html>

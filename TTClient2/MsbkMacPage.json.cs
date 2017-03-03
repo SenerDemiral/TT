@@ -48,6 +48,7 @@ namespace TTClient2
 
 				HomeSet = ozt.HomeSet;
 				GuestSet = ozt.GuestSet;
+				Sayilar = ozt.Sayilar;
 
 				if(HomeSet > GuestSet) {
 					HGM = "G";

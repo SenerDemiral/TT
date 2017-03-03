@@ -1,5 +1,78 @@
-﻿<template>
+﻿<link rel="import" href="/sys/vaadin-grid/vaadin-grid.html">
+
+<template>
     <template is="dom-bind">
+		<!--
+		<style is="custom-style">
+			vaadin-grid#material {
+
+				font-family: Roboto, sans-serif;
+				--divider-color: rgba(0, 0, 0, var(--dark-divider-opacity));
+
+				--vaadin-grid-cell: {
+					padding: 0;
+				};
+
+				--vaadin-grid-header-cell: {
+					height: 64px;
+					color: rgba(0, 0, 0, var(--dark-secondary-opacity));
+					font-size: 20px;
+				};
+
+				--vaadin-grid-body-cell: {
+					height: 24px;
+					color: rgba(0, 0, 0, var(--dark-primary-opacity));
+					font-size: 13px;
+				};
+
+				--vaadin-grid-body-row-hover-cell: {
+					background-color: var(--paper-grey-200);
+				};
+
+				--vaadin-grid-body-row-selected-cell: {
+					background-color: var(--paper-grey-100);
+				};
+
+				--vaadin-grid-focused-cell: {
+					box-shadow: none;
+					font-weight: bold;
+				};
+
+				--vaadin-grid-body-row-active-cell: {
+					background-image: linear-gradient(to bottom, #1b87e3 2%, #166ed5 98%);
+					color: #c8dbed;
+					text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+					border-right-color: #1d69b4;
+				};
+			}
+		</style>
+
+		<vaadin-grid id="material" items=[[model.Trnv]] style="height:200px;max-height:500px;width:500px;margin-left:auto;margin-right:auto;">
+			<vaadin-grid-column flexGrow="1" resizable>
+				<template class="header" width="50px">
+					<vaadin-grid-sorter path="Ad">First Name</vaadin-grid-sorter>
+					<vaadin-grid-filter path="Ad" value="[[_filterAd]]">
+						<input placeholder="First Name" value="{{_filterAd::input}}" focus-target>
+					</vaadin-grid-filter>
+				</template>
+				<template>[[item.Ad]]</template>
+			</vaadin-grid-column>
+	
+			<vaadin-grid-column flexGrow="1">
+				<template class="header">
+					<vaadin-grid-filter path="surname" value="[[_filterSurName]]">
+						<input placeholder="Sur Name" value="{{_filterSurName::input}}" focus-target>
+					</vaadin-grid-filter>
+				</template>
+				<template>[[item.surname]]</template>
+			</vaadin-grid-column>
+
+			<vaadin-grid-column>
+				<template class="header">Role</template>
+				<template><a href="/ttClient2/TrnvMsbk/[[item.ID]]">Müsabakalar</a></template>
+			</vaadin-grid-column>
+		</vaadin-grid>
+  		-->
 		<table>
 			<thead>
 				<tr>
@@ -18,6 +91,5 @@
 				</template>
 			</tbody>
 		</table>
-
     </template>
 </template>

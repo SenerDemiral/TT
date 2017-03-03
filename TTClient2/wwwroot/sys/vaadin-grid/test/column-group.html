@@ -1,0 +1,179 @@
+<!doctype html>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>iron-list test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="helpers.html">
+  <link rel="import" href="../vaadin-grid-column.html">
+</head>
+<body>
+
+  <dom-module id="x-grid">
+    <template>
+      <vaadin-grid id="grid" columns="{{columns}}" size="100">
+        <vaadin-grid-column>
+          <template>cell</template>
+          <template class="header">header1</template>
+          <template class="footer">footer1</template>
+        </vaadin-grid-column>
+        <vaadin-grid-column>
+          <template>cell</template>
+          <template class="header">header3</template>
+          <template class="footer">footer2</template>
+        </vaadin-grid-column>
+      </vaadin-grid>
+    </template>
+    <script>
+      document.addEventListener('WebComponentsReady', function() {
+        Polymer({
+          is: 'x-grid'
+        });
+      });
+    </script>
+  </dom-module>
+
+  <test-fixture id="grid">
+    <template>
+      <x-grid></x-grid>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="group">
+    <template>
+      <vaadin-grid-column-group>
+        <template class="header"></template>
+        <template class="footer"></template>
+        <vaadin-grid-column flex-grow="1" width="20%">
+          <template class="header"></template>
+          <template></template>
+        </vaadin-grid-column>
+        <vaadin-grid-column flex-grow="2" width="200px">
+          <template class="header"></template>
+          <template></template>
+        </vaadin-grid-column>
+      </vaadin-grid-column-group>
+    </template>
+  </test-fixture>
+
+  <script>
+
+    describe('column group', function() {
+      var group;
+      var columns;
+      beforeEach(function(done) {
+        group = fixture('group');
+        columns = group.querySelectorAll('vaadin-grid-column');
+
+        group.async(done, 100);
+      });
+
+      it('should sum child column flex-grow', function() {
+        expect(group.flexGrow).to.eql(3);
+      });
+
+      it('should sum child column widths', function() {
+        expect(group.width).to.eql('calc(20% + 200px)');
+      });
+
+      it('should strip nested `calc` keywords', function() {
+        columns[0].width = 'calc(50% + 10px)';
+
+        expect(group.width).to.eql('calc((50% + 10px) + 200px)');
+      });
+
+      it('should react to child column flex-grow changes', function() {
+        columns[0].flexGrow = 3;
+
+        expect(group.flexGrow).to.eql(5);
+      });
+
+      it('should react to child column width changes', function() {
+        columns[0].width = '10%';
+
+        expect(group.width).to.eql('calc(10% + 200px)');
+      });
+
+      it('should stop template from a child from propagating', function() {
+        var spy = sinon.spy();
+        group.addEventListener('property-changed', spy);
+
+        columns[0].template = document.createElement('template');
+
+        expect(spy.callCount).to.eql(0);
+      });
+
+      it('should get frozen when child column freezes', function() {
+        columns[0].frozen = true;
+
+        expect(group.frozen).to.be.true;
+      });
+
+      // this test is aimed for Safari 9, see #552
+      it('should propagate frozen from children when attached', function() {
+        var parent = group.parentElement;
+        Polymer.dom(parent).removeChild(group);
+
+        columns[0].frozen = true;
+
+        Polymer.dom(parent).appendChild(group);
+        Polymer.dom.flush();
+
+        expect(group.frozen).to.be.true;
+      });
+
+      it('should propagate frozen to child columns', function() {
+        group.frozen = true;
+
+        expect(columns[0].frozen).to.be.true;
+        expect(columns[1].frozen).to.be.true;
+      });
+
+      it('should hide group column', function() {
+        columns[0].hidden = true;
+        columns[1].hidden = true;
+
+        expect(group.hidden).to.be.true;
+      });
+
+      it('should not change hidden property when child columns are visible', function() {
+        columns[0].hidden = true;
+
+        expect(group.hidden).to.be.false;
+      });
+
+      it('should notify header cell for hidden', function(done) {
+
+        group.addEventListener('property-changed', function(e) {
+          if (e.detail.path === 'hidden' && e.target === columns[0]) {
+            expect(e.detail.value).to.be.true;
+            done();
+          }
+        });
+
+        columns[0].hidden = true;
+
+        expect(group.hidden).to.be.false;
+      });
+
+      it('should calculate column group width after hiding a column', function() {
+        columns[0].hidden = true;
+
+        expect(group.width).to.eql('calc(200px)');
+      });
+
+      it('should calculate column group flexGrow after hiding a column', function() {
+        columns[0].hidden = true;
+
+        expect(group.flexGrow).to.eql(2);
+      });
+    });
+  </script>
+
+</body>
+</html>

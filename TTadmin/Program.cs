@@ -13,6 +13,7 @@ namespace TTadmin
 				<html>
 				<head>
 					<meta charset=""utf-8"">
+				    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
 					<title>{0}</title>
 					<script src=""/sys/webcomponentsjs/webcomponents.min.js""></script>
 					<link rel=""import"" href=""/sys/polymer/polymer.html"">

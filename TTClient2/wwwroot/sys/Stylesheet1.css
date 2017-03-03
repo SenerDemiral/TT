@@ -33,6 +33,7 @@ tfoot {
 [scope="row"] {
 	background-color: orange;
 	color: white;
+	text-align: center;
 }
 
 [abbr="P"] {	/*Puan*/
