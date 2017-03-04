@@ -181,7 +181,7 @@ namespace TTdnm
 			
 				watch.Start();
 
-				var tbl = Db.SQL<Starcounter.Metadata.Table>("select t from Starcounter.Metadata.Table t where t.FullName LIKE ?", "Simplified%");
+				var tbl = Db.SQL<Starcounter.Metadata.Table>("select t from Starcounter.Metadata.Table t where t.FullName LIKE ?", "Simplified");
 				foreach(var t in tbl)
 				{
 					sb.Append(t.FullName).AppendLine();
