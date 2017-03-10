@@ -18,6 +18,7 @@ namespace TTClient2
 					<title>{0}</title>
 					
 					<script src=""/sys/webcomponentsjs/webcomponents.min.js""></script>
+					<script src=""/sys/thenBy.js""></script>
 					<link rel=""import"" href=""/sys/polymer/polymer.html"">
 					<link rel=""import"" href=""/sys/starcounter.html"">
 					<link rel=""import"" href=""/sys/starcounter-include/starcounter-include.html"">
@@ -211,6 +212,16 @@ namespace TTClient2
 				var master = (MasterPage)Self.GET("/TTclient2/master");
 				var nav = master.CurrentPage as NavPage;
 				nav.CurrentPage = new Bilgi.RankCalc();
+				nav.CurrentPage.Data = null;
+                
+				return master;
+			});
+
+			Handle.GET("/ttClient2/Bilgi/About", () =>
+			{
+				var master = (MasterPage)Self.GET("/TTclient2/master");
+				var nav = master.CurrentPage as NavPage;
+				nav.CurrentPage = new Bilgi.About();
 				nav.CurrentPage.Data = null;
                 
 				return master;

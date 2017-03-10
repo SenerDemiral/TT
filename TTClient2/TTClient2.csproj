@@ -61,6 +61,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bilgi\About.json.cs">
+      <DependentUpon>About.json</DependentUpon>
+    </Compile>
     <Compile Include="Bilgi\RankCalc.json.cs">
       <DependentUpon>RankCalc.json</DependentUpon>
     </Compile>
@@ -112,7 +115,9 @@
       <DependentUpon>TrnvTkmPage.json</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="wwwroot\sys\thenBy.js" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TTDB\TTDB.csproj">
       <Project>{71cbfa78-a124-4090-958c-cb94f4144f77}</Project>
@@ -170,6 +175,9 @@
     <TypedJSON Include="Bilgi\RankCalc.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
+    <TypedJSON Include="Bilgi\About.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <None Include="wwwroot\ttclient2\MasterPage.html" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\sys\Stylesheet1.css" />
+    <None Include="wwwroot\ttclient2\Bilgi\About.html" />
     <None Include="wwwroot\ttclient2\Bilgi\RankCalc.html" />
     <None Include="wwwroot\ttclient2\OyncMacPage.html" />
     <None Include="wwwroot\ttclient2\OyncRankPage.html" />

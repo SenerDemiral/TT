@@ -175,7 +175,7 @@ namespace TTdnm
 				return "Done";
 			});
 
-			Handle.GET("/testFormID", () => { 
+			Handle.GET("/DelSimplifiedTables", () => { 
 				StringBuilder sb = new StringBuilder();
 				Stopwatch watch = new Stopwatch();
 			
@@ -188,18 +188,28 @@ namespace TTdnm
 					Db.SQL("DROP TABLE " + t.FullName);
 
 				}
-				/*
-
-				for(int i = 0; i < 1000000; i++) {
-					var oyncObj = DbHelper.FromID(2508);
-				}
-				*/
 				watch.Stop();
-				sb.Append("Compare by reference took: " + watch.Elapsed).Append(Environment.NewLine);
+				sb.Append("Simplified Tables deleted: " + watch.Elapsed).Append(Environment.NewLine);
 
 				return sb.ToString();
 			});
 			
+			Handle.GET("/testFormID", () => { 
+				StringBuilder sb = new StringBuilder();
+				Stopwatch watch = new Stopwatch();
+			
+				watch.Start();
+
+				for(int i = 0; i < 1000000; i++) {
+					var oyncObj = DbHelper.FromID(2508);
+				}
+
+				watch.Stop();
+				sb.Append("1M Object read took: " + watch.Elapsed).Append(Environment.NewLine);
+
+				return sb.ToString();
+			});
+
 			Handle.GET("/Run/{?}", (int count) => {
 				StringBuilder sb = new StringBuilder();
 				Stopwatch watch = new Stopwatch();
