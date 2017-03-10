@@ -19,7 +19,12 @@
   <test-fixture id="default">
     <template>
       <vaadin-grid style="width: 50px; height: 400px;" size="10">
-        <vaadin-grid-column width="200px" frozen>
+        <vaadin-grid-column width="200px">
+          <template class="header">header</template>
+          <template>[[index]]</template>
+          <template class="footer">footer</template>
+        </vaadin-grid-column>
+        <vaadin-grid-column width="200px">
           <template class="header">header</template>
           <template>[[index]]</template>
           <template class="footer">footer</template>
@@ -40,7 +45,32 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="scrollable-content">
+    <template>
+      <vaadin-grid style="width: 200px; height: 400px;" size="100">
+        <vaadin-grid-column>
+          <template>
+            <div style="height: 100px; overflow: auto;">
+              <div style="height: 1000px;"></div>
+            </div>
+          </template>
+        </vaadin-grid-column>
+      </vaadin-grid>
+    </template>
+  </test-fixture>
+
   <script>
+    var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    function wheel(target, deltaX, deltaY, ctrlKey) {
+      var e = new CustomEvent('wheel', {bubbles: true, cancelable: true});
+      e.deltaX = deltaX;
+      e.deltaY = deltaY;
+      e.ctrlKey = ctrlKey;
+      target.dispatchEvent(e);
+      return e;
+    }
+
     describe('outer scroller', function() {
       var grid;
       var scroller;
@@ -50,27 +80,26 @@
 
       beforeEach(function(done) {
         grid = fixture('default');
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
         scroller = grid.$.scroller;
         outerScroller = scroller.$.outerscroller;
         outerScroller.hidden = false;
         target = outerScroller.scrollTarget;
         tableRect = scroller.$.table.getBoundingClientRect();
-        Polymer.Base.async(done, 1);
+        Polymer.RenderStatus.afterNextRender(grid, function() {
+          outerScroller._syncingScrollTarget = false;
+          outerScroller._syncingOuterScroller = false;
+          done();
+        });
       });
 
       it('should cancel wheel event', function() {
-        var e = new CustomEvent('wheel', {bubbles: true, cancelable: true});
-        e.deltaX = 1;
-        scroller.$.table.dispatchEvent(e);
+        var e = wheel(getBodyCellContent(grid, 0, 0), 1, 1);
         expect(e.defaultPrevented).to.be.true;
       });
 
       it('should not cancel wheel event', function() {
-        var e = new CustomEvent('wheel', {bubbles: true, cancelable: true});
-        e.deltaX = 1;
-        e.ctrlKey = true;
-        scroller.$.table.dispatchEvent(e);
+        var e = wheel(getBodyCellContent(grid, 0, 0), 1, 1, true);
         expect(e.defaultPrevented).to.be.false;
       });
 
@@ -102,106 +131,115 @@
         expect(outerScroller.scrollWidth).to.eql(target.scrollWidth);
       });
 
+      it('should have correct scrollWidth with hidden columns', function() {
+        grid.querySelector('vaadin-grid-column').hidden = true;
+        // Hide the table's sizer and rely on the cells to size properly
+        scroller.$.fixedsizer.hidden = true;
+        expect(outerScroller.scrollWidth).to.eql(target.scrollWidth);
+      });
+
       describe('syncing with scroll target', function() {
 
         it('should scroll the target', function(done) {
           outerScroller.addEventListener('scroll', function() {
-            expect(target.scrollLeft).to.equal(1);
+            expect(target.scrollLeft).to.equal(100);
             done();
           });
-          outerScroller.scrollLeft = 1;
+          outerScroller.scrollLeft = 100;
         });
 
         it('should scroll the outer scroller', function(done) {
           target.addEventListener('scroll', function() {
-            expect(outerScroller.scrollLeft).to.equal(1);
+            expect(outerScroller.scrollLeft).to.equal(100);
             done();
           });
-          target.scrollLeft = 1;
+          target.scrollLeft = 100;
         });
 
       });
 
-      describe('passtrough pointer events', function() {
+      if (!ios) {
+        describe('passtrough pointer events', function() {
 
-        function move(x, y) {
-          makeMouseEvent('mousemove', {x: x, y: y}, scroller);
-        }
-
-        var HAS_NEW_MOUSE = (function() {
-          var has = false;
-          try {
-            has = Boolean(new MouseEvent('x'));
-          } catch (_) {
-            // continue regardless of error
+          function move(x, y) {
+            makeMouseEvent('mousemove', {x: x, y: y}, scroller);
           }
-          return has;
-        })();
 
-        function makeMouseEvent(type, xy, node) {
-          var props = {
-            bubbles: true,
-            cancelable: true,
-            clientX: xy.x,
-            clientY: xy.y,
-            // Make this a primary input.
-            buttons: 1 // http://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
-          };
-          var e;
-          if (HAS_NEW_MOUSE) {
-            e = new MouseEvent(type, props);
-          } else {
-            e = document.createEvent('MouseEvent');
-            e.initMouseEvent(
-              type, props.bubbles, props.cancelable,
-              null, /* view */
-              null, /* detail */
-              0,    /* screenX */
-              0,    /* screenY */
-              props.clientX, props.clientY,
-              false, /* ctrlKey */
-              false, /* altKey */
-              false, /* shiftKey */
-              false, /* metaKey */
-              0,     /* button */
-              null   /* relatedTarget*/);
-          }
-          node.dispatchEvent(e);
-        }
-
-        function outerScrollerInUse() {
-          return window.getComputedStyle(outerScroller).pointerEvents !== 'none';
-        }
-
-        it('should passtrough pointer events', function(done) {
-          scroller.addEventListener('mousemove', function() {
-            expect(outerScrollerInUse()).to.be.false;
-            done();
-          });
-
-          move(1, 1);
-        });
-
-        it('should not passtrough if and only if scrollbars exist (vertical scrollbar hover)', function(done) {
-          scroller.addEventListener('mousemove', function() {
-            expect(outerScrollerInUse()).to.be[getScrollbarWidth() > 0 ? 'true' : 'false'];
-            done();
-          });
-          move(tableRect.width, 1);
-        });
-
-        it('should not passtrough if and only if scrollbars exist (horizontal scrollbar hover)', function(done) {
-          scroller.addEventListener('mousemove', function() {
-            // TODO: @limonte revisit in future
-            if (!firefox) { // firefox has the blinking issue here (current version is 50)
-              expect(outerScrollerInUse()).to.be[getScrollbarWidth() > 0 ? 'true' : 'false'];
+          var HAS_NEW_MOUSE = (function() {
+            var has = false;
+            try {
+              has = Boolean(new MouseEvent('x'));
+            } catch (_) {
+              // continue regardless of error
             }
-            done();
-          });
-          move(1, tableRect.height);
-        });
+            return has;
+          })();
 
-      });
+          function makeMouseEvent(type, xy, node) {
+            var props = {
+              bubbles: true,
+              cancelable: true,
+              clientX: xy.x,
+              clientY: xy.y,
+              // Make this a primary input.
+              buttons: 1 // http://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
+            };
+            var e;
+            if (HAS_NEW_MOUSE) {
+              e = new MouseEvent(type, props);
+            } else {
+              e = document.createEvent('MouseEvent');
+              e.initMouseEvent(
+                type, props.bubbles, props.cancelable,
+                null, /* view */
+                null, /* detail */
+                0,    /* screenX */
+                0,    /* screenY */
+                props.clientX, props.clientY,
+                false, /* ctrlKey */
+                false, /* altKey */
+                false, /* shiftKey */
+                false, /* metaKey */
+                0,     /* button */
+                null   /* relatedTarget*/);
+            }
+            node.dispatchEvent(e);
+          }
+
+          function outerScrollerInUse() {
+            return window.getComputedStyle(outerScroller).pointerEvents !== 'none';
+          }
+
+          it('should passtrough pointer events', function(done) {
+            scroller.addEventListener('mousemove', function() {
+              expect(outerScrollerInUse()).to.be.false;
+              done();
+            });
+
+            move(1, 1);
+          });
+
+          it('should not passtrough if and only if scrollbars exist (vertical scrollbar hover)', function(done) {
+            scroller.addEventListener('mousemove', function() {
+              expect(outerScrollerInUse()).to.be[getScrollbarWidth() > 0 ? 'true' : 'false'];
+              done();
+            });
+            move(tableRect.width, 1);
+          });
+
+          it('should not passtrough if and only if scrollbars exist (horizontal scrollbar hover)', function(done) {
+            scroller.addEventListener('mousemove', function() {
+              // TODO: @limonte revisit in future
+              if (!firefox) { // firefox has the blinking issue here (current version is 50)
+                expect(outerScrollerInUse()).to.be[getScrollbarWidth() > 0 ? 'true' : 'false'];
+              }
+              done();
+            });
+            move(1, tableRect.height);
+          });
+
+        });
+      }
 
     });
 
@@ -212,7 +250,7 @@
 
       beforeEach(function(done) {
         grid = fixture('content-only');
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
         scroller = grid.$.scroller;
         outerScroller = scroller.$.outerscroller;
         outerScroller.hidden = false;
@@ -225,6 +263,42 @@
         var expectedScrollHeight = cells[0].offsetHeight;
         expect(outerScroller.scrollHeight).to.eql(expectedScrollHeight);
       });
+    });
+
+    describe('scrollable-content', function() {
+      var grid, scrollable;
+
+      beforeEach(function() {
+        grid = fixture('scrollable-content');
+        grid.dataProvider = infiniteDataProvider;
+        Polymer.dom.flush();
+        scrollable = getBodyCellContent(grid, 0, 0).firstElementChild;
+      });
+
+      it('should not cancel wheel events for scrollable content', function() {
+        var e = wheel(scrollable, 0, 1);
+        expect(e.defaultPrevented).to.be.false;
+      });
+
+      it('should not scroll the grid', function() {
+        var scrollTop = grid.$.scroller._scrollTop;
+        var e = wheel(scrollable, 0, 1);
+        expect(grid.$.scroller._scrollTop).to.equal(scrollTop);
+      });
+
+      it('should cancel wheel events for scrollable content (scrolled to end)', function() {
+        scrollable.scrollTop = scrollable.scrollHeight;
+        var e = wheel(scrollable, 0, 1);
+        expect(e.defaultPrevented).to.be.true;
+      });
+
+      it('should scroll the grid (scrolled to end)', function() {
+        var scrollTop = grid.$.scroller._scrollTop;
+        scrollable.scrollTop = scrollable.scrollHeight;
+        var e = wheel(scrollable, 0, 100);
+        expect(grid.$.scroller._scrollTop).to.equal(scrollTop + 100);
+      });
+
     });
   </script>
 

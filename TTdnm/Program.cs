@@ -180,13 +180,23 @@ namespace TTdnm
 				Stopwatch watch = new Stopwatch();
 			
 				watch.Start();
-
-				var tbl = Db.SQL<Starcounter.Metadata.Table>("select t from Starcounter.Metadata.Table t where t.FullName LIKE ?", "Simplified");
+				int i = 0;
+				var tbl = Db.SQL<Starcounter.Metadata.Table>("select t from Starcounter.Metadata.Table t where t.FullName LIKE ? ORDER BY t.ObjectNo ASC", "Simplified.%");
 				foreach(var t in tbl)
 				{
-					sb.Append(t.FullName).AppendLine();
-					Db.SQL("DROP TABLE " + t.FullName);
+					try
+					{
+						sb.Append((t.GetObjectNo() - 18446744073709550000).ToString() + "   " + i.ToString()+ " " + t.FullName).AppendLine();
+						var aaa = t.FullName;
+						Db.SQL("DROP TABLE " + t.FullName);
 
+					}
+					catch(Exception e)
+					{
+						Console.WriteLine(i.ToString()+ " " + e.Message);
+						Console.WriteLine(i.ToString()+ " " + t.FullName);
+					}
+					i++;
 				}
 				watch.Stop();
 				sb.Append("Simplified Tables deleted: " + watch.Elapsed).Append(Environment.NewLine);
@@ -194,7 +204,7 @@ namespace TTdnm
 				return sb.ToString();
 			});
 			
-			Handle.GET("/testFormID", () => { 
+			Handle.GET("/testFromID", () => { 
 				StringBuilder sb = new StringBuilder();
 				Stopwatch watch = new Stopwatch();
 			

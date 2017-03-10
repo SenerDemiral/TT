@@ -8,7 +8,7 @@
 				<tr>
 					<th>Tarih</th>
 					<th>#</th>
-					<th>Takım</th>
+					<!--<th>Takım</th>-->
 					<th>A</th>
 					<th></th>
 					<th>V</th>
@@ -21,17 +21,17 @@
 				<template is="dom-repeat" items="{{model.OyncMac}}">
 					<template is="dom-if" if="[[!item.isDbl]]" restamp>
 						<tr winner$="[[item.GM]]">
-							<td>[[item.Tarih]]</td>
+							<td>[[item.Tarih]]<br /><span style="font-size:0.8em">[[item.TakimAd]]</span></td>
 							<td>[[item.Sira]]</td>
-							<td style="font-size:0.8em">[[item.TakimAd]]</td>
+							<!--<td style="font-size:0.8em">[[item.TakimAd]]</td>-->
 							<td style="text-align:center"><b>[[item.SetA]]</b></td>
 							<td style="text-align:center;font-size:0.8em">[[item.Sayilar]]</td>
 							<td style="text-align:center"><b>[[item.SetV]]</b></td>
-							<td abbr="R">[[item.Rank]]</td>
+							<td>[[item.Rank]]</td>
 							<td style="text-align:center">[[item.NOPX]]</td>
 							<td>[[item.RakipRank]]</td>
-							<td>[[item.RakipAd]]</td>
-							<td style="font-size:0.8em">[[item.RakipTakimAd]]</td>
+							<td>[[item.RakipAd]]<br /><span style="font-size:0.8em">[[item.RakipTakimAd]]</span> </td>
+							<!--<td style="font-size:0.8em">[[item.RakipTakimAd]]</td>-->
 
 						</tr>
 					</template>
@@ -59,14 +59,14 @@
 						<tr><td class="blank_row"></td></tr>
 						<tr winner$="[[item.GM]]">
 							<td>[[item.Tarih]]</td>
-							<td>[[item.TakimAd]]</td>
+							<td style="font-size:0.8em">[[item.TakimAd]]</td>
 							
 							<td>[[item.Skl]][[item.Sira]]</td>
 							<td rowspan="2" style="text-align:center"><b>[[item.SetA]]</b></td>
 							<td rowspan="2" style="text-align:center"><b>[[item.SetV]]</b></td>
 							
 							<td>[[item.RakipAd]]</td>
-							<td rowspan="2">[[item.RakipTakimAd]]</td>
+							<td rowspan="2" style="font-size:0.8em">[[item.RakipTakimAd]]</td>
 						</tr>
 						<tr winner$="[[item.GM]]">
 							<td colspan="3">[[item.PartnerAd]]</td>

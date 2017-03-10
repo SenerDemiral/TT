@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTdnm", "TTdnm\TTdnm.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTClient2", "TTClient2\TTClient2.csproj", "{6DD7CC6C-B209-49CA-A919-33C4DF4D4DB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ttAdmin2", "ttAdmin2\ttAdmin2.csproj", "{2928D8D1-4E34-4D77-9045-BD5F44294888}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,10 @@ Global
 		{6DD7CC6C-B209-49CA-A919-33C4DF4D4DB1}.Debug|x64.Build.0 = Debug|x64
 		{6DD7CC6C-B209-49CA-A919-33C4DF4D4DB1}.Release|x64.ActiveCfg = Release|x64
 		{6DD7CC6C-B209-49CA-A919-33C4DF4D4DB1}.Release|x64.Build.0 = Release|x64
+		{2928D8D1-4E34-4D77-9045-BD5F44294888}.Debug|x64.ActiveCfg = Debug|x64
+		{2928D8D1-4E34-4D77-9045-BD5F44294888}.Debug|x64.Build.0 = Debug|x64
+		{2928D8D1-4E34-4D77-9045-BD5F44294888}.Release|x64.ActiveCfg = Release|x64
+		{2928D8D1-4E34-4D77-9045-BD5F44294888}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

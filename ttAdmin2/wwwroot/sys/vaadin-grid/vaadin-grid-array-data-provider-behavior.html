@@ -1,0 +1,87 @@
+<script>
+  window.vaadin = window.vaadin || {};
+  vaadin.elements = vaadin.elements || {};
+  vaadin.elements.grid = vaadin.elements.grid || {};
+
+  /**
+   * @polymerBehavior vaadin.elements.grid.ArrayDataProviderBehavior
+   */
+  vaadin.elements.grid.ArrayDataProviderBehavior = {
+
+    properties: {
+
+      /**
+       * An array containing the items which will be stamped to the column template
+       * instances.
+       */
+      items: Array
+
+    },
+
+    observers: [
+      '_itemsChanged(items, items.*)'
+    ],
+
+    _itemsChanged: function(items, splices) {
+      this.size = (items || []).length;
+      this.dataProvider = this.dataProvider || this._arrayDataProvider;
+      this.clearCache();
+    },
+
+    _arrayDataProvider: function(opts, cb) {
+      var items = (this.items || []).slice(0);
+
+      items = this._filter(items);
+      this.size = items.length;
+
+      if (opts.sortOrder.length) {
+        items = items.sort(this._multiSort.bind(this));
+      }
+
+      var start = opts.page * opts.pageSize;
+      var end = start + opts.pageSize;
+      var slice = items.slice(start, end);
+      cb(slice, items.length);
+    },
+
+    _multiSort: function(a, b) {
+      return this._sorters.map(function(sort) {
+        if (sort.direction === 'asc') {
+          return this._compare(Polymer.Base.get(sort.path, a), Polymer.Base.get(sort.path, b));
+        } else if (sort.direction === 'desc') {
+          return this._compare(Polymer.Base.get(sort.path, b), Polymer.Base.get(sort.path, a));
+        }
+        return 0;
+      }, this).reduce(function firstNonZeroValue(p, n) {
+        return p ? p : n;
+      }, 0);
+    },
+
+    _normalizeEmptyValue: function(value) {
+      return [undefined, null].indexOf(value) >= 0 ? '' : value.toString();
+    },
+
+    _compare: function(a, b) {
+      a = this._normalizeEmptyValue(a);
+      b = this._normalizeEmptyValue(b);
+
+      if (a < b) {
+        return -1;
+      }
+      if (a > b) {
+        return 1;
+      }
+      return 0;
+    },
+
+    _filter: function(items) {
+      return items.filter(function(item, index) {
+        return this._filters.filter(function(filter) {
+          var value = this._normalizeEmptyValue(Polymer.Base.get(filter.path, item));
+          return value.toLowerCase().indexOf(filter.value.toString().toLowerCase()) === -1;
+        }.bind(this)).length === 0;
+      }, this);
+    }
+
+  };
+</script>

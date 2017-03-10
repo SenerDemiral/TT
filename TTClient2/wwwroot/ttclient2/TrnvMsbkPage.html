@@ -18,6 +18,23 @@
 			<tbody>
 				<template is="dom-repeat" items="{{model.TrnvMsbk}}">
 					<tr>
+						<template is="dom-if" if="[[item.GTGBM]]" restamp>
+							<td><a href="/ttClient2/MsbkMac/[[item.ID]]"><b>[[item.Tarih]]</b></a></td>
+						</template>
+						<template is="dom-if" if="[[!item.GTGBM]]" restamp>
+							<td><b>[[item.Tarih]]</b></td>
+						</template>
+						<td winner$="[[item.HTGBM]]">[[item.HomeTakimAd]]</td>
+						<td style="text-align:center"><b>[[item.HomePuan]]</b></td>
+						<td style="text-align:center"><b>[[item.GuestPuan]]</b></td>
+						<td winner$="[[item.GTGBM]]">[[item.GuestTakimAd]]</td>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+    </template>
+</template>
+<!--
 						<td><b>[[item.Tarih]]</b></td>
 						<td winner$="[[item.HTGBM]]">[[item.HomeTakimAd]]</td>
 						<td style="text-align:center"><b>[[item.HomePuan]]</b></td>
@@ -29,9 +46,5 @@
 						<template is="dom-if" if="[[!item.GTGBM]]" restamp>
 							<td></td>
 						</template>
-					</tr>
-				</template>
-			</tbody>
-		</table>
-    </template>
-</template>
+	
+-->

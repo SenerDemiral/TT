@@ -14,7 +14,7 @@ namespace TTClient2
 				<html>
 				<head>
 					<meta charset=""utf-8"">
-				    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+				    <meta name=""viewport"" content=""width=device-width, initial-scale=1, shrink-to-fit=yes"">
 					<title>{0}</title>
 					
 					<script src=""/sys/webcomponentsjs/webcomponents.min.js""></script>
@@ -24,21 +24,15 @@ namespace TTClient2
 					<link rel=""import"" href=""/sys/starcounter-include/starcounter-include.html"">
 					<link rel=""import"" href=""/sys/starcounter-debug-aid/src/starcounter-debug-aid.html"">
 					
-					<link rel=""import"" href=""/sys/bootstrap.html"">
+					<!--<link rel=""import"" href=""/sys/bootstrap.html"">
 					<link rel=""import"" href=""/sys/iron-icons/maps-icons.html"">
-					
-					<!--
 					<link rel=""stylesheet"" href=""https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"" integrity=""sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"" crossorigin=""anonymous"">
-					<script src=""https://code.jquery.com/jquery-3.1.1.slim.min.js"" integrity=""sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"" crossorigin=""anonymous""></script>
-					<script src=""https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"" integrity=""sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"" crossorigin=""anonymous""></script>
-					<script src=""https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"" integrity=""sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"" crossorigin=""anonymous""></script>
+					
+					<link rel=""stylesheet"" href=""https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"" crossorigin=""anonymous"">
 					-->
-			   		<link rel=""stylesheet"" href=""/sys/Stylesheet1.css"">
-					<style>
-						body {{
-							margin: 20px;
-						}}
-					</style>
+					
+					<link rel=""stylesheet"" href=""/sys/Stylesheet1.css"">
+				
 				</head>
 				<body>
 					<template is=""dom-bind"" id=""puppet-root"">
@@ -46,6 +40,12 @@ namespace TTClient2
 					</template>
 					<puppet-client ref=""puppet-root"" remote-url=""{1}"" use-web-socket=""true""></puppet-client>
 					<starcounter-debug-aid></starcounter-debug-aid>
+
+					<!--
+					<script src=""https://code.jquery.com/jquery-3.1.1.slim.min.js"" integrity=""sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"" crossorigin=""anonymous""></script>
+					<script src=""https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"" integrity=""sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"" crossorigin=""anonymous""></script>
+					<script src=""https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"" integrity=""sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"" crossorigin=""anonymous""></script>
+					-->
 				</body>
 				</html>";
 
@@ -167,8 +167,8 @@ namespace TTClient2
 					else {
 						var master = new MasterPage();
 						var cv = Starcounter.Internal.CurrentVersion.Version;
-						master.Session = new Session(SessionOptions.PatchVersioning);
-						//master.Session = new Session(Session.Flags.PatchVersioning);
+						//master.Session = new Session(SessionOptions.PatchVersioning);
+						master.Session = new Session(Session.Flags.PatchVersioning);
 						master.CurrentPage = new NavPage();
 						// deneme
 						return master;

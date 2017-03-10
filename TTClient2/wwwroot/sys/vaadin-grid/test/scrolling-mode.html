@@ -34,9 +34,10 @@
 
       beforeEach(function() {
         grid = fixture('default');
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
         scroller = grid.$.scroller;
-        fixedContainers = !!navigator.userAgent.match(/Edge/);
+        fixedContainers = !!navigator.userAgent.match(/Edge/) && grid.$.scroller.scrollbarWidth === 0;
+        Polymer.dom.flush();
       });
 
       function isFixed(element) {
@@ -47,7 +48,7 @@
         var e = new CustomEvent('wheel', {bubbles: true, cancelable: true});
         e.deltaY = deltaY;
         e.deltaX = deltaX;
-        scroller.$.table.dispatchEvent(e);
+        getBodyCellContent(grid, 0, 0).dispatchEvent(e);
         return e;
       }
 
@@ -107,6 +108,16 @@
         wheel(1, 0);
         wheel(-1, 0);
         expect(wheel(-100, 0).defaultPrevented).to.be.true;
+      });
+
+      it('should not throw on table wheel', function() {
+        var tableWheel = function() {
+          var e = new CustomEvent('wheel', {bubbles: true, cancelable: true});
+          e.deltaY = -1;
+          e.deltaX = 0;
+          grid.$.scroller.$.items.dispatchEvent(e);
+        };
+        expect(tableWheel).to.not.throw(Error);
       });
 
     });

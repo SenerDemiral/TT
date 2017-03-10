@@ -9,10 +9,10 @@
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../iron-test-helpers/mock-interactions.js"></script>
 
   <link rel="import" href="helpers.html">
   <link rel="import" href="../vaadin-grid.html">
+  <link rel="import" href="../vaadin-grid-column-group.html">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
     <template>
       <vaadin-grid style="width: 400px; height: 200px;" size="1" column-reordering-allowed>
         <template is="dom-repeat" items="[1, 2, 3, 4]" as="col">
-          <vaadin-grid-column>
+          <vaadin-grid-column resizable>
             <template class="header">[[col]]</template>
             <template>[[col]]</template>
             <template class="footer">[[col]]</template>
@@ -92,36 +92,6 @@
   </test-fixture>
 
   <script>
-    function dragStart(source) {
-      var start = new CustomEvent('dragstart', {
-        bubbles: true
-      });
-      start.dataTransfer = {
-        setData: function() {
-          // Ignore
-        }
-      };
-      source.dispatchEvent(start);
-    }
-
-    function dragOver(source, target, clientX) {
-      dragStart(source);
-      var over = new CustomEvent('dragover', {
-        bubbles: true
-      });
-      var targetRect = target.getBoundingClientRect();
-      over.clientX = clientX || targetRect.left + targetRect.width / 2;
-      target.dispatchEvent(over);
-    }
-
-    function dragAndDropOver(source, target) {
-      dragOver(source, target);
-      var dragend = new CustomEvent('dragend', {
-        bubbles: true
-      });
-      source.dispatchEvent(dragend);
-    }
-
     function getVisualCellContent(section, row, col) {
       var cell = Polymer.dom(section).querySelectorAll('th, td').pop();
       if (section.tagName === 'TFOOT') {
@@ -168,7 +138,7 @@
 
       beforeEach(function(done) {
         grid = fixture('default');
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
         Polymer.RenderStatus.afterNextRender(grid, function() {
           var colCount = getRowCells(getRows(grid.$.scroller.$.header)[0]).length;
           headerContent = [];
@@ -205,6 +175,104 @@
         expect(grid.hasAttribute('reordering')).to.be.false;
       });
 
+      it('should have a reorder ghost', function() {
+        dragStart(headerContent[0]);
+        Polymer.dom.flush();
+        expect(grid.$.scroller.$.reorderghost.style.visibility).to.equal('visible');
+      });
+
+      it('should have header cell content', function() {
+        dragStart(headerContent[0]);
+        Polymer.dom.flush();
+        var ghost = grid.$.scroller.$.reorderghost;
+        expect(ghost.innerHTML).to.equal('1');
+      });
+
+      it('should not be accessible', function() {
+        dragStart(headerContent[0]);
+        Polymer.dom.flush();
+        var ghost = grid.$.scroller.$.reorderghost;
+        expect(window.getComputedStyle(ghost).pointerEvents).to.equal('none');
+      });
+
+      it('should position ghost', function() {
+        makeSoloTouchEvent('touchmove', {x: 0, y: 0}, headerContent[0]);
+        Polymer.dom.flush();
+        var ghost = grid.$.scroller.$.reorderghost;
+
+        makeSoloTouchEvent('touchmove', {x: 100, y: 100}, headerContent[0]);
+        var ghostRect = ghost.getBoundingClientRect();
+        expect(ghostRect.left).to.equal(9);
+        expect(ghostRect.top).to.equal(207);
+      });
+
+      it('should have the ghost visible again', function() {
+        dragAndDropOver(headerContent[0], headerContent[1]);
+        dragStart(headerContent[0]);
+        Polymer.dom.flush();
+        expect(grid.$.scroller.$.reorderghost.style.visibility).to.equal('visible');
+      });
+
+      it('should not adjust outer-scroller z while reordering', function() {
+        var zIndex = window.getComputedStyle(grid.$.scroller.$.outerscroller).zIndex;
+        dragStart(headerContent[0]);
+        grid.$.scroller._scrollHandler();
+        expect(window.getComputedStyle(grid.$.scroller.$.outerscroller).zIndex).to.equal(zIndex);
+      });
+
+      it('should prevent contextmenu while reordering', function() {
+        dragStart(headerContent[0]);
+        var e = new CustomEvent('contextmenu', {cancelable: true, bubbles: true});
+        headerContent[0].dispatchEvent(e);
+        expect(e.defaultPrevented).to.be.true;
+      });
+
+      it('should start reordering after 300ms after touchstart', function(done) {
+        makeSoloTouchEvent('touchstart', {x: 0, y: 0}, headerContent[0]);
+        setTimeout(function() {
+          expect(grid.$.scroller.hasAttribute('reordering')).to.be.true;
+          done();
+        }, 500);
+      });
+
+      it('should not start reordering after 300ms after touchstart', function(done) {
+        makeSoloTouchEvent('touchstart', {x: 0, y: 0}, headerContent[0]);
+        makeSoloTouchEvent('touchend', {x: 0, y: 0}, headerContent[0]);
+        setTimeout(function() {
+          expect(grid.$.scroller.hasAttribute('reordering')).to.be.false;
+          done();
+        }, 500);
+      });
+
+      it('should start reordering on resize handle move', function() {
+        makeSoloTouchEvent('touchmove', {x: 0, y: 0},
+          getCellByCellContent(grid, headerContent[0])._resizeHandle);
+        expect(grid.$.scroller.hasAttribute('reordering')).to.be.false;
+      });
+
+      it('should start reordering on grid with no reorder allowed', function() {
+        grid.columnReorderingAllowed = false;
+        dragStart(headerContent[0]);
+        expect(grid.$.scroller.hasAttribute('reordering')).to.be.false;
+      });
+
+      it('should cancel touchmove', function() {
+        dragStart(headerContent[0]);
+        var e = makeSoloTouchEvent('touchmove', {x: 0, y: 0}, headerContent[0]);
+        expect(e.defaultPrevented).to.be.true;
+      });
+
+      it('should not cancel touchmove', function() {
+        var e = makeSoloTouchEvent('touchmove', {x: 0, y: 0}, headerContent[0]);
+        expect(e.defaultPrevented).to.be.false;
+      });
+
+      it('should not cancel touchmove on resizer', function() {
+        var e = makeSoloTouchEvent('touchmove', {x: 0, y: 0},
+          getCellByCellContent(grid, headerContent[0])._resizeHandle);
+        expect(e.defaultPrevented).to.be.false;
+      });
+
       describe('basic reordering', function() {
 
         it('should reorder the columns', function() {
@@ -228,6 +296,7 @@
         it('should reorder multiple columns while dragging', function() {
           dragOver(headerContent[0], headerContent[1]);
           dragOver(headerContent[0], headerContent[3]);
+          grid.$.scroller.flushDebouncer('vaadin-grid-scrolling');
           expectVisualOrder(grid, [2, 4, 3, 1]);
         });
 
@@ -301,7 +370,7 @@
 
       beforeEach(function(done) {
         grid = fixture('groups');
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
         Polymer.RenderStatus.afterNextRender(grid, done);
       });
 
@@ -371,7 +440,7 @@
 
       beforeEach(function(done) {
         grid = fixture('differentWidths');
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
         Polymer.RenderStatus.afterNextRender(grid, function() {
           headerContent0 = getHeaderCellContent(grid, 0, 0);
           headerContent1 = getHeaderCellContent(grid, 0, 1);
@@ -399,7 +468,8 @@
 
       beforeEach(function(done) {
         grid = fixture('largegroup');
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
+        Polymer.dom.flush();
         Polymer.RenderStatus.afterNextRender(grid, done);
       });
 

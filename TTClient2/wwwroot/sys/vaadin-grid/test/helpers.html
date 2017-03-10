@@ -37,8 +37,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     return scrollbarWidth;
   }
 
-  function infiniteDataSource(opts, callback) {
-    callback(Array.apply(null, Array(opts.pageSize)).map(function(item, index) {
+  function infiniteDataProvider(params, callback) {
+    callback(Array.apply(null, Array(params.pageSize)).map(function(item, index) {
       return {
         value: 'foo' + index
       };
@@ -249,4 +249,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var cells = getRowCells(rows[row]);
     return getCellContent(cells[col]);
   }
+
+  function dragStart(source) {
+    var e = makeSoloTouchEvent('touchstart', {x: 0, y: 0}, source);
+    var cell = source;
+    if (cell.localName !== 'vaadin-grid-header-cell') {
+      var grid = Polymer.dom(cell).parentNode;
+      cell = grid.$.scroller._getCellByCellContent(source);
+    }
+    if (cell._startReorderTimeout) {
+      cell._startReorder(e);
+      clearTimeout(cell._startReorderTimeout);
+    }
+  }
+
+  function dragOver(source, target, clientX) {
+    dragStart(source);
+    var targetRect = target.getBoundingClientRect();
+    makeSoloTouchEvent('touchmove', {
+      x: clientX || targetRect.left + targetRect.width / 2,
+      y: targetRect.top},
+      source);
+  }
+
+  function dragAndDropOver(source, target) {
+    dragOver(source, target);
+    makeSoloTouchEvent('touchend', {x: 0, y: 0}, source);
+  }
+
+  function makeSoloTouchEvent(type, xy, node) {
+    var touches = [{
+      identifier: 0,
+      target: node,
+      clientX: xy.x,
+      clientY: xy.y
+    }];
+    var touchEventInit = {
+      touches: touches,
+      targetTouches: touches,
+      changedTouches: touches
+    };
+    var event = new CustomEvent(type, {bubbles: true, cancelable: true});
+    for (var property in touchEventInit) {
+      event[property] = touchEventInit[property];
+    }
+    node.dispatchEvent(event);
+    return event;
+  }
+
+  function click(element) {
+    Polymer.Base.fire('click', {}, {
+      node: element,
+      bubbles: true
+    });
+  }
+
 </script>

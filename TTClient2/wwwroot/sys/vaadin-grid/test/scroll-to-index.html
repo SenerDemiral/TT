@@ -47,10 +47,13 @@
         describe('Scroll: ' + scale, function() {
           var scroller;
 
-          beforeEach(function() {
+          beforeEach(function(done) {
             var grid = fixture(scale);
-            grid.dataSource = infiniteDataSource;
+            grid.dataProvider = infiniteDataProvider;
             scroller = grid.$.scroller;
+
+            Polymer.dom.flush();
+            Polymer.RenderStatus.afterNextRender(grid, done);
           });
 
           it('should scroll to scaled index', function(done) {
@@ -94,24 +97,22 @@
 
         beforeEach(function() {
           var grid = fixture('large');
-          grid.dataSource = infiniteDataSource;
+          grid.dataProvider = infiniteDataProvider;
           scroller = grid.$.scroller;
-        });
-
-        it('should schedule scroll to index before init', function() {
-          scroller.scrollToScaledIndex(10);
-          expect(scroller._pendingScrollToScaledIndex).to.equal(10);
+          Polymer.dom.flush();
         });
 
         it('should clear scheduled scroll to index after init', function(done) {
-          scroller.scrollToScaledIndex(10);
-
           scroller.$.table.addEventListener('scroll', function() {
             scroller.debounce('table-scrolling', function() {
-              expect(scroller._pendingScrollToScaledIndex).not.to.be.ok;
-              done();
+              Polymer.RenderStatus.afterNextRender(scroller, function() {
+                expect(scroller._pendingScrollToScaledIndex).not.to.be.ok;
+                done();
+              });
             }, 100);
           });
+
+          scroller.scrollToScaledIndex(10);
         });
 
         it('should have correct indexes after scrolling', function(done) {

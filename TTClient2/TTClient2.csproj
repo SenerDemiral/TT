@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\sys\thenBy.js" />
+    <None Include="wwwroot\ttclient2\OyncRankPageOrg.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TTDB\TTDB.csproj">

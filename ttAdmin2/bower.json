@@ -1,0 +1,27 @@
+{
+  "name": "ttadmin2",
+  "homepage": "https://github.com/SenerDemiral/TT",
+  "authors": [
+    "SenerDemiral <sener.demiral@gmail.com>"
+  ],
+  "description": "Admin with VaadinGrid",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "wwwroot/sys",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vaadin-grid": "vaadin/vaadin-grid#2.0.0-alpha3",
+    "paper-styles": "PolymerElements/paper-styles#^1.2.0",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2",
+    "iron-icons": "PolymerElements/iron-icons#^1.2.0",
+    "iron-image": "PolymerElements/iron-image#^1.2.5",
+    "iron-media-query": "PolymerElements/iron-media-query#^1.0.8",
+    "vaadin-combo-box": "vaadin/vaadin-combo-box#^1.3.2"
+  }
+}

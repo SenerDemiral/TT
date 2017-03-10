@@ -1,0 +1,303 @@
+﻿
+<link rel="import" href="/sys/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="/sys/vaadin-grid/vaadin-grid-sorter.html">
+<link rel="import" href="/sys/vaadin-grid/vaadin-grid-filter.html">
+
+<template>
+    <template is="dom-bind">
+	
+		<style is="custom-style">
+			vaadin-grid#oyncrank {
+			height:auto;
+      position: relative;
+      font: 300 16px/1.55 "Open Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      --divider-color: #d4d4d4;
+
+      --vaadin-grid-cell: {
+        padding: 0 4px;
+        height: 20px;
+        border-right: 1px solid #d4d4d4;
+        box-sizing: border-box;
+		font-size: 12px;
+      };
+
+      --vaadin-grid-header-cell: {
+        height: 34px;
+        border-bottom: 1px solid #d4d4d4;
+        background-image: linear-gradient(to bottom, #fafafa 2%, #efefef 98%);
+      };
+
+      --vaadin-grid-footer-cell: {
+        background-image: linear-gradient(to bottom, #fafafa 2%, #efefef 98%);
+      };
+
+      --vaadin-grid-cell-last-frozen: {
+        box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
+      };
+
+      --vaadin-grid-body-row-active-cell: {
+        background-image: linear-gradient(to bottom, #1b87e3 2%, #166ed5 98%);
+        color: #c8dbed;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+        border-right-color: #1d69b4;
+      };
+
+      --vaadin-grid-body-row-odd-cell: {
+        background-color: #f5f5f5;
+      };
+
+      --vaadin-grid-loading-spinner: {
+        display: none;
+      };
+	  /*
+      --vaadin-grid-body-cell: {
+        transition: opacity 0.2s;
+      };
+	  */
+      --vaadin-grid-loading-body-cell: {
+        opacity: 0.2;
+      };
+
+      --vaadin-grid-focused-cell: {
+        box-shadow: inset 0 0 0 2px rgba(27, 135, 227, 1);
+      };
+    }
+
+    vaadin-grid#oyncrank vaadin-grid-sorter {
+      align-items: center;
+
+      --vaadin-grid-sorter-arrow: {
+        content: "";
+        padding: 0;
+        border: 6px solid transparent;
+        border-bottom-color: #000;
+      };
+
+      --vaadin-grid-sorter-order: {
+        display: none;
+      };
+    }
+
+    vaadin-grid#oyncrank vaadin-grid-filter {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding: 5px;
+    }
+
+    vaadin-grid#oyncrank .grouptitle {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    vaadin-grid#oyncrank input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @keyframes loading-expand {
+      0% {
+        transform: scaleX(0);
+      }
+
+      100% {
+        transform: scaleX(1);
+      }
+    }
+
+    vaadin-grid#oyncrank::before {
+      content: "";
+      width: 100%;
+      position: absolute;
+      height: 4px;
+      background: var(--primary-color);
+      z-index: 1;
+      transform-origin: left;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    vaadin-grid#oyncrank[loading]::before {
+      opacity: 1;
+      animation: loading-expand 1s linear;
+    }
+	</style>
+	
+		<vaadin-grid id="oyncrank" items={{model.OyncRank}} size="200" style="max-width:400px;margin-left:auto;margin-right:auto;">
+			<vaadin-grid-column width="10%">
+				<template class="header">#</template>
+				<template>[[item.Idx]]</template>
+			</vaadin-grid-column>
+	
+			<vaadin-grid-column width="50%" resizable>
+				<template class="header">
+					<vaadin-grid-filter path="Ad" value="[[_filterOyuncu]]">
+						<input placeholder="Oyuncu" value="{{_filterOyuncu::input}}" focus-target>
+					</vaadin-grid-filter>
+				</template>
+				<template><a href="/ttClient2/OyncMac/[[item.ID]]">[[item.Ad]]</a></template>
+			</vaadin-grid-column>
+
+			<vaadin-grid-column width="10%">
+				<template class="header">
+					<vaadin-grid-sorter path="BazRank">Baz<br />Rank</vaadin-grid-sorter>
+				</template>	
+				<template>[[item.BazRank]]</template>
+			</vaadin-grid-column>
+
+			<vaadin-grid-column width="10%">
+				<template class="header">Rank</template>
+				<template>[[item.Rank]]</template>
+			</vaadin-grid-column>
+
+		</vaadin-grid>
+	
+  		
+		
+		<table>
+			<thead>
+				<tr scope="row">
+					<!--<th rowspan="2">#</th>-->
+					<th rowspan="2">
+						<button type="button" class="btn btn-info btn-sm" on-click="onSortIdxClick">#</button>
+					</th>
+
+					<!--<th rowspan="2"><button value="{{model.SortAd$::click}}" onmousedown="++this.value">Oyuncu</button></th>-->
+					<th rowspan="2">
+						<button type="button" class="btn btn-info btn-sm btn-block" on-click="onSortAdClick">Oyuncu</button>
+					</th>
+					<th rowspan="2"><button type="button" class="btn btn-info btn-sm" on-click="onSortBazRankClick">Baz</button></th>
+					<th rowspan="2">Rank</th>
+					<th colspan="3">Sngl Maç</th>
+				</tr>
+				<tr scope="row">
+					<th>O</th>
+					<th>A</th>
+					<th>V</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th colspan="7" scope="row">www.masatenisi.online</th>
+				</tr>
+			</tfoot>
+
+			<tbody>
+				<template is="dom-repeat" items="[[abcd]]">
+					<tr>
+						<td abbr="#">[[item.Idx]]</td>
+						<td><a href="/ttClient2/OyncMac/[[item.ID]]">[[item.Ad]]</a></td>
+						<td abbr="#">[[item.BazRank]]</td>
+						<td abbr="R">[[item.Rank]]</td>
+						<td abbr="O">[[item.oMacS]]</td>
+						<td abbr="A">[[item.aMacS]]</td>
+						<td abbr="V">[[item.vMacS]]</td>
+					</tr">
+				</template>
+			</tbody>
+		</table>
+    </template>
+	<script>
+		(function () {
+			var script = document._currentScript || document.currentScript;
+			var template = script.previousElementSibling;
+			console.log("model.SortAd$", template.model.SortAd$);
+			template.abcd = JSON.parse(JSON.stringify(template.model.OyncRank));
+			
+			template.onSortIdxClick = function (event) {
+				copy = JSON.parse(JSON.stringify(template.abcd));
+				template.abcd = copy.sort(firstBy("Idx"));
+			}
+
+			template.onSortAdClick = function (event) {
+				copy = JSON.parse(JSON.stringify(template.abcd));
+				template.abcd = copy.sort(firstBy("Ad"));
+			}
+
+			template.onSortBazRankClick = function (event) {
+				copy = JSON.parse(JSON.stringify(template.abcd));
+				template.abcd = copy.sort(firstBy("BazRank", -1));
+			}
+
+			/*
+			template.onSortAdClick = function (event) {
+				copy = JSON.parse(JSON.stringify(template.abcd));
+				//copy = template.model.OyncRank; //puppet.js den hata geliyor!
+				template.abcd = copy.sort(
+					function (a, b) {
+						var a1 = a.Ad, b1 = b.Ad;
+						if (a1 == b1) return 0;
+						return a1 > b1 ? 1 : -1;
+					});
+			}
+			*/
+			template.onSortDenemeClick = function (event) {
+				template.model.SortAd$++;
+				//console.log("model.SortAd$.Clicked", template.abcd);
+				console.log("model.SortAd$", template.model.SortAd$);
+				copy = JSON.parse(JSON.stringify(template.abcd));
+				//copy = template.model.OyncRank; //puppet.js den hata geliyor!
+				if (template.model.SortAd$ % 2 == 0) {
+					template.abcd = copy.sort(
+						function (a, b) {
+							var a1 = a.Idx, b1 = b.Idx;
+							if (a1 == b1) return 0;
+							return a1 > b1 ? 1 : -1;
+						});
+				}
+				else {
+					template.abcd = copy.sort(
+						function (a, b) {
+							var a1 = a.Ad, b1 = b.Ad;
+							if (a1 == b1) return 0;
+							return a1 > b1 ? 1 : -1;
+						});
+				}
+				//template.model.SortAd$ = 5;	 
+				//console.log("model.SortAd$.sorted", copy);
+				//template.model.OyncRank = JSON.parse(JSON.stringify(copy));
+
+			}
+			 
+			template.onTakimMsbkClick = function (event) {
+				//console.log("OnToogleClick", event.model.__data__.item.TakimClick$);
+				event.model.__data__.item.TakimMsbkClick$ = parseInt(event.model.__data__.item.TakimMsbkClick$, 10) + 1;
+				//template.set("event.model.__data__.item.TakimClick$", parseInt(template.get(event.model.__data__.item.TakimClick$), 10) + 1);
+			}
+
+			template.onTakimOyuncuClick = function (event) {
+				event.model.__data__.item.TakimOyuncuClick$ = parseInt(event.model.__data__.item.TakimOyuncuClick$, 10) + 1;
+			}
+
+			template.onTakimMapClick = function (event) {
+				//console.log("OnToogleMap 1", event.model.__data__);
+				//console.log("OnToogleMap 2", event.model.__data__.item);
+				//console.log("OnToogleMap 3", event.model.__data__.item.TakimMapClick$);
+				//console.log("OnToogleMap 4", event.model.__data__['item.TakimMapClick$']);
+				//event.stopPropagation();
+				//event.preventDefault();
+				event.model.__data__.item.TakimMapClick$ += 1;
+				console.log("model1", template.model);
+				//template.set("model.TakimMapClick$", ++template.model.TakimMapClick$);
+				//console.log("model2", template.model);
+				//event.model.__data__.item.TakimMapClick$ = parseInt(event.model.__data__.item.TakimMapClick$, 10) + 1;
+			}
+		})();
+
+		/*
+		document.addEventListener('polymer-ready', function () {
+			var script = document._currentScript || document.currentScript;
+			var template = script.previousElementSibling;
+			console.log("model.SortAd$", template.model.SortAd);
+
+			//var template = document.querySelector('#tmpl');
+			template.displayIndex = function (index) {
+				return index + 1;
+			}
+		});*/
+	</script>
+
+</template>

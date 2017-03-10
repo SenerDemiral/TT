@@ -11,6 +11,8 @@
 
   <link rel="import" href="helpers.html">
   <link rel="import" href="../vaadin-grid.html">
+  <link rel="import" href="../vaadin-grid-column-group.html">
+
   <style>
     vaadin-grid {
       height: 400px;
@@ -134,6 +136,36 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="hidden-group">
+    <template>
+      <vaadin-grid>
+        <vaadin-grid-column-group hidden>
+          <vaadin-grid-column>
+            <template></template>
+          </vaadin-grid-column>
+          <vaadin-grid-column>
+            <template></template>
+          </vaadin-grid-column>
+        </vaadin-grid-column-group>
+      </vaadin-grid>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="hidden-column">
+    <template>
+      <vaadin-grid>
+        <vaadin-grid-column-group>
+          <vaadin-grid-column hidden>
+            <template></template>
+          </vaadin-grid-column>
+          <vaadin-grid-column>
+            <template></template>
+          </vaadin-grid-column>
+        </vaadin-grid-column-group>
+      </vaadin-grid>
+    </template>
+  </test-fixture>
+
   <vaadin-grid-column id="extra">
     <template class="footer">
       Foobar
@@ -170,11 +202,12 @@
         header = scroller.$.header;
         body = scroller.$.items;
         footer = scroller.$.footer;
+        grid.dataProvider = infiniteDataProvider;
+        Polymer.dom.flush();
+
         headerRows = getRows(header);
         footerRows = getRows(footer);
         bodyRows = getRows(body);
-        grid.dataSource = infiniteDataSource;
-        Polymer.dom.flush();
       }
 
       describe('No templates', function() {
@@ -353,14 +386,14 @@
         it('should have cell content wrappers in all header cells', function() {
           Polymer.dom(header).querySelectorAll('th').forEach(function(a) {
             var content = getCellContent(a);
-            expect(content.matches('.cell-content')).to.be.true;
+            expect(content.classList.contains('cell-content')).to.be.true;
           });
         });
 
         it('should have cell content wrappers in all footer cells', function() {
           Polymer.dom(footer).querySelectorAll('td').forEach(function(a) {
             var content = getCellContent(a);
-            expect(content.matches('.cell-content')).to.be.true;
+            expect(content.classList.contains('cell-content')).to.be.true;
           });
         });
 
@@ -385,16 +418,43 @@
         });
 
         it('should have last row fully visible when scrolled to end', function(done) {
-          scrollToEnd(grid);
+          Polymer.RenderStatus.afterNextRender(grid, function() {
+            scrollToEnd(grid);
 
-          grid.async(function() {
-            bodyRows = getRows(body);
-            var lastRowBottom = bodyRows[bodyRows.length - 1].getBoundingClientRect().bottom;
-            var footerTop = footer.getBoundingClientRect().top;
-            expect(lastRowBottom).to.be.closeTo(footerTop, 1);
-            done();
-          }, 1);
+            Polymer.RenderStatus.afterNextRender(grid, function() {
+              bodyRows = getRows(body);
+              var lastRowBottom = bodyRows[bodyRows.length - 1].getBoundingClientRect().bottom;
+              var footerTop = footer.getBoundingClientRect().top;
+              expect(lastRowBottom).to.be.closeTo(footerTop, 1);
+              done();
+            });
+          });
         });
+      });
+
+      describe('hidden group', function() {
+
+        it('should hide children', function(done) {
+          init('hidden-group');
+
+          flush(function() {
+            expect(grid.querySelector('vaadin-grid-column').hidden).to.be.true;
+            expect(grid.querySelector('vaadin-grid-column-group').hidden).to.be.true;
+            done();
+          });
+        });
+
+        it('should hide self', function() {
+          init('hidden-column');
+
+          flush(function() {
+            expect(grid.querySelector('vaadin-grid-column-group').hidden).to.be.false;
+            var columns = grid.querySelectorAll('vaadin-grid-column');
+            expect(columns[0].hidden).to.be.true;
+            expect(columns[1].hidden).to.be.false;
+          });
+        });
+
       });
     });
   </script>

@@ -13,6 +13,8 @@
   <link rel="import" href="helpers.html">
   <link rel="import" href="../vaadin-grid.html">
   <link rel="import" href="../vaadin-grid-selection-column.html">
+  <link rel="import" href="../vaadin-grid-filter.html">
+  <link rel="import" href="../vaadin-grid-column-group.html">
 </head>
 
 <body>
@@ -62,7 +64,7 @@
     describe('selection', function() {
       beforeEach(function() {
         grid = fixture('default');
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
         cachedItems = grid._cache[0];
         rows = getRows(grid.$.scroller.$.items);
         grid.selectedItems = [cachedItems[0]];
@@ -232,18 +234,18 @@
         expect(grid.items).not.to.eql(grid.selectedItems);
       });
 
-      it('should not set selection when data source is used', function() {
+      it('should not set selection when data provider is used', function() {
         grid.items = undefined;
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
 
         selectionColumn.selectAll = true;
 
         expect(grid.selectedItems).to.be.empty;
       });
 
-      it('should hide select all checkbox when data source is used', function() {
+      it('should hide select all checkbox when data provider is used', function() {
         grid.items = undefined;
-        grid.dataSource = infiniteDataSource;
+        grid.dataProvider = infiniteDataProvider;
 
         expect(selectAllCheckbox.hidden).to.be.true;
       });
@@ -395,6 +397,17 @@
           expect(selectionColumn.selectAll).to.be.true;
           done();
         }, 200); // filter-changed has a 200ms debounce
+      });
+
+      it('should not throw with data provider', function() {
+        grid.items = undefined;
+        grid.dataProvider = infiniteDataProvider;
+        grid.size = 1;
+
+        var checkbox = getBodyCellContent(grid, 0, 0).firstElementChild;
+        expect(function() {
+          checkbox.click();
+        }).not.to.throw(Error);
       });
     });
   </script>
