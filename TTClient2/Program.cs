@@ -166,8 +166,8 @@ namespace TTClient2
 					else {
 						var master = new MasterPage();
 						var cv = Starcounter.Internal.CurrentVersion.Version;
-						master.Session = new Session(SessionOptions.PatchVersioning);
-						//master.Session = new Session(Session.Flags.PatchVersioning);
+						//master.Session = new Session(SessionOptions.PatchVersioning);
+						master.Session = new Session(Session.Flags.PatchVersioning);
 						master.CurrentPage = new NavPage();
 						// deneme
 						return master;
